@@ -1,0 +1,14 @@
+.green input {
+    background: green;
+    color: white;
+}
+
+.blue input {
+    background: blue;
+    color: white;
+}
+
+.red input {
+    background: red;
+    color: white;
+}

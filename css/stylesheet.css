@@ -1,0 +1,141 @@
+div.advfrm-mailform td.label {
+    vertical-align: top;
+    padding-right: 1em;
+    /* the following aligns the labels to the right */
+    /*text-align: right;*/
+}
+
+
+/* END OF MAIL CSS */
+
+
+/* utf-8-marker: äöüß */
+
+
+div.advfrm-mailform {}
+
+div.advfrm-mailform table {
+    margin-bottom: 1em;
+}
+
+div.advfrm-mailform tr.hidden {
+    display: none;
+}
+
+div.advfrm-mailform td.field {}
+
+div.advfrm-mailform td.field div.horz {
+    float:left;
+    margin-right: 1em;
+}
+
+div.advfrm-mailform td.field div.vert {}
+
+div.advfrm-mailform div.required {
+    margin: 1em 0;
+}
+
+/* error messages when filling out a form */
+ul.advfrm-error {
+    /*color: black;*/
+    /*background: yellow;*/
+    /*border: 2px solid black;*/
+    /*padding: 0.5em;*/
+}
+
+/* the simple text captcha */
+div.advfrm-mailform span.captcha-explanation {
+    display: block;
+    margin-bottom: 1em;
+}
+
+div.advfrm-mailform span.captcha {
+    font-family: cursive;
+    border: 3px solid black;
+    color: black;
+    background: #fffff0;
+    padding: 4px;
+    margin: 2px 10px 2px 0;
+}
+
+/* the submit and reset button */
+div.advfrm-mailform div.buttons {
+    margin-top: 1em;
+}
+
+
+div.advfrm-mailform div.powered-by {
+    font-size: 0.85em;
+    text-align: center;
+    margin: 1em;
+    display:none !important;
+}
+
+
+/*
+ * Back-end
+ */
+ 
+#advfrm-form-list {
+    overflow: auto;
+}
+
+#advfrm-form-list a:link img,
+#advfrm-form-list a:visited img {
+    border: 0;
+}
+
+#advfrm-form-list table {
+    margin: 10px 0;
+}
+
+#advfrm-form-list a img {
+    margin-right: 4px;
+}
+
+#advfrm-form-list td.name {
+    padding: 0 10px;
+}
+
+#advfrm-form-list td.script {
+    /*padding-left: 20px;*/
+    font-size: xx-small;
+    font-family: monospace;
+}
+
+#advfrm-editor {
+    overflow: auto;
+}
+
+#advfrm-editor div.toolbar {
+    margin: 10px 0;
+}
+
+#advfrm-editor div.toolbar a {
+    padding: 5px;
+}
+
+#advfrm-editor a:hover {
+    background: none;
+    cursor: pointer;
+}
+
+#advfrm-form,
+#advfrm-fields {
+    margin: 10px 0;
+}
+
+#advfrm-select-props {
+    overflow: auto;
+    max-height: 300px;
+}
+
+#advfrm-text-props td {
+    vertical-align: top;
+}
+
+#advfrm-editor tr.selected .highlightable,
+#advfrm-prop-fields tr.selected .highlightable {
+    background: navy;
+    color:white;
+}
