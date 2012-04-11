@@ -398,7 +398,9 @@ function advfrm_mail_info($id, $show_hidden, $html) {
 			$res .= $html ? '<div>'.htmlspecialchars(stsl($val)).'</div>' : '  '.stsl($val)."\n";
 		    }
 		} else {
-		    $res .= $html ? htmlspecialchars(stsl($_POST[$name])) : '  '.stsl($_POST[$name])."\n";
+		    $res .= $html
+			    ? nl2br(htmlspecialchars(stsl($_POST[$name])), $cf['xhtml']['endtags'] == 'true')
+			    : '  '.stsl($_POST[$name])."\n";
 		}
 	    } elseif (isset($_FILES[$name])) {
 		$res .= $html ? stsl($_FILES[$name]['name']) : '  '.stsl($_FILES[$name]['name'])."\n";
