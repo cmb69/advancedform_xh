@@ -1,7 +1,6 @@
 function add() {
     res.val(parseInt(num1.val(), 10) + parseInt(num2.val(), 10));
     tries.val(parseInt(tries.val())+1);
-    console.log(tries.val());
 }
 
 jQuery(function() {

@@ -463,7 +463,7 @@ function advfrm_mail_body($id, $show_hidden, $html) {
 	}
 	$res .= '<head>'."\n".'<style type="text/css">'."\n";
 	$res .= advfrm_mail_css($pth['folder']['plugins'].'advancedform/css/stylesheet.css');
-	$fn = advfrm_data_folder().$id.'.css';
+	$fn = advfrm_data_folder().'css/'.$id.'.css';
 	if (file_exists($fn)) {$res .= advfrm_mail_css($fn);}
 	$res .= '</style>'."\n".'</head>'."\n".'<body>'."\n";
     }
@@ -624,11 +624,11 @@ function advfrm_template_display($id) {
     global $hjs, $plugin_cf;
 
     $forms = advfrm_db();
-    $fn = advfrm_data_folder().$id.'.css';
+    $fn = advfrm_data_folder().'css/'.$id.'.css';
     if (file_exists($fn)) {
 	$hjs .= tag('link rel="stylesheet" href="'.$fn.'" type="text/css"')."\n";
     }
-    $fn = advfrm_data_folder().$id.'.js';
+    $fn = advfrm_data_folder().'js/'.$id.'.js';
     if (file_exists($fn)) {
 	$hjs .= '<script type="text/javascript" src="'.$fn.'"></script>'."\n";
     }

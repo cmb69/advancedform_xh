@@ -69,7 +69,8 @@ CMSimple_XH wiki</a> for further details.</p>
 <li>Upload the whole directory advancedform to your server into the CMSimple_XH plugins directory.</li>
 <li>Set write permissions to the subdirectories config/, css/, languages/ and to the plugin's data folder.</li>
 <li>Protect Advancedform_XH's data folder against direct access by any means your webserver provides.
-An .htaccess file for Apache servers is already distributed in the default data folder.</li>
+.htaccess files for Apache servers are already distributed in the default data folder.
+Note that the subfolders css/ and js/ must not deny public access.</li>
 <li><strong>Switch to Advancedform in the back-end to check if all requirements are fulfilled.</strong></li>
 </ol>
 <div class="toplink"><a href="#">back to top</a></div>
@@ -293,10 +294,10 @@ might have a look at the
 by Jerry Jakobsfeld, which is even more versatile than Advancedform_XH.</p>
 <p>If a file with the name FORM_NAME.tpl(.php) is found in Advancedform_XH's data folder,
 it will be used as the template file.
-Additionally the file FORM_NAME.css, if it exists, will be included as stylesheet
+Additionally the file css/FORM_NAME.css, if it exists, will be included as stylesheet
 to the &lt;head&gt; section of the CMSimple_XH page and
 the top of this stylesheet (delimited as for the plugin stylesheet) will be included to the e-mail.
-And if a file FORM_NAME.js exists, it will be included into the page too.</p>
+And if a file js/FORM_NAME.js exists, it will be included into the page too.</p>
 <p>You can write the template file and it's stylesheet manually,
 but it might be easiest to let Advancedform_XH create a basic one
 in the mail form administration.

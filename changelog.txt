@@ -9,6 +9,7 @@ Version 1beta11 - released TODO
 cmb	fixed bug which included empty CC and BCC headers in mails (reported by maeg)
 cmb	extended copyright to 2012
 cmb	added plugin icon
+cmb	fixed bug: form template CSS and JS files couldn't be read (reported by simmyne)
 
 Version 1beta10 - released 2011-12-21
 cmb	fixed bug that treated multi select POST as string instead of array (reported by twc)

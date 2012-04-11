@@ -71,7 +71,8 @@ CMSimple_XH Wiki</a> finden sie ausführliche Hinweise.</p>
 <li>Laden Sie das gesamte Verzeichnis auf Ihren Server in das CMSimple_XH-Plugin-Verzeichnis hoch.</li>
 <li>Vergeben Sie falls nötig Schreibrechte für die Unterverzeichnisse config/, css/, languages/ und den Daten-Ordner des Plugins.</li>
 <li>Schützen Sie Advancedform_XHs Daten-Ordner vor direktem Zugriff auf eine Weise, die Ihr Webserver unterstützt.
-Eine .htaccess-Datei für Apache Server ist bereits im voreingestellten Daten-Ordner enthalten.</li>
+.htaccess-Dateien für Apache Server sind bereits im voreingestellten Daten-Ordner enthalten.
+Beachten Sie, dass die Unterordner css/ und js/ öffentlichen Zugriff erlauben müssen.</li>
 <li><strong>Gehen Sie zu Advancedform im Administrationsbereich,
 und prüfen Sie, ob alle Vorraussetzungen erfüllt sind.</strong></li>
 </ol>
@@ -296,11 +297,11 @@ sollten sich den
 von Jerry Jakobsfeld ansehen, der noch flexibler einzusetzen ist als Advancedform_XH.</p>
 <p>Wenn eine Datei mit dem Namen FORMULAR_NAME.tpl(.php) in Advancedform_XHs Daten-Ordner vorliegt,
 wird es als Vorlagen-Datei verwendet.
-Zusätzlich wird die Datei FORMULAR_NAME.css, falls sie existiert, als Stylesheet
+Zusätzlich wird die Datei css/FORMULAR_NAME.css, falls sie existiert, als Stylesheet
 in den &lt;head&gt; Abschnitt der CMSimple_XH-Seite und
 der obere Teil dieses Stylesheets (abgetrennt wie für das Plugin-Stylesheet)
 in die E-Mail eingebunden.
-Und wenn eine Datei FORMULAR_NAME.js existiert, wird diese ebenfalls in die Seite eingebunden.</p>
+Und wenn eine Datei js/FORMULAR_NAME.js existiert, wird diese ebenfalls in die Seite eingebunden.</p>
 <p>Sie können die Vorlagen-Datei und deren Stylesheet selbst schreiben,
 aber vielleicht ist es einfacher, diese in der Formular-Verwaltung von Advancedform_XH erzeugen zu lassen.
 Auf diese Weise erzeugte Vorlagen-Dateien stellen das Formular ähnlich

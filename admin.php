@@ -535,13 +535,13 @@ function advfrm_admin_template($id) {
 	$tpl .= '</div>'."\n";
 	$fn = advfrm_data_folder().$id.'.tpl';
 	if (!($fh = fopen($fn, 'w')) || fwrite($fh, $tpl) === FALSE) {
-	    e('cntwriteto', 'file', $fn);
+	    e('cntsave', 'file', $fn);
 	}
 	if ($fh)
 	    fclose($fh);
-	$fn = advfrm_data_folder().$id.'.css';
+	$fn = advfrm_data_folder().'css/'.$id.'.css';
 	if (!($fh = fopen($fn, 'w')) || fwrite($fh, $css) === FALSE) {
-	    e('cntwriteto', 'file', $fn);
+	    e('cntsave', 'file', $fn);
 	}
 	if ($fh)
 	    fclose($fh);
