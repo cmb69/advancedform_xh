@@ -507,10 +507,10 @@ function advfrm_admin_template($id) {
 	$form = $forms[$id];
 	$tpl = '<!-- utf-8-marker: äöüß -->'."\n\n".'<div id="advfrm-'.$id.'">'."\n";
 	$css = '/* utf-8-marker: äöüß */'."\n\n".'#advfrm-'.$id.' {}'."\n\n"
-		.'#advfrm-'.$id.' div.break {clear: both}'."\n\n"
+		.'#advfrm-'.$id.' div.break {clear: both}'."\n"
 		.'#advfrm-'.$id.' div.float {float: left; margin-right: 1em}'."\n\n"
-		.'#advfrm-'.$id.' div.label {}'."\n\n"
-		.'#advfrm-'.$id.' div.field {}'."\n\n"
+		.'#advfrm-'.$id.' div.label {/* float: left; width: 12em; margin-bottom: 0.5em; */}'."\n"
+		.'#advfrm-'.$id.' div.field { margin-bottom: 0.5em; /* float: left;*/}'."\n\n"
 		.'/* the individual fields */'."\n\n";
 	$first = TRUE;
 	foreach ($form['fields'] as $field) {
@@ -530,9 +530,9 @@ function advfrm_admin_template($id) {
 		    .($labelled ? '</label>' : '').'</div>'."\n"
 		    .'    <div class="field"><?field '.$field['field'].'?></div>'."\n"
 		    .'  </div>'."\n";
-	    $css .= '#advfrm-'.$id.'-'.$field['field'].' {}'."\n\n";
+	    $css .= '#advfrm-'.$id.'-'.$field['field'].' {}'."\n";
 	}
-	$tpl .= '</div>'."\n";
+	$tpl .= '  <div class="break"></div>'."\n".'</div>'."\n";
 	$fn = advfrm_data_folder().$id.'.tpl';
 	if (!($fh = fopen($fn, 'w')) || fwrite($fh, $tpl) === FALSE) {
 	    e('cntsave', 'file', $fn);
