@@ -3,9 +3,9 @@
 /**
  * Front-end of Advancedform_XH.
  * Copyright (c) 2005-2010 Jan Kanters
- * Copyright (c) 2011 Christoph M. Becker (see license.txt)
+ * Copyright (c) 2011-2012 Christoph M. Becker (see license.txt)
  */
- 
+
 
 // utf-8-marker: äöüß
 
@@ -16,7 +16,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
-define('ADVFRM_VERSION', '1beta10');
+define('ADVFRM_VERSION', '1beta11');
 define('ADVFRM_DB_VERSION', 2);
 
 
@@ -57,7 +57,7 @@ if (!function_exists('array_combine')) {
  */
 function advfrm_focus_field($form_id, $name) {
     global $hjs;
-    
+
     if (defined('ADVFRM_FIELD_FOCUSED')) {
 	return;
     }
@@ -86,7 +86,7 @@ function advfrm_init_jquery() {
 	return;
     }
     $ptx = $plugin_tx['advancedform'];
-    
+
     if (include_once($pth['folder']['plugins'].'jquery/jquery.inc.php')) {
 	include_jQuery();
 	include_jQueryUI();
@@ -94,7 +94,7 @@ function advfrm_init_jquery() {
     $date_format = $ptx['date_order'][0].$ptx['date_order'][0].$ptx['date_delimiter']
 	    .$ptx['date_order'][1].$ptx['date_order'][1].$ptx['date_delimiter']
 	    .$ptx['date_order'][2].$ptx['date_order'][2];
-    
+
     $lang = strlen($sl) == 2 ? $sl : $cf['language']['default'];
     $fn = $pth['folder']['plugins'].'advancedform/languages/jquery.ui.datepicker-'.$lang.'.js';
     if (file_exists($fn)) {
@@ -158,9 +158,9 @@ function advfrm_is_multi($field) {
  */
 function advfrm_data_folder() {
     global $pth, $plugin_cf;
-    
+
     $pcf = $plugin_cf['advancedform'];
-    
+
     if ($pcf['folder_data'] == '') {
 	$fn = $pth['folder']['plugins'].'advancedform/data/';
     } else {
@@ -191,7 +191,7 @@ function advfrm_data_folder() {
  */
 function advfrm_db($forms = NULL) {
     static $db;
-    
+
     if (isset($forms)) { // write
 	ksort($forms);
 	$fn = advfrm_data_folder().'forms.dat';
@@ -201,7 +201,7 @@ function advfrm_db($forms = NULL) {
 	if ($fh) {fclose($fh);}
 	$db = $forms;
     } else {  // read
-	if (!isset($db)) {    
+	if (!isset($db)) {
 	    $fn = advfrm_data_folder().'forms.dat';
 	    if (($cnt = file_get_contents($fn)) !== FALSE) {
 		$res = unserialize($cnt);
@@ -249,9 +249,9 @@ function advfrm_updated_db($forms) {
  */
 function advfrm_update_lang_js() {
     global $pth, $sl, $plugin_tx;
-    
+
     $ptx = $plugin_tx['advancedform'];
-    
+
     $fn = $pth['folder']['plugins'].'advancedform/languages/'.$sl;
     if (!file_exists($fn.'.php')) {
 	e('missing', 'language', $fn.'.php');
@@ -294,7 +294,7 @@ function advfrm_update_lang_js() {
  */
 function advfrm_read_csv($id) {
     global $e, $plugin_tx;
-    
+
     $forms = advfrm_db();
     $fields = array();
     if (isset($forms[$id])) {
@@ -307,7 +307,7 @@ function advfrm_read_csv($id) {
 	$e .= '<li>'.sprintf($plugin_tx['advancedform']['error_form_missing'], $id).'</li>'."\n";
 	return FALSE;
     }
-    
+
     $fn = advfrm_data_folder().$id.'.csv';
     if (($lines = file($fn)) === FALSE) {
 	e('cntopen', 'file', $fn);
@@ -345,7 +345,7 @@ function advfrm_append_csv($id) {
     }
     if ($fh !== FALSE) {fclose($fh);}
 }
- 
+
 /**
  * Returns the the posted fields, as e.g. needed for advfrm_custom_thanks_page().
  *
@@ -374,7 +374,7 @@ function advfrm_fields() {
  */
 function advfrm_mail_info($id, $show_hidden, $html) {
     global $cf, $plugin_tx;
-    
+
     $ptx = $plugin_tx['advancedform'];
     $forms = advfrm_db();
     $form = $forms[$id];
@@ -460,7 +460,7 @@ function advfrm_mail_body($id, $show_hidden, $html) {
 	    $res .= '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"'
 		    .' "http://www.w3.org/TR/html4/loose.dtd">'."\n"
 		    .'<html>'."\n";
-	} 
+	}
 	$res .= '<head>'."\n".'<style type="text/css">'."\n";
 	$res .= advfrm_mail_css($pth['folder']['plugins'].'advancedform/css/stylesheet.css');
 	$fn = advfrm_data_folder().$id.'.css';
@@ -484,9 +484,9 @@ function advfrm_mail_body($id, $show_hidden, $html) {
  */
 function advfrm_display_field($form_id, $field) {
     global $plugin_cf, $hjs;
-    
+
     $pcf = $plugin_cf['advancedform'];
-    
+
     $htm = '';
     $name = 'advfrm-'.$field['field'];
     $id = 'advfrm-'.$form_id.'-'.$field['field'];
@@ -580,11 +580,11 @@ function advfrm_display_field($form_id, $field) {
  */
 function advfrm_default_display($id) {
     global $plugin_cf;
-    
+
     $pcf = $plugin_cf['advancedform'];
     $forms = advfrm_db();
     $form = $forms[$id];
-    
+
     $htm = '';
     $htm .= '<div style="overflow:auto">'."\n".'<table>'."\n";
     foreach ($form['fields'] as $field) {
@@ -623,7 +623,7 @@ function advfrm_default_display($id) {
 function advfrm_template_display($id) {
     global $hjs, $plugin_cf;
 
-    $forms = advfrm_db();    
+    $forms = advfrm_db();
     $fn = advfrm_data_folder().$id.'.css';
     if (file_exists($fn)) {
 	$hjs .= tag('link rel="stylesheet" href="'.$fn.'" type="text/css"')."\n";
@@ -632,7 +632,7 @@ function advfrm_template_display($id) {
     if (file_exists($fn)) {
 	$hjs .= '<script type="text/javascript" src="'.$fn.'"></script>'."\n";
     }
-    
+
     $form = $forms[$id];
     $fn = advfrm_data_folder().$id.'.tpl'
 	    .($plugin_cf['advancedform']['php_extension'] ? '.php' : '');
@@ -659,7 +659,7 @@ function advfrm_display($id) {
 
     $ptx = $plugin_tx['advancedform'];
     $pcf = $plugin_cf['advancedform'];
-    
+
     $forms = advfrm_db();
     $form = $forms[$id];
     advfrm_init_jquery();
@@ -697,7 +697,7 @@ function advfrm_display($id) {
  */
 function advfrm_check($id) {
     global $plugin_cf, $plugin_tx;
-    
+
     $pcf = $plugin_cf['advancedform'];
     $ptx = $plugin_tx['advancedform'];
     $res = '';
@@ -814,7 +814,7 @@ function advfrm_check($id) {
  */
 function advfrm_mail($id, $confirmation) {
     global $pth, $sl, $plugin_tx, $plugin_cf, $e;
-    
+
     include_once $pth['folder']['plugins'].'advancedform/phpmailer/class.phpmailer.php';
     $pcf = $plugin_cf['advancedform'];
     $ptx = $plugin_tx['advancedform'];
@@ -834,7 +834,7 @@ function advfrm_mail($id, $confirmation) {
 	$e .= '<li>'.$ptx['error_missing_sender'].'</li>'."\n";
 	return FALSE;
     }
-    
+
     $mail = new PHPMailer();
     $mail->LE = $pcf['mail_line_ending_*nix'] ? "\n" : "\r\n";
     $mail->set('CharSet', 'UTF-8');
@@ -849,10 +849,10 @@ function advfrm_mail($id, $confirmation) {
 	$mail->set('FromName', $from_name);
 	$mail->AddAddress($form['to'], $form['to_name']);
 	foreach (explode(';', $form['cc']) as $cc) {
-	    $mail->AddCC($cc);
+	    if (trim($cc) != '') {$mail->AddCC($cc);}
 	}
 	foreach (explode(';', $form['bcc']) as $bcc) {
-	    $mail->AddBCC($bcc);
+	    if (trim($bcc) != '') {$mail->AddBCC($bcc);}
 	}
     }
     if ($confirmation) {
@@ -876,15 +876,15 @@ function advfrm_mail($id, $confirmation) {
 	    }
 	}
     }
-    
+
     if (function_exists('advfrm_custom_mail')) {
 	if (advfrm_custom_mail($id, $mail, $confirmation) === FALSE) {return TRUE;}
     }
-    
+
     if (ADVFRM_DEBUG) {
 	return TRUE;
     }
-    
+
     if(!$mail->Send()) {
 	$e .= '<li>'.(!empty($mail->ErrorInfo) ? htmlspecialchars($mail->ErrorInfo) : $ptx['error_mail']).'</li>'."\n";
 	return FALSE;
@@ -902,10 +902,10 @@ function advfrm_mail($id, $confirmation) {
  */
 function advfrm_advancedform($id) {
     global $plugin_cf, $plugin_tx, $sn, $e, $pth;
-    
+
     $pcf = $plugin_cf['advancedform'];
     $ptx = $plugin_tx['advancedform'];
-    
+
     $fn = $pth['folder']['plugins'].$pcf['captcha_plugin'].'/captcha.php';
     if (file_exists($fn)) {
 	include_once $fn;
@@ -918,7 +918,7 @@ function advfrm_advancedform($id) {
     if (file_exists($hooks)) {
 	include $hooks;
     }
-    
+
     $forms = advfrm_db();
     if (!isset($forms[$id])) {
 	$e .= '<li>'.sprintf($ptx['error_form_missing'], $id).'</li>'."\n";

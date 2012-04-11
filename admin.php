@@ -3,9 +3,9 @@
 /**
  * Back-end functionality of Advancedform_XH.
  * Copyright (c) 2005-2010 Jan Kanters
- * Copyright (c) 2011 Christoph M. Becker (see license.txt)
+ * Copyright (c) 2011-2012 Christoph M. Becker (see license.txt)
  */
- 
+
 
 // utf-8-marker: äöüß
 
@@ -25,23 +25,27 @@ include_once $pth['folder']['plugins'].'advancedform/advfrm.php';
  * @return string
  */
 function advfrm_version() {
-    return '<h1>Advancedform_XH</h1>'."\n"
+    global $pth;
+
+    return '<h1><a href="http://3-magi.net/?CMSimple_XH/Advancedform_XH">Advancedform_XH</a></h1>'."\n"
+	    .tag('img src="'.$pth['folder']['plugins'].'advancedform/advancedform.png" width="128"'
+	    .' height="128" alt="Plugin icon" class="advancedform_plugin_icon"')."\n"
 	    .'<p>Version: '.ADVFRM_VERSION.'</p>'."\n"
-	    .'<p>Copyright &copy; 2005-2010 Jan Kanters'.tag('br')
-	    .'Copyright &copy; 2011 Christoph M. Becker</p>'."\n"
-	    .'<p><a href="http://3-magi.net/?CMSimple_XH/Advancedform_XH">Advancedform_XH</a> is powered by '
+	    .'<p>Copyright &copy; 2005-2010 <a href="http://www.jat-at-home.be/">Jan Kanters</a>'.tag('br')
+	    .'Copyright &copy; 2011-2012 <a href="http://3-magi.net">Christoph M. Becker</a></p>'."\n"
+	    .'<p>Advancedform_XH is powered by '
 	    .'<a href="http://www.cmsimple-xh.com/wiki/doku.php/plugins:jquery4cmsimple" target="_blank">'
 	    .'jQuery4CMSimple</a>'
 	    .' and <a href="http://phpmailer.worxware.com/" target"_blank">PHPMailer</a>.</p>'."\n"
-	    .'<p style="text-align:justify">This program is free software: you can redistribute it and/or modify'
+	    .'<p class="advancedform_license">This program is free software: you can redistribute it and/or modify'
 	    .' it under the terms of the GNU General Public License as published by'
 	    .' the Free Software Foundation, either version 3 of the License, or'
 	    .' (at your option) any later version.</p>'."\n"
-	    .'<p style="text-align:justify">This program is distributed in the hope that it will be useful,'
+	    .'<p class="advancedform_license">This program is distributed in the hope that it will be useful,'
 	    .' but WITHOUT ANY WARRANTY; without even the implied warranty of'
 	    .' MERCHAN&shy;TABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the'
 	    .' GNU General Public License for more details.</p>'."\n"
-	    .'<p style="text-align:justify">You should have received a copy of the GNU General Public License'
+	    .'<p class="advancedform_license">You should have received a copy of the GNU General Public License'
 	    .' along with this program.  If not, see'
 	    .' <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>'."\n";
 }
@@ -97,9 +101,9 @@ function advancedform_system_check() { // RELEASE-TODO
  */
 function advfrm_tool_icon($name) {
     global $pth, $plugin_tx;
-    
+
     $ptx = $plugin_tx['advancedform'];
-    
+
     return tag('img src="'.$pth['folder']['plugins'].'advancedform/images/'.$name.'.gif"'
 	    .' alt="'.$ptx['tool_'.$name].'" title="'.$ptx['tool_'.$name].'"');
 }
@@ -134,9 +138,9 @@ function advfrm_page_select($name, $selected) {
  */
 function advfrm_admin_default() {
     global $sn, $tx, $plugin_tx;
-    
+
     $ptx = $plugin_tx['advancedform'];
-    
+
     $forms = advfrm_db();
     $htm = '<div id="advfrm-form-list">'."\n"
 	    .'<h1>'.$ptx['menu_main'].'</h1>'."\n";
@@ -177,7 +181,7 @@ function advfrm_admin_default() {
  */
 function advfrm_admin_new() {
     global $plugin_cf;
-    
+
     $pcf = $plugin_cf['advancedform'];
     $forms = advfrm_db();
     $id = uniqid();
@@ -214,19 +218,19 @@ function advfrm_admin_new() {
  */
 function advfrm_admin_edit($id) {
     global $pth, $sn, $plugin_cf, $plugin_tx, $tx, $e;
-    
+
     $pcf = $plugin_cf['advancedform'];
     $ptx = $plugin_tx['advancedform'];
-    
+
     $forms = advfrm_db();
     $form = $forms[$id];
     if (!isset($form)) {
 	$e .= '<li><b>'.sprintf($plugin_tx['advancedform']['error_form_missing'], $id).'</b></li>';
 	return advfrm_admin_default();
     }
-    
+
     // general settings
-    
+
     $htm = '<div id="advfrm-editor">'."\n".'<h1>'.$id.'</h1>'."\n";
     $htm .= '<form action="'.$sn.'?advancedform&amp;admin=plugin_main&amp;action=save&amp;form='.$id.'"'
 	    .' method="post" accept-charset="UTF-8" onsubmit="return advfrm_checkForm()">'."\n";
@@ -251,16 +255,16 @@ function advfrm_admin_edit($id) {
 	$htm .= '</tr>'."\n";
     }
     $htm .= '</table>'."\n";
-    
+
     // field settings
-    
+
     $htm .= '<div class="toolbar">';
     foreach (array('add', 'delete', 'up', 'down') as $tool) {
 	$htm .=  '<a onclick="advfrm_'.$tool.'(\'advfrm-fields\')">'
 		.advfrm_tool_icon($tool).'</a>'."\n";
-    }    
+    }
     $htm .= '</div>'."\n";
-	    
+
     $htm .= '<table id="advfrm-fields">'."\n";
     $htm .= '<thead><tr>'
 	    .'<th>'.$ptx['label_field'].'</th>'
@@ -296,16 +300,16 @@ function advfrm_admin_edit($id) {
     $htm .= '</table>'."\n";
     $htm .= tag('input type="submit" class="submit" value="'.ucfirst($tx['action']['save']).'" style="display:none"');
     $htm .= '</form>'."\n".'</div>'."\n";
-    
+
     // property dialogs
-    
+
     $htm .= '<div id="advfrm-text-props" style="display:none">'."\n".'<table>'."\n";
     foreach (array('size', 'maxlength', 'default', 'constraint', 'error_msg') as $prop) {
 	$htm .= '<tr id="advfrm-text-props-'.$prop.'">'.'<td>'.$prop.'</td>'
 		.'<td>'.tag('input type="text" size="30"').'</td>'.'</tr>'."\n";
     }
     $htm .= '</table>'."\n".'</div>'."\n";
-	    
+
     $htm .= '<div id="advfrm-select-props" style="display:none">'."\n";
     $htm .= '<p id="advfrm-select-props-size">'.$ptx['label_size'].' '.tag('input type="text"').'</p>'."\n";
     $htm .= '<p id="advfrm-select-props-orient">'
@@ -318,13 +322,13 @@ function advfrm_admin_edit($id) {
     foreach (array('add', 'delete', 'up', 'down', 'clear_defaults') as $tool) {
 	$htm .=  '<a onclick="advfrm_'.$tool.'(\'advfrm-prop-fields\')">'
 	    .advfrm_tool_icon($tool).'</a>'."\n";
-    }    
+    }
     $htm .= '</div>'."\n";
     $htm .= '<table id="advfrm-prop-fields">'."\n".'<tr>'
 	    .'<td>'.tag('input type="radio" name="advfrm-select-props-default"').'</td>'
 	    .'<td>'.tag('input type="text" name="advfrm-select-props-opt" size="25" class="highlightable"').'</td>'
 	    .'</tr>'."\n".'</table>'."\n".'</div>'."\n";
-    
+
     return $htm;
 }
 
@@ -339,13 +343,13 @@ function advfrm_admin_edit($id) {
  */
 function advfrm_admin_save($id) {
     global $e, $plugin_tx;
-    
+
     $ptx = $plugin_tx['advancedform'];
-    
+
     $forms = advfrm_db();
     if (!isset($forms[$id])) {
 	$e .= '<li><b>'.sprintf($ptx['error_form_missing'], $id).'</b></li>';
-	return advfrm_admin_default();	
+	return advfrm_admin_default();
     }
     unset($forms[$id]);
     if (!isset($forms[$_POST['advfrm-name']])) {
@@ -409,7 +413,7 @@ function advfrm_admin_delete($id) {
  */
 function advfrm_admin_copy($id) {
     global $e, $plugin_tx;
-    
+
     $forms = advfrm_db();
     if (isset($forms[$id])) {
 	$form = $forms[$id];
@@ -469,7 +473,7 @@ function advfrm_admin_import($id) {
  */
 function advfrm_admin_export($id) {
     global $e, $plugin_tx;
-    
+
     $ptx = $plugin_tx['advancedform'];
     $forms = advfrm_db();
     if (isset($forms[$id])) {
@@ -497,7 +501,7 @@ function advfrm_admin_export($id) {
  */
 function advfrm_admin_template($id) {
     global $plugin_cf;
-    
+
     $forms = advfrm_db();
     if (isset($forms[$id])) {
 	$form = $forms[$id];
@@ -515,8 +519,8 @@ function advfrm_admin_template($id) {
 			.' // focus the first field?>'."\n";
 		$first = FALSE;
 	    }
-	    $labelled = !in_array($field['type'], array('checkbox', 'radio', 'hidden')); //'output', 
-	    $label = in_array($field['type'], array('hidden')) ? '' //'output', 
+	    $labelled = !in_array($field['type'], array('checkbox', 'radio', 'hidden')); //'output',
+	    $label = in_array($field['type'], array('hidden')) ? '' //'output',
 		    : (!$field['required'] ? $field['label']
 			: sprintf($plugin_cf['advancedform']['required_field_mark'], $field['label']));
 	    $tpl .= '  <div class="break">'."\n"
@@ -542,7 +546,7 @@ function advfrm_admin_template($id) {
 	if ($fh)
 	    fclose($fh);
     } else {
-	$e .= '<li><b>'.sprintf($ptx['error_form_missing'], $id).'</b></li>';    
+	$e .= '<li><b>'.sprintf($ptx['error_form_missing'], $id).'</b></li>';
     }
     return advfrm_admin_default();
 }
@@ -554,7 +558,7 @@ function advfrm_admin_template($id) {
 if (!empty($advancedform)) {
     initvar('admin');
     initvar('action');
-    
+
     if (include_once($pth['folder']['plugins'].'jquery/jquery.inc.php')) {
 	include_jQuery();
 	include_jQueryUI();
@@ -564,9 +568,9 @@ if (!empty($advancedform)) {
 		.'advancedform/languages/'.$sl.'.js"></script>'."\n";
     }
     $hjs .= '<script type="text/javascript" src="'.$pth['folder']['plugins'].'advancedform/admin.js"></script>'."\n";
-    
+
     $o .= print_plugin_admin('on');
-    
+
     switch ($admin) {
 	case '':
 	    $o .= advfrm_version().advancedform_system_check();

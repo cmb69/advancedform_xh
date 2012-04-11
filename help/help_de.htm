@@ -13,10 +13,15 @@
 <body>
 
 <h1>Advancedform_XH - ein CMSimple_XH-Plugin</h1>
+<img src="../advancedform.png" width="128" height="128" alt="Plugin Icon" style="display: block; float: left">
 <p>Advancedform_XH ermöglicht es Ihnen Ihre eigenen E-Mail-Formulare
 zur Integration in CMSimple_XH zu erstellen.
 Die Möglichkeiten reichen von angepassten Kontaktformularen
-bis zu komplexen Bestell- oder Buchungsformularen.</p>
+bis zu komplexen Bestell- oder Buchungsformularen.
+Selbst komplexe Formulare können im Formular-Editor konstruiert werden,
+so dass Sie kein HTML, CSS oder PHP schreiben müssen,
+wenn Ihnen die grundlegende Formular-Funktionalität genügt.
+Weitergehende Anpassungen sind durch das Template- bzw. Hook-System möglich.</p>
 
 <ul id="nav">
 <li><a href="#notice">Wichtiger Hinweis</a></li>
@@ -387,14 +392,10 @@ anschauen, um zu sehen, was möglich ist, und wie es gemacht wird.</p>
 <h2><a name="limitations">Beschränkungen</a></h2>
 
 <h3>Mailversand scheitert</h3>
-<p>Es gab einige Berichte, dass das Versenden von E-Mails mit der Meldung
-"Mail Funktion konnte nicht initialisiert werden." fehlschlug.
-Leider konnte ich das Problem weder reproduzieren,
-noch herausfinden, woran es liegen könnte.
-Wenn Sie das gleiche Problem haben, ändern Sie bitte die Konfigurations-Option
-"mail line ending *nix". Möglicherweise hilft das.
-Aber bitte berichten Sie mir auf jeden Fall davon,
-damit ich dieses Problem endlich lösen kann.</p>
+<p>Wenn das Versenden von E-Mails mit der Meldung
+"Mail Funktion konnte nicht initialisiert werden" fehlschlägt,
+<em>könnte</em> das daran liegen,
+dass Ihr Server den Versand von E-Mails mit CC- und BCC-Adressen nicht erlaubt.</p>
 
 <h3>jQuery</h3>
 <p>Pagemanager_XH <em>könnte</em> in Installationen
@@ -431,7 +432,7 @@ Soweit ich weiß, sind dies zur Zeit nur
 <p>Advancedform_XH kann unter Einhaltung der
 <a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a> verwendet werden.</p>
 <p>&copy; 2005-2010 Jan Kanters<br>
-&copy; 2011 Christoph M. Becker</p>
+&copy; 2011-2012 Christoph M. Becker</p>
 <p>Tschechische Übersetzung &copy; 2011 Josef Němec</p>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
@@ -442,6 +443,8 @@ kompatible Version zu verwenden, und an Holger und johnjdoe, die diese Erlaubnis
 <p>Der reguläre Ausdruck um auf gültige E-Mail-Adressen zu prüfen, stammt von
 <a href="http://www.regular-expressions.info/email.html">Jan Goyvaerts</a>.
 Vielen Dank für das großartige Tutorial zu regulären Ausdrücken und die Beispiele.</p>
+<p>Das Plugin-Icon wurde von <a href="http://www.doublejdesign.co.uk/">Jack Cai</a> entworfen.
+Vielen Dank für die Veröffentlichung unter CC BY-ND.</p>
 <p>Dieses Plugin verwendet freie Anwendungs-Icons von <a href="http://www.aha-soft.com/">Aha-Soft</a>.
 Vielen Dank für das freie zur Verfügung stellen dieser Icons.</p>
 <p>Vielen Dank an die Community im
@@ -450,8 +453,11 @@ für Tipps, Vorschläge und Testen.
 Besonders möchte ich Tata für die Idee danken, dass Advancedform_XH
 eine grundlegende Vorlagen-Datei mit Stylesheet erzeugen sollte,
 und manu für die konkreten Vorschläge für das Hook-System,
-das die Verwendbarkeit von Advancedform_XH verbessern dürfte.</p>
-<p>Und vielen Dank an alle Entwickler von <a href="http://www.cmsimple-xh.com">
+das die Verwendbarkeit von Advancedform_XH verbessern dürfte.
+Und vielen Dank an maeg, der es mir ermöglicht hat auf seinem Server zu debuggen,
+so dass ich den Fehler finden und beheben konnte, der den Mailversand auf einigen Servern scheitern ließ.</p>
+<p>Und zu guter Letzt vielen Dank an <a href="http://www.harteg.dk">Peter Harteg</a>, den "Vater" von CMSimple,
+und alle Entwickler von <a href="http://www.cmsimple-xh.com">
 CMSimple_XH</a>, ohne die dieses phantastische CMS nicht existieren würde.</p>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 

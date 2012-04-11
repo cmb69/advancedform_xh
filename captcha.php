@@ -3,9 +3,9 @@
 /**
  * Minimal built-in captcha of Advancedform_XH.
  *
- * Copyright (c) 2011 Christoph M. Becker (see license.txt)
+ * Copyright (c) 2011-2012 Christoph M. Becker (see license.txt)
  */
- 
+
 
 // utf-8-marker: äöüß
 
@@ -45,7 +45,7 @@ function advfrm_captcha_code() {
  */
 function advancedform_captcha_display() {
     global $plugin_tx;
-    
+
     $code = advfrm_captcha_code();
     $_SESSION['advfrm_captcha'] = $code;
     return '<div class="captcha">'

@@ -1,11 +1,15 @@
 TODO
 	store headers in csv?
-	solve mail sending problem
 	translation-hints
-	???change PHP-Mailer: From header statt ini-set ???
 	change hook system (unique names, but drop $form_name param) ???
 	log failed mails ???
-	
+	screenshots
+
+Version 1beta11 - released TODO
+cmb	fixed bug which included empty CC and BCC headers in mails (reported by maeg)
+cmb	extended copyright to 2012
+cmb	added plugin icon
+
 Version 1beta10 - released 2011-12-21
 cmb	fixed bug that treated multi select POST as string instead of array (reported by twc)
 cmb	fixed bug that ignored magic_quotes_gpc in advfrm_fields()
@@ -35,7 +39,7 @@ cmb	fixed bug: create missing forms.dat automatically
 cmb	integrated IP address of sender to mail subject (suggested by mitch)
 cmb	added czech translation (provided by oldnema)
 cmb	added powered by link
-	
+
 Version 1beta8 - released 2011-09-29
 cmb	changed: sending of attachments is suppressed for confirmation mail
 cmb	added warnings if mail couldn't be sent (reported by cityedvlinz)
@@ -44,14 +48,14 @@ cmb	fixed bug of inclusion of none existing template stylesheets (reported by ci
 cmb	added explanatory text to the built in captcha (inspired by Ulrich)
 cmb	minor optimizations
 cmb	prepared for CMSimple_XH 1.5
-	
+
 Version 1beta7 - released 2011-09-15
 cmb	changed interface of captcha code for compatibility with upcoming captcha plugins
 cmb	changed: now for each form a separate file with the hooks is include()d (suggested by manu)
 cmb	replaced deprecated functions in PHPmailer
 cmb	changed the split line for the plugin stylesheet and the template stylesheets (see stylesheet.css or manual)
 cmb	updated manual accordingly
-	
+
 Version 1beta6 - released 2011-09-14
 cmb	extended advfrm_custom_mail hook to include the form id (suggested by manu)
 cmb	fixed faulty mkdir mode
@@ -59,7 +63,7 @@ cmb	changed stylesheet handling for mails again (see stylesheet.css or manual)
 cmb	moved requirement check to plugin section
 cmb	added include() of functions.inc in the data folder (suggested by manu)
 cmb	updated manual accordingly
-	
+
 Version 1beta5 - released 2011-09-06
 cmb	updated manual: write permissions for listed folders (inspired by intelli)
 cmb	fixed bugs with file handling
@@ -67,14 +71,14 @@ cmb	added possibility to generate basic templates (suggested by Tata)
 cmb	changed import message to be more verbose (inspired by manu)
 cmb	added hooks (suggested by manu)
 cmb	extended manual: template system and hooks
-	
+
 Version 1beta4 - released 2011-09-05
 cmb	changed meaning of required_field_mark to include %s as the field label
 cmb	changed default mail adresses to webmaster@example.com
 cmb	updated de.php
 cmb	extended the manual (particularly the section about the template system)
 cmb	some minor bug fixes
-	
+
 Version 1beta3 - released 2011-09-05
 cmb	fixed (x)html validation errors
 cmb	changed mail subject to contain the domain name of the CMSimple installation

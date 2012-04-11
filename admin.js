@@ -1,7 +1,7 @@
 /*
  * Form editor of Advancedform_XH.
  * Copyright (c) 2005-2010 Jan Kanters
- * Copyright (c) 2011 Christoph M. Becker (see license.txt)
+ * Copyright (c) 2011-2012 Christoph M. Becker (see license.txt)
  */
 
 
@@ -271,7 +271,7 @@ function advfrm_clear_defaults(id) {
  *
  * @return {undefined}
  */
-function advfrm_props() { 
+function advfrm_props() {
     var type = jQuery('#advfrm-fields tr.selected select[name="advfrm-type[]"]').val();
     var title = ADVFRM_TX['label_properties'].replace(/%s/, ADVFRM_TX['field_'+type]);
     var props = advfrm_properties();
@@ -422,7 +422,7 @@ function advfrm_checkForm() {
             }
         }
     }
-    
+
     var flds = jQuery('#advfrm-fields tbody input[name="advfrm-field[]"]');
     for (var i = 0; i < flds.length; i++) {
         var fld = jQuery(flds[i]);
@@ -447,7 +447,7 @@ function advfrm_checkForm() {
             }
         }
     }
-    
+
     var flds = jQuery('#advfrm-fields select[name="advfrm-type[]"]');
     var fromName = 0;
     var from = 0;
@@ -466,7 +466,7 @@ function advfrm_checkForm() {
             }
         }
     }
-    
+
     return true;
 }
 
@@ -481,7 +481,7 @@ function advfrm_checkForm() {
 function advfrm_import(url) {
     var name = window.prompt(ADVFRM_TX['message_import_form']);
     if (name.search(/^[a-z0-9_]+$/i) >= 0) {
-        window.location.href = url+name; 
+        window.location.href = url+name;
     }
 }
 
@@ -503,9 +503,9 @@ jQuery(function() {
     jQuery('#advfrm-fields tbody td > a').click(advfrm_props);
     jQuery('#advfrm-fields tbody input[name="advfrm-field[]"]').change(advfrm_fillLabel);
     jQuery('#advfrm-fields tbody select[name="advfrm-type[]"]').change(advfrm_changeType);
-    
+
     jQuery('#advfrm-editor input.submit').show();
-    
+
     jQuery('#advfrm-text-props').dialog({
         autoOpen: false,
         modal: true,
@@ -526,7 +526,7 @@ jQuery(function() {
             click: function() {jQuery(this).dialog('close')}
         }]
     });
-    
+
     jQuery('#advfrm-select-props').dialog({
         autoOpen: false,
         modal: true,
