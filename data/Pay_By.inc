@@ -1,8 +1,5 @@
 <?php
 
-// utf-8-marker: äöüß
-
-
 function advfrm_custom_thanks_page($form_name, $fields) {
     switch ($fields['Payment_type']) { // the field name of the radiobuttons
         case 'Cheque': // the label of radiobutton1

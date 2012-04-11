@@ -5,9 +5,6 @@
  */
 
 
-// utf-8-marker: äöüß
-
-
 /**
  * Property indexes.
  */
@@ -124,9 +121,9 @@ function advfrm_visibleProps(type) {
 function advfrm_properties(props) {
     var prop = jQuery('#advfrm-fields tbody tr.selected input[name="advfrm-props[]"]');
     if (props == null) { // get
-        return prop.val().split('¦');
+        return prop.val().split('\u00A6');
     } else { // set
-        prop.val(props.join('¦'));
+        prop.val(props.join('\u00A6'));
         return null;
     }
 }
@@ -142,7 +139,7 @@ function advfrm_changeType() {
     var wasSelect = advfrm_isSelect(this.oldvalue);
     var isSelect = advfrm_isSelect(this.value);
     if (wasSelect !== isSelect) {
-        var val = isSelect ? '¦' : '¦¦¦';
+        var val = isSelect ? '\u00A6' : '\u00A6\u00A6\u00A6';
         jQuery('#advfrm-fields tbody tr.selected input[name="advfrm-props[]"]').val(val);
     } else if (wasSelect && isSelect
             && advfrm_isRealSelect(this.oldvalue) != advfrm_isRealSelect(this.value)) {
@@ -194,7 +191,7 @@ function advfrm_add(id) {
         row.removeClass('selected');
         row.find('input[type="text"]').val('');
         row.find('select').val('text');
-        row.find('input[name="advfrm-props[]"]').val('¦¦¦');
+        row.find('input[name="advfrm-props[]"]').val('\u00A6\u00A6\u00A6');
         row.find('input[type="checkbox"]').attr('checked', false);
         row.find('td > *[name]').focus(function() {advfrm_highlightRow('advfrm-fields', jQuery(this))});
         row.find('td > a').click(function() {advfrm_highlightRow('advfrm-fields', jQuery(this))});
@@ -300,7 +297,7 @@ function advfrm_props() {
         var clone = dlg.find('tr').clone();
         clone.removeClass('selected');
         jQuery.each(props, function(i, elt) {
-            if (elt.charAt(0) == '●') {
+            if (elt.charAt(0) == '\u25CF') {
                 var val = elt.substr(1);
                 var checked = true;
             } else {
@@ -364,7 +361,7 @@ function advfrm_checkProperties() {
         }
         var ok = true;
         jQuery('#advfrm-select-props input[name="advfrm-select-props-opt"]').each(function() {
-            if (jQuery(this).val().match(/¦|●/)) {
+            if (jQuery(this).val().match(/\u00A6|\u25CF/)) {
                 alert(ADVFRM_TX['error_invalid_property']);
                 jQuery(this).focus();
                 ok = false;
@@ -538,7 +535,7 @@ jQuery(function() {
                         return;
                     }
                     var props = jQuery(this).find('input[name="advfrm-select-props-opt"]').map(function() {
-                        var def = jQuery(this).parents('tr').find('input[name="advfrm-select-props-default"]').get(0).checked ? '●' : '';
+                        var def = jQuery(this).parents('tr').find('input[name="advfrm-select-props-default"]').get(0).checked ? '\u25CF' : '';
                         return def + jQuery(this).val();
                     }).get();
                     props.unshift(jQuery('#advfrm-select-props-size').css('display') == 'none'

@@ -1,6 +1,5 @@
 <?php
 
-	$plugin_tx['advancedform']['utf-8-marker']="äöüß";
 	$plugin_tx['advancedform']['menu_main']="Emailové formuláře";
 	$plugin_tx['advancedform']['mail_subject']="%1s z %2s poslal %3s";
 	$plugin_tx['advancedform']['mail_subject_confirmation']="%1s z %2s";
@@ -103,6 +102,5 @@
 	$plugin_tx['advancedform']['cf_mail_thanks_page']="Základní pro nový formulář";
 	$plugin_tx['advancedform']['cf_mail_type']="Formát pošty k odeslání, t.j. <em>html</em> nebo <em>text</em>.";
 	$plugin_tx['advancedform']['cf_mail_regexp']="The regular expression to check for valid e-mail addresses. The default one is somewhat restrictive, see http://www.regular-expressions.info/email.html for further details.";
-	$plugin_tx['advancedform']['cf_utf-8-marker']="Systémové nastavení. <strong>NEMĚNIT!</strong>";
 
 ?>

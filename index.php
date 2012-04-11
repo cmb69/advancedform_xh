@@ -7,9 +7,6 @@
  */
 
 
-// utf-8-marker: дцья
-
-
 if (!defined('CMSIMPLE_XH_VERSION')) {
     header('HTTP/1.0 403 Forbidden');
     exit;

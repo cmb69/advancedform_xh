@@ -7,9 +7,6 @@
  */
 
 
-// utf-8-marker: äöüß
-
-
 if (!defined('CMSIMPLE_XH_VERSION')) {
     header('HTTP/1.0 403 Forbidden');
     exit;
@@ -335,7 +332,7 @@ function advfrm_append_csv($id) {
 	if ($field['type'] != 'output') {
 	    $name = $field['field'];
 	    $val = $field['type'] == 'file' ? $_FILES['advfrm-'.$name]['name'] : $_POST['advfrm-'.$name];
-	    $fields[] = is_array($val) ? implode('¦', array_map('stsl', $val)) : stsl($val);
+	    $fields[] = is_array($val) ? implode("\xC2\xA6", array_map('stsl', $val)) : stsl($val);
 	}
     }
     $fn = advfrm_data_folder().$id.'.csv';
@@ -356,7 +353,7 @@ function advfrm_fields() {
     foreach ($_POST as $key => $val) {
 	if (strpos($key, 'advfrm-') === 0) {
 	    $fields[substr($key, 7)] = is_array($val)
-		    ? implode('¦', array_map('stsl', $val))
+		    ? implode("\xC2\xA6", array_map('stsl', $val))
 		    : stsl($val);
 	}
     }
@@ -490,7 +487,7 @@ function advfrm_display_field($form_id, $field) {
     $htm = '';
     $name = 'advfrm-'.$field['field'];
     $id = 'advfrm-'.$form_id.'-'.$field['field'];
-    $props = explode('¦', $field['props']);
+    $props = explode("\xC2\xA6", $field['props']);
     $is_select = advfrm_is_select($field);
     $is_real_select = advfrm_is_real_select($field);
     $is_multi = advfrm_is_multi($field);
@@ -505,7 +502,7 @@ function advfrm_display_field($form_id, $field) {
 	    $orient = array_shift($props) ? 'vert' : 'horz';
 	}
 	foreach ($props as $i => $opt) {
-	    $opt = explode('●', $opt);
+	    $opt = explode("\xE2\x97\x8F", $opt);
 	    if (count($opt) > 1) {
 		$f = TRUE;
 		$opt = $opt[1];
@@ -744,7 +741,7 @@ function advfrm_check($id) {
 		    }
 		    break;
 		case 'file':
-		    $props = explode('¦', $field['props']);
+		    $props = explode("\xC2\xA6", $field['props']);
 		    switch ($_FILES[$name]['error']) {
 			case UPLOAD_ERR_OK:
 			    if (!empty($props[ADVFRM_PROP_MAXLEN])
@@ -775,7 +772,7 @@ function advfrm_check($id) {
     		    }
 		    break;
 		case 'custom':
-		    $props = explode('¦', $field['props']);
+		    $props = explode("\xC2\xA6", $field['props']);
 		    $pattern = $props[ADVFRM_PROP_CONSTRAINT];
 		    if (!empty($pattern) && !preg_match($pattern, stsl($_POST[$name]))) {
 			$msg = empty($props[ADVFRM_PROP_ERROR_MSG])

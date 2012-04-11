@@ -1,5 +1,4 @@
 <?php
-$plugin_tx['advancedform']['utf-8-marker']="äöüß";
 
 $plugin_tx['advancedform']['syscheck_title']="System check";
 $plugin_tx['advancedform']['syscheck_phpversion']="PHP version ≥ %s";
@@ -121,5 +120,5 @@ $plugin_tx['advancedform']['cf_mail_type']="The type of mails to be sent, i.e. \
 $plugin_tx['advancedform']['cf_mail_regexp']="The regular expression to check for valid e-mail addresses. The default one is somewhat restrictive, see http://www.regular-expressions.info/email.html for further details.";
 $plugin_tx['advancedform']['cf_mail_line_ending_*nix']="Wether *nix style line endings should be used in the mail: \"1\" (yes) or \"0\" (no). If sending of mails doesn't work with the default, try the other.";
 $plugin_tx['advancedform']['cf_php_extension']="Wether the addtional extension .php should be used for template and hook files. \"1\" (yes) or \"0\" (no)";
-$plugin_tx['advancedform']['cf_utf-8-marker']="Internal usage. <strong>Do not change!</strong>";
+
 ?>

@@ -1,7 +1,5 @@
 <?php
 
-$plugin_cf['advancedform']['utf-8-marker']="äöüß";
-
 $plugin_cf['advancedform']['folder_data']="";
 
 $plugin_cf['advancedform']['mail_to_name']="Webmaster";

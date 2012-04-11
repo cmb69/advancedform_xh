@@ -1,5 +1,4 @@
 <?php
-$plugin_tx['advancedform']['utf-8-marker']="äöüß";
 
 $plugin_tx['advancedform']['syscheck_title']="System-Prüfung";
 $plugin_tx['advancedform']['syscheck_phpversion']="PHP-Version ≥ %s";
@@ -120,5 +119,5 @@ $plugin_tx['advancedform']['cf_mail_thanks_page']="Die Voreinstellung für neue 
 $plugin_tx['advancedform']['cf_mail_type']="Die Art der Mail, die verschickt werden soll, d.h. \"html\" or \"text\".";
 $plugin_tx['advancedform']['cf_mail_regexp']="Der reguläre Ausdruck um gültige E-Mail-Adressen zu prüfen. Die Voreinstellung ist etwas restriktiv, siehe http://www.regular-expressions.info/email.html für weitere Informationen.";
 $plugin_tx['advancedform']['cf_php_extension']="Ob die zusätzliche Erweiterung .php für Template- und Hook-Dateien verwendet werden soll. \"1\" (ja) oder \"0\" (nein)";
-$plugin_tx['advancedform']['cf_utf-8-marker']="Internal usage. <strong>Do not change!</strong>";
+
 ?>

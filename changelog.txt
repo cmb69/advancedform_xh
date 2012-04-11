@@ -1,9 +1,11 @@
 TODO
+	mail templates
 	store headers in csv?
 	translation-hints
 	change hook system (unique names, but drop $form_name param) ???
 	log failed mails ???
 	screenshots
+	better documentation for demo forms (careful when using as base for own creations; templates/hooks)
 
 Version 1beta11 - released TODO
 cmb	fixed bug which included empty CC and BCC headers in mails (reported by maeg)

@@ -7,9 +7,6 @@
  */
 
 
-// utf-8-marker: äöüß
-
-
 if (!defined('CMSIMPLE_XH_VERSION')) {
     header('HTTP/1.0 403 Forbidden');
     exit;
@@ -200,7 +197,7 @@ function advfrm_admin_new() {
 		'field' => '',
 		'label' => '',
 		'type' => 'text',
-		'props' => '¦¦¦',
+		'props' => "\xC2\xA6\xC2\xA6\xC2\xA6",
 		'required' => '0'
 	    )
 	)
@@ -505,8 +502,8 @@ function advfrm_admin_template($id) {
     $forms = advfrm_db();
     if (isset($forms[$id])) {
 	$form = $forms[$id];
-	$tpl = '<!-- utf-8-marker: äöüß -->'."\n\n".'<div id="advfrm-'.$id.'">'."\n";
-	$css = '/* utf-8-marker: äöüß */'."\n\n".'#advfrm-'.$id.' {}'."\n\n"
+	$tpl = '<div id="advfrm-'.$id.'">'."\n";
+	$css = '#advfrm-'.$id.' {}'."\n\n"
 		.'#advfrm-'.$id.' div.break {clear: both}'."\n"
 		.'#advfrm-'.$id.' div.float {float: left; margin-right: 1em}'."\n\n"
 		.'#advfrm-'.$id.' div.label {/* float: left; width: 12em; margin-bottom: 0.5em; */}'."\n"
