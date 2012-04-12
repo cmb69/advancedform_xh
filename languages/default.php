@@ -9,6 +9,8 @@ $plugin_tx['advancedform']['syscheck_jquery']="<a href=\"http://www.cmsimple-xh.
 $plugin_tx['advancedform']['syscheck_captcha_plugin']="CAPTCHA installed";
 $plugin_tx['advancedform']['syscheck_writable']="Folder '%s' writable";
 
+$plugin_tx['advancedform']['contact_form']="";
+
 $plugin_tx['advancedform']['menu_main']="Mail Forms";
 
 $plugin_tx['advancedform']['mail_subject']="%1s on %2s sent by %3s";

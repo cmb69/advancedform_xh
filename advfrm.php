@@ -77,7 +77,7 @@ SCRIPT;
  * @return void
  */
 function advfrm_init_jquery() {
-    global $pth, $sl, $plugin_tx, $hjs, $cf;
+    global $pth, $sl, $hjs, $cf, $plugin_cf, $plugin_tx;
 
     if (defined('ADVFRM_JQUERY_INITIALIZED')) {
 	return;

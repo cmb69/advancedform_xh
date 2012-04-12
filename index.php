@@ -45,4 +45,14 @@ function advancedformlink($page) {
 	    : '';
 }
 
+
+/**
+ * Handle replacement of built-in mailform.
+ */
+if ($f == 'mailform' && !empty($plugin_tx['advancedform']['contact_form'])) {
+    $o .= '<h1>'.$tx['title']['mailform'].'</h1>'."\n"
+	    .advancedform($plugin_tx['advancedform']['contact_form']);
+    $f = '';
+}
+
 ?>

@@ -16,6 +16,7 @@ cmb	added nl2br() to keep newlines visible in (X)HTML
 cmb	fixed bug: message_sent_info was not included in text mails
 cmb	added demo form "Confirmation"
 cmb	documented template/hook "trap" when reusing demo forms
+cmb	added and documented simpler way to replace the built-in mailform
 
 Version 1beta10 - released 2011-12-21
 cmb	fixed bug that treated multi select POST as string instead of array (reported by twc)
