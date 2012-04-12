@@ -376,13 +376,13 @@ function advfrm_mail_info($id, $show_hidden, $html) {
     $forms = advfrm_db();
     $form = $forms[$id];
     $res = '';
-    if ($html) {
-	$res .= '<div class="advfrm-mailform">'."\n";
-	if (!$show_hidden) {
-	    $res .= ($html ? '<p>' : '').$ptx['message_sent_info'].($html ? '</p>' : '')."\n";
-	}
-	$res .= '<table>'."\n";
+    if ($html) {$res .= '<div class="advfrm-mailform">'."\n";}
+    if (!$show_hidden) {
+	$res .= $html
+		? '<p>'.$ptx['message_sent_info'].'</p>'."\n"
+		: strip_tags($ptx['message_sent_info'])."\n\n";
     }
+    if ($html) {$res .= '<table>'."\n";}
     foreach ($form['fields'] as $field) {
 	if (($field['type'] != 'hidden' || $show_hidden) && $field['type'] != 'output') {
 	    $name = 'advfrm-'.$field['field'];

@@ -4,11 +4,12 @@ Demo Forms
 Before testing the demo mail forms, change the receiver name and address
 to reasonable values and set the thanks page to an existing page in the form editor!
 
+
 Contact
 -------
 A typical contact mail form with some additional fields to demonstrate some
 possibilities of Advancedform_XH:
-- Phone is a custom field; it's value is checked against a custom 
+- Phone is a custom field; it's value is checked against a custom
 constraint (i.e. a regular expression)
 - The "...-Info" fields are for output of additional information only
 - The date field demonstrates the flexibility through the language strings
@@ -20,6 +21,7 @@ and the thanks page is shown. This will only work, if you have a toplevel page
 with the heading "Thank you". Otherwise change the thanks page in the form
 editor.
 
+
 Pizza
 -----
 An order form for a pizza service. It demonstrates the different option fields:
@@ -28,11 +30,13 @@ spam. As no "Thanks page" is defined, after submitting the form and sending
 the mail, no confirmation mail is sent. Instead the information is displayed
 on the same page.
 
+
 Calc
 ----
 A simple demonstration of the template system. Have a look at data/Calc.tpl,
 data/Calc.css and data/Calc.js to see how it works. This should give quite
 some flexibility, if JS is enabled in the visitors browser.
+
 
 Remko
 -----
@@ -42,12 +46,14 @@ extensively documented, so you might be able to change it to your needs
 even without knowledge of PHP.
 See also http://www.cmsimpleforum.com/viewtopic.php?f=12&t=3451&st=0&sk=t&sd=a&start=50#p22470.
 
+
 Pay_By
 ------
 A demonstration of using the custom thanks page hook to display
 different thank pages depending on the selected radiobutton.
 The hook is implemented in Remko.inc and is extensively documented,
 so you might be able to change it to your needs even without knowledge of PHP.
+
 
 Petition
 --------
@@ -65,3 +71,11 @@ function petition_count($form_name) {
 To display the count on a CMSimple page use something in the line of:
 
 Already {{{PLUGIN:petition_count('Petition');}}} petitors!
+
+
+Confirmation
+------------
+A demonstration of using the custom mail hook to modify the body of the confirmation mail.
+An arbitrary text, which can contain placeholders for the submitted data,
+is prepended to the standard mail. Additionally given fields can be removed
+from the mail.

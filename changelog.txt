@@ -14,6 +14,8 @@ cmb	added plugin icon
 cmb	fixed bug: form template CSS and JS files couldn't be read (reported by simmyne)
 cmb	improved styling of template CSS files
 cmb	added nl2br() to keep newlines visible in (X)HTML
+cmb	fixed bug: message_sent_info was not included in text mails
+cmb	added demo form "Confirmation"
 
 Version 1beta10 - released 2011-12-21
 cmb	fixed bug that treated multi select POST as string instead of array (reported by twc)
