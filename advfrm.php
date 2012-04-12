@@ -13,7 +13,6 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
-define('ADVFRM_VERSION', '1beta11');
 define('ADVFRM_DB_VERSION', 2);
 
 
