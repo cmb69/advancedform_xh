@@ -79,3 +79,9 @@ A demonstration of using the custom mail hook to modify the body of the confirma
 An arbitrary text, which can contain placeholders for the submitted data,
 is prepended to the standard mail. Additionally given fields can be removed
 from the mail.
+
+
+Memberpage
+----------
+A demonstration of using the advfrm_custom_field_default hook to automatically insert
+the name and mail address of a user logged in with Register or Memberpages.
