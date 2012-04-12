@@ -6,7 +6,7 @@ TODO
 	screenshots
 	better documentation for demo forms
 
-Version 1beta11 - released TODO
+Version 1beta11 - released 2012-04-12
 cmb	fixed bug which included empty CC and BCC headers in mails (reported by maeg)
 cmb	extended copyright to 2012
 cmb	added plugin icon
