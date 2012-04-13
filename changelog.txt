@@ -6,6 +6,10 @@ TODO
 	screenshots
 	better documentation for demo forms
 
+Version 1beta12 - released TODO
+cmb	added danish translation (contributed by maeg)
+cmb	updated resp. added latest jqueryui datepicker translations
+
 Version 1beta11 - released 2012-04-12
 cmb	fixed bug which included empty CC and BCC headers in mails (reported by maeg)
 cmb	extended copyright to 2012
