@@ -56,6 +56,17 @@ function advfrm_nl2br($string) {
 
 
 /**
+ * Returns string with two spaces inserted before all newlines (\r\n, \n\r, \n and \r).
+ *
+ * @param string $string
+ * @return string
+ */
+function advfrm_indent($string) {
+    return preg_replace('/(\r\n|\n\r|\n|\r)/su', '  $1', $string);
+}
+
+
+/**
  * Emits <script> to set the focus to the field with name $name.
  *
  * @param  string $form_id
@@ -410,7 +421,7 @@ function advfrm_mail_info($id, $show_hidden, $html) {
 		} else {
 		    $res .= $html
 			    ? advfrm_nl2br(htmlspecialchars(stsl($_POST[$name])))
-			    : '  '.stsl($_POST[$name])."\n";
+			    : '  '.advfrm_indent(stsl($_POST[$name]))."\n";
 		}
 	    } elseif (isset($_FILES[$name])) {
 		$res .= $html ? stsl($_FILES[$name]['name']) : '  '.stsl($_FILES[$name]['name'])."\n";
