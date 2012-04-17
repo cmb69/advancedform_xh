@@ -45,6 +45,17 @@ if (!function_exists('array_combine')) {
 
 
 /**
+ * Returns string with '<br />' resp. '<br>' inserted before all newlines (\r\n, \n\r, \n and \r).
+ *
+ * @param string $string
+ * @return string
+ */
+function advfrm_nl2br($string) {
+    return preg_replace('/(\r\n|\n\r|\n|\r)/su', tag('br').'$1', $string);
+}
+
+
+/**
  * Emits <script> to set the focus to the field with name $name.
  *
  * @param  string $form_id
@@ -398,7 +409,7 @@ function advfrm_mail_info($id, $show_hidden, $html) {
 		    }
 		} else {
 		    $res .= $html
-			    ? nl2br(htmlspecialchars(stsl($_POST[$name])), $cf['xhtml']['endtags'] == 'true')
+			    ? advfrm_nl2br(htmlspecialchars(stsl($_POST[$name])))
 			    : '  '.stsl($_POST[$name])."\n";
 		}
 	    } elseif (isset($_FILES[$name])) {
