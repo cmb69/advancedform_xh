@@ -56,13 +56,13 @@ function advfrm_nl2br($string) {
 
 
 /**
- * Returns string with two spaces inserted before all newlines (\r\n, \n\r, \n and \r).
+ * Returns string with two spaces inserted after all newlines (\r\n, \n\r, \n and \r).
  *
  * @param string $string
  * @return string
  */
 function advfrm_indent($string) {
-    return preg_replace('/(\r\n|\n\r|\n|\r)/su', '  $1', $string);
+    return preg_replace('/(\r\n|\n\r|\n|\r)/su', '$1  ', $string);
 }
 
 
