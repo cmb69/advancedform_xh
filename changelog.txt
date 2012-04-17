@@ -6,10 +6,11 @@ TODO
 	screenshots
 	better documentation for demo forms
 
-Version 1beta12 - released TODO
+Version 1beta12 - released 2012-04-17
 cmb	added danish translation (contributed by maeg)
 cmb	updated resp. added latest jqueryui datepicker translations
 cmb	fixed bug: no field values were sent in HTML mails with PHP < 5.3
+cmb	removed system check for OpenSSL, which is not used (reported by jwndev)
 
 Version 1beta11 - released 2012-04-12
 cmb	fixed bug which included empty CC and BCC headers in mails (reported by maeg)
