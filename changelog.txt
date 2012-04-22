@@ -5,6 +5,7 @@ TODO
 	log failed mails ???
 	screenshots
 	better documentation for demo forms
+	namespace css classes
 
 Version 1beta13 - released TODO
 cmb	fixed bug: multiple CAPTCHAs didn't work independently
