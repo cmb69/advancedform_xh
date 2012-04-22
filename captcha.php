@@ -13,11 +13,6 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
-if (!isset($_SESSION)) {
-    session_start();
-}
-
-
 /**
  * Returns the captcha code.
  *
@@ -44,11 +39,15 @@ function advancedform_captcha_display() {
     global $plugin_tx;
 
     $code = advfrm_captcha_code();
-    $_SESSION['advfrm_captcha'] = $code;
+    $_SESSION['advfrm_captcha_id'] = isset($_SESSION['advfrm_captcha_id'])
+	    ? $_SESSION['advfrm_captcha_id'] + 1 : 1;
+    $_SESSION['advfrm_captcha'][$_SESSION['advfrm_captcha_id']] = $code;
     return '<div class="captcha">'
 	    .'<span class="captcha-explanation">'.$plugin_tx['advancedform']['captcha_explanation'].'</span>'
 	    .'<span class="captcha">'.$code.'</span>'
-	    .tag('input type="text" name="advancedform-captcha"').'</div>'."\n";
+	    .tag('input type="text" name="advancedform-captcha"')
+	    .tag('input type="hidden" name="advancedform-captcha_id" value="'.$_SESSION['advfrm_captcha_id'].'"')
+	    .'</div>'."\n";
 }
 
 
@@ -59,7 +58,12 @@ function advancedform_captcha_display() {
  * @return bool
  */
 function advancedform_captcha_check() {
-    return stsl($_POST['advancedform-captcha']) == $_SESSION['advfrm_captcha'];
+    $ok = stsl($_POST['advancedform-captcha']) == $_SESSION['advfrm_captcha'][$_POST['advancedform-captcha_id']];
+    unset($_SESSION['advfrm_captcha'][$_POST['advancedform-captcha_id']]);
+    return $ok;
 }
+
+
+if (session_id() == '') {session_start();}
 
 ?>

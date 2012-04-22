@@ -6,6 +6,9 @@ TODO
 	screenshots
 	better documentation for demo forms
 
+Version 1beta13 - released TODO
+cmb	fixed bug: multiple CAPTCHAs didn't work independently
+
 Version 1beta12 - released 2012-04-17
 cmb	added danish translation (contributed by maeg)
 cmb	updated resp. added latest jqueryui datepicker translations
