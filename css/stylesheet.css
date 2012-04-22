@@ -13,13 +13,15 @@ div.advfrm-mailform {}
 
 div.advfrm-mailform table {
     margin-bottom: 1em;
+    border-collapse: collapse;
 }
 
 div.advfrm-mailform tr.hidden {
     display: none;
 }
 
-div.advfrm-mailform td.field {}
+div.advfrm-mailform td.label {padding-bottom: 0.3em}
+div.advfrm-mailform td.field {padding-bottom: 0.3em}
 
 div.advfrm-mailform td.field div.horz {
     float:left;
