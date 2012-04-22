@@ -20,7 +20,7 @@ var ADVFRM_PROP_ERROR_MSG = 4;
 
 
 /**
- * Returns wether type designates a selection field (select, checkbox or radio).
+ * Returns whether type designates a selection field (select, checkbox or radio).
  *
  * @param {String}  type
  * @return {boolean}
@@ -31,7 +31,7 @@ function advfrm_isSelect(type) {
 
 
 /**
- * Returns wether type designates is a select field.
+ * Returns whether type designates is a select field.
  *
  * @param {String}  type
  * @return {boolean}
@@ -42,7 +42,7 @@ function advfrm_isRealSelect(type) {
 
 
 /**
- * Returns wether type designates a multi selection field (select multiple or checkbox).
+ * Returns whether type designates a multi selection field (select multiple or checkbox).
  *
  * @param {String}  type
  * @return {boolean}

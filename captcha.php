@@ -52,7 +52,7 @@ function advancedform_captcha_display() {
 
 
 /**
- * Returns wether the correct captcha code was entered
+ * Returns whether the correct captcha code was entered
  * after the form containing the captcha was posted.
  *
  * @return bool

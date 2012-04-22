@@ -137,7 +137,7 @@ SCRIPT;
 
 
 /**
- * Returns wether $field is a selection field (select, checkbox or radio).
+ * Returns whether $field is a selection field (select, checkbox or radio).
  *
  * @param  array $field
  * @return bool
@@ -148,7 +148,7 @@ function advfrm_is_select($field) {
 
 
 /**
- * Returns wether $field is a select field.
+ * Returns whether $field is a select field.
  *
  * @param  array $field
  * @return bool
@@ -159,7 +159,7 @@ function advfrm_is_real_select($field) {
 
 
 /**
- * Returns wether $field is a multi selection field (select multiple or checkbox).
+ * Returns whether $field is a multi selection field (select multiple or checkbox).
  *
  * @param  array $field
  * @return bool
@@ -826,7 +826,7 @@ function advfrm_check($id) {
 
 /**
  * Sends the mail.
- * Returns wether that was successful.
+ * Returns whether that was successful.
  *
  * @param  string $id		 The form ID.
  * @param  bool   $confirmation

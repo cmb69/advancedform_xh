@@ -117,7 +117,7 @@ $plugin_tx['advancedform']['cf_mail_thanks_page']="Standard for nye forms";
 $plugin_tx['advancedform']['cf_mail_type']="Hvordan skal e-mail sendes fx. \"html\" eller \"tekst\".";
 $plugin_tx['advancedform']['cf_mail_regexp']="The regular expression to check for valid e-mail addresses. The default one is somewhat restrictive, see http://www.regular-expressions.info/email.html for further details.";
 $plugin_tx['advancedform']['cf_mail_line_ending_*nix']="Hvad enten * style line endings bør anvendes i mailen: \"1\" (ja) eller \"0\" (nej). Hvis afsendelse af mails ikke virker med standard, skal du prøve den anden.";
-$plugin_tx['advancedform']['cf_php_extension']="Wether the addtional extension .php should be used for template and hook files. \"1\" (yes) or \"0\" (no)";
+$plugin_tx['advancedform']['cf_php_extension']="Whether the addtional extension .php should be used for template and hook files. \"1\" (yes) or \"0\" (no)";
 $plugin_tx['advancedform']['cf_utf-8-marker']="Internal usage. <strong>Do not change!</strong>";
 
 ?>

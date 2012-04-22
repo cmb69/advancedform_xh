@@ -138,9 +138,9 @@ It must be unique for all defined forms. It is used to identify the form.</dd>
 <dt>BCC</dt>
 <dd>The addresses of the BCC recipients of the mail separated by semicolon.</dd>
 <dt>CAPTCHA</dt>
-<dd>Wether a CAPTCHA should be included in the form.</dd>
+<dd>Whether a CAPTCHA should be included in the form.</dd>
 <dt>Store data</dt>
-<dd>Wether the submitted data should additionally be stored in a csv file.</dd>
+<dd>Whether the submitted data should additionally be stored in a csv file.</dd>
 <dt>Thanks page</dt>
 <dd>If empty, after sending the mail the sent information will be displayed.
 If set and if a sender e-mail address is entered,
@@ -162,7 +162,7 @@ It is used to identify the field.</dd>
 <dd>The field's type. Right to the selectbox is the property tool icon.
 Click it to open a dialog for editing the properties of the selected field type.</dd>
 <dt>Req.</dt>
-<dd>Wether the field is required, i.e. must be filled in by the visitor.</dd>
+<dd>Whether the field is required, i.e. must be filled in by the visitor.</dd>
 </dl>
 
 <h4>Field types</h4>
@@ -217,7 +217,7 @@ The different field types have different properties that can be set.</p>
 <dd>For text fields and such, the width of the field measured in characters.
 For selectboxes the height of the list. Use 1 for a dropdown box.</dd>
 <dt>Orientation</dt>
-<dd>For radiobuttons and checkboxes only: wether these should be displayed horizontally or vertically.</dd>
+<dd>For radiobuttons and checkboxes only: whether these should be displayed horizontally or vertically.</dd>
 <dt>Max. length</dt>
 <dd>The maximum number of characters that can be entered.</dd>
 <dt>Cols</dt>
@@ -348,7 +348,7 @@ The third parameter is set for radiobuttons, checkboxes and selects only.
 It contains the option, that is currently processed.
 Return TRUE to check the option, FALSE to uncheck it,
 or NULL to use whatever was specified in the form editor.
-The parameter $is_resent tells wether the form was resent to the browser after submission,
+The parameter $is_resent tells whether the form was resent to the browser after submission,
 because of validation errors. If this is the case the values already entered
 by the user are sent back instead of the default values specified in the form editor.
 You might consider to return NULL in this case, to not overwrite the users input.</p>
@@ -368,7 +368,7 @@ but it can be downloaded from
 <a href="http://sourceforge.net/projects/phpmailer/files/phpmailer%20for%20php4/PHPMailer%20v2.0.4%20for%20PHP4/PHPMailer_v2.0.4.zip/download">
 Sourceforge</a>.
 The parameter $form_name specifies the currently processed form,
-and the parameter $is_confirmation specifies wether the $mail object contains
+and the parameter $is_confirmation specifies whether the $mail object contains
 the information for the mail or the confirmation mail (i.e. the response).
 If you want to suppress sending of the mail at all, just return FALSE.</p>
 <pre>function advfrm_custom_thanks_page($form_name, $fields)</pre>
