@@ -13,7 +13,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
-define('ADVFRM_VERSION', '1beta12');
+define('ADVFRM_VERSION', '1beta13');
 
 
 define('ADVFRM_DEBUG', FALSE); // RELEASE-TODO

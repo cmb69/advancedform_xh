@@ -9,6 +9,8 @@ TODO
 
 Version 1beta13 - released TODO
 cmb	fixed bug: multiple CAPTCHAs didn't work independently
+cmb	fixed bug: language strings mail_subject and mail_subject_confirmation were wrong
+cmb	made several minor improvements
 
 Version 1beta12 - released 2012-04-17
 cmb	added danish translation (contributed by maeg)
