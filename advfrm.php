@@ -905,12 +905,20 @@ function advfrm_mail($id, $confirmation) {
 	return TRUE;
     }
 
-    if(!$mail->Send()) {
+    $log = $mail->Subject;
+    if(!($ok = $mail->Send())) {
 	$e .= '<li>'.(!empty($mail->ErrorInfo) ? htmlspecialchars($mail->ErrorInfo) : $ptx['error_mail']).'</li>'."\n";
-	return FALSE;
+	$log = '----- '.$log."\t".$mail->ErrorInfo."\n".serialize($mail);
     } else {
-	return TRUE;
+	$log = '+++++ '.$log;
     }
+    $fn = advfrm_data_folder().'mail.log';
+    if (($fh = fopen($fn, 'a')) === FALSE
+	    || fwrite($fh, $log."\n") === FALSE) {
+	e('cntwriteto', 'log', $fn);
+    }
+    if ($fh !== FALSE) {fclose($fh);}
+    return $ok;
 }
 
 
