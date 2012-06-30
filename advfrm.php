@@ -288,7 +288,7 @@ function advfrm_update_lang_js() {
 		} else {
 		    $js .= ','."\n";
 		}
-		$js .= '    \''.$key.'\': \''.addslashes($msg).'\'';
+		$js .= '    \''.$key.'\': \''.addcslashes($msg, "\t\n\r\"\'\\").'\'';
 	    }
 	}
 	$js .= "\n".'};'."\n";
@@ -518,6 +518,7 @@ function advfrm_display_field($form_id, $field) {
 	$brackets = $is_multi ? '[]' : '';
 	if ($is_real_select) {
 	    $size = array_shift($props);
+	    array_unshift($props, (strpos($field['props'], "\xE2\x97\x8F") === FALSE ? "\xE2\x97\x8F" : '').'');
 	    $size = empty($size) ? '' : ' size="'.$size.'"';
 	    $multi = $is_multi ? ' multiple="multiple"' : '';
 	    $htm .= '<select id="'.$id.'" name="'.$name.$brackets.'"'.$size.$multi.'>';
@@ -725,8 +726,9 @@ function advfrm_check($id) {
     $form = $forms[$id];
     foreach ($form['fields'] as $field) {
 	$name = 'advfrm-'.$field['field'];
-	if ($field['type'] != 'file' && empty($_POST[$name])
-		|| $field['type'] == 'file' && empty($_FILES[$name]['name'])) {
+	if ($field['type'] != 'file' && $field['type'] != 'multi_select' && empty($_POST[$name])
+		|| $field['type'] == 'file' && empty($_FILES[$name]['name'])
+		|| $field['type'] == 'multi_select' && count($_POST[$name]) == 1 && empty($_POST[$name][0])) {
 	    if ($field['required']) {
 		$res .= '<li>'.sprintf($ptx['error_missing_field'],
 			htmlspecialchars($field['label'])).'</li>'."\n";

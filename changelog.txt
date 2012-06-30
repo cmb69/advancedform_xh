@@ -2,14 +2,17 @@ TODO
 	store headers in csv?
 	translation-hints
 	change hook system (unique names, but drop $form_name param) ???
-	log failed mails ???
 	screenshots
 	better documentation for demo forms
 	namespace css classes
 
+	document mail.log
+
 Version 1beta13 - released TODO
 cmb	fixed bug: multiple CAPTCHAs didn't work independently
 cmb	fixed bug: language strings mail_subject and mail_subject_confirmation were wrong
+cmb	fixed bug:
+cmb	added logging of mails in mail.log
 cmb	made several minor improvements
 
 Version 1beta12 - released 2012-04-17
