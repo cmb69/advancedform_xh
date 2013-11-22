@@ -3,7 +3,7 @@
 /**
  * Front-end of Advancedform_XH.
  * Copyright (c) 2005-2010 Jan Kanters
- * Copyright (c) 2011-2012 Christoph M. Becker (see license.txt)
+ * Copyright (c) 2011-2013 Christoph M. Becker (see license.txt)
  */
 
 

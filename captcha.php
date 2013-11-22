@@ -3,7 +3,7 @@
 /**
  * Minimal built-in captcha of Advancedform_XH.
  *
- * Copyright (c) 2011-2012 Christoph M. Becker (see license.txt)
+ * Copyright (c) 2011-2013 Christoph M. Becker (see license.txt)
  */
 
 

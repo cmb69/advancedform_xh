@@ -3,7 +3,7 @@
 /**
  * Back-end functionality of Advancedform_XH.
  * Copyright (c) 2005-2010 Jan Kanters
- * Copyright (c) 2011-2012 Christoph M. Becker (see license.txt)
+ * Copyright (c) 2011-2013 Christoph M. Becker (see license.txt)
  */
 
 
@@ -29,7 +29,7 @@ function advfrm_version() {
 	    .' height="128" alt="Plugin icon" class="advancedform_plugin_icon"')."\n"
 	    .'<p>Version: '.ADVFRM_VERSION.'</p>'."\n"
 	    .'<p>Copyright &copy; 2005-2010 <a href="http://www.jat-at-home.be/">Jan Kanters</a>'.tag('br')
-	    .'Copyright &copy; 2011-2012 <a href="http://3-magi.net">Christoph M. Becker</a></p>'."\n"
+	    .'Copyright &copy; 2011-2013 <a href="http://3-magi.net">Christoph M. Becker</a></p>'."\n"
 	    .'<p>Advancedform_XH is powered by '
 	    .'<a href="http://www.cmsimple-xh.com/wiki/doku.php/plugins:jquery4cmsimple" target="_blank">'
 	    .'jQuery4CMSimple</a>'
