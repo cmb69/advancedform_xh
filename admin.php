@@ -27,7 +27,7 @@ function advfrm_version() {
     return '<h1><a href="http://3-magi.net/?CMSimple_XH/Advancedform_XH">Advancedform_XH</a></h1>'."\n"
 	    .tag('img src="'.$pth['folder']['plugins'].'advancedform/advancedform.png" width="128"'
 	    .' height="128" alt="Plugin icon" class="advancedform_plugin_icon"')."\n"
-	    .'<p>Version: '.ADVFRM_VERSION.'</p>'."\n"
+	    .'<p>Version: '.ADVANCEDFORM_VERSION.'</p>'."\n"
 	    .'<p>Copyright &copy; 2005-2010 <a href="http://www.jat-at-home.be/">Jan Kanters</a>'.tag('br')
 	    .'Copyright &copy; 2011-2013 <a href="http://3-magi.net">Christoph M. Becker</a></p>'."\n"
 	    .'<p>Advancedform_XH is powered by '
