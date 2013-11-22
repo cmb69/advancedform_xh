@@ -22,7 +22,7 @@
     </target>
 
     <target name="compat">
-        <exec command="phpcompatinfo --configuration phpcompatinfo.xml print --exclude-pattern polyglott ."
+        <exec command="phpcompatinfo --configuration phpcompatinfo.xml print --exclude-pattern advancedform ."
               logoutput="true"/>
     </target>
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phpcompatinfo reference="ALL"
+               report="summary"
+               reportFileAppend="false"
+               cacheDriver="file"
+               recursive="true"
+               fileExtensions="php, htm"
+               consoleProgress="false"
+               verbose="false">
+
+    <excludes>
+        <exclude id="advancedform">
+            <directory name="config"/>
+            <directory name="css"/>
+            <directory name="data"/>
+            <directory name="help"/>
+            <directory name="images"/>
+            <directory name="languages"/>
+            
+            <!-- we have a fallback definition -->
+            <function name="array_combine"/>
+            <!-- only because of $recursive parameter -->
+            <function name="mkdir"/> 
+            
+            <!-- PHPMailer, but not used -->
+            <extension name="openssl"/>
+            <function name="openssl_error_string"/>
+            <function name="openssl_pkcs7_sign"/>
+        </exclude>
+    </excludes>
+</phpcompatinfo>

@@ -66,7 +66,7 @@ function advancedform_system_check() { // RELEASE-TODO
 	    .(version_compare(PHP_VERSION, ADVFRM_PHP_VERSION) >= 0 ? $ok : $fail)
 	    .'&nbsp;&nbsp;'.sprintf($ptx['syscheck_phpversion'], ADVFRM_PHP_VERSION)
 	    .tag('br').tag('br')."\n";
-    foreach (array('ctype', 'date', 'mbstring', 'pcre', 'session') as $ext) {
+    foreach (array('ctype', 'mbstring', 'pcre', 'session') as $ext) {
 	$htm .= (extension_loaded($ext) ? $ok : $fail)
 		.'&nbsp;&nbsp;'.sprintf($ptx['syscheck_extension'], $ext).tag('br')."\n";
     }

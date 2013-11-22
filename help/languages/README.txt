@@ -1,0 +1,7 @@
+Important hint for translators
+------------------------------
+
+Many translations of jquery.ui.datepicker-XX.js are already available on
+http://jquery-ui.googlecode.com/svn/trunk/ui/i18n/
+
+So it's probably not necessary to translate the file yourself.
