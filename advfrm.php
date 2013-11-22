@@ -737,7 +737,7 @@ function advfrm_check($id) {
 	} else {
 	    switch ($field['type']) {
 		case 'from':
-		case 'email':
+		case 'mail':
 		    if (!preg_match($pcf['mail_regexp'], stsl($_POST[$name]))) {
 			$res .= '<li>'.sprintf($ptx['error_invalid_email'],
 				htmlspecialchars($field['label'])).'</li>'."\n";
