@@ -13,8 +13,8 @@ $plugin_tx['advancedform']['contact_form']="";
 
 $plugin_tx['advancedform']['menu_main']="Formulaires courriel";
 
-$plugin_tx['advancedform']['mail_subject']="%1s sur %2s envoyé de %3s";
-$plugin_tx['advancedform']['mail_subject_confirmation']="%1s de %2s";
+$plugin_tx['advancedform']['mail_subject']="%1\$s sur %2\$s envoyé de %3\$s";
+$plugin_tx['advancedform']['mail_subject_confirmation']="%1\$s de %2\$s";
 
 $plugin_tx['advancedform']['captcha_explanation']="Veuillez encoder les chiffres affichés:";
 

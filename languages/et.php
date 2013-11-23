@@ -10,14 +10,14 @@
 	$plugin_tx['advancedform']['syscheck_writable']="Kaust '%s' on kirjutatav";
 	$plugin_tx['advancedform']['contact_form']="";
 	$plugin_tx['advancedform']['menu_main']="Kirja vormid";
-	$plugin_tx['advancedform']['mail_subject']="%1s -l %2s saadeti %3s poolt";
-	$plugin_tx['advancedform']['mail_subject_confirmation']="%1s saatjalt %2s";
+	$plugin_tx['advancedform']['mail_subject']="%1\$s -l %2\$s saadeti %3\$s poolt";
+	$plugin_tx['advancedform']['mail_subject_confirmation']="%1\$s saatjalt %2\$s";
 	$plugin_tx['advancedform']['captcha_explanation']="Palun sisesta toodud numbrid:";
 	$plugin_tx['advancedform']['date_order']="dmy";
 	$plugin_tx['advancedform']['date_delimiter']="/";
 	$plugin_tx['advancedform']['message_confirm_delete']="Vorm ja kõik selles sisalduv info kusutatakse!";
 	$plugin_tx['advancedform']['message_confirm_export']="Võimalik, et olemasolev %s.frm fail kirjutatakse üle!";
-	$plugin_tx['advancedform']['message_confirm_template']="Võimalik, et olemasolev %1-1.tpl ja %1-1.css fail kirjutatakse üle!";
+	$plugin_tx['advancedform']['message_confirm_template']="Võimalik, et olemasolev %\$1s.tpl ja %1\$s.css fail kirjutatakse üle!";
 	$plugin_tx['advancedform']['message_sent_info']="Täname Teid vormi täitmise eest. Saadeti järgnev informatsioon:";
 	$plugin_tx['advancedform']['message_required_field']="nõutud väljad";
 	$plugin_tx['advancedform']['message_required_fields']="Palun täitke kõik %s!";
@@ -86,7 +86,7 @@
 	$plugin_tx['advancedform']['error_invalid_date']="Väli '%s' ei sisalda korrektset kuupäeva!";
 	$plugin_tx['advancedform']['error_invalid_custom']="Välja '%s' sisu pole lubatud!";
 	$plugin_tx['advancedform']['error_upload_too_large']="Väljale '%s' lisatud fail on liiga suur!";
-	$plugin_tx['advancedform']['error_upload_illegal_ftype']="Faili tüüpi '%2-1' väljal '%1-1' ei saa lisada!";
+	$plugin_tx['advancedform']['error_upload_illegal_ftype']="Faili tüüpi '%2\$s'väljal '%1\$s' ei saa lisada!";
 	$plugin_tx['advancedform']['error_upload_general']="Välja '%s' faili ei saa lisada!";
 	$plugin_tx['advancedform']['error_captcha_code']="Vale CAPTCHA kood!";
 	$plugin_tx['advancedform']['error_form_exists']="Selle nimega vorm on juba olemas!";

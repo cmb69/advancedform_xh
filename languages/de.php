@@ -13,8 +13,8 @@ $plugin_tx['advancedform']['contact_form']="";
 
 $plugin_tx['advancedform']['menu_main']="E-Mail-Formulare";
 
-$plugin_tx['advancedform']['mail_subject']="%1s auf %2s gesendet von %3s";
-$plugin_tx['advancedform']['mail_subject_confirmation']="%1s von %2s";
+$plugin_tx['advancedform']['mail_subject']="%1\$s auf %2\$s gesendet von %3\$s";
+$plugin_tx['advancedform']['mail_subject_confirmation']="%1\$s von %2\$s";
 
 $plugin_tx['advancedform']['captcha_explanation']="Bitte geben sie zusätzlich die angezeigten Ziffern ein:";
 
