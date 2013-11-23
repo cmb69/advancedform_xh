@@ -276,6 +276,26 @@ function Advancedform_dataFolder()
 }
 
 /**
+ * Returns the remaining contents of a stream.
+ *
+ * @param resource $stream An open stream.
+ *
+ * @return string
+ */
+function Advancedform_getStreamContents($stream)
+{
+    $func = 'stream_get_contents';
+    if (function_exists($func)) {
+        $contents = $func($stream);
+    } else {
+        ob_start();
+        fpassthru($stream);
+        $contents = ob_get_clean();
+    }
+    return $contents;
+}
+
+/**
  * Reads a file and returns its contents; <var>false</var> on failure.
  * During reading, the file is locked for shared access.
  *
@@ -289,7 +309,7 @@ function Advancedform_readFile($filename)
     $stream = fopen($filename, 'rb');
     if ($stream) {
         if (flock($stream, LOCK_SH)) {
-            $contents = XH_getStreamContents($stream);
+            $contents = Advancedform_getStreamContents($stream);
             flock($stream, LOCK_UN);
         }
         fclose($stream);
@@ -921,7 +941,7 @@ function Advancedform_formView($id)
     Advancedform_initJQuery();
     $o = '';
     $o .= '<div class="advfrm-mailform">' . PHP_EOL
-        '<form name="' . $id . '" action="' . $sn . '?' . $su . '" method="post"'
+        . '<form name="' . $id . '" action="' . $sn . '?' . $su . '" method="post"'
         . ' enctype="multipart/form-data" accept-charset="UTF-8">' . PHP_EOL
         . tag('input type="hidden" name="advfrm" value="'.$id.'"') . PHP_EOL
         . '<div class="required">'
