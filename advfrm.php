@@ -71,7 +71,7 @@ define('ADVFRM_PROP_CONSTRAINT', 3);
 define('ADVFRM_PROP_ERROR_MSG', 4);
 
 /**
- * Returns a new as with array_combine().
+ * Returns a new array as with {@link array_combine array_combine()}.
  * 
  * @param array $array1 An array.
  * @param array $array2 An array.
