@@ -407,6 +407,18 @@ function Advancedform_updatedDb($forms)
 }
 
 /**
+ * Escapes a JS string.
+ *
+ * @param string $string A string.
+ *
+ * @return string
+ */
+function Advancedform_escapeJsString($string)
+{
+    return addcslashes($string, "\t\n\r\"\'\\");
+}
+
+/**
  * Updates the LANG.js file if necessary, with the strings from LANG.php.
  * Returns false on failure.
  *
@@ -443,7 +455,7 @@ function Advancedform_updateLangJs()
                     $js .= ',' . PHP_EOL;
                 }
                 $js .= '    \'' . $key . '\': \''
-                    . addcslashes($msg, "\t\n\r\"\'\\") . '\'';
+                    . Advancedform_escapeJsString($msg) . '\'';
             }
         }
         $js .= PHP_EOL . '};' . PHP_EOL;

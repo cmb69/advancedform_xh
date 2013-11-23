@@ -209,15 +209,14 @@ function Advancedform_formsAdministration()
         if ($id != '%VERSION%') {
             $href = $sn . '?advancedform&amp;admin=plugin_main&amp;action=%s'
                 . '&amp;form=' . $id;
-            // FIXME: addslashes should be addcslashes!
             $o .= '<tr>'
                 . '<td class="tool"><a href="' . sprintf($href, 'delete') . '"'
                 . ' onclick="return confirm(\''
-                . addslashes($ptx['message_confirm_delete'])
+                . Advancedform_escapeJsString($ptx['message_confirm_delete'])
                 . '\')">' . Advancedform_toolIcon('delete') . '</a></td>'
                 . '<td class="tool"><a href="' . sprintf($href, 'template') . '"'
                 . ' onclick="return confirm(\''
-                . addslashes(
+                . Advancedform_escapeJsString(
                     sprintf($ptx['message_confirm_template'], $form['name'])
                 )
                 . '\')">' . Advancedform_toolIcon('template') . '</a></td>'
@@ -225,7 +224,9 @@ function Advancedform_formsAdministration()
                 . Advancedform_toolIcon('copy') . '</a></td>'
                 . '<td class="tool"><a href="' . sprintf($href, 'export') . '"'
                 . ' onclick="return confirm(\''
-                . addslashes(sprintf($ptx['message_confirm_export'], $form['name']))
+                . Advancedform_escapeJsString(
+                    sprintf($ptx['message_confirm_export'], $form['name'])
+                )
                 . '\')">' . Advancedform_toolIcon('export') . '</a></td>'
                 . '<td class="name"><a href="' . sprintf($href, 'edit') . '" title="'
                 . ucfirst($tx['action']['edit']) . '">' . $id . '</a></td>'
