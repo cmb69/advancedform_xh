@@ -1,6 +1,6 @@
 TODO
 
-implement minimal file locking
+	document mail.log
 
 
 	store headers in csv?
@@ -10,7 +10,6 @@ implement minimal file locking
 	better documentation for demo forms
 	namespace css classes
 
-	document mail.log
 
 Version 1beta13 - released TODO
 cmb	fixed bug: multiple CAPTCHAs didn't work independently

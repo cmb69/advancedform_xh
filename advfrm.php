@@ -276,6 +276,56 @@ function Advancedform_dataFolder()
 }
 
 /**
+ * Reads a file and returns its contents; <var>false</var> on failure.
+ * During reading, the file is locked for shared access.
+ *
+ * @param string $filename A file path.
+ *
+ * @return string
+ */
+function Advancedform_readFile($filename)
+{
+    $contents = false;
+    $stream = fopen($filename, 'rb');
+    if ($stream) {
+        if (flock($stream, LOCK_SH)) {
+            $contents = XH_getStreamContents($stream);
+            flock($stream, LOCK_UN);
+        }
+        fclose($stream);
+    }
+    return $contents;
+}
+
+/**
+ * Writes <var>$contents</var> to the file <var>$filename</var>.
+ * During writing the file is locked exclusively.
+ *
+ * @param string $filename The filename.
+ * @param string $contents The content to write.
+ *
+ * @return int The number of bytes written, or false on failure.
+ */
+function Advancedform_writeFile($filename, $contents)
+{
+    $res = false;
+    // we can't use "cb" as it is available only since PHP 5.2.6
+    // we can't use "r+b" as it will fail if the file does not already exist
+    $stream = fopen($filename, 'a+b');
+    if ($stream) {
+        if (flock($stream, LOCK_EX)) {
+            fseek($stream, 0);
+            ftruncate($stream, 0);
+            $res = fwrite($stream, $contents);
+            fflush($stream);
+            flock($stream, LOCK_UN);
+        }
+        fclose($stream);
+    }
+    return $res;
+}
+
+/**
  * Returns the form database, if $forms is omitted.
  * Otherwise writes $forms as form database.
  *
@@ -290,22 +340,16 @@ function Advancedform_db($forms = null)
     if (isset($forms)) { // write
         ksort($forms);
         $fn = Advancedform_dataFolder() . 'forms.dat';
-        if (!($fh = fopen($fn, 'w')) || fwrite($fh, serialize($forms)) === false) {
+        $contents = serialize($forms);
+        if (!Advancedform_writeFile($fn, $contents)) {
             e('cntwriteto', 'file', $fn);
-        }
-        if ($fh) {
-            fclose($fh);
         }
         $db = $forms;
     } else {  // read
         if (!isset($db)) {
             $fn = Advancedform_dataFolder() . 'forms.dat';
-            if (($cnt = file_get_contents($fn)) !== false) {
-                $res = unserialize($cnt);
-            } else {
-                $res = false;
-            }
-            $db = $res !== false ? $res : array();
+            $contents = Advancedform_readFile($fn);
+            $db = ($contents !== false) ? unserialize($contents) : array();
             if (empty($db['%VERSION%'])) {
                 $db['%VERSION%'] = 0;
             }
