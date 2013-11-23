@@ -65,7 +65,7 @@ It's easy to display the count of already gathered submissions.
 Just put the following function into cmsimple/userfuncs.php:
 
 function petition_count($form_name) {
-    return count(advfrm_read_csv($form_name));
+    return count(Advancedform_readCsv($form_name));
 }
 
 To display the count on a CMSimple page use something in the line of:

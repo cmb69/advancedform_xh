@@ -1,609 +1,796 @@
 <?php
 
 /**
- * Back-end functionality of Advancedform_XH.
- * Copyright (c) 2005-2010 Jan Kanters
- * Copyright (c) 2011-2013 Christoph M. Becker (see license.txt)
+ * Administration of Advancedform_XH.
+ *
+ * PHP versions 4 and 5
+ *
+ * @category  CMSimple_XH
+ * @package   Advancedform
+ * @author    Christoph M. Becker <cmbecker69@gmx.de>
+ * @copyright 2005-2010 Jan Kanters
+ * @copyright 2011-2013 Christoph M. Becker <http://3-magi.net>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version   SVN: $Id$
+ * @link      http://3-magi.net/?CMSimple_XH/Advancedform_XH
  */
 
-
+/*
+ * Prevent direct access.
+ */
 if (!defined('CMSIMPLE_XH_VERSION')) {
     header('HTTP/1.0 403 Forbidden');
     exit;
 }
 
-
-include_once $pth['folder']['plugins'].'advancedform/advfrm.php';
+/**
+ * The main functionality.
+ */
+require_once $pth['folder']['plugins'].'advancedform/advfrm.php';
 
 
 /**
- * Returns (x)html plugin version information.
+ * Returns the plugin version information.
+ * 
+ * @return string (X)HTML
  *
- * @return string
+ * @global array The paths of system files and folders.
  */
-function advfrm_version() {
+function Advancedform_version()
+{
     global $pth;
 
-    return '<h1><a href="http://3-magi.net/?CMSimple_XH/Advancedform_XH">Advancedform_XH</a></h1>'."\n"
-	    .tag('img src="'.$pth['folder']['plugins'].'advancedform/advancedform.png" width="128"'
-	    .' height="128" alt="Plugin icon" class="advancedform_plugin_icon"')."\n"
-	    .'<p>Version: '.ADVANCEDFORM_VERSION.'</p>'."\n"
-	    .'<p>Copyright &copy; 2005-2010 <a href="http://www.jat-at-home.be/">Jan Kanters</a>'.tag('br')
-	    .'Copyright &copy; 2011-2013 <a href="http://3-magi.net">Christoph M. Becker</a></p>'."\n"
-	    .'<p>Advancedform_XH is powered by '
-	    .'<a href="http://www.cmsimple-xh.com/wiki/doku.php/plugins:jquery4cmsimple" target="_blank">'
-	    .'jQuery4CMSimple</a>'
-	    .' and <a href="http://phpmailer.worxware.com/" target"_blank">PHPMailer</a>.</p>'."\n"
-	    .'<p class="advancedform_license">This program is free software: you can redistribute it and/or modify'
-	    .' it under the terms of the GNU General Public License as published by'
-	    .' the Free Software Foundation, either version 3 of the License, or'
-	    .' (at your option) any later version.</p>'."\n"
-	    .'<p class="advancedform_license">This program is distributed in the hope that it will be useful,'
-	    .' but WITHOUT ANY WARRANTY; without even the implied warranty of'
-	    .' MERCHAN&shy;TABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the'
-	    .' GNU General Public License for more details.</p>'."\n"
-	    .'<p class="advancedform_license">You should have received a copy of the GNU General Public License'
-	    .' along with this program.  If not, see'
-	    .' <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>'."\n";
+    $o = '<h1><a href="http://3-magi.net/?CMSimple_XH/Advancedform_XH">'
+        . 'Advancedform_XH</a></h1>' . PHP_EOL
+        . tag(
+            'img src="'.$pth['folder']['plugins'].'advancedform/advancedform.png"'
+            . ' width="128" height="128" alt="Plugin icon"'
+            . ' class="advancedform_plugin_icon"'
+        ) . PHP_EOL
+        . '<p>Version: ' . ADVANCEDFORM_VERSION . '</p>' . PHP_EOL
+        . '<p>Copyright &copy; 2005-2010 Jan Kanters' . tag('br')
+        . 'Copyright &copy; 2011-2013 <a href="http://3-magi.net">'
+        . 'Christoph M. Becker</a></p>' . PHP_EOL
+        . '<p>Advancedform_XH is powered by <a'
+        . ' href=" http://www.cmsimple-xh.com/wiki/doku.php/plugins:jquery4cmsimple"'
+        . ' target="_blank">jQuery4CMSimple</a>'
+        . ' and <a href="http://phpmailer.worxware.com/" target="_blank">'
+        . 'PHPMailer</a>.</p>' . PHP_EOL
+        . '<p class="advancedform_license">This program is free software:'
+        . ' you can redistribute it and/or modify'
+        . ' it under the terms of the GNU General Public License as published by'
+        . ' the Free Software Foundation, either version 3 of the License, or'
+        . ' (at your option) any later version.</p>' . PHP_EOL
+        . '<p class="advancedform_license">This program is distributed'
+        . ' in the hope that it will be useful,'
+        . ' but WITHOUT ANY WARRANTY; without even the implied warranty of'
+        . ' MERCHAN&shy;TABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the'
+        . ' GNU General Public License for more details.</p>' . PHP_EOL
+        . '<p class="advancedform_license">You should have received'
+        . ' a copy of the GNU General Public License along with this program.'
+        . ' If not, see'
+        . ' <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>'
+        . '</p>' . PHP_EOL;
+    return $o;
 }
-
 
 /**
  * Returns requirements information.
  *
- * @return string
+ * @return string (X)HTML
+ *
+ * @global array The paths of system files and folders.
+ * @global array The configuration of the plugins.
+ * @global array The localization of the core.
+ * @global array The localization of the plugins.
  */
-function advancedform_system_check() { // RELEASE-TODO
-    global $pth, $tx, $plugin_tx, $plugin_cf;
+function Advancedform_systemCheck()
+{
+    global $pth, $plugin_cf, $tx, $plugin_tx;
 
     define('ADVFRM_PHP_VERSION', '4.3.0');
     $ptx = $plugin_tx['advancedform'];
-    $imgdir = $pth['folder']['plugins'].'advancedform/images/';
-    $ok = tag('img src="'.$imgdir.'ok.png" alt="ok"');
-    $warn = tag('img src="'.$imgdir.'warn.png" alt="warning"');
-    $fail = tag('img src="'.$imgdir.'fail.png" alt="failure"');
-    $htm = tag('hr').'<h4>'.$ptx['syscheck_title'].'</h4>'
-	    .(version_compare(PHP_VERSION, ADVFRM_PHP_VERSION) >= 0 ? $ok : $fail)
-	    .'&nbsp;&nbsp;'.sprintf($ptx['syscheck_phpversion'], ADVFRM_PHP_VERSION)
-	    .tag('br').tag('br')."\n";
+    $imgdir = $pth['folder']['plugins'] . 'advancedform/images/';
+    $ok = tag('img src="' . $imgdir . 'ok.png" alt="ok"');
+    $warn = tag('img src="' . $imgdir . 'warn.png" alt="warning"');
+    $fail = tag('img src="' . $imgdir . 'fail.png" alt="failure"');
+    $o = tag('hr') . '<h4>' . $ptx['syscheck_title'] . '</h4>'
+        . (version_compare(PHP_VERSION, ADVFRM_PHP_VERSION) >= 0 ? $ok : $fail)
+        . '&nbsp;&nbsp;' . sprintf($ptx['syscheck_phpversion'], ADVFRM_PHP_VERSION)
+        . tag('br') . tag('br') . PHP_EOL;
     foreach (array('ctype', 'mbstring', 'pcre', 'session') as $ext) {
-	$htm .= (extension_loaded($ext) ? $ok : $fail)
-		.'&nbsp;&nbsp;'.sprintf($ptx['syscheck_extension'], $ext).tag('br')."\n";
+        $o .= (extension_loaded($ext) ? $ok : $fail)
+            . '&nbsp;&nbsp;' . sprintf($ptx['syscheck_extension'], $ext)
+            . tag('br') . PHP_EOL;
     }
-    $htm .= tag('br').(strtoupper($tx['meta']['codepage']) == 'UTF-8' ? $ok : $warn)
-	    .'&nbsp;&nbsp;'.$ptx['syscheck_encoding'].tag('br')."\n";
-    $htm .= (!get_magic_quotes_runtime() ? $ok : $warn)
-	    .'&nbsp;&nbsp;'.$ptx['syscheck_magic_quotes'].tag('br')."\n";
-    $htm .= (file_exists($pth['folder']['plugins'].'jquery/jquery.inc.php') ? $ok : $fail)
-	    .'&nbsp;&nbsp;'.$ptx['syscheck_jquery'].tag('br')."\n";
-    $htm .= (file_exists($pth['folder']['plugins'].$plugin_cf['advancedform']['captcha_plugin'].'/captcha.php') ? $ok : $warn)
-	    .'&nbsp;&nbsp;'.$ptx['syscheck_captcha_plugin'].tag('br').tag('br')."\n";
+    $o .= tag('br') . (strtoupper($tx['meta']['codepage']) == 'UTF-8' ? $ok : $warn)
+        . '&nbsp;&nbsp;' . $ptx['syscheck_encoding'] . tag('br') . PHP_EOL;
+    $o .= (!get_magic_quotes_runtime() ? $ok : $warn)
+        . '&nbsp;&nbsp;' . $ptx['syscheck_magic_quotes'] . tag('br') . PHP_EOL;
+    $filename = $pth['folder']['plugins'] . 'jquery/jquery.inc.php';
+    $o .= (file_exists($filename) ? $ok : $fail)
+        . '&nbsp;&nbsp;' . $ptx['syscheck_jquery'] . tag('br') . PHP_EOL;
+    $filename = $pth['folder']['plugins']
+        . $plugin_cf['advancedform']['captcha_plugin'] . '/captcha.php';
+    $o .= (file_exists($filename) ? $ok : $warn)
+        . '&nbsp;&nbsp;' . $ptx['syscheck_captcha_plugin']
+        . tag('br') . tag('br') . PHP_EOL;
     foreach (array('config/', 'css/', 'languages/') as $folder) {
-	$folders[] = $pth['folder']['plugins'].'advancedform/'.$folder;
+        $folders[] = $pth['folder']['plugins'] . 'advancedform/' . $folder;
     }
-    $folders[] = advfrm_data_folder();
+    $folders[] = Advancedform_dataFolder();
     foreach ($folders as $folder) {
-	$htm .= (is_writable($folder) ? $ok : $warn)
-		.'&nbsp;&nbsp;'.sprintf($ptx['syscheck_writable'], $folder).tag('br')."\n";
+        $o .= (is_writable($folder) ? $ok : $warn)
+            . '&nbsp;&nbsp;' . sprintf($ptx['syscheck_writable'], $folder)
+            . tag('br') . PHP_EOL;
     }
-    return $htm;
+    return $o;
 }
 
-
 /**
- * Returns <img> element for the tool $name.
+ * Returns the IMG element for the tool $name.
  *
- * @param  string $name  The tool's name
- * @return string
+ * @param string $name A tool's name.
+ * 
+ * @return string (X)HTML.
+ *
+ * @global array The paths of system files and folders.
+ * @global array The localization of the plugins.
  */
-function advfrm_tool_icon($name) {
+function Advancedform_toolIcon($name)
+{
     global $pth, $plugin_tx;
 
     $ptx = $plugin_tx['advancedform'];
 
-    return tag('img src="'.$pth['folder']['plugins'].'advancedform/images/'.$name.'.gif"'
-	    .' alt="'.$ptx['tool_'.$name].'" title="'.$ptx['tool_'.$name].'"');
+    $src = $pth['folder']['plugins'] . 'advancedform/images/' . $name . '.gif';
+    $title = $ptx['tool_'.$name];
+    return tag(
+        'img src="' . $src . '"' . ' alt="' . $title . '" title="' . $title . '"'
+    );
 }
 
-
 /**
- * Returns a selectbox with all CMSimple pages of the current language/subsite.
+ * Returns a selectbox with all  pages of the current language/subsite.
  *
- * @param string $name  The name and id of the select.
- * @param string $selected  The url of the thanks page.
- * @return string
+ * @param string $name     Name and id of the select.
+ * @param string $selected URL of the thanks page.
+ * 
+ * @return string (X)HTML.
+ *
+ * @global int    The number of pages.
+ * @global array  The page headings.
+ * @global array  The page URLs.
+ * @global array  The page levels.
+ * @global string The script name.
  */
-function advfrm_page_select($name, $selected) {
+function Advancedform_pageSelect($name, $selected)
+{
     global $cl, $h, $u, $l, $sn;
 
-    $htm = '<select id="'.$name.'" name="'.$name.'">'."\n";
-    $sel = $selected == '' ? ' selected="selected"' : '';
-    $htm .= '<option value=""'.$sel.'></option>'."\n";
+    $o = '<select id="' . $name . '" name="' . $name . '">' . PHP_EOL;
+    $sel = ($selected == '') ? ' selected="selected"' : '';
+    $o .= '<option value=""' . $sel . '></option>' . PHP_EOL;
     for ($i = 0; $i < $cl; $i++) {
-	$sel = $u[$i] == $selected ? ' selected="selected"' : '';
-	$htm .= '<option value="'.$u[$i].'"'.$sel.'>'.str_repeat('&nbsp;&nbsp;', $l[$i]-1).$h[$i].'</option>'."\n";
+        $sel = ($u[$i] == $selected) ? ' selected="selected"' : '';
+        $o .= '<option value="' . $u[$i] . '"' . $sel . '>'
+            . str_repeat('&nbsp;&nbsp;', $l[$i] - 1) . $h[$i] . '</option>'
+            . PHP_EOL;
     }
-    $htm .= '</select>'."\n";
-    return $htm;
+    $o .= '</select>' . PHP_EOL;
+    return $o;
 }
 
-
 /**
- * Returns (x)html of the mail forms administration.
+ * Returns the mail forms administration.
  *
- * @return string
+ * @return string (X)HTML.
+ *
+ * @global string The script name.
+ * @global array  The localization of the core.
+ * @global array  The localization of the plugins.
  */
-function advfrm_admin_default() {
+function Advancedform_formsAdministration()
+{
     global $sn, $tx, $plugin_tx;
 
     $ptx = $plugin_tx['advancedform'];
 
-    $forms = advfrm_db();
-    $htm = '<div id="advfrm-form-list">'."\n"
-	    .'<h1>'.$ptx['menu_main'].'</h1>'."\n";
-    $htm .= '<a href="'.$sn.'?advancedform&amp;admin=plugin_main&amp;action=new">'.advfrm_tool_icon('add').'</a>';
-    $htm .= '<a href="javascript:advfrm_import(\''.$sn.'?advancedform&amp;admin=plugin_main&amp;action=import&amp;form=\')">'
-	    .advfrm_tool_icon('import').'</a>';
-    $htm .= '<table>'."\n";
+    $forms = Advancedform_db();
+    $o = '<div id="advfrm-form-list">' . PHP_EOL
+        .'<h1>' . $ptx['menu_main'] . '</h1>' . PHP_EOL;
+    $href = $sn . '?advancedform&amp;admin=plugin_main&amp;action=new';
+    $o .= '<a href="' . $href . '">' . Advancedform_toolIcon('add') . '</a>';
+    $href = 'javascript:advfrm_import(\'' . $sn
+        . '?advancedform&amp;admin=plugin_main&amp;action=import&amp;form=\')';
+    $o .= '<a href="' . $href . '">' . Advancedform_toolIcon('import') . '</a>';
+    $o .= '<table>' . PHP_EOL;
     foreach ($forms as $id => $form) {
-	if ($id != '%VERSION%') {
-	    $htm .= '<tr>'
-		    .'<td class="tool"><a href="'.$sn.'?advancedform&amp;admin=plugin_main&amp;action=delete&amp;form='.$id.'"'
-		    .' onclick="return confirm(\''.addslashes($ptx['message_confirm_delete']).'\')">'
-		    .advfrm_tool_icon('delete').'</a></td>'
-		    .'<td class="tool"><a href="'.$sn.'?advancedform&amp;admin=plugin_main&amp;action=template&amp;form='.$id.'"'
-		    .' onclick="return confirm(\''.addslashes(sprintf($ptx['message_confirm_template'], $form['name'])).'\')">'
-		    .advfrm_tool_icon('template').'</a></td>'
-		    .'<td class="tool"><a href="'.$sn.'?advancedform&amp;admin=plugin_main&amp;action=copy&amp;form='.$id.'">'
-		    .advfrm_tool_icon('copy').'</a></td>'
-		    .'<td class="tool"><a href="'.$sn.'?advancedform&amp;admin=plugin_main&amp;action=export&amp;form='.$id.'"'
-		    .' onclick="return confirm(\''.addslashes(sprintf($ptx['message_confirm_export'], $form['name'])).'\')">'
-		    .advfrm_tool_icon('export').'</a></td>'
-		    .'<td class="name"><a href="'.$sn.'?advancedform&amp;admin=plugin_main&amp;action=edit&amp;form='.$id.'" title="'
-		    .ucfirst($tx['action']['edit']).'">'.$id.'</a></td>'
-		    .'<td class="script" title="'.$ptx['message_script_code'].'">{{{PLUGIN:advancedform(\''.$id.'\');}}}</td>'
-		    .'</tr>'."\n";
-	}
+        if ($id != '%VERSION%') {
+            $href = $sn . '?advancedform&amp;admin=plugin_main&amp;action=%s'
+                . '&amp;form=' . $id;
+            // FIXME: addslashes should be addcslashes!
+            $o .= '<tr>'
+                . '<td class="tool"><a href="' . sprintf($href, 'delete') . '"'
+                . ' onclick="return confirm(\''
+                . addslashes($ptx['message_confirm_delete'])
+                . '\')">' . Advancedform_toolIcon('delete') . '</a></td>'
+                . '<td class="tool"><a href="' . sprintf($href, 'template') . '"'
+                . ' onclick="return confirm(\''
+                . addslashes(
+                    sprintf($ptx['message_confirm_template'], $form['name'])
+                )
+                . '\')">' . Advancedform_toolIcon('template') . '</a></td>'
+                . '<td class="tool"><a href="' . sprintf($href, 'copy') . '">'
+                . Advancedform_toolIcon('copy') . '</a></td>'
+                . '<td class="tool"><a href="' . sprintf($href, 'export') . '"'
+                . ' onclick="return confirm(\''
+                . addslashes(sprintf($ptx['message_confirm_export'], $form['name']))
+                . '\')">' . Advancedform_toolIcon('export') . '</a></td>'
+                . '<td class="name"><a href="' . sprintf($href, 'edit') . '" title="'
+                . ucfirst($tx['action']['edit']) . '">' . $id . '</a></td>'
+                . '<td class="script" title="' . $ptx['message_script_code'] . '">'
+                . '{{{PLUGIN:advancedform(\'' . $id . '\');}}}</td>'
+                . '</tr>' . PHP_EOL;
+        }
     }
-    $htm .= '</table>'."\n";
-    $htm .= '</div>'."\n";
-    return $htm;
+    $o .= '</table>' . PHP_EOL;
+    $o .= '</div>' . PHP_EOL;
+    return $o;
 }
 
-
 /**
- * Creates new mail form and returns the form editor.
+ * Creates a new mail form and returns the form editor.
  *
- * @return string
+ * @return string (X)HTML.
+ *
+ * @global array The configuration of the plugins.
  */
-function advfrm_admin_new() {
+function Advancedform_createForm()
+{
     global $plugin_cf;
 
     $pcf = $plugin_cf['advancedform'];
-    $forms = advfrm_db();
+    $forms = Advancedform_db();
     $id = uniqid();
     $forms[$id] = array(
-	'name' => '',
-	'title' => '',
-	'to_name' => $pcf['mail_to_name'],
-	'to' => $pcf['mail_to'],
-	'cc' => $pcf['mail_cc'],
-	'bcc' => $pcf['mail_bcc'],
-	'captcha' => (bool) $pcf['mail_captcha'],
-	'store' => FALSE,
-	'thanks_page' => $pcf['mail_thanks_page'],
-	'fields' => array(
-	    array(
-		'field' => '',
-		'label' => '',
-		'type' => 'text',
-		'props' => "\xC2\xA6\xC2\xA6\xC2\xA6",
-		'required' => '0'
-	    )
-	)
+        'name' => '',
+        'title' => '',
+        'to_name' => $pcf['mail_to_name'],
+        'to' => $pcf['mail_to'],
+        'cc' => $pcf['mail_cc'],
+        'bcc' => $pcf['mail_bcc'],
+        'captcha' => (bool) $pcf['mail_captcha'],
+        'store' => false,
+        'thanks_page' => $pcf['mail_thanks_page'],
+        'fields' => array(
+            array(
+                'field' => '',
+                'label' => '',
+                'type' => 'text',
+                'props' => "\xC2\xA6\xC2\xA6\xC2\xA6",
+                'required' => '0'
+            )
+        )
     );
-    advfrm_db($forms);
-    return advfrm_admin_edit($id);
+    Advancedform_db($forms);
+    return Advancedform_editForm($id);
 }
 
-
 /**
- * Returns (x)html of the form editor.
+ * Returns the form editor.
  *
- * @param string $id  The forms $id.
- * @return string
+ * @param string $id A form ID.
+ * 
+ * @return string (X)HTML.
+ *
+ * @global array  The paths of system files and folders.
+ * @global string The script name.
+ * @global array  The configuration of the plugins.
+ * @global array  The localization of the core.
+ * @global array  The localization of the plugins.
+ * @global string The (X)HTML fragment containing error messages.
  */
-function advfrm_admin_edit($id) {
-    global $pth, $sn, $plugin_cf, $plugin_tx, $tx, $e;
+function Advancedform_editForm($id)
+{
+    global $pth, $sn, $plugin_cf, $tx, $plugin_tx, $e;
 
     $pcf = $plugin_cf['advancedform'];
     $ptx = $plugin_tx['advancedform'];
 
-    $forms = advfrm_db();
+    $forms = Advancedform_db();
     $form = $forms[$id];
     if (!isset($form)) {
-	$e .= '<li><b>'.sprintf($plugin_tx['advancedform']['error_form_missing'], $id).'</b></li>';
-	return advfrm_admin_default();
+        $e .= '<li><b>'
+            . sprintf($plugin_tx['advancedform']['error_form_missing'], $id)
+            . '</b></li>';
+        return Advancedform_formsAdministration();
     }
 
-    // general settings
-
-    $htm = '<div id="advfrm-editor">'."\n".'<h1>'.$id.'</h1>'."\n";
-    $htm .= '<form action="'.$sn.'?advancedform&amp;admin=plugin_main&amp;action=save&amp;form='.$id.'"'
-	    .' method="post" accept-charset="UTF-8" onsubmit="return advfrm_checkForm()">'."\n";
-    $htm .= '<table id="advfrm-form">'."\n";
-    foreach (array('name', 'title', 'to_name', 'to', 'cc', 'bcc', 'captcha', 'store', 'thanks_page') as $det) {
-	$name = 'advfrm-'.$det;
-	$htm .= '<tr>'
-		.'<td><label for="'.$name.'">'.$ptx['label_'.$det].'</label></td>';
-	switch ($det) {
-	    case 'captcha':
-	    case 'store':
-		$checked = $form[$det] ? ' checked="checked"' : '';
-		$htm .= '<td>'.tag('input type="checkbox" id="'.$name.'" name="'.$name.'"'.$checked).'</td>';
-		break;
-	    case 'thanks_page':
-		$htm .= '<td>'.advfrm_page_select($name, $form[$det]).'</td>';
-		break;
-	    default:
-		$htm .= '<td>'.tag('input type="text" id="'.$name.'" name="'.$name.'"'
-			.' value="'.htmlspecialchars($form[$det]).'" size="40"').'</td>';
-	}
-	$htm .= '</tr>'."\n";
+    /*
+     * general settings
+     */
+    $o = '<div id="advfrm-editor">' . PHP_EOL . '<h1>' . $id . '</h1>' . PHP_EOL;
+    $action = $sn
+        . '?advancedform&amp;admin=plugin_main&amp;action=save&amp;form=' . $id;
+    $o .= '<form action="' . $action . '"' . ' method="post" accept-charset="UTF-8"'
+        . ' onsubmit="return advfrm_checkForm()">' . PHP_EOL;
+    $o .= '<table id="advfrm-form">' . PHP_EOL;
+    $fields = array(
+        'name', 'title', 'to_name', 'to', 'cc', 'bcc', 'captcha', 'store',
+        'thanks_page'
+    );
+    foreach ($fields as $det) {
+        $name = 'advfrm-' . $det;
+        $o .= '<tr>'
+            . '<td><label for="' . $name . '">' . $ptx['label_'.$det]
+            . '</label></td>';
+        switch ($det) {
+        case 'captcha':
+        case 'store':
+            $checked = $form[$det] ? ' checked="checked"' : '';
+            $o .= '<td>'
+                . tag(
+                    'input type="checkbox" id="' . $name . '" name="' . $name . '"'
+                    . $checked
+                )
+                . '</td>';
+            break;
+        case 'thanks_page':
+            $o .= '<td>' . Advancedform_pageSelect($name, $form[$det]) . '</td>';
+            break;
+        default:
+            $o .= '<td>'
+                . tag(
+                    'input type="text" id="' . $name . '" name="' . $name . '"'
+                    . ' value="' . htmlspecialchars($form[$det]) . '" size="40"'
+                )
+                . '</td>';
+        }
+        $o .= '</tr>' . PHP_EOL;
     }
-    $htm .= '</table>'."\n";
+    $o .= '</table>' . PHP_EOL;
 
-    // field settings
-
-    $htm .= '<div class="toolbar">';
+    /*
+     * field settings
+     */
+    $o .= '<div class="toolbar">';
     foreach (array('add', 'delete', 'up', 'down') as $tool) {
-	$htm .=  '<a onclick="advfrm_'.$tool.'(\'advfrm-fields\')">'
-		.advfrm_tool_icon($tool).'</a>'."\n";
+        $o .=  '<a onclick="advfrm_' . $tool . '(\'advfrm-fields\')">'
+            . Advancedform_toolIcon($tool) . '</a>' . PHP_EOL;
     }
-    $htm .= '</div>'."\n";
+    $o .= '</div>' . PHP_EOL;
 
-    $htm .= '<table id="advfrm-fields">'."\n";
-    $htm .= '<thead><tr>'
-	    .'<th>'.$ptx['label_field'].'</th>'
-	    .'<th>'.$ptx['label_label'].'</th>'
-	    .'<th colspan="3">'.$ptx['label_type'].'</th>'
-	    .'<th>'.$ptx['label_required'].'</th>'
-	    .'</tr></thead>'."\n";
-   foreach ($form['fields'] as $num => $field) {
-	$htm .= '<tr>'
-		.'<td>'.tag('input type="text" size="10" name="advfrm-field[]"'
-		.' value="'.$field['field'].'" class="highlightable"').'</td>'
-		.'<td>'.tag('input type="text" size="10" name="advfrm-label[]"'
-		.' value="'.htmlspecialchars($field['label']).'" class="highlightable"').'</td>'
-		.'<td><select name="advfrm-type[]" onfocus="this.oldvalue = this.value" class="highlightable">';
-	foreach (array('text', 'from_name', 'from', 'mail', 'date', 'number', 'textarea',
-		'radio', 'checkbox', 'select', 'multi_select', 'password', 'file',
-		'hidden', 'output', 'custom') as $type) {
-	    $sel = $field['type'] == $type ? ' selected="selected"' : '';
-	    $htm .= '<option value="'.$type.'"'.$sel.'>'.$ptx['field_'.$type].'</option>';
-	}
-	$htm .= '</select></td>'
-		.'<td>'.tag('input type="'.(ADVFRM_DEBUG ? 'text' : 'hidden').'" class="hidden" name="advfrm-props[]"'
-		.' size="10" value="'.htmlspecialchars($field['props']).'"')
-		.'<td><a>'
-		.advfrm_tool_icon('props')
-		.'</a>'."\n";
-	$checked = $field['required'] ? ' checked="checked"' : '';
-	$htm .= '<td>'.tag('input type="checkbox"'.$checked
-		.' onchange="this.parentNode.nextSibling.firstChild.value = this.checked ? 1 : 0"').'</td>';
-	$htm .= '<td>'.tag('input type="hidden" name="advfrm-required[]" value="'.$field['required'].'"').'</td>'
-		.'</tr>'."\n";
+    $o .= '<table id="advfrm-fields">' . PHP_EOL;
+    $o .= '<thead><tr>'
+        . '<th>' . $ptx['label_field'] . '</th>'
+        . '<th>' . $ptx['label_label'] . '</th>'
+        . '<th colspan="3">' . $ptx['label_type'] . '</th>'
+        . '<th>' . $ptx['label_required'] . '</th>'
+        . '</tr></thead>' . PHP_EOL;
+    foreach ($form['fields'] as $num => $field) {
+        $o .= '<tr>'
+            . '<td>'
+            . tag(
+                'input type="text" size="10" name="advfrm-field[]"'
+                . ' value="' . $field['field'] . '" class="highlightable"'
+            )
+            . '</td>'
+            . '<td>'
+            . tag(
+                'input type="text" size="10" name="advfrm-label[]"' . ' value="'
+                . htmlspecialchars($field['label']) . '" class="highlightable"'
+            )
+            . '</td>'
+            . '<td><select name="advfrm-type[]" onfocus="this.oldvalue = this.value"'
+            . ' class="highlightable">';
+        $types = array(
+            'text', 'from_name', 'from', 'mail', 'date', 'number', 'textarea',
+            'radio', 'checkbox', 'select', 'multi_select', 'password', 'file',
+            'hidden', 'output', 'custom'
+        );
+        foreach ($types as $type) {
+            $sel = ($field['type'] == $type) ? ' selected="selected"' : '';
+            $o .= '<option value="' . $type . '"' . $sel . '>'
+                . $ptx['field_' . $type] . '</option>';
+        }
+        $o .= '</select></td>'
+            . '<td>'
+            . tag(
+                'input type="' . (ADVFRM_DEBUG ? 'text' : 'hidden') . '"'
+                . ' class="hidden" name="advfrm-props[]"'
+                . ' size="10" value="' . htmlspecialchars($field['props']) . '"'
+            )
+            . '<td><a>' . Advancedform_toolIcon('props') . '</a>' . PHP_EOL;
+        $checked = $field['required'] ? ' checked="checked"' : '';
+        $o .= '<td>'
+            . tag(
+                'input type="checkbox"' . $checked . ' onchange="' . 'this.'
+                . 'parentNode.nextSibling.firstChild.value = this.checked ? 1 : 0"'
+            )
+            . '</td>';
+        $o .= '<td>'
+            . tag(
+                'input type="hidden" name="advfrm-required[]" value="'
+                . $field['required'] . '"'
+            )
+            . '</td>'
+            . '</tr>' . PHP_EOL;
     }
-    $htm .= '</table>'."\n";
-    $htm .= tag('input type="submit" class="submit" value="'.ucfirst($tx['action']['save']).'" style="display:none"');
-    $htm .= '</form>'."\n".'</div>'."\n";
+    $o .= '</table>' . PHP_EOL;
+    $o .= tag(
+        'input type="submit" class="submit" value="'
+        . ucfirst($tx['action']['save']) . '" style="display:none"'
+    );
+    $o .= '</form>' . PHP_EOL . '</div>' . PHP_EOL;
 
-    // property dialogs
-
-    $htm .= '<div id="advfrm-text-props" style="display:none">'."\n".'<table>'."\n";
-    foreach (array('size', 'maxlength', 'default', 'constraint', 'error_msg') as $prop) {
-	$htm .= '<tr id="advfrm-text-props-'.$prop.'">'.'<td>'.$prop.'</td>'
-		.'<td>'.tag('input type="text" size="30"').'</td>'.'</tr>'."\n";
+    /*
+     * property dialogs
+     */
+    $o .= '<div id="advfrm-text-props" style="display:none">' . PHP_EOL
+        . '<table>' . PHP_EOL;
+    $properties = array('size', 'maxlength', 'default', 'constraint', 'error_msg');
+    foreach ($properties as $prop) {
+        $o .= '<tr id="advfrm-text-props-' . $prop . '">' . '<td>' . $prop . '</td>'
+            . '<td>' . tag('input type="text" size="30"') . '</td>' . '</tr>'
+            . PHP_EOL;
     }
-    $htm .= '</table>'."\n".'</div>'."\n";
+    $o .= '</table>' . PHP_EOL . '</div>' . PHP_EOL;
 
-    $htm .= '<div id="advfrm-select-props" style="display:none">'."\n";
-    $htm .= '<p id="advfrm-select-props-size">'.$ptx['label_size'].' '.tag('input type="text"').'</p>'."\n";
-    $htm .= '<p id="advfrm-select-props-orient">'
-	    .tag('input type="radio" id="advrm-select-props-orient-horz" name="advrm-select-props-orient"')
-	    .'<label for="advrm-select-props-orient-horz">&nbsp;'.$ptx['label_horizontal'].'</label>&nbsp;&nbsp;&nbsp;'
-	    .tag('input type="radio" id="advrm-select-props-orient-vert" name="advrm-select-props-orient"')
-	    .'<label for="advrm-select-props-orient-vert">&nbsp;'.$ptx['label_vertical'].'</label>'
-	    .'</p>'."\n";
-    $htm .= '<div class="toolbar">';
+    $o .= '<div id="advfrm-select-props" style="display:none">' .  PHP_EOL;
+    $o .= '<p id="advfrm-select-props-size">' . $ptx['label_size'] . ' '
+        . tag('input type="text"') . '</p>' . PHP_EOL;
+    $o .= '<p id="advfrm-select-props-orient">'
+        . tag(
+            'input type="radio" id="advrm-select-props-orient-horz"'
+            . ' name="advrm-select-props-orient"'
+        )
+        . '<label for="advrm-select-props-orient-horz">&nbsp;'
+        . $ptx['label_horizontal'] . '</label>&nbsp;&nbsp;&nbsp;'
+        . tag(
+            'input type="radio" id="advrm-select-props-orient-vert"'
+            . ' name="advrm-select-props-orient"'
+        )
+        . '<label for="advrm-select-props-orient-vert">&nbsp;'
+        . $ptx['label_vertical'] . '</label>'
+        . '</p>' . PHP_EOL;
+    $o .= '<div class="toolbar">';
     foreach (array('add', 'delete', 'up', 'down', 'clear_defaults') as $tool) {
-	$htm .=  '<a onclick="advfrm_'.$tool.'(\'advfrm-prop-fields\')">'
-	    .advfrm_tool_icon($tool).'</a>'."\n";
+        $o .=  '<a onclick="advfrm_' . $tool . '(\'advfrm-prop-fields\')">'
+            . Advancedform_toolIcon($tool) . '</a>' . PHP_EOL;
     }
-    $htm .= '</div>'."\n";
-    $htm .= '<table id="advfrm-prop-fields">'."\n".'<tr>'
-	    .'<td>'.tag('input type="radio" name="advfrm-select-props-default"').'</td>'
-	    .'<td>'.tag('input type="text" name="advfrm-select-props-opt" size="25" class="highlightable"').'</td>'
-	    .'</tr>'."\n".'</table>'."\n".'</div>'."\n";
+    $o .= '</div>' . PHP_EOL;
+    $o .= '<table id="advfrm-prop-fields">' . PHP_EOL . '<tr>'
+        . '<td>'
+        . tag('input type="radio" name="advfrm-select-props-default"')
+        . '</td>'
+        . '<td>'
+        . tag(
+            'input type="text" name="advfrm-select-props-opt" size="25"'
+            . ' class="highlightable"'
+        )
+        . '</td>'
+        . '</tr>' . PHP_EOL . '</table>' . PHP_EOL . '</div>' . PHP_EOL;
 
-    return $htm;
+    return $o;
 }
 
-
 /**
- * Saves the modified mail form definition.
- * Returns the (x)html of the mail form list on success,
- * or the mail form editor on failure.
+ * Saves the modified mail form definition. Returns the the mail form list on
+ * success, or the mail form editor on failure.
  *
- * @param  string $id  The form ID.
- * @return string
+ * @param string $id A form ID.
+ * 
+ * @return string (X)HTML.
+ *
+ * @global string The (X)HTML fragments containing error messages.
+ * @global array  The localization of the plugins.
  */
-function advfrm_admin_save($id) {
+function Advancedform_saveForm($id)
+{
     global $e, $plugin_tx;
 
     $ptx = $plugin_tx['advancedform'];
 
-    $forms = advfrm_db();
+    $forms = Advancedform_db();
     if (!isset($forms[$id])) {
-	$e .= '<li><b>'.sprintf($ptx['error_form_missing'], $id).'</b></li>';
-	return advfrm_admin_default();
+        $e .= '<li><b>' . sprintf($ptx['error_form_missing'], $id) . '</b></li>';
+        return Advancedform_formsAdministration();
     }
     unset($forms[$id]);
     if (!isset($forms[$_POST['advfrm-name']])) {
-	$id = $_POST['advfrm-name'];
-	$ok = TRUE;
+        $id = $_POST['advfrm-name'];
+        $ok = true;
     } else {
-	$_POST['advfrm-name'] = $id;
-	$e .= '<li>'.$ptx['error_form_exists'].'</li>';
-	$ok = FALSE;
+        $_POST['advfrm-name'] = $id;
+        $e .= '<li>' . $ptx['error_form_exists'] . '</li>';
+        $ok = false;
     }
-    $forms[$id]['captcha'] = FALSE;
-    $forms[$id]['store'] = FALSE;
+    $forms[$id]['captcha'] = false;
+    $forms[$id]['store'] = false;
     foreach ($_POST as $key => $val) {
-	$keys = explode('-', $key);
-	if ($keys[0] == 'advfrm') {
-	    if (!is_array($val)) {
-		if (in_array($keys[1], array('captcha', 'store'))) {
-		    $forms[$id][$keys[1]] = TRUE;
-		} else {
-		    $forms[$id][$keys[1]] = stsl($val);
-		}
-	    } else {
-		foreach ($val as $num => $fieldval) {
-		    $forms[$id]['fields'][$num][$keys[1]] = stsl($fieldval);
-		}
-	    }
-	}
+        $keys = explode('-', $key);
+        if ($keys[0] == 'advfrm') {
+            if (!is_array($val)) {
+                if (in_array($keys[1], array('captcha', 'store'))) {
+                    $forms[$id][$keys[1]] = true;
+                } else {
+                    $forms[$id][$keys[1]] = stsl($val);
+                }
+            } else {
+                foreach ($val as $num => $fieldval) {
+                    $forms[$id]['fields'][$num][$keys[1]] = stsl($fieldval);
+                }
+            }
+        }
     }
-    advfrm_db($forms);
-    return $ok ? advfrm_admin_default() : advfrm_admin_edit($id);
+    Advancedform_db($forms);
+    return $ok ? Advancedform_formsAdministration() : Advancedform_editForm($id);
 }
 
-
 /**
- * Deletes the form $id.
- * Returns the (x)html of mail form list.
+ * Deletes a form, and returns the mail form list.
  *
- * @param  string $id
- * @return string
+ * @param string $id A form ID.
+ * 
+ * @return string (X)HTML.
+ *
+ * @global string The (X)HTML fragment containing error messages.
+ * @global array  The localization of the plugins.
  */
-function advfrm_admin_delete($id) {
+function Advancedform_deleteForm($id)
+{
     global $e, $plugin_tx;
 
-    $forms = advfrm_db();
+    $forms = Advancedform_db();
     if (isset($forms[$id])) {
-	unset($forms[$id]);
-	advfrm_db($forms);
+        unset($forms[$id]);
+        Advancedform_db($forms);
     } else {
-    	$e .= '<li><b>'.sprintf($plugin_tx['advancedform']['error_form_missing'], $id).'</b></li>';
+        $e .= '<li><b>'
+            . sprintf($plugin_tx['advancedform']['error_form_missing'], $id)
+            . '</b></li>';
     }
-    return advfrm_admin_default();
+    return Advancedform_formsAdministration();
 }
 
-
 /**
- * Makes a copy of form $id.
- * Returns the (x)html of the mail form editor.
+ * Makes a copy of form $id. Returns the mail form editor.
  *
- * @param  string $id  The soure form.
- * @return string
+ * @param string $id A form ID.
+ * 
+ * @return string (X)HTML.
+ *
+ * @global string The (X)HTML fragment containing error messages.
+ * @global array  The localization of the plugins.
  */
-function advfrm_admin_copy($id) {
+function Advancedform_copyForm($id)
+{
     global $e, $plugin_tx;
 
-    $forms = advfrm_db();
+    $forms = Advancedform_db();
     if (isset($forms[$id])) {
-	$form = $forms[$id];
-	$form['name'] = '';
-	$id = uniqid();
-	$forms[$id] = $form;
-	advfrm_db($forms);
+        $form = $forms[$id];
+        $form['name'] = '';
+        $id = uniqid();
+        $forms[$id] = $form;
+        Advancedform_db($forms);
     } else {
-	$e .= '<li><b>'.sprintf($plugin_tx['advancedform']['error_form_missing'], $id).'</b></li>';
+        $e .= '<li><b>'
+            . sprintf($plugin_tx['advancedform']['error_form_missing'], $id)
+            . '</b></li>';
     }
-    return advfrm_admin_edit($id);
+    return Advancedform_editForm($id);
 }
 
-
 /**
- * Imports the form definition from a *.frm file.
+ * Imports the form definition from a *.frm file. Returns the mail form
+ * administration.
  *
+ * @param string $id A form ID.
  *
- * @return string
+ * @return string (X)HTML.
+ * 
+ * @global string The (X)HTML fragment containing error messages.
+ * @global array  The localization of the plugins.
  */
-function advfrm_admin_import($id) {
+function Advancedform_importForm($id)
+{
     global $plugin_tx, $e;
 
     $ptx = $plugin_tx['advancedform'];
-    $forms = advfrm_db();
+    $forms = Advancedform_db();
     if (!isset($forms[$id])) {
-	$fn = advfrm_data_folder().$id.'.frm';
-	if (($cnt = file_get_contents($fn)) !== FALSE
-		&& ($form = unserialize($cnt)) !== FALSE
-		&& isset($form['%VERSION%'])
-		&& count($form) == 2) {
-	    if ($form['%VERSION%'] < ADVFRM_DB_VERSION) {
-		$form = advfrm_updated_db($form);
-	    }
-	    unset($form['%VERSION%']);
-	    foreach ($form as $f) {
-		$f['name'] = $id;
-		$forms[$id] = $f;
-	    }
-	    advfrm_db($forms);
-	} else {
-	    e('cntopen', 'file', $fn);
-	}
+        $fn = Advancedform_dataFolder() . $id . '.frm';
+        if (($cnt = file_get_contents($fn)) !== false
+            && ($form = unserialize($cnt)) !== false
+            && isset($form['%VERSION%'])
+            && count($form) == 2
+        ) {
+            if ($form['%VERSION%'] < ADVFRM_DB_VERSION) {
+                $form = Advancedform_updatedDb($form);
+            }
+            unset($form['%VERSION%']);
+            foreach ($form as $f) {
+                $f['name'] = $id;
+                $forms[$id] = $f;
+            }
+            Advancedform_db($forms);
+        } else {
+            e('cntopen', 'file', $fn);
+        }
     } else {
-	$e .= '<li><b>'.$ptx['error_form_exists'].'</b></li>';
+        $e .= '<li><b>' . $ptx['error_form_exists'] . '</b></li>';
     }
-    return advfrm_admin_default();
+    return Advancedform_formsAdministration();
 }
 
-
 /**
- * Exports the form definition to a *.frm file.
- * Returns the (x)html of the mail form administration.
+ * Exports the form definition to a *.frm file. Returns the mail form administration.
  *
- * @param string $id
- * @return string
+ * @param string $id A form ID.
+ * 
+ * @return string (X)HTML.
+ *
+ * @global string The (X)HTML fragment containing error messages.
+ * @global array  The localization of the plugins.
  */
-function advfrm_admin_export($id) {
+function Advancedform_exportForm($id)
+{
     global $e, $plugin_tx;
 
     $ptx = $plugin_tx['advancedform'];
-    $forms = advfrm_db();
+    $forms = Advancedform_db();
     if (isset($forms[$id])) {
-	$form[$id] = $forms[$id];
-	$form['%VERSION%'] = ADVFRM_DB_VERSION;
-	$fn = advfrm_data_folder().$id.'.frm';
-	if (!($fh = fopen($fn, 'w')) || fwrite($fh, serialize($form)) === FALSE) {
-	    e('cntwriteto', 'file', $fn);
-	}
-	if ($fh)
-	    fclose($fh);
+        $form[$id] = $forms[$id];
+        $form['%VERSION%'] = ADVFRM_DB_VERSION;
+        $fn = Advancedform_dataFolder() . $id . '.frm';
+        if (!($fh = fopen($fn, 'w')) || fwrite($fh, serialize($form)) === false) {
+            e('cntwriteto', 'file', $fn);
+        }
+        if ($fh) {
+            fclose($fh);
+        }
     } else {
-	$e .= '<li><b>'.sprintf($ptx['error_form_missing'], $id).'</b></li>';
+        $e .= '<li><b>' . sprintf($ptx['error_form_missing'], $id) . '</b></li>';
     }
-    return advfrm_admin_default();
+    return Advancedform_formsAdministration();
 }
 
-
 /**
- * Creates a basic template of the form.
- * Returns the (x)html of the mail form administration.
+ * Creates a basic template of the form. Returns the the mail form administration.
  *
- * @param string $id  The form id.
- * @return string
+ * @param string $id A form ID.
+ * 
+ * @return string (X)HTML.
+ *
+ * @global array The configuration of the plugins.
  */
-function advfrm_admin_template($id) {
+function Advancedform_createFormTemplate($id)
+{
     global $plugin_cf;
 
-    $forms = advfrm_db();
+    $forms = Advancedform_db();
     if (isset($forms[$id])) {
-	$form = $forms[$id];
-	$tpl = '<div id="advfrm-'.$id.'">'."\n";
-	$css = '#advfrm-'.$id.' {}'."\n\n"
-		.'#advfrm-'.$id.' div.break {clear: both}'."\n"
-		.'#advfrm-'.$id.' div.float {float: left; margin-right: 1em}'."\n\n"
-		.'#advfrm-'.$id.' div.label {/* float: left; width: 12em; margin-bottom: 0.5em; */}'."\n"
-		.'#advfrm-'.$id.' div.field { margin-bottom: 0.5em; /* float: left;*/}'."\n\n"
-		.'/* the individual fields */'."\n\n";
-	$first = TRUE;
-	foreach ($form['fields'] as $field) {
-	    if ($first) {
-		$tpl .= '  <?php advfrm_focus_field(\''.$id.'\', \'advfrm-'.$field['field'].'\')'
-			.' // focus the first field?>'."\n";
-		$first = FALSE;
-	    }
-	    $labelled = !in_array($field['type'], array('checkbox', 'radio', 'hidden')); //'output',
-	    $label = in_array($field['type'], array('hidden')) ? '' //'output',
-		    : (!$field['required'] ? $field['label']
-			: sprintf($plugin_cf['advancedform']['required_field_mark'], $field['label']));
-	    $tpl .= '  <div class="break">'."\n"
-		    .'    <div class="label">'
-		    .($labelled ? '<label for="advfrm-'.$id.'-'.$field['field'].'">' : '')
-		    .$label
-		    .($labelled ? '</label>' : '').'</div>'."\n"
-		    .'    <div class="field"><?field '.$field['field'].'?></div>'."\n"
-		    .'  </div>'."\n";
-	    $css .= '#advfrm-'.$id.'-'.$field['field'].' {}'."\n";
-	}
-	$tpl .= '  <div class="break"></div>'."\n".'</div>'."\n";
-	$fn = advfrm_data_folder().$id.'.tpl';
-	if (!($fh = fopen($fn, 'w')) || fwrite($fh, $tpl) === FALSE) {
-	    e('cntsave', 'file', $fn);
-	}
-	if ($fh)
-	    fclose($fh);
-	$fn = advfrm_data_folder().'css/'.$id.'.css';
-	if (!($fh = fopen($fn, 'w')) || fwrite($fh, $css) === FALSE) {
-	    e('cntsave', 'file', $fn);
-	}
-	if ($fh)
-	    fclose($fh);
+        $form = $forms[$id];
+        $tpl = '<div id="advfrm-' . $id . '">' . PHP_EOL;
+        $css = '#advfrm-' . $id . ' {}' . PHP_EOL . PHP_EOL
+            . '#advfrm-' . $id . ' div.break {clear: both}' . PHP_EOL . PHP_EOL
+            . '#advfrm-' . $id . ' div.float {float: left; margin-right: 1em}'
+            . PHP_EOL . PHP_EOL
+            . '#advfrm-' . $id . ' div.label'
+            . ' {/* float: left; width: 12em; margin-bottom: 0.5em; */}' . PHP_EOL
+            . '#advfrm-' . $id . ' div.field '
+            . ' { margin-bottom: 0.5em; /* float: left;*/}' . PHP_EOL . PHP_EOL
+            . '/* the individual fields */' . PHP_EOL . PHP_EOL;
+        $first = true;
+        foreach ($form['fields'] as $field) {
+            if ($first) {
+                $tpl .= '  <?php Advancedform_focusField(\'' . $id . '\', \'advfrm-'
+                    . $field['field'] . '\')'
+                    . ' // focus the first field?>' . PHP_EOL;
+                $first = false;
+            }
+            $labelled = !in_array(
+                $field['type'], array('checkbox', 'radio', 'hidden')
+            );
+            if (in_array($field['type'], array('hidden'))) {
+                $label = '';
+            } elseif (!$field['required']) {
+                $label = $field['label'];
+            } else {
+                $label = sprintf(
+                    $plugin_cf['advancedform']['required_field_mark'],
+                    $field['label']
+                );
+            }
+            if ($labelled) {
+                $label = '<label for="advfrm-' . $id . '-' . $field['field'] . '">'
+                    . $label . '</label>';
+            }
+            $tpl .= '  <div class="break">' . PHP_EOL
+                . '    <div class="label">'
+                . $label
+                . '</div>' . PHP_EOL
+                . '    <div class="field"><?field ' . $field['field'] . '?></div>'
+                . PHP_EOL
+                . '  </div>' . PHP_EOL;
+            $css .= '#advfrm-' . $id . '-' . $field['field'] . ' {}' . PHP_EOL;
+        }
+        $tpl .= '  <div class="break"></div>' . PHP_EOL . '</div>' . PHP_EOL;
+        $fn = Advancedform_dataFolder() . $id . '.tpl';
+        if (!($fh = fopen($fn, 'w')) || fwrite($fh, $tpl) === false) {
+            e('cntsave', 'file', $fn);
+        }
+        if ($fh) {
+            fclose($fh);
+        }
+        $fn = Advancedform_dataFolder() . 'css/' . $id . '.css';
+        if (!($fh = fopen($fn, 'w')) || fwrite($fh, $css) === false) {
+            e('cntsave', 'file', $fn);
+        }
+        if ($fh) {
+            fclose($fh);
+        }
     } else {
-	$e .= '<li><b>'.sprintf($ptx['error_form_missing'], $id).'</b></li>';
+        $e .= '<li><b>' . sprintf($ptx['error_form_missing'], $id) . '</b></li>';
     }
-    return advfrm_admin_default();
+    return Advancedform_formsAdministration();
 }
 
-
-/**
+/*
  * Handle the plugin administration.
  */
-if (!empty($advancedform)) {
-    initvar('admin');
-    initvar('action');
-
-    if (include_once($pth['folder']['plugins'].'jquery/jquery.inc.php')) {
-	include_jQuery();
-	include_jQueryUI();
+if (isset($advancedform) && $advancedform == 'true') {
+    if (include_once $pth['folder']['plugins'] . 'jquery/jquery.inc.php') {
+        include_jQuery();
+        include_jQueryUI();
     }
-    if (advfrm_update_lang_js()) {
-	$hjs .= "\n".'<script type="text/javascript" src="'.$pth['folder']['plugins']
-		.'advancedform/languages/'.$sl.'.js"></script>'."\n";
+    if (Advancedform_updateLangJs()) {
+        $hjs .= PHP_EOL . '<script type="text/javascript" src="'
+            . $pth['folder']['plugins'] . 'advancedform/languages/' . $sl . '.js">'
+            . '</script>' . PHP_EOL;
     }
-    $hjs .= '<script type="text/javascript" src="'.$pth['folder']['plugins'].'advancedform/admin.js"></script>'."\n";
+    $hjs .= '<script type="text/javascript" src="' . $pth['folder']['plugins']
+        . 'advancedform/admin.js"></script>' . PHP_EOL;
 
     $o .= print_plugin_admin('on');
-
     switch ($admin) {
-	case '':
-	    $o .= advfrm_version().advancedform_system_check();
-	    break;
-	case 'plugin_main':
-	    switch ($action) {
-		case 'new':
-		    $o .= advfrm_admin_new();
-		    break;
-		case 'edit':
-		    $o .= advfrm_admin_edit($_GET['form']);
-		    break;
-		case 'save':
-		    $o .= advfrm_admin_save($_GET['form']);
-		    break;
-		case 'delete':
-		    $o .= advfrm_admin_delete($_GET['form']);
-		    break;
-		case 'copy':
-		    $o .= advfrm_admin_copy($_GET['form']);
-		    break;
-		case 'import':
-		    $o .= advfrm_admin_import($_GET['form']);
-		    break;
-		case 'export':
-		    $o .= advfrm_admin_export($_GET['form']);
-		    break;
-		case 'template':
-		    $o .= advfrm_admin_template($_GET['form']);
-		    break;
-		default:
-		    $o .= advfrm_admin_default();
-	    }
-	    break;
-	default:
-	    $o .= plugin_admin_common($admin, $action, $plugin);
+    case '':
+        $o .= Advancedform_version() . Advancedform_systemCheck();
+        break;
+    case 'plugin_main':
+        switch ($action) {
+        case 'new':
+            $o .= Advancedform_createForm();
+            break;
+        case 'edit':
+            $o .= Advancedform_editForm($_GET['form']);
+            break;
+        case 'save':
+            $o .= Advancedform_saveForm($_GET['form']);
+            break;
+        case 'delete':
+            $o .= Advancedform_deleteForm($_GET['form']);
+            break;
+        case 'copy':
+            $o .= Advancedform_copyForm($_GET['form']);
+            break;
+        case 'import':
+            $o .= Advancedform_importForm($_GET['form']);
+            break;
+        case 'export':
+            $o .= Advancedform_exportForm($_GET['form']);
+            break;
+        case 'template':
+            $o .= Advancedform_createFormTemplate($_GET['form']);
+            break;
+        default:
+            $o .= Advancedform_formsAdministration();
+        }
+        break;
+    default:
+        $o .= plugin_admin_common($action, $admin, $plugin);
     }
 }
 

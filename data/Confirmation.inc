@@ -1,7 +1,8 @@
 <?php
 
-function advfrm_custom_mail($form_name, &$mail, $is_confirmation) {
-    $f = advfrm_fields();
+function advfrm_custom_mail($form_name, &$mail, $is_confirmation)
+{
+    $f = Advancedform_fields();
     if ($is_confirmation) {
 
 	/*

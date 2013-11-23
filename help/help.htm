@@ -320,7 +320,7 @@ will output the field with the name FIELD_NAME.
 Do not use any additional characters such as whitespace except a single space
 between field and FIELD_NAME.
 This notation is actually a shorthand for
-<pre>&lt;?php echo advfrm_display_field('FORM_NAME', 'FIELD_NAME')?&gt;</pre>
+<pre>&lt;?php echo Advancedform_displayField('FORM_NAME', 'FIELD_NAME')?&gt;</pre>
 The template file will be evaluated in the context of CMSimple_XH,
 so any global variables, constants and functions are available to use.
 However, it is not possible to alter any global variables
@@ -329,7 +329,7 @@ And do not call non-existent functions as this will cause the PHP interpreter to
 <strong>Particularly you should be cautious using template files from untrusted sources,
 as those could contain malicious code that might harm your CMSimple_XH installation.</strong></p>
 <p>One particularly useful function might be
-<pre>advfrm_focus_field($form_name, $field_name)</pre>
+<pre>Advancedform_focusField($form_name, $field_name)</pre>
 that will set the focus to the given field.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 

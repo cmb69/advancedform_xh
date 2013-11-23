@@ -17,7 +17,7 @@
             <directory name="images"/>
             <directory name="languages"/>
             
-            <!-- we have a fallback definition -->
+            <!-- we have a fallback for PHP 4 -->
             <function name="array_combine"/>
             <!-- only because of $recursive parameter -->
             <function name="mkdir"/> 
