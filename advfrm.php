@@ -708,12 +708,13 @@ function Advancedform_mailBody($id, $show_hidden, $html)
  * 
  * @return string (X)HTML.
  *
- * @global array The configuration of the core.
+ * @global array  The paths of system files and folders.
+ * @global array  The configuration of the core.
  * @global string The (X)HTML fragment for insertion into the HEAD element.
  */
 function Advancedform_displayField($form_id, $field)
 {
-    global $plugin_cf, $hjs;
+    global $pth, $plugin_cf, $hjs;
 
     $pcf = $plugin_cf['advancedform'];
 
@@ -806,10 +807,18 @@ function Advancedform_displayField($form_id, $field)
             $o .= $val;
         } else {
             if ($field['type'] == 'date') {
+                $showOn = $pcf['datepicker_icon'] ? 'both' : 'focus';
+                $iconPath = $pth['folder']['plugins']
+                    . 'advancedform/images/calendar.png';
                 $hjs .= <<<EOS
 <script type="text/javascript">/* <![CDATA[ */
 jQuery(function() {
-    jQuery('.advfrm-mailform form[name="$form_id"] input[name="$name"]').datepicker()
+    jQuery('.advfrm-mailform form[name="$form_id"] input[name="$name"]')
+        .datepicker({
+            showOn: "$showOn",
+            buttonImage: "$iconPath",
+            buttonImageOnly: true
+        })
 });
 /* ]]> */</script>
 
