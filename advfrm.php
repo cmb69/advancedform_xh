@@ -983,11 +983,6 @@ function Advancedform_formView($id)
         . '&nbsp;'
         . tag('input type="reset" class="submit" value="'.$ptx['button_reset'].'"')
         . '</div>' . PHP_EOL;
-    // FIXME: remove the backlink incl. CSS
-    $o .= '<div class="powered-by" style="display: block !important;'
-        . ' visibility: visible !important">Powered by '
-        . '<a href="http://3-magi.net/?CMSimple_XH/Advancedform_XH">Advancedform_XH'
-        . '</a></div>' . PHP_EOL;
     $o .= '</form>' . PHP_EOL . '</div>' . PHP_EOL;
     return $o;
 }
