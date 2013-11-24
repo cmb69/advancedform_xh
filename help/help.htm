@@ -275,11 +275,12 @@ but however, it's possible.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h3><a name="usage-link">Replacing the built in mail form</a></h3>
-<p>It is possible to replace CMSimple's built in mail form
-with a user defined one. So just define the desired form,
-and enter its name in "Plugin Language" as "contact form".
-Now CMSimple's mailform link will directly call your custom form.
-Note that the mail address configured for CMSimple is completely ignored by Advancedform_XH.</p>
+<p>It is possible to replace CMSimple's built in mail form with a user defined
+one. So just define the desired form, and enter its name in "Plugin Language" as
+"contact form". Now CMSimple's mailform link will directly call your custom
+form. Note, that an email address has to be configured for CMSimple_XH to
+display the mailform link, but its value is completely ignored by
+Advancedform_XH.</p>
 <p>Alternatively create a hidden CMSimple page and insert the required script code to call the form.
 Then you have to modify your template. Just replace
 <pre>&lt;?php echo mailformlink()?&gt;</pre> with
