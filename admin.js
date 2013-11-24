@@ -192,7 +192,7 @@ function advfrm_add(id) {
         row.find('input[type="text"]').val('');
         row.find('select').val('text');
         row.find('input[name="advfrm-props[]"]').val('\u00A6\u00A6\u00A6');
-        row.find('input[type="checkbox"]').attr('checked', false);
+        row.find('input[type="checkbox"]').prop('checked', false);
         row.find('td > *[name]').focus(function() {advfrm_highlightRow('advfrm-fields', jQuery(this))});
         row.find('td > a').click(function() {advfrm_highlightRow('advfrm-fields', jQuery(this))});
         row.find('td > a').click(advfrm_props);
@@ -204,7 +204,7 @@ function advfrm_add(id) {
     } else {
         var row = jQuery('#advfrm-prop-fields tbody tr:first').clone();
         row.removeClass('selected');
-        row.find('input[name="advfrm-select-props-default"]').get(0).checked = false;
+        row.find('input[name="advfrm-select-props-default"]').prop("checked", false);
         row.find('input[name="advfrm-select-props-opt"]').val('')
                 .focus(function() {advfrm_highlightRow('advfrm-prop-fields', jQuery(this))});
         jQuery('#advfrm-prop-fields').append(row);
@@ -258,7 +258,7 @@ function advfrm_down(id) {
  */
 function advfrm_clear_defaults(id) {
     jQuery('#'+id+' input[name="advfrm-select-props-default"]').each(function() {
-        jQuery(this).get(0).checked = false;
+        jQuery(this).prop("checked", false);
     })
 }
 
@@ -286,7 +286,7 @@ function advfrm_props() {
         } else {
             dlg.find('#advfrm-select-props-size').hide();
             dlg.find('#advfrm-select-props-orient').show();
-            dlg.find('#advfrm-select-props-orient input').eq(props[0]).get(0).checked = true;
+            dlg.find('#advfrm-select-props-orient input').eq(props[0]).prop("checked", true);
         }
         props = props.slice(1);
         dlg.find('tr').slice(1).remove();
@@ -307,13 +307,13 @@ function advfrm_props() {
             if (i == 0) {
                 dlg.find('input[name="advfrm-select-props-opt"]').val(val);
                 if (checked) {
-                    dlg.find('input[name="advfrm-select-props-default"]').get(0).checked = true;
+                    dlg.find('input[name="advfrm-select-props-default"]').prop("checked", true);
                 }
             } else {
                 var newclone = clone.clone();
                 newclone.find('input[name="advfrm-select-props-opt"]').val(val);
                 if (checked) {
-                    newclone.find('input[name="advfrm-select-props-default"]').get(0).checked = true;
+                    newclone.find('input[name="advfrm-select-props-default"]').prop("checked", true);
                 }
                 dlg.find('tr:last').after(newclone);
             }
@@ -535,11 +535,11 @@ jQuery(function() {
                         return;
                     }
                     var props = jQuery(this).find('input[name="advfrm-select-props-opt"]').map(function() {
-                        var def = jQuery(this).parents('tr').find('input[name="advfrm-select-props-default"]').get(0).checked ? '\u25CF' : '';
+                        var def = jQuery(this).parents('tr').find('input[name="advfrm-select-props-default"]').prop("checked") ? '\u25CF' : '';
                         return def + jQuery(this).val();
                     }).get();
                     props.unshift(jQuery('#advfrm-select-props-size').css('display') == 'none'
-                            ? (jQuery('#advfrm-select-props-orient input').get(1).checked ? 1 : 0)
+                            ? +jQuery('#advfrm-select-props-orient input').eq(1).prop("checked")
                             : jQuery('#advfrm-select-props-size input').val());
                     advfrm_properties(props);
                     jQuery(this).dialog('close');
