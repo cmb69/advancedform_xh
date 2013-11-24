@@ -769,14 +769,13 @@ function Advancedform_displayField($form_id, $field)
             if ($is_real_select) {
                 $o .= '<option' . $sel . '>' . htmlspecialchars($opt) . '</option>';
             } else {
-                $id .= '-' . htmlspecialchars($opt);
-                $o .= '<div class="' . $orient . '">'
+                $o .= '<div class="' . $orient . '"><label>'
                     . tag(
-                        'input type="'.$field['type'] . '"' . ' id="' . $id
-                        . '" name="' . $name . $brackets . '" value="'
-                        . htmlspecialchars($opt) . '"' . $sel
+                        'input type="'.$field['type'] . '" name="' . $name
+                        . $brackets . '" value="' . htmlspecialchars($opt) . '"'
+                        . $sel
                     )
-                    . '&nbsp;<label for="' . $id . '">' . htmlspecialchars($opt)
+                    . '&nbsp;' . htmlspecialchars($opt)
                     . '</label></div>';
             }
         }
