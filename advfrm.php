@@ -807,11 +807,11 @@ function Advancedform_displayField($form_id, $field)
         } else {
             if ($field['type'] == 'date') {
                 $hjs .= <<<EOS
-<script type="text/javascript">/* <![CDATA[ */'
+<script type="text/javascript">/* <![CDATA[ */
 jQuery(function() {
     jQuery('.advfrm-mailform form[name="$form_id"] input[name="$name"]').datepicker()
 });
-/* ]]> */'</script>
+/* ]]> */</script>
 
 EOS;
             }
