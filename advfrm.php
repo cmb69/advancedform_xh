@@ -753,13 +753,13 @@ function Advancedform_displayField($form_id, $field)
                     $form_id, $field['field'], $opt, isset($_POST['advfrm'])
                 );
             }
-            $multi_f = $is_multi
-                ? in_array($opt, array_map('stsl', $_POST[$name]))
-                : stsl($_POST[$name]) == $opt;
             if (isset($cust_f)) {
                 $f = $cust_f;
             } else {
-                $f = isset($_POST['advfrm']) && isset($_POST[$name]) && $multi_f
+                $f = isset($_POST['advfrm']) && isset($_POST[$name])
+                    && ($is_multi
+                        ? in_array($opt, array_map('stsl', $_POST[$name]))
+                        : stsl($_POST[$name]) == $opt)
                     || !isset($_POST['advfrm']) && $f;
             }
             $sel = $f
