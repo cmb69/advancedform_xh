@@ -1259,10 +1259,6 @@ function Advancedform_mail($id, $confirmation)
         }
     }
 
-    if (ADVFRM_DEBUG) {
-        return true;
-    }
-
     $log = $mail->Subject;
     if (!($ok = $mail->Send())) {
         $message = !empty($mail->ErrorInfo)

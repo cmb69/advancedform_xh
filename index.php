@@ -29,13 +29,6 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 define('ADVANCEDFORM_VERSION', '@ADVANCEDFORM_VERSION@');
 
 /**
- * Whether to activate debug mode.
- *
- * @todo: Drop?
- */
-define('ADVFRM_DEBUG', false);
-
-/**
  * Main plugin call.
  *
  * @param string $id A form ID.

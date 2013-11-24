@@ -398,8 +398,7 @@ function Advancedform_editForm($id)
         $o .= '</select></td>'
             . '<td>'
             . tag(
-                'input type="' . (ADVFRM_DEBUG ? 'text' : 'hidden') . '"'
-                . ' class="hidden" name="advfrm-props[]"'
+                'input type="hidden"' . ' class="hidden" name="advfrm-props[]"'
                 . ' size="10" value="' . htmlspecialchars($field['props']) . '"'
             )
             . '<td><a>' . Advancedform_toolIcon('props') . '</a>' . PHP_EOL;
