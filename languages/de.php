@@ -112,6 +112,7 @@ $plugin_tx['advancedform']['error_too_many_senders']="Höchstens ein Absender er
 $plugin_tx['advancedform']['cf_folder_data']="Pfad zu einem Ordner relativ zu CMSimples Wurzelverzeichnis, wo die Plugin-Daten gespeichert werden sollen. Z.B. \"userfiles/advancedform/\".";
 $plugin_tx['advancedform']['cf_captcha_plugin']="Das CAPTCHA-Plugin, das von Advancedform_XH verwendet werden soll. Geben Sie \"advancedform\" ein, um das eingebaute CAPTCHA zu verwenden.";
 $plugin_tx['advancedform']['cf_required_field_mark']="Die Markierung für erforderliche Felder. \"%s\" bestimmt die Position der Beschriftung.";
+$plugin_tx['advancedform']['cf_focus_form']="Ob das erste Formular-Feld automatisch fokusiert werden soll: \"1\" (ja) oder \"0\" (nein). Beachten Sie, dass die Fokusierung ein Herunterscrollen der Seite beim Aufruf bewirken kann.";
 $plugin_tx['advancedform']['cf_mail_to_name']="Die Voreinstellung für neue Formulare";
 $plugin_tx['advancedform']['cf_mail_to']="Die Voreinstellung für neue Formulare";
 $plugin_tx['advancedform']['cf_mail_cc']="Die Voreinstellung für neue Formulare";

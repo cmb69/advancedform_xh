@@ -875,7 +875,7 @@ function Advancedform_defaultView($id)
         $o .= '<td class="field">';
         $o .= Advancedform_displayField($id, $field);
         $o .= '</td></tr>' . PHP_EOL;
-        if ($labelled) {
+        if ($labelled && $pcf['focus_form']) {
             Advancedform_focusField($id, 'advfrm-' . $field['field']);
         }
     }

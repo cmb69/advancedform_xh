@@ -100,6 +100,7 @@ $plugin_tx['advancedform']['error_too_many_senders']="At most one sender allowed
 $plugin_tx['advancedform']['cf_folder_data']="Path to a folder relative to the CMSimple root directory, where to store the plugin's data. E.g. \"userfiles/advancedform/\". Leave empty to store into the plugin's data/ folder.";
 $plugin_tx['advancedform']['cf_captcha_plugin']="The CAPTCHA plugin that should be used by Advancedform_XH. Enter \"advancedform\" to use the built in CAPTCHA.";
 $plugin_tx['advancedform']['cf_required_field_mark']="The marker for required fields. \"%s\" designates the position of the label.";
+$plugin_tx['advancedform']['cf_focus_form']="Whether the first field of the form will automatically be focused: \"1\" (yes) or \"0\" (no). Note, that focusing may cause scrolling down the page on visit.";
 $plugin_tx['advancedform']['cf_mail_to_name']="The default for new forms";
 $plugin_tx['advancedform']['cf_mail_to']="The default for new forms";
 $plugin_tx['advancedform']['cf_mail_cc']="The default for new forms";
