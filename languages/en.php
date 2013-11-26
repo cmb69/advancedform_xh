@@ -48,6 +48,7 @@ $plugin_tx['advancedform']['label_constraint']="Constraint";
 $plugin_tx['advancedform']['label_error_msg']="Error message";
 $plugin_tx['advancedform']['label_horizontal']="Horizontal";
 $plugin_tx['advancedform']['label_vertical']="Vertical";
+$plugin_tx['advancedform']['label_none']="NONE";
 $plugin_tx['advancedform']['field_text']="Text";
 $plugin_tx['advancedform']['field_from_name']="Sender (name)";
 $plugin_tx['advancedform']['field_from']="Sender (e-mail)";

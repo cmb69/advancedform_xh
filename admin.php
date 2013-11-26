@@ -163,14 +163,17 @@ function Advancedform_toolIcon($name)
  * @global array  The page URLs.
  * @global array  The page levels.
  * @global string The script name.
+ * @global array  The localization of the plugins.
  */
 function Advancedform_pageSelect($name, $selected)
 {
-    global $cl, $h, $u, $l, $sn;
+    global $cl, $h, $u, $l, $sn, $plugin_tx;
 
+    $ptx = $plugin_tx['advancedform'];
     $o = '<select id="' . $name . '" name="' . $name . '">' . PHP_EOL;
     $sel = ($selected == '') ? ' selected="selected"' : '';
-    $o .= '<option value=""' . $sel . '></option>' . PHP_EOL;
+    $o .= '<option value=""' . $sel . '>' . $ptx['label_none'] . '</option>'
+        . PHP_EOL;
     for ($i = 0; $i < $cl; $i++) {
         $sel = ($u[$i] == $selected) ? ' selected="selected"' : '';
         $o .= '<option value="' . $u[$i] . '"' . $sel . '>'
@@ -399,17 +402,15 @@ function Advancedform_editForm($id)
             . '<td>'
             . tag(
                 'input type="hidden"' . ' class="hidden" name="advfrm-props[]"'
-                . ' size="10" value="' . htmlspecialchars($field['props']) . '"'
+                . ' value="' . htmlspecialchars($field['props']) . '"'
             )
             . '<td><a>' . Advancedform_toolIcon('props') . '</a>' . PHP_EOL;
         $checked = $field['required'] ? ' checked="checked"' : '';
         $o .= '<td>'
             . tag(
                 'input type="checkbox"' . $checked . ' onchange="' . 'this.'
-                . 'parentNode.nextSibling.firstChild.value = this.checked ? 1 : 0"'
+                . 'nextSibling.value = this.checked ? 1 : 0"'
             )
-            . '</td>';
-        $o .= '<td>'
             . tag(
                 'input type="hidden" name="advfrm-required[]" value="'
                 . $field['required'] . '"'

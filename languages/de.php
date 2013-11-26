@@ -55,6 +55,7 @@ $plugin_tx['advancedform']['label_constraint']="Beschränkung";
 $plugin_tx['advancedform']['label_error_msg']="Fehlermeldung";
 $plugin_tx['advancedform']['label_horizontal']="Horizontal";
 $plugin_tx['advancedform']['label_vertical']="Vertikal";
+$plugin_tx['advancedform']['label_none']="KEINE";
 
 $plugin_tx['advancedform']['field_text']="Text";
 $plugin_tx['advancedform']['field_from_name']="Absender (Name)";

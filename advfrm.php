@@ -701,6 +701,22 @@ function Advancedform_mailBody($id, $show_hidden, $html)
 }
 
 /**
+ * Prefixes each element of a comma separated list of file extensions with a dot.
+ *
+ * @param string $list A comma separated list of file extensions.
+ *
+ * @return string
+ */
+function Advancedform_prefixFileExtensionList($list)
+{
+    $extensions = explode(',', $list);
+    $func = create_function('$x', 'return \'.\' . $x;');
+    $extensions = array_map($func, $extensions);
+    $list = implode(',', $extensions);
+    return $list;
+}
+
+/**
  * Returns the view of a form field.
  *
  * @param string $form_id A form ID.
@@ -826,7 +842,8 @@ EOS;
             $size = $field['type'] == 'hidden' || empty($props[ADVFRM_PROP_SIZE])
                 ? ''
                 : ' size="' . $props[ADVFRM_PROP_SIZE] . '"';
-            $maxlen = $field['type'] == 'hidden' || empty($props[ADVFRM_PROP_MAXLEN])
+            $maxlen = in_array($field['type'], array('hidden', 'file'))
+                || empty($props[ADVFRM_PROP_MAXLEN])
                 ? ''
                 : ' maxlength="' . $props[ADVFRM_PROP_MAXLEN] . '"';
             if ($field['type'] == 'file' && !empty($props[ADVFRM_PROP_MAXLEN])) {
@@ -835,9 +852,18 @@ EOS;
                     . $props[ADVFRM_PROP_MAXLEN] . '"'
                 );
             }
+            if ($field['type'] == 'file') {
+                $value = '';
+                $accept = ' accept="'
+                    . htmlspecialchars(Advancedform_prefixFileExtensionList($val))
+                    . '"';
+            } else {
+                $value = ' value="' . htmlspecialchars($val) . '"';
+                $accept = '';
+            }
             $o .= tag(
                 'input type="' . $type . '" id="' . $id . '" name="' . $name
-                . '" value="' . htmlspecialchars($val) . '"' . $size . $maxlen
+                . '"' . $value . $accept . $size . $maxlen
             );
         }
     }
@@ -879,6 +905,8 @@ function Advancedform_defaultView($id)
                 . $label
                 . ($labelled ? '</label>' : '')
                 . '</td>';
+        } else {
+            $o .= '<td></td>';
         }
         $o .= '<td class="field">';
         $o .= Advancedform_displayField($id, $field);
