@@ -1,9 +1,20 @@
-Version 1beta13 - released TODO
-cmb	fixed bug: multiple CAPTCHAs didn't work independently
-cmb	fixed bug: language strings mail_subject and mail_subject_confirmation were wrong
-cmb	fixed bug:
-cmb	added logging of mails in mail.log
-cmb	made several minor improvements
+Version 1.0rc1 - released 2013-11-27
+cmb	fixed bug, where multiple CAPTCHAs didn't work independently
+cmb	fixed bug, where several language strings were wrongly escaped
+cmb     fixed bug, where email fields were not validated (reported by manu)
+cmb     fixed (potentially) invalid HTML
+cmb	added logging of mails in system log (CMSimple_XH >= 1.6)
+cmb     added config option focus_form (suggested by Traktorist, Holger and manu)
+cmb     added config option datepicker_icon (inspired by Tata)
+cmb     added metaconfig.php (for CMSimple_XH >= 1.6)
+cmb     removed powered-by link
+cmb     made compatible with jQuery 1.9 without Migrate plugin
+cmb     made .htaccess files compatible with Apache 2.4
+cmb     added French translation (contributed by johnjdoe)
+cmb     added Estonian translation (contributed by tanavots)
+cmb     added version.nfo
+cmb     revised manuals
+cmb     improved QA (Phing, PHP_CI, CodeSniffer, PHPDoc)
 
 Version 1beta12 - released 2012-04-17
 cmb	added danish translation (contributed by maeg)
