@@ -25,7 +25,7 @@ Template- bzw. Hook-System möglich.</p>
 <li><a href="#requirements">Vorraussetzungen</a></li>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#settings">Einstellungen</a></li>
-<li><a href="#usage">Verwendung</a></li>
+<li><a href="#usage">Verwendung</a>
 <ul>
 <li><a href="#usage-administration">Formular-Verwaltung</a></li>
 <li><a href="#usage-editor">Formular-Editor</a></li>
@@ -34,7 +34,7 @@ Template- bzw. Hook-System möglich.</p>
 <li><a href="#usage-templates">Vorlagen-System</a></li>
 <li><a href="#usage-hooks">Hooks</a></li>
 <li><a href="#usage-demo">Demo-Formulare</a></li>
-</ul>
+</ul></li>
 <li><a href="#limitations">Beschränkungen</a></li>
 <li><a href="#license">Lizenz</a></li>
 <li><a href="#credits">Danksagung</a></li>
@@ -45,18 +45,18 @@ Template- bzw. Hook-System möglich.</p>
 <p><strong>Bitte lesen Sie diese Dokumentation, <em>bevor</em> Sie auf Probleme
 stoßen!</strong></p>
 
-<h2><a name="notice">Wichtiger Hinweis</a></h2>
+<h2 id="notice">Wichtiger Hinweis</h2>
 <p><strong>Advancedform_XH konnte bislang noch keinen ausführlichen Tests in
 diversen Umgebungen unterzogen werden. Es handelt sich also um ein so genanntes
 Release-Candidate.</strong></p>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
-<h2><a name="requirements">Vorraussetzungen</a></h2>
+<h2 id="requirements">Vorraussetzungen</h2>
 <p>Advancedform_XH ist ein Plugin für CMSimple_XH. Es benötigt eine UTF-8
 kodierte Version.</p>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
-<h2><a name="installation">Installation</a></h2>
+<h2 id="installation">Installation</h2>
 <p>Die Installation erfolgt wie bei vielen anderen CMSimple_XH-Plugins auch. Im
 <a href="http://www.cmsimple-xh.org/wiki/doku.php/de:installation"> CMSimple_XH
 Wiki</a> finden sie ausführliche Hinweise.</p>
@@ -76,7 +76,7 @@ Vorraussetzungen erfüllt sind.</li>
 </ol>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
-<h2><a name="settings">Einstellungen</a></h2>
+<h2 id="settings">Einstellungen</h2>
 <p>Die Konfiguration des Plugins erfolgt wie bei vielen anderen
 CMSimple_XH-Plugins auch im Administrationsbereich der Homepage. Wählen Sie
 unter "Plugins" "Advancedform" aus.</p>
@@ -103,7 +103,7 @@ href="#usage-templates">Vorlagen-System</a> zurückgreifen.</p>
 und des Formular-Editors. Wollen Sie, dass das Aussehen der Eigenschafts-Dialoge
 zu Ihrem Template passt, sollten Sie in Erwägung ziehen, jQueryUI-Theming zu
 Ihrem Template hinzuzufügen. Wie das geht, wird im <a
-href="http://www.cmsimpleforum.com/viewtopic.php?f=29&t=3435&start=2">CMSimple_XH
+href="http://www.cmsimpleforum.com/viewtopic.php?f=29&amp;t=3435&amp;start=2">CMSimple_XH
 Forum</a> erklärt.</p>
 <p>Nur der erste Teil des Stylesheets oberhalb der Zeile</p>
 <pre>/* END OF MAIL CSS */</pre>
@@ -111,9 +111,9 @@ Forum</a> erklärt.</p>
 die für die E-Mail erforderlich sind, im oberen Teil des Stylesheets.</p>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
-<h2><a name="usage">Verwendung</a></h2>
+<h2 id="usage">Verwendung</h2>
 
-<h3><a name="usage-administration">Formular-Verwaltung</a></h3>
+<h3 id="usage-administration">Formular-Verwaltung</h3>
 <p>Im Administrationsbereich finden Sie unter "E-Mail-Formulare" die Übersicht
 aller definierten E-Mail-Formulare. Sie können neue hinzufügen und importieren
 sowie bestehende bearbeiten, löschen, kopieren und exportieren. Rechts daneben
@@ -122,7 +122,7 @@ einer Seite anzuzeigen. Kopieren Sie einfach den Code und fügen Sie ihn auf der
 gewünschten Seite ein.</p>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
-<h3><a name="usage-editor">Formular-Editor</a></h3>
+<h3 id="usage-editor">Formular-Editor</h3>
 <p>Im Formular-Editor können Sie Ihre Formulare erstellen. Die Details werden in
 den folgenden Abschnitten erklärt.</p>
 
@@ -266,7 +266,7 @@ neben den Optionen, werden diese als Vorbelegung gewählt. Verwenden Sie das Too
 "Vorbelegung entfernen" um diese Auswahl zurück zu setzen.</p>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
-<h3><a name="usage-form">Verwenden des Formulars</a></h3>
+<h3 id="usage-form">Verwenden des Formulars</h3>
 <p>Bearbeiten Sie die Seite, auf der das E-Mail-Formular angezeigt werden soll,
 und fügen Sie den Plugin-Aufruf ein:</p>
 <pre>advancedform('FORMULAR_NAME');</pre>
@@ -297,7 +297,7 @@ Log-Datei) aufgezeichnet.</p>
 zu platzieren, die unabhängig voneinander abgeschickt werden können.</p>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
-<h3><a name="usage-link">Ersetzen des eingebauten Kontakt-Formulars</a></h3>
+<h3 id="usage-link">Ersetzen des eingebauten Kontakt-Formulars</h3>
 <p>Es ist möglich das eingebaute Kontakt-Formular von CMSimple_XH durch ein
 benutzerdefiniertes zu ersetzen. Erstellen Sie dazu einfach das gewünschte
 Formular, und tragen Sie dessen Namen in Advancedform_XHs Spracheinstellungen
@@ -315,7 +315,7 @@ Ersetzen Sie</p>
 möglich auf diese Weise mehrere advancedformlink()s anzugeben.</p>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
-<h3><a name="usage-templates">Vorlagen-System</a></h3>
+<h3 id="usage-templates">Vorlagen-System</h3>
 <p>Das Vorlagen-System ermöglich die Erstellung höchst individueller Formulare.
 Power-User, die Formulare häufig erstellen oder verändern müssen, sollten sich
 den <a href="http://simplesolutions.dk/?Form_Mailer">Form Mailer</a> von Jerry
@@ -361,7 +361,7 @@ könnte.</strong></p>
 <p>die den Focus auf das angegebene Feld setzt.</p>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
-<h3><a name="usage-hooks">Hooks</a></h3>
+<h3 id="usage-hooks">Hooks</h3>
 <p>Die Hooks sind verfügbar, um noch mehr Flexibilität zu haben, wenn sie etwas
 PHP programmieren können. Definieren Sie sie in einer Datei
 FORMULAR_NAME.inc(.php) in Advancedform_XHs Daten-Ordner. Anmerkung: diese Datei
@@ -388,7 +388,7 @@ zusätzliche Überprüfungen der Feld-Werte. Geben Sie TRUE zurück, wenn der
 gegebene $value erlaubt ist; andernfalls sollten Sie eine Fehlermeldung zurück
 geben, die dem Benutzer angezeigt wird. Für Felder des Typs "Datei" ist $value
 das $_FILES[]-Array des angegebenen Felds.</p>
-<pre>function advfrm_custom_mail($form_name, &$mail, $is_confirmation)</pre>
+<pre>function advfrm_custom_mail($form_name, &amp;$mail, $is_confirmation)</pre>
 <p>Dies wird aufgerufen nachdem das $mail-Objekt mit allen Informationen
 initialisiert wurden, und gerade bevor die E-Mail verschickt wird, und
 ermöglicht das $mail-Objekt zu ändern. Die Parameterübergabe per Referenz ist
@@ -410,7 +410,7 @@ angezeigt. Der Parameter $fields ist ein Array, das die Werte aller
 abgeschickten Formular-Felder enthält.</p>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
-<h3><a name="usage-demo">Demo-Formulare</a></h3>
+<h3 id="usage-demo">Demo-Formulare</h3>
 <p>Sie sollten sich die ausgelieferten Demo-Formulare (in data/README finden Sie
 weitere Details) anschauen, um zu sehen, was möglich ist, und wie es gemacht
 wird.</p>
@@ -422,7 +422,7 @@ erzeugen eine Kopie des Formulars in der Formular-Verwaltung und verwenden diese
 Kopie.</p>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
-<h2><a name="limitations">Beschränkungen</a></h2>
+<h2 id="limitations">Beschränkungen</h2>
 
 <h3>Mailversand scheitert</h3>
 <p>Wenn das Versenden von E-Mails mit der Meldung "Mail Funktion konnte nicht
@@ -460,7 +460,7 @@ href="http://3-magi.net/?CMSimple_XH/Recaptcha_XH">Recaptcha_XH</a> und <a
 href="http://3-magi.net/?CMSimple_XH/Cryptographp_XH">Cryptographp_XH</a>.</p>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
-<h2><a name="license">Lizenz</a></h2>
+<h2 id="license">Lizenz</h2>
 <p>Advancedform_XH kann unter Einhaltung der
 <a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a> verwendet werden.</p>
 <p>&copy; 2005-2010 Jan Kanters<br>
@@ -472,7 +472,7 @@ Slovakische Übersetzung &copy; 2012 Dr. Martin Sereday<br>
 Tschechische Übersetzung &copy; 2011-2012 Josef Němec</p>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
-<h2><a name="credits">Danksagung</a></h2>
+<h2 id="credits">Danksagung</h2>
 <p>Advancedform_XH basiert auf AdvancedForm Pro von Jan Kanters. Vielen Dank an
 ihn, dass er die Erlaubnis gegeben hat, seinen Code für eine CMSimple_XH
 kompatible Version zu verwenden, und an Holger und johnjdoe, die diese Erlaubnis

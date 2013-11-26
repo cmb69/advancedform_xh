@@ -24,7 +24,7 @@ Advanced customization is available through the template resp. hook system.</p>
 <li><a href="#requirements">Requirements</a></li>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#settings">Settings</a></li>
-<li><a href="#usage">Usage</a></li>
+<li><a href="#usage">Usage</a>
 <ul>
 <li><a href="#usage-administration">Mail form administration</a></li>
 <li><a href="#usage-editor">Mail form editor</a></li>
@@ -33,7 +33,7 @@ Advanced customization is available through the template resp. hook system.</p>
 <li><a href="#usage-templates">Template system</a></li>
 <li><a href="#usage-hooks">Hooks</a></li>
 <li><a href="#usage-demo">Demo forms</a></li>
-</ul>
+</ul></li>
 <li><a href="#limitations">Limitations</a></li>
 <li><a href="#license">License</a></li>
 <li><a href="#credits">Credits</a></li>
@@ -44,17 +44,17 @@ Advanced customization is available through the template resp. hook system.</p>
 <p><strong>Please do read this documentation, <em>before</em> you encounter any
 problems!</strong></p>
 
-<h2><a name="notice">Important Notice</a></h2>
+<h2 id="notice">Important Notice</h2>
 <p><strong>Advancedform_XH couldn't be tested so far in various environments. It
 is a so called release candidate. Use with caution!</strong></p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h2><a name="requirements">Requirements</a></h2>
+<h2 id="requirements">Requirements</h2>
 <p>Advancedform_XH is a plugin for CMSimple_XH. It requires a UTF-8 encoded
 version.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h2><a name="installation">Installation</a></h2>
+<h2 id="installation">Installation</h2>
 <p>The installation is done as with many other CMSimple_XH plugins. See the <a
 href="http://www.cmsimple-xh.org/wiki/doku.php/installation"> CMSimple_XH
 wiki</a> for further details.</p>
@@ -74,7 +74,7 @@ fulfilled.</li>
 </ol>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h2><a name="settings">Settings</a></h2>
+<h2 id="settings">Settings</h2>
 <p>The plugin's configuration is done as with many other CMSimple_XH plugins in
 the website's back-end. Select "Advancedform" from "Plugins".</p>
 <p>You can change the default settings of Advancedform_XH in "Config". Hints for
@@ -96,7 +96,7 @@ you have to use the <a href="#usage-templates">template system</a>.</p>
 administration and the form editor. If you want to style the property dialogs to
 fit to your template, you should consider to add jQueryUI theming support to
 your template. How this can be done is explained in the <a
-href="http://www.cmsimpleforum.com/viewtopic.php?f=29&t=3435&start=2">CMSimple_XH
+href="http://www.cmsimpleforum.com/viewtopic.php?f=29&amp;t=3435&amp;start=2">CMSimple_XH
 forum</a>.</p>
 <p>Only the first part of the stylesheet above the line</p>
 <pre>/* END OF MAIL CSS */</pre>
@@ -104,9 +104,9 @@ forum</a>.</p>
 is appropriate for the mails to the top of the stylesheet.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h2><a name="usage">Usage</a></h2>
+<h2 id="usage">Usage</h2>
 
-<h3><a name="usage-administration">Mail form administration</a></h3>
+<h3 id="usage-administration">Mail form administration</h3>
 <p>In the back-end under "Mail Forms" you'll find the list of all defined mail
 forms. You can add and import new forms and edit, delete, copy and export
 existing ones. To the right of the mail form is the script code needed to show
@@ -114,7 +114,7 @@ the according form on a page. Just copy the code and paste it to the desired
 page.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h3><a name="usage-editor">Mail form editor</a></h3>
+<h3 id="usage-editor">Mail form editor</h3>
 <p>The mail form editor allows you to construct your mail forms.
 The details are explained in the following sections.</p>
 
@@ -246,7 +246,7 @@ The radiobuttons resp. checkboxes besides the options allow to specify these as 
 Use the tool "clear defaults" to reset them.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h3><a name="usage-form">Using the mail form</a></h3>
+<h3 id="usage-form">Using the mail form</h3>
 <p>Edit the page, that you want to display a mail form, and insert the plugin
 call:</p>
 <pre>{{{PLUGIN:advancedform('FORM_NAME');}}}</pre>
@@ -274,7 +274,7 @@ are logged in CMSimple_XH's system log (Settings &rarr; Log File).</p>
 be sent independent from each other.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h3><a name="usage-link">Replacing the built in mail form</a></h3>
+<h3 id="usage-link">Replacing the built in mail form</h3>
 <p>It is possible to replace CMSimple_XH's built in mail form with a user
 defined one. So just define the desired form, and enter its name in
 Advancedform_XH's language settings as "contact form". Now CMSimple_XH's
@@ -290,7 +290,7 @@ code to call the form. Then you have to modify your template. Just replace</p>
 mark. It is possible to specify multiple advancedformlink()s this way.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h3><a name="usage-templates">Template system</a></h3>
+<h3 id="usage-templates">Template system</h3>
 <p>The template system allows to build highly customized mail forms. Power
 users, who need to create or alter mail forms frequently, might have a look at
 the <a href="http://simplesolutions.dk/?Form_Mailer">Form Mailer</a> by Jerry
@@ -331,7 +331,7 @@ malicious code that might harm your CMSimple_XH installation.</strong></p>
 <p>that will set the focus to the given field.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h3><a name="usage-hooks">Hooks</a></h3>
+<h3 id="usage-hooks">Hooks</h3>
 <p>The hooks are provided to give you even more flexibility, if you're able to
 write some PHP code. Define them in a file FORM_NAME.inc(.php) in
 Advancedform_XH's data folder. N.B.: this file will be include()'d, so it has to
@@ -356,7 +356,7 @@ to add additional validation to the field values. Return TRUE, if the given
 $value is valid, otherwise return an error message, which will be displayed to
 the user by Advancedform_XH. For fields of type "file", $value is the $_FILES[]
 array belonging to the given field.</p>
-<pre>function advfrm_custom_mail($form_name, &$mail, $is_confirmation)</pre>
+<pre>function advfrm_custom_mail($form_name, &amp;$mail, $is_confirmation)</pre>
 <p>This will be called after the $mail object is initialized with all
 information and just before the mail is sent, and gives the opportunity to alter
 the $mail object. The call-by-reference for $mail is important for PHP4, and
@@ -378,7 +378,7 @@ displayed. The parameter $fields is an array holding the values of all submitted
 form fields.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h3><a name="usage-demo">Demo forms</a></h3>
+<h3 id="usage-demo">Demo forms</h3>
 <p>You should have a look at the shipped demo forms (see data/README for further
 details) to see what can be done, and how it can be done.</p>
 <p><strong>Caution:</strong> of course you're free to use the demo forms as base
@@ -388,7 +388,7 @@ template/hook files manually, or make a copy of the form in the form
 administration and use this copy.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h2><a name="limitations">Limitations</a></h2>
+<h2 id="limitations">Limitations</h2>
 
 <h3>Sending of Mails fails</h3>
 <p>If the sending of mails fails with the message "Could not instantiate mail
@@ -423,7 +423,7 @@ href="http://3-magi.net/?CMSimple_XH/Recaptcha_XH">Recaptcha_XH</a> and <a
 href="http://3-magi.net/?CMSimple_XH/Cryptographp_XH">Cryptographp_XH</a>.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h2><a name="license">License</a></h2>
+<h2 id="license">License</h2>
 <p>Advancedform_XH is licensed under
 <a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.</p>
 <p>&copy; 2005-2010 Jan Kanters<br>
@@ -435,7 +435,7 @@ French translation &copy; 2012 Gerd Xhonneux<br>
 Slovak translation &copy; 2012 Dr. Martin Sereday</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h2><a name="credits">Credits</a></h2>
+<h2 id="credits">Credits</h2>
 <p>Advancedform_XH is based on AdvancedForm Pro by Jan Kanters. Many thanks to
 him for giving the permission to use his code for a CMSimple_XH conforming
 version, and to Holger and johnjdoe who negotiated this permission.</p>
