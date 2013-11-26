@@ -107,7 +107,7 @@
 	$plugin_tx['advancedform']['cf_mail_captcha']="Uute vormide vaikeseade. Kasuta \"1\" (jah) või \"0\" (ei)";
 	$plugin_tx['advancedform']['cf_mail_thanks_page']="Uute vormide vaikeseade";
 	$plugin_tx['advancedform']['cf_mail_type']="Saadetavate mailide tüüp, see on \"html\" või \"text\".";
-	$plugin_tx['advancedform']['cf_mail_regexp']="E-kirja aadresside kontrollimiseks kasutatav tavapärane avaldis. Vaikimisi kaustatav on mõnevõrra piirav, vaata http://www.regular-expressions.info/email.html täpsemalt.";
+	$plugin_tx['advancedform']['cf_mail_regexp']="E-kirja aadresside kontrollimiseks kasutatav tavapärane avaldis. Vaikimisi kaustatav on mõnevõrra piirav, vaata <a href=\"http://www.regular-expressions.info/email.html\" target=\"_blank\">http://www.regular-expressions.info/email.html</a>.";
 	$plugin_tx['advancedform']['cf_mail_line_ending_*nix']="Kas kirjas peaks kasutama *nix stiilis realõppe: \"1\" (jah) või \"0\" (ei). Kui kirjade saatmine vaikimisi seadega ei õnnestu, kasuta teist.";
 	$plugin_tx['advancedform']['cf_php_extension']="Kas peaks kasutama lisaks .php laiendit malli ja seonduvate failide jaoks. \"1\" (jah) või \"0\" (ei)";
 

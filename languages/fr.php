@@ -119,7 +119,7 @@ $plugin_tx['advancedform']['cf_mail_bcc']="Valeur par défaut pour des nouveaux 
 $plugin_tx['advancedform']['cf_mail_captcha']="Valeur par défaut pour des nouveaux formulaires. Utiliez \"1\" (oui) oder \"0\" (non)";
 $plugin_tx['advancedform']['cf_mail_thanks_page']="Valeur par défaut pour des nouveaux formulaires";
 $plugin_tx['advancedform']['cf_mail_type']="Mode d'envoie du courriel: \"html\" ou \"text\".";
-$plugin_tx['advancedform']['cf_mail_regexp']="Impression régulaire pour vérifier la validité d'une adresse e-mail. La valeur par défaut est un peu restrictiv. Voir http://www.regular-expressions.info/email.html pour plus d'infos.";
+$plugin_tx['advancedform']['cf_mail_regexp']="Impression régulaire pour vérifier la validité d'une adresse e-mail. La valeur par défaut est un peu restrictiv. Voir <a href=\"http://www.regular-expressions.info/email.html\" target=\"_blank\">http://www.regular-expressions.info/email.html</a> pour plus d'infos.";
 $plugin_tx['advancedform']['cf_php_extension']="Sie l'extension .php doit être utilisée pour les fichiers template et hook. \"1\" (oui) ou \"0\" (non)";
 
 ?>

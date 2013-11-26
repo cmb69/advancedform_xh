@@ -108,7 +108,7 @@ $plugin_tx['advancedform']['cf_mail_bcc']="Předvolba pro nové formuláře.";
 $plugin_tx['advancedform']['cf_mail_captcha']="Předvolba pro nové formuláře. \"1\" (ano) nebo \"0\" (ne)";
 $plugin_tx['advancedform']['cf_mail_thanks_page']="Předvolba pro nové formuláře.";
 $plugin_tx['advancedform']['cf_mail_type']="V jakém formátu se mají e-maily odesílat? Např.: \"html\" nebo \"text\".";
-$plugin_tx['advancedform']['cf_mail_regexp']="Znak pro kontrolu správnosti e-mailové adresy. Přednastavená hodnota je trochu prísná, více o tom na http://www.regular-expressions.info/email.html.";
+$plugin_tx['advancedform']['cf_mail_regexp']="Znak pro kontrolu správnosti e-mailové adresy. Přednastavená hodnota je trochu prísná, více o tom na <a href=\"http://www.regular-expressions.info/email.html\" target=\"_blank\">http://www.regular-expressions.info/email.html</a>.";
 $plugin_tx['advancedform']['cf_mail_line_ending_*nix']="Mají se v e-mailech použít konce řádků jako v *nix? \"1\" (ano) nebo \"0\" (ne). Pokud by nefungovalo odesílání e-mailů, zkuste jiné nastavení.";
 $plugin_tx['advancedform']['cf_php_extension']="Má se pro nové formuláře použít přípona .php?  \"1\" (ano) nebo \"0\" (ne)";
 $plugin_tx['advancedform']['cf_utf-8-marker']="Jen pro interní použití. <strong>NEMĚNIT!</strong>";

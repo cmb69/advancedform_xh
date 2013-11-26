@@ -124,7 +124,7 @@ $plugin_tx['advancedform']['cf_mail_bcc']="Die Voreinstellung für neue Formular
 $plugin_tx['advancedform']['cf_mail_captcha']="Die Voreinstellung für neue Formulare. Verwenden Sie \"1\" (ja) oder \"0\" (nein)";
 $plugin_tx['advancedform']['cf_mail_thanks_page']="Die Voreinstellung für neue Formulare";
 $plugin_tx['advancedform']['cf_mail_type']="Die Art der Mail, die verschickt werden soll, d.h. \"html\" or \"text\".";
-$plugin_tx['advancedform']['cf_mail_regexp']="Der reguläre Ausdruck um gültige E-Mail-Adressen zu prüfen. Die Voreinstellung ist etwas restriktiv, siehe http://www.regular-expressions.info/email.html für weitere Informationen.";
+$plugin_tx['advancedform']['cf_mail_regexp']="Der reguläre Ausdruck um gültige E-Mail-Adressen zu prüfen. Die Voreinstellung ist etwas restriktiv, siehe <a href=\"http://www.regular-expressions.info/email.html\" target=\"_blank\">http://www.regular-expressions.info/email.html</a> für weitere Informationen.";
 $plugin_tx['advancedform']['cf_php_extension']="Ob die zusätzliche Erweiterung .php für Template- und Hook-Dateien verwendet werden soll. \"1\" (ja) oder \"0\" (nein)";
 
 ?>
