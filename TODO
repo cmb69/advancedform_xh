@@ -1,0 +1,26 @@
+document mail.log
+1.6 metaconfig.php
+
+* set reasonable defaults for properties
+  (<http://cmsimpleforum.com/viewtopic.php?f=16&t=5704>)
+* form editor:
+    * EITHER add validation for thanks_page and missing Sender-EMail (sugg. by
+      manu)
+    * OR allow missing Sender-Email (sugg. by Ele
+      <http://cmsimpleforum.com/viewtopic.php?f=16&t=5201&p=30726#p30726>)
+* select fields: optional "caption" ("Please select") with empty string as value
+  (get's caught for required fields) (sugg. by manu/Simmyne) store headers in
+  csv? translation-hints
+* check max. length server side
+* change hook system (unique names, but drop $form_name param) ???
+* screenshots
+* better documentation for demo forms
+* namespace css classes
+* make sending confirmation mail explicit option instead of implicitely using
+  thanks_page (sugg. by Simmyne)
+* make sending confirmation mail an option for visitor to choose (suggested by
+  Simmyne)
+* add option to use signature (similar to message_sent_info) (sugg. by Simmyne)
+* defaults in config anders behandeln (nicht eintragen bei neuem Formular,
+  sondern Verwenden, wenn die entsprechenden Felder im Formular leer sind)
+  (suggested by Old)
