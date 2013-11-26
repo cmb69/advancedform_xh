@@ -109,6 +109,9 @@ $plugin_tx['advancedform']['error_invalid_property']="Ungültiger Eigenschafts-W
 $plugin_tx['advancedform']['error_duplicate_fields']="Doppelte Feldname sind nicht erlaubt!";
 $plugin_tx['advancedform']['error_too_many_senders']="Höchstens ein Absender erlaubt!";
 
+$plugin_tx['advancedform']['log_success']="E-Mail von <%s> verschickt.";
+$plugin_tx['advancedform']['log_error']="E-Mail von <%s> nicht verschickt!";
+
 $plugin_tx['advancedform']['cf_folder_data']="Pfad zu einem Ordner relativ zu CMSimples Wurzelverzeichnis, wo die Plugin-Daten gespeichert werden sollen. Z.B. \"userfiles/advancedform/\".";
 $plugin_tx['advancedform']['cf_captcha_plugin']="Das CAPTCHA-Plugin, das von Advancedform_XH verwendet werden soll. Geben Sie \"advancedform\" ein, um das eingebaute CAPTCHA zu verwenden.";
 $plugin_tx['advancedform']['cf_required_field_mark']="Die Markierung für erforderliche Felder. \"%s\" bestimmt die Position der Beschriftung.";

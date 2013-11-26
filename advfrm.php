@@ -1262,23 +1262,15 @@ function Advancedform_mail($id, $confirmation)
         }
     }
 
-    $log = $mail->Subject;
-    if (!($ok = $mail->Send())) {
-        $message = !empty($mail->ErrorInfo)
-            ? htmlspecialchars($mail->ErrorInfo)
-            : $ptx['error_mail'];
-        $e .= '<li>' . $message . '</li>' . PHP_EOL;
-        $log = '----- ' . $log . "\t" . $mail->ErrorInfo . "\n" . serialize($mail);
-    } else {
-        $log = '+++++ ' . $log;
+    $ok = $mail->Send();
+    
+    if (!$confirmation && function_exists('XH_logMessage')) {
+        $type = $ok ? 'info' : 'error';
+        $message = $ok ? $ptx['log_success'] : $ptx['log_error'];
+        $message = sprintf($message, $from);
+        XH_logMessage($type, 'Advancedform', $id, $message);
     }
-    $fn = Advancedform_dataFolder() . 'mail.log';
-    if (($fh = fopen($fn, 'a')) === false || fwrite($fh, $log . "\n") === false) {
-        e('cntwriteto', 'log', $fn);
-    }
-    if ($fh !== false) {
-        fclose($fh);
-    }
+
     return $ok;
 }
 
