@@ -13,7 +13,7 @@ $plugin_tx['advancedform']['syscheck_phpversion']="PHP verzia ≥ %s";
 $plugin_tx['advancedform']['syscheck_extension']="Rozšírenie '%s' načítané";
 $plugin_tx['advancedform']['syscheck_encoding']="Kódovanie 'UTF-8' nastavené";
 $plugin_tx['advancedform']['syscheck_magic_quotes']="magic_quotes_runtime off";
-$plugin_tx['advancedform']['syscheck_jquery']="<a href=\"http://www.cmsimple-xh.com/wiki/doku.php/plugins:jquery4cmsimple\">jQuery4CMSimple plugin</a> nainštalované";
+$plugin_tx['advancedform']['syscheck_jquery']="<a href=\"http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple\">jQuery4CMSimple plugin</a> nainštalované";
 $plugin_tx['advancedform']['syscheck_captcha_plugin']="CAPTCHA nainštalované";
 $plugin_tx['advancedform']['syscheck_writable']="Do adresára '%s' možno zapisovať";
 $plugin_tx['advancedform']['contact_form']="";

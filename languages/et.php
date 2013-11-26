@@ -5,7 +5,7 @@
 	$plugin_tx['advancedform']['syscheck_extension']="Laiend '%s' on laaditud";
 	$plugin_tx['advancedform']['syscheck_encoding']="'UTF-8' kodeerimine on konfigureeritud";
 	$plugin_tx['advancedform']['syscheck_magic_quotes']="magic_quotes_runtime väljas";
-	$plugin_tx['advancedform']['syscheck_jquery']="<a href=\"http://www.cmsimple-xh.com/wiki/doku.php/plugins:jquery4cmsimple\">jQuery4CMSimple lisa</a> on paigaldatud.";
+	$plugin_tx['advancedform']['syscheck_jquery']="<a href=\"http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple\">jQuery4CMSimple lisa</a> on paigaldatud.";
 	$plugin_tx['advancedform']['syscheck_captcha_plugin']="CAPTCHA on paigaldatud";
 	$plugin_tx['advancedform']['syscheck_writable']="Kaust '%s' on kirjutatav";
 	$plugin_tx['advancedform']['contact_form']="";

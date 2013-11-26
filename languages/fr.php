@@ -5,7 +5,7 @@ $plugin_tx['advancedform']['syscheck_phpversion']="Version PHP ≥ %s";
 $plugin_tx['advancedform']['syscheck_extension']="Extension '%s' chargée";
 $plugin_tx['advancedform']['syscheck_encoding']="Codification UTF-8 ajustée";
 $plugin_tx['advancedform']['syscheck_magic_quotes']="magic_quotes_runtime off";
-$plugin_tx['advancedform']['syscheck_jquery']="<a href=\"http://www.cmsimple-xh.com/wiki/doku.php/plugins:jquery4cmsimple\">Plugin jQuery4CMSimple</a> installé";
+$plugin_tx['advancedform']['syscheck_jquery']="<a href=\"http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple\">Plugin jQuery4CMSimple</a> installé";
 $plugin_tx['advancedform']['syscheck_captcha_plugin']="CAPTCHA installé";
 $plugin_tx['advancedform']['syscheck_writable']="Répertoire '%s' modifiable";
 

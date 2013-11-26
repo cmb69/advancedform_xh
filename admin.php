@@ -52,7 +52,7 @@ function Advancedform_version()
         . 'Copyright &copy; 2011-2013 <a href="http://3-magi.net">'
         . 'Christoph M. Becker</a></p>' . PHP_EOL
         . '<p>Advancedform_XH is powered by <a'
-        . ' href=" http://www.cmsimple-xh.com/wiki/doku.php/plugins:jquery4cmsimple"'
+        . ' href="http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple"'
         . ' target="_blank">jQuery4CMSimple</a>'
         . ' and <a href="http://phpmailer.worxware.com/" target="_blank">'
         . 'PHPMailer</a>.</p>' . PHP_EOL
