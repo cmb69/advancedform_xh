@@ -567,6 +567,20 @@ function Advancedform_fields()
 }
 
 /**
+ * Returns a string where all special HTML characters are replaced with entities.
+ *
+ * @param string $string A string.
+ *
+ * @return string
+ *
+ * @todo Use XH_hsc()
+ */
+function Advancedform_hsc($string)
+{
+    return htmlspecialchars($string, ENT_COMPAT, 'UTF-8');
+}
+
+/**
  * Returns the information sent/to send.
  *
  * @param string $id          A form ID.
@@ -603,7 +617,7 @@ function Advancedform_mailInfo($id, $show_hidden, $html)
         ) {
             $name = 'advfrm-' . $field['field'];
             if ($html) {
-                $o .= '<tr><td class="label">' . htmlspecialchars($field['label'])
+                $o .= '<tr><td class="label">' . Advancedform_hsc($field['label'])
                     . '</td><td class="field">';
             } else {
                 $o .= $field['label'] . PHP_EOL;
@@ -612,12 +626,12 @@ function Advancedform_mailInfo($id, $show_hidden, $html)
                 if (is_array($_POST[$name])) {
                     foreach ($_POST[$name] as $val) {
                         $o .= $html
-                            ? '<div>' . htmlspecialchars(stsl($val)) . '</div>'
+                            ? '<div>' . Advancedform_hsc(stsl($val)) . '</div>'
                             : '  ' . stsl($val) . PHP_EOL;
                     }
                 } else {
                     $o .= $html
-                        ? Advancedform_nl2br(htmlspecialchars(stsl($_POST[$name])))
+                        ? Advancedform_nl2br(Advancedform_hsc(stsl($_POST[$name])))
                         : '  ' . Advancedform_indent(stsl($_POST[$name])) . PHP_EOL;
                 }
             } elseif (isset($_FILES[$name])) {
@@ -783,15 +797,15 @@ function Advancedform_displayField($form_id, $field)
                 ? ($is_real_select ? ' selected="selected"' : ' checked="checked"')
                 : '';
             if ($is_real_select) {
-                $o .= '<option' . $sel . '>' . htmlspecialchars($opt) . '</option>';
+                $o .= '<option' . $sel . '>' . Advancedform_hsc($opt) . '</option>';
             } else {
                 $o .= '<div class="' . $orient . '"><label>'
                     . tag(
                         'input type="'.$field['type'] . '" name="' . $name
-                        . $brackets . '" value="' . htmlspecialchars($opt) . '"'
+                        . $brackets . '" value="' . Advancedform_hsc($opt) . '"'
                         . $sel
                     )
-                    . '&nbsp;' . htmlspecialchars($opt)
+                    . '&nbsp;' . Advancedform_hsc($opt)
                     . '</label></div>';
             }
         }
@@ -817,7 +831,7 @@ function Advancedform_displayField($form_id, $field)
             $rows = empty($props[ADVFRM_PROP_ROWS]) ? 4 : $props[ADVFRM_PROP_ROWS];
             $o .= '<textarea id="' . $id . '" name="' . $name . '" cols="' . $cols
                 . '" rows="' . $rows . '">'
-                . htmlspecialchars($val) . '</textarea>';
+                . Advancedform_hsc($val) . '</textarea>';
         } elseif ($field['type'] == 'output') {
             $o .= $val;
         } else {
@@ -855,10 +869,10 @@ EOS;
             if ($field['type'] == 'file') {
                 $value = '';
                 $accept = ' accept="'
-                    . htmlspecialchars(Advancedform_prefixFileExtensionList($val))
+                    . Advancedform_hsc(Advancedform_prefixFileExtensionList($val))
                     . '"';
             } else {
-                $value = ' value="' . htmlspecialchars($val) . '"';
+                $value = ' value="' . Advancedform_hsc($val) . '"';
                 $accept = '';
             }
             $o .= tag(
@@ -890,7 +904,7 @@ function Advancedform_defaultView($id)
     $o = '';
     $o .= '<div style="overflow:auto">' . PHP_EOL . '<table>' . PHP_EOL;
     foreach ($form['fields'] as $field) {
-        $label = htmlspecialchars($field['label']);
+        $label = Advancedform_hsc($field['label']);
         $label = $field['required']
             ? sprintf($pcf['required_field_mark'], $label)
             : $label;
@@ -1046,7 +1060,7 @@ function Advancedform_check($id)
                 $o .= '<li>'
                     . sprintf(
                         $ptx['error_missing_field'],
-                        htmlspecialchars($field['label'])
+                        Advancedform_hsc($field['label'])
                     )
                     . '</li>' . PHP_EOL;
                 Advancedform_focusField($id, $name);
@@ -1059,7 +1073,7 @@ function Advancedform_check($id)
                     $o .= '<li>'
                         . sprintf(
                             $ptx['error_invalid_email'],
-                            htmlspecialchars($field['label'])
+                            Advancedform_hsc($field['label'])
                         )
                         . '</li>' . PHP_EOL;
                     Advancedform_focusField($id, $name);
@@ -1078,7 +1092,7 @@ function Advancedform_check($id)
                     $o .= '<li>'
                         . sprintf(
                             $ptx['error_invalid_date'],
-                            htmlspecialchars($field['label'])
+                            Advancedform_hsc($field['label'])
                         )
                         .'</li>' . PHP_EOL;
                     Advancedform_focusField($id, $name);
@@ -1089,7 +1103,7 @@ function Advancedform_check($id)
                     $o .= '<li>'
                         . sprintf(
                             $ptx['error_invalid_number'],
-                            htmlspecialchars($field['label'])
+                            Advancedform_hsc($field['label'])
                         )
                         . '</li>' . PHP_EOL;
                     Advancedform_focusField($id, $name);
@@ -1105,7 +1119,7 @@ function Advancedform_check($id)
                         $o .= '<li>'
                             . sprintf(
                                 $ptx['error_upload_too_large'],
-                                htmlspecialchars($field['label'])
+                                Advancedform_hsc($field['label'])
                             )
                             . '</li>' . PHP_EOL;
                         Advancedform_focusField($id, $name);
@@ -1116,7 +1130,7 @@ function Advancedform_check($id)
                     $o .= '<li>'
                         . sprintf(
                             $ptx['error_upload_too_large'],
-                            htmlspecialchars($field['label'])
+                            Advancedform_hsc($field['label'])
                         )
                         . '</li>' . PHP_EOL;
                     Advancedform_focusField($id, $name);
@@ -1125,7 +1139,7 @@ function Advancedform_check($id)
                     $o .= '<li>'
                         . sprintf(
                             $ptx['error_upload_general'],
-                            htmlspecialchars($field['label'])
+                            Advancedform_hsc($field['label'])
                         )
                         . '</li>' . PHP_EOL;
                     Advancedform_focusField($id, $name);
@@ -1137,8 +1151,8 @@ function Advancedform_check($id)
                     $o .= '<li>'
                         . sprintf(
                             $ptx['error_upload_illegal_ftype'],
-                            htmlspecialchars($field['label']),
-                            htmlspecialchars($ext)
+                            Advancedform_hsc($field['label']),
+                            Advancedform_hsc($ext)
                         )
                         . '</li>' . PHP_EOL;
                     Advancedform_focusField($id, $name);

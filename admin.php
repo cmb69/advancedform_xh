@@ -347,7 +347,7 @@ function Advancedform_editForm($id)
             $o .= '<td>'
                 . tag(
                     'input type="text" id="' . $name . '" name="' . $name . '"'
-                    . ' value="' . htmlspecialchars($form[$det]) . '" size="40"'
+                    . ' value="' . Advancedform_hsc($form[$det]) . '" size="40"'
                 )
                 . '</td>';
         }
@@ -383,7 +383,7 @@ function Advancedform_editForm($id)
             . '<td>'
             . tag(
                 'input type="text" size="10" name="advfrm-label[]" value="'
-                . htmlspecialchars($field['label']) . '" class="highlightable"'
+                . Advancedform_hsc($field['label']) . '" class="highlightable"'
             )
             . '</td>'
             . '<td><select name="advfrm-type[]" onfocus="this.oldvalue = this.value"'
@@ -402,7 +402,7 @@ function Advancedform_editForm($id)
             . '<td>'
             . tag(
                 'input type="hidden" class="hidden" name="advfrm-props[]"'
-                . ' value="' . htmlspecialchars($field['props']) . '"'
+                . ' value="' . Advancedform_hsc($field['props']) . '"'
             )
             . '<td><a>' . Advancedform_toolIcon('props') . '</a>' . PHP_EOL;
         $checked = $field['required'] ? ' checked="checked"' : '';
