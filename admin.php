@@ -146,7 +146,7 @@ function Advancedform_toolIcon($name)
     $src = $pth['folder']['plugins'] . 'advancedform/images/' . $name . '.gif';
     $title = $ptx['tool_'.$name];
     return tag(
-        'img src="' . $src . '"' . ' alt="' . $title . '" title="' . $title . '"'
+        'img src="' . $src . '" alt="' . $title . '" title="' . $title . '"'
     );
 }
 
@@ -317,7 +317,7 @@ function Advancedform_editForm($id)
     $o = '<div id="advfrm-editor">' . PHP_EOL . '<h1>' . $id . '</h1>' . PHP_EOL;
     $action = $sn
         . '?advancedform&amp;admin=plugin_main&amp;action=save&amp;form=' . $id;
-    $o .= '<form action="' . $action . '"' . ' method="post" accept-charset="UTF-8"'
+    $o .= '<form action="' . $action . '" method="post" accept-charset="UTF-8"'
         . ' onsubmit="return advfrm_checkForm()">' . PHP_EOL;
     $o .= '<table id="advfrm-form">' . PHP_EOL;
     $fields = array(
@@ -382,7 +382,7 @@ function Advancedform_editForm($id)
             . '</td>'
             . '<td>'
             . tag(
-                'input type="text" size="10" name="advfrm-label[]"' . ' value="'
+                'input type="text" size="10" name="advfrm-label[]" value="'
                 . htmlspecialchars($field['label']) . '" class="highlightable"'
             )
             . '</td>'
@@ -401,14 +401,14 @@ function Advancedform_editForm($id)
         $o .= '</select></td>'
             . '<td>'
             . tag(
-                'input type="hidden"' . ' class="hidden" name="advfrm-props[]"'
+                'input type="hidden" class="hidden" name="advfrm-props[]"'
                 . ' value="' . htmlspecialchars($field['props']) . '"'
             )
             . '<td><a>' . Advancedform_toolIcon('props') . '</a>' . PHP_EOL;
         $checked = $field['required'] ? ' checked="checked"' : '';
         $o .= '<td>'
             . tag(
-                'input type="checkbox"' . $checked . ' onchange="' . 'this.'
+                'input type="checkbox"' . $checked . ' onchange="this.'
                 . 'nextSibling.value = this.checked ? 1 : 0"'
             )
             . tag(
@@ -432,8 +432,8 @@ function Advancedform_editForm($id)
         . '<table>' . PHP_EOL;
     $properties = array('size', 'maxlength', 'default', 'constraint', 'error_msg');
     foreach ($properties as $prop) {
-        $o .= '<tr id="advfrm-text-props-' . $prop . '">' . '<td>' . $prop . '</td>'
-            . '<td>' . tag('input type="text" size="30"') . '</td>' . '</tr>'
+        $o .= '<tr id="advfrm-text-props-' . $prop . '"><td>' . $prop . '</td>'
+            . '<td>' . tag('input type="text" size="30"') . '</td></tr>'
             . PHP_EOL;
     }
     $o .= '</table>' . PHP_EOL . '</div>' . PHP_EOL;
