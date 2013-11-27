@@ -65,9 +65,10 @@
         <move todir="dist">
             <fileset dir="export">
                 <exclude name=".komodotools"/>
+                <exclude name="advancedform.komodoproject"/>
                 <exclude name="build.xml"/>
                 <exclude name="phpcompatinfo.xml"/>
-                <exclude name="advancedform.komodoproject"/>
+                <exclude name="TODO"/>
             </fileset>
         </move>
         <delete dir="export"/>
