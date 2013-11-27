@@ -97,7 +97,7 @@ function Advancedform_combineArrays($array1, $array2)
 }
 
 /**
- * Returns string with '<br />' resp. '<br>' inserted before all linebreaks.
+ * Returns string with a BR element inserted before all linebreaks.
  *
  * @param string $string An (X)HTML fragment.
  * 
@@ -1037,7 +1037,7 @@ function Advancedform_formView($id)
  * @return mixed
  *
  * @global array The configuration of the plugins.
- * @global array The configuration of the core.
+ * @global array The localization of the plugins.
  */
 function Advancedform_check($id)
 {

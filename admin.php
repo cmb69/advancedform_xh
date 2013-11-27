@@ -592,8 +592,8 @@ function Advancedform_copyForm($id)
  *
  * @return string (X)HTML.
  * 
- * @global string The (X)HTML fragment containing error messages.
  * @global array  The localization of the plugins.
+ * @global string The (X)HTML fragment containing error messages.
  */
 function Advancedform_importForm($id)
 {
