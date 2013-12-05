@@ -1,9 +1,12 @@
+Version 1.0rc2 - released 2013-12-05
+cmb     fixed regression bug, where selectboxes were prepended with an empty option (reported by manu)
+
 Version 1.0rc1 - released 2013-11-27
-cmb	fixed bug, where multiple CAPTCHAs didn't work independently
-cmb	fixed bug, where several language strings were wrongly escaped
+cmb     fixed bug, where multiple CAPTCHAs didn't work independently
+cmb     fixed bug, where several language strings were wrongly escaped
 cmb     fixed bug, where email fields were not validated (reported by manu)
 cmb     fixed (potentially) invalid HTML
-cmb	added logging of mails in system log (CMSimple_XH >= 1.6)
+cmb     added logging of mails in system log (CMSimple_XH >= 1.6)
 cmb     added config option focus_form (suggested by Traktorist, Holger and manu)
 cmb     added config option datepicker_icon (inspired by Tata)
 cmb     added metaconfig.php (for CMSimple_XH >= 1.6)
@@ -17,130 +20,130 @@ cmb     revised manuals
 cmb     improved QA (Phing, PHP_CI, CodeSniffer, PHPDoc)
 
 Version 1beta12 - released 2012-04-17
-cmb	added danish translation (contributed by maeg)
-cmb	updated resp. added latest jqueryui datepicker translations
-cmb	fixed bug: no field values were sent in HTML mails with PHP < 5.3
-cmb	properly indented multi-line fields in text mails
-cmb	removed system check for OpenSSL, which is not used (reported by jwndev)
+cmb     added danish translation (contributed by maeg)
+cmb     updated resp. added latest jqueryui datepicker translations
+cmb     fixed bug: no field values were sent in HTML mails with PHP < 5.3
+cmb     properly indented multi-line fields in text mails
+cmb     removed system check for OpenSSL, which is not used (reported by jwndev)
 
 Version 1beta11 - released 2012-04-12
-cmb	fixed bug which included empty CC and BCC headers in mails (reported by maeg)
-cmb	extended copyright to 2012
-cmb	added plugin icon
-cmb	fixed bug: form template CSS and JS files couldn't be read (reported by simmyne)
-cmb	improved styling of template CSS files
-cmb	added nl2br() to keep newlines visible in (X)HTML
-cmb	fixed bug: message_sent_info was not included in text mails
-cmb	added demo form "Confirmation"
-cmb	documented template/hook "trap" when reusing demo forms
-cmb	added and documented simpler way to replace the built-in mailform
-cmb	added demo form "Memberpage" (inspired by u.goebel)
-cmb	updated czech translation (contributed by oldnema)
-cmb	added slovak translation (contributed by Tata)
+cmb     fixed bug which included empty CC and BCC headers in mails (reported by maeg)
+cmb     extended copyright to 2012
+cmb     added plugin icon
+cmb     fixed bug: form template CSS and JS files couldn't be read (reported by simmyne)
+cmb     improved styling of template CSS files
+cmb     added nl2br() to keep newlines visible in (X)HTML
+cmb     fixed bug: message_sent_info was not included in text mails
+cmb     added demo form "Confirmation"
+cmb     documented template/hook "trap" when reusing demo forms
+cmb     added and documented simpler way to replace the built-in mailform
+cmb     added demo form "Memberpage" (inspired by u.goebel)
+cmb     updated czech translation (contributed by oldnema)
+cmb     added slovak translation (contributed by Tata)
 
 Version 1beta10 - released 2011-12-21
-cmb	fixed bug that treated multi select POST as string instead of array (reported by twc)
-cmb	fixed bug that ignored magic_quotes_gpc in advfrm_fields()
-cmb	removed reference assignments and call-by-reference where not necessary
-cmb	removed global $advfrm_forms
-cmb	made confirmation messages more explicit
-cmb	added possibility to store submitted data to csv file (suggested by johnjdoe)
-cmb	added access protection per .htaccess for data folder
-cmb	added configuration option mail_line_ending_*nix
-cmb	updated manual accordingly
-cmb	made minor cosmetic changes
-cmb	added demo form Petition
-cmb	added sorting of forms by name
+cmb     fixed bug that treated multi select POST as string instead of array (reported by twc)
+cmb     fixed bug that ignored magic_quotes_gpc in advfrm_fields()
+cmb     removed reference assignments and call-by-reference where not necessary
+cmb     removed global $advfrm_forms
+cmb     made confirmation messages more explicit
+cmb     added possibility to store submitted data to csv file (suggested by johnjdoe)
+cmb     added access protection per .htaccess for data folder
+cmb     added configuration option mail_line_ending_*nix
+cmb     updated manual accordingly
+cmb     made minor cosmetic changes
+cmb     added demo form Petition
+cmb     added sorting of forms by name
 
 Version 1beta9 - released 2011-12-09
-cmb	changed to explicit system check instead of implicit error reporting
-cmb	changed boolean configuration options from yes/no to 1/0
-cmb	updated i18n of datepicker to be used with subsites
-cmb	changed input of the thanks page to selectbox
-cmb	added missing i18n in property dialog (reported by oldnema)
-cmb	added custom thanks page hook (inspired by bca)
-cmb	added demo forms as examples for the hook system
-cmb	added possibility to suppress sending of mail by advfrm_custom_mail hook
-cmb	updated manual accordingly
-cmb	translated manual to german
-cmb	fixed bug: create missing forms.dat automatically
-cmb	integrated IP address of sender to mail subject (suggested by mitch)
-cmb	added czech translation (provided by oldnema)
-cmb	added powered by link
+cmb     changed to explicit system check instead of implicit error reporting
+cmb     changed boolean configuration options from yes/no to 1/0
+cmb     updated i18n of datepicker to be used with subsites
+cmb     changed input of the thanks page to selectbox
+cmb     added missing i18n in property dialog (reported by oldnema)
+cmb     added custom thanks page hook (inspired by bca)
+cmb     added demo forms as examples for the hook system
+cmb     added possibility to suppress sending of mail by advfrm_custom_mail hook
+cmb     updated manual accordingly
+cmb     translated manual to german
+cmb     fixed bug: create missing forms.dat automatically
+cmb     integrated IP address of sender to mail subject (suggested by mitch)
+cmb     added czech translation (provided by oldnema)
+cmb     added powered by link
 
 Version 1beta8 - released 2011-09-29
-cmb	changed: sending of attachments is suppressed for confirmation mail
-cmb	added warnings if mail couldn't be sent (reported by cityedvlinz)
-cmb	updated manual accordingly
-cmb	fixed bug of inclusion of none existing template stylesheets (reported by cityedvlinz)
-cmb	added explanatory text to the built in captcha (inspired by Ulrich)
-cmb	minor optimizations
-cmb	prepared for CMSimple_XH 1.5
+cmb     changed: sending of attachments is suppressed for confirmation mail
+cmb     added warnings if mail couldn't be sent (reported by cityedvlinz)
+cmb     updated manual accordingly
+cmb     fixed bug of inclusion of none existing template stylesheets (reported by cityedvlinz)
+cmb     added explanatory text to the built in captcha (inspired by Ulrich)
+cmb     minor optimizations
+cmb     prepared for CMSimple_XH 1.5
 
 Version 1beta7 - released 2011-09-15
-cmb	changed interface of captcha code for compatibility with upcoming captcha plugins
-cmb	changed: now for each form a separate file with the hooks is include()d (suggested by manu)
-cmb	replaced deprecated functions in PHPmailer
-cmb	changed the split line for the plugin stylesheet and the template stylesheets (see stylesheet.css or manual)
-cmb	updated manual accordingly
+cmb     changed interface of captcha code for compatibility with upcoming captcha plugins
+cmb     changed: now for each form a separate file with the hooks is include()d (suggested by manu)
+cmb     replaced deprecated functions in PHPmailer
+cmb     changed the split line for the plugin stylesheet and the template stylesheets (see stylesheet.css or manual)
+cmb     updated manual accordingly
 
 Version 1beta6 - released 2011-09-14
-cmb	extended advfrm_custom_mail hook to include the form id (suggested by manu)
-cmb	fixed faulty mkdir mode
-cmb	changed stylesheet handling for mails again (see stylesheet.css or manual)
-cmb	moved requirement check to plugin section
-cmb	added include() of functions.inc in the data folder (suggested by manu)
-cmb	updated manual accordingly
+cmb     extended advfrm_custom_mail hook to include the form id (suggested by manu)
+cmb     fixed faulty mkdir mode
+cmb     changed stylesheet handling for mails again (see stylesheet.css or manual)
+cmb     moved requirement check to plugin section
+cmb     added include() of functions.inc in the data folder (suggested by manu)
+cmb     updated manual accordingly
 
 Version 1beta5 - released 2011-09-06
-cmb	updated manual: write permissions for listed folders (inspired by intelli)
-cmb	fixed bugs with file handling
-cmb	added possibility to generate basic templates (suggested by Tata)
-cmb	changed import message to be more verbose (inspired by manu)
-cmb	added hooks (suggested by manu)
-cmb	extended manual: template system and hooks
+cmb     updated manual: write permissions for listed folders (inspired by intelli)
+cmb     fixed bugs with file handling
+cmb     added possibility to generate basic templates (suggested by Tata)
+cmb     changed import message to be more verbose (inspired by manu)
+cmb     added hooks (suggested by manu)
+cmb     extended manual: template system and hooks
 
 Version 1beta4 - released 2011-09-05
-cmb	changed meaning of required_field_mark to include %s as the field label
-cmb	changed default mail adresses to webmaster@example.com
-cmb	updated de.php
-cmb	extended the manual (particularly the section about the template system)
-cmb	some minor bug fixes
+cmb     changed meaning of required_field_mark to include %s as the field label
+cmb     changed default mail adresses to webmaster@example.com
+cmb     updated de.php
+cmb     extended the manual (particularly the section about the template system)
+cmb     some minor bug fixes
 
 Version 1beta3 - released 2011-09-05
-cmb	fixed (x)html validation errors
-cmb	changed mail subject to contain the domain name of the CMSimple installation
-cmb	changed CC and BCC to accept a semicolon delimited list of addresses
-cmb	added export and import of form definitions
-cmb	extended manual
-cmb	removed form.css; instead the full stylesheet.css is delivered inline with HTML mails
+cmb     fixed (x)html validation errors
+cmb     changed mail subject to contain the domain name of the CMSimple installation
+cmb     changed CC and BCC to accept a semicolon delimited list of addresses
+cmb     added export and import of form definitions
+cmb     extended manual
+cmb     removed form.css; instead the full stylesheet.css is delivered inline with HTML mails
 
 Version 1beta2 - released 2011-09-03
-cmb	fixed several minor bugs and flaws
-cmb	added script code to form list for copy&paste
-cmb	added properties for file attachments
-cmb	added versioning and auto-update for forms db
-cmb	added custom error message for custom fields
-cmb	added <label>s
-cmb	added JS focus for first resp. erroneous fields
-cmb	added CC and BCC to the mail
-cmb	extended manual
-cmb	added german translation
-cmb	removed SMTP support
+cmb     fixed several minor bugs and flaws
+cmb     added script code to form list for copy&paste
+cmb     added properties for file attachments
+cmb     added versioning and auto-update for forms db
+cmb     added custom error message for custom fields
+cmb     added <label>s
+cmb     added JS focus for first resp. erroneous fields
+cmb     added CC and BCC to the mail
+cmb     extended manual
+cmb     added german translation
+cmb     removed SMTP support
 
 Version 1beta1 - released 2011-08-31
-cmb	re-implemented template system
-cmb	re-added jQuery datepicker
-cmb	re-added file attachments (without properties for now)
-cmb	general code cleanup
-cmb 	added demo forms with short description
-cmb	added minimal usage information to the manual
+cmb     re-implemented template system
+cmb     re-added jQuery datepicker
+cmb     re-added file attachments (without properties for now)
+cmb     general code cleanup
+cmb     added demo forms with short description
+cmb     added minimal usage information to the manual
 
 Version 1dev1 - 2011-08-26
-cmb	rewritten to comply to CMSimple_XH quality standards (not yet finished)
+cmb     rewritten to comply to CMSimple_XH quality standards (not yet finished)
 
 Version 2.7.0 - released 2010-05-19
-jat	last release
+jat     last release
 
 Version 1.00 Beta - released 2005-04-06
-jat	initial release
+jat     initial release
