@@ -759,10 +759,6 @@ function Advancedform_displayField($form_id, $field)
         $brackets = $is_multi ? '[]' : '';
         if ($is_real_select) {
             $size = array_shift($props);
-            $s = (strpos($field['props'], "\xE2\x97\x8F") === false)
-                ? "\xE2\x97\x8F"
-                : '';
-            array_unshift($props, $s);
             $size = empty($size) ? '' : ' size="'.$size.'"';
             $multi = $is_multi ? ' multiple="multiple"' : '';
             $o .= '<select id="' . $id . '" name="' . $name . $brackets . '"'
