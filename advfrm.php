@@ -1049,8 +1049,9 @@ function Advancedform_check($id)
         if ($field['type'] != 'file' && $field['type'] != 'multi_select'
             && empty($_POST[$name])
             || $field['type'] == 'file' && empty($_FILES[$name]['name'])
-            || $field['type'] == 'multi_select' && count($_POST[$name]) == 1
-            && empty($_POST[$name][0])
+            || $field['type'] == 'multi_select'
+            && (!isset($_POST[$name])
+                || count($_POST[$name]) == 1 && empty($_POST[$name][0]))
         ) {
             if ($field['required']) {
                 $o .= '<li>'
