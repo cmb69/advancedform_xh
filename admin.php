@@ -9,7 +9,7 @@
  * @package   Advancedform
  * @author    Christoph M. Becker <cmbecker69@gmx.de>
  * @copyright 2005-2010 Jan Kanters
- * @copyright 2011-2013 Christoph M. Becker <http://3-magi.net>
+ * @copyright 2011-2014 Christoph M. Becker <http://3-magi.net>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://3-magi.net/?CMSimple_XH/Advancedform_XH
@@ -31,7 +31,7 @@ require_once $pth['folder']['plugins'].'advancedform/advfrm.php';
 
 /**
  * Returns the plugin version information.
- * 
+ *
  * @return string (X)HTML
  *
  * @global array The paths of system files and folders.
@@ -49,7 +49,7 @@ function Advancedform_version()
         ) . PHP_EOL
         . '<p>Version: ' . ADVANCEDFORM_VERSION . '</p>' . PHP_EOL
         . '<p>Copyright &copy; 2005-2010 Jan Kanters' . tag('br')
-        . 'Copyright &copy; 2011-2013 <a href="http://3-magi.net">'
+        . 'Copyright &copy; 2011-2014 <a href="http://3-magi.net">'
         . 'Christoph M. Becker</a></p>' . PHP_EOL
         . '<p>Advancedform_XH is powered by <a'
         . ' href="http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple"'
@@ -131,7 +131,7 @@ function Advancedform_systemCheck()
  * Returns the IMG element for the tool $name.
  *
  * @param string $name A tool's name.
- * 
+ *
  * @return string (X)HTML.
  *
  * @global array The paths of system files and folders.
@@ -155,7 +155,7 @@ function Advancedform_toolIcon($name)
  *
  * @param string $name     Name and id of the select.
  * @param string $selected URL of the thanks page.
- * 
+ *
  * @return string (X)HTML.
  *
  * @global int    The number of pages.
@@ -285,7 +285,7 @@ function Advancedform_createForm()
  * Returns the form editor.
  *
  * @param string $id A form ID.
- * 
+ *
  * @return string (X)HTML.
  *
  * @global array  The paths of system files and folders.
@@ -481,7 +481,7 @@ function Advancedform_editForm($id)
  * success, or the mail form editor on failure.
  *
  * @param string $id A form ID.
- * 
+ *
  * @return string (X)HTML.
  *
  * @global string The (X)HTML fragments containing error messages.
@@ -533,7 +533,7 @@ function Advancedform_saveForm($id)
  * Deletes a form, and returns the mail form list.
  *
  * @param string $id A form ID.
- * 
+ *
  * @return string (X)HTML.
  *
  * @global string The (X)HTML fragment containing error messages.
@@ -559,7 +559,7 @@ function Advancedform_deleteForm($id)
  * Makes a copy of form $id. Returns the mail form editor.
  *
  * @param string $id A form ID.
- * 
+ *
  * @return string (X)HTML.
  *
  * @global string The (X)HTML fragment containing error messages.
@@ -591,7 +591,7 @@ function Advancedform_copyForm($id)
  * @param string $id A form ID.
  *
  * @return string (X)HTML.
- * 
+ *
  * @global array  The localization of the plugins.
  * @global string The (X)HTML fragment containing error messages.
  */
@@ -630,7 +630,7 @@ function Advancedform_importForm($id)
  * Exports the form definition to a *.frm file. Returns the mail form administration.
  *
  * @param string $id A form ID.
- * 
+ *
  * @return string (X)HTML.
  *
  * @global string The (X)HTML fragment containing error messages.
@@ -662,7 +662,7 @@ function Advancedform_exportForm($id)
  * Creates a basic template of the form. Returns the the mail form administration.
  *
  * @param string $id A form ID.
- * 
+ *
  * @return string (X)HTML.
  *
  * @global array The configuration of the plugins.

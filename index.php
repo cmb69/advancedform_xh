@@ -9,7 +9,7 @@
  * @package   Advancedform
  * @author    Christoph M. Becker <cmbecker69@gmx.de>
  * @copyright 2005-2010 Jan Kanters
- * @copyright 2011-2013 Christoph M. Becker <http://3-magi.net>
+ * @copyright 2011-2014 Christoph M. Becker <http://3-magi.net>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://3-magi.net/?CMSimple_XH/Advancedform_XH
@@ -32,7 +32,7 @@ define('ADVANCEDFORM_VERSION', '@ADVANCEDFORM_VERSION@');
  * Main plugin call.
  *
  * @param string $id A form ID.
- * 
+ *
  * @return string (X)HTML.
  */
 function advancedform($id)
@@ -44,11 +44,11 @@ function advancedform($id)
 
 /**
  * Returns a link to a page, if it exists. Otherwise returns ''.
- * 
+ *
  * Useful as replacement for mailformlink() in the template.
  *
  * @param string $page A page URL.
- * 
+ *
  * @return string  (X)HTML.
  *
  * @global string The script name.
