@@ -1305,11 +1305,19 @@ function Advancedform_mail($id, $confirmation)
 
     $ok = $mail->Send();
 
-    if (!$confirmation && function_exists('XH_logMessage')) {
-        $type = $ok ? 'info' : 'error';
-        $message = $ok ? $ptx['log_success'] : $ptx['log_error'];
-        $message = sprintf($message, $from);
-        XH_logMessage($type, 'Advancedform', $id, $message);
+    if (!$confirmation) {
+        if (!$ok) {
+            $message = !empty($mail->ErrorInfo)
+                ? Advancedform_hsc($mail->ErrorInfo)
+                : $ptx['error_mail'];
+            $e .= '<li>' . $message . '</li>' . PHP_EOL;
+        }
+        if (function_exists('XH_logMessage')) {
+            $type = $ok ? 'info' : 'error';
+            $message = $ok ? $ptx['log_success'] : $ptx['log_error'];
+            $message = sprintf($message, $from);
+            XH_logMessage($type, 'Advancedform', $id, $message);
+        }
     }
 
     return $ok;
