@@ -72,7 +72,7 @@ define('ADVFRM_PROP_ERROR_MSG', 4);
 
 /**
  * Returns a new array as with {@link array_combine array_combine()}.
- * 
+ *
  * @param array $array1 An array.
  * @param array $array2 An array.
  *
@@ -100,7 +100,7 @@ function Advancedform_combineArrays($array1, $array2)
  * Returns string with a BR element inserted before all linebreaks.
  *
  * @param string $string An (X)HTML fragment.
- * 
+ *
  * @return string (X)HTML.
  */
 function Advancedform_nl2br($string)
@@ -112,7 +112,7 @@ function Advancedform_nl2br($string)
  * Returns string with two spaces inserted after all linebreaks.
  *
  * @param string $string A string.
- * 
+ *
  * @return string
  */
 function Advancedform_indent($string)
@@ -125,7 +125,7 @@ function Advancedform_indent($string)
  *
  * @param string $form_id A form ID.
  * @param string $name    A field name.
- * 
+ *
  * @return void
  *
  * @global string The (X)HTML fragment to for insertion into the HEAD element.
@@ -206,7 +206,7 @@ SCRIPT;
  * Returns whether a field is a selection field (select, checkbox or radio).
  *
  * @param array $field A field.
- * 
+ *
  * @return bool
  */
 function Advancedform_isSelect($field)
@@ -219,7 +219,7 @@ function Advancedform_isSelect($field)
  * Returns whether a field is a proper selection field.
  *
  * @param array $field A field.
- * 
+ *
  * @return bool
  */
 function Advancedform_isRealSelect($field)
@@ -232,7 +232,7 @@ function Advancedform_isRealSelect($field)
  * Returns whether a field is a multi selection field (select multiple or checkbox).
  *
  * @param array $field A field.
- * 
+ *
  * @return bool
  */
 function Advancedform_isMulti($field)
@@ -350,7 +350,7 @@ function Advancedform_writeFile($filename, $contents)
  * Otherwise writes $forms as form database.
  *
  * @param array $forms A forms collection.
- * 
+ *
  * @return mixed
  */
 function Advancedform_db($forms = null)
@@ -386,7 +386,7 @@ function Advancedform_db($forms = null)
  * Returns the forms database updated to the current version.
  *
  * @param array $forms A forms collection.
- * 
+ *
  * @return array
  */
 function Advancedform_updatedDb($forms)
@@ -476,7 +476,7 @@ function Advancedform_updateLangJs()
  * Returns the content of the CSV file as array on success, false otherwise.
  *
  * @param string $id A form ID.
- * 
+ *
  * @return array
  *
  * @global string The (X)HTML fragment containing error messages.
@@ -519,7 +519,7 @@ function Advancedform_readCsv($id)
  * Appends the posted record to csv file.
  *
  * @param string $id A form ID.
- * 
+ *
  * @return void
  */
 function Advancedform_appendCsv($id)
@@ -572,12 +572,14 @@ function Advancedform_fields()
  * @param string $string A string.
  *
  * @return string
- *
- * @todo Use XH_hsc()
  */
 function Advancedform_hsc($string)
 {
-    return htmlspecialchars($string, ENT_COMPAT, 'UTF-8');
+    if (function_exists('XH_hsc')) {
+        return XH_hsc($string);
+    } else {
+        return htmlspecialchars($string, ENT_COMPAT, 'UTF-8');
+    }
 }
 
 /**
@@ -586,7 +588,7 @@ function Advancedform_hsc($string)
  * @param string $id          A form ID.
  * @param bool   $show_hidden Whether to include hidden fields.
  * @param bool   $html        Whether to return (X)HTML.
- * 
+ *
  * @return string
  *
  * @global array The configuration of the core.
@@ -655,7 +657,7 @@ function Advancedform_mailInfo($id, $show_hidden, $html)
  * <i>END OF MAIL CSS</i>. If the file couldn't be read, returns an empty string.
  *
  * @param string $fn A CSS file name.
- * 
+ *
  * @return string
  */
 function Advancedform_mailCss($fn)
@@ -674,7 +676,7 @@ function Advancedform_mailCss($fn)
  * @param string $id          A form ID.
  * @param bool   $show_hidden Whether to include hidden fields.
  * @param bool   $html        Whether to return (X)HTML.
- * 
+ *
  * @return string
  *
  * @global array The configuration of the core.
@@ -735,7 +737,7 @@ function Advancedform_prefixFileExtensionList($list)
  *
  * @param string $form_id A form ID.
  * @param string $field   A field.
- * 
+ *
  * @return string (X)HTML.
  *
  * @global array  The paths of system files and folders.
@@ -884,7 +886,7 @@ EOS;
  * Returns the default view of the form.
  *
  * @param string $id A form ID.
- * 
+ *
  * @return string (X)HTML.
  *
  * @global array The configuration of the plugins.
@@ -933,7 +935,7 @@ function Advancedform_defaultView($id)
  * Returns the view of a form by instatiating the template.
  *
  * @param string $id A form ID.
- * 
+ *
  * @return string (X)HTML.
  *
  * @global string The (X)HTML fragment for insertion into the HEAD element.
@@ -978,7 +980,7 @@ function Advancedform_templateView($id)
  * Returns the view of the form.
  *
  * @param string $id A form ID.
- * 
+ *
  * @return string (X)HTML.
  *
  * @global string The script name.
@@ -1029,7 +1031,7 @@ function Advancedform_formView($id)
  * Checks sent form. Returns true on success, an (X)HTML error message on failure.
  *
  * @param string $id A form ID.
- * 
+ *
  * @return mixed
  *
  * @global array The configuration of the plugins.
@@ -1197,7 +1199,7 @@ function Advancedform_check($id)
  *
  * @param string $id           A form ID.
  * @param bool   $confirmation Whether to send the confirmation mail.
- * 
+ *
  * @return bool
  *
  * @global array  The paths of system files and folders.
@@ -1302,7 +1304,7 @@ function Advancedform_mail($id, $confirmation)
     }
 
     $ok = $mail->Send();
-    
+
     if (!$confirmation && function_exists('XH_logMessage')) {
         $type = $ok ? 'info' : 'error';
         $message = $ok ? $ptx['log_success'] : $ptx['log_error'];
@@ -1317,7 +1319,7 @@ function Advancedform_mail($id, $confirmation)
  * Main plugin call.
  *
  * @param string $id A form ID.
- * 
+ *
  * @return string (X)HTML.
  *
  * @global array  The configuration of the plugins.
