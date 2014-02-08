@@ -9,7 +9,7 @@ $plugin_cf['advancedform']['mail_captcha']="0";
 $plugin_cf['advancedform']['mail_thanks_page']="";
 $plugin_cf['advancedform']['mail_regexp']="/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i";
 $plugin_cf['advancedform']['mail_type']="html";
-$plugin_cf['advancedform']['mail_line_ending_*nix']="1";
+$plugin_cf['advancedform']['mail_line_ending_*nix']="0";
 $plugin_cf['advancedform']['required_field_mark']="%s&nbsp;<span style=\"color:red\">*</span>";
 $plugin_cf['advancedform']['focus_form']="1";
 $plugin_cf['advancedform']['datepicker_icon']="0";
