@@ -88,7 +88,7 @@ function Advancedform_systemCheck()
 {
     global $pth, $plugin_cf, $tx, $plugin_tx;
 
-    define('ADVFRM_PHP_VERSION', '4.3.0');
+    define('ADVFRM_PHP_VERSION', '4.3.10');
     $ptx = $plugin_tx['advancedform'];
     $imgdir = $pth['folder']['plugins'] . 'advancedform/images/';
     $ok = tag('img src="' . $imgdir . 'ok.png" alt="ok"');
