@@ -1,3 +1,7 @@
+Version 1.0rc4 - released 2014-02-12
+* fixed potential problem regarding Return-Path header fields (reported by
+  ubresien)
+
 Version 1.0rc3 - internally released 2014-02-08
 * fixed regression bug (r60), where failure to send mail was not reported
 * defaulted mail_line_ending_*nix to 0
