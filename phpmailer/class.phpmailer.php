@@ -866,7 +866,9 @@ class PHPMailer {
 
     $result .= $this->HeaderLine('Date', $this->RFCDate());
     if($this->Sender == '') {
-      $result .= $this->HeaderLine('Return-Path', trim($this->From));
+      // we don't want to send a Return-Path, because the server might
+      // drop the mail without notification
+      //$result .= $this->HeaderLine('Return-Path', trim($this->From));
     } else {
       $result .= $this->HeaderLine('Return-Path', trim($this->Sender));
     }
