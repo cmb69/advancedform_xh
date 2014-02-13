@@ -469,17 +469,18 @@ function advfrm_checkForm() {
 
 
 /**
- * Gets the name of the form to import
- * and relocates to the given URL with the name appended.
+ * Gets the name of the form to import and submits the form.
  *
- * @param {String} url
+ * @param {HTMLFormElement} form
  * @return {undefined}
  */
-function advfrm_import(url) {
+function advfrm_import(form) {
     var name = window.prompt(ADVFRM_TX['message_import_form']);
     if (name.search(/^[a-z0-9_]+$/i) >= 0) {
-        window.location.href = url+name;
+        form.action += name;
+        return true;
     }
+    return false;
 }
 
 

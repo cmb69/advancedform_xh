@@ -151,6 +151,26 @@ function Advancedform_toolIcon($name)
 }
 
 /**
+ * Returns a tool form.
+ *
+ * @param string $name     A tool name.
+ * @param string $action   A URL.
+ * @param string $onsubmit An onsubmit event handler.
+ *
+ * @return string (X)HTML.
+ */
+function Advancedform_toolForm($name, $action, $onsubmit = false)
+{
+    $onsubmit = $onsubmit ? 'onsubmit="' . $onsubmit . '"' : '';
+    $icon = Advancedform_toolIcon($name);
+    return <<<EOT
+<form action="$action" method="post" $onsubmit>
+    <button>$icon</button>
+</form>
+EOT;
+}
+
+/**
  * Returns a selectbox with all  pages of the current language/subsite.
  *
  * @param string $name     Name and id of the select.
@@ -203,34 +223,44 @@ function Advancedform_formsAdministration()
     $o = '<div id="advfrm-form-list">' . PHP_EOL
         .'<h1>' . $ptx['menu_main'] . '</h1>' . PHP_EOL;
     $href = $sn . '?advancedform&amp;admin=plugin_main&amp;action=new';
-    $o .= '<a href="' . $href . '">' . Advancedform_toolIcon('add') . '</a>';
-    $href = 'javascript:advfrm_import(\'' . $sn
-        . '?advancedform&amp;admin=plugin_main&amp;action=import&amp;form=\')';
-    $o .= '<a href="' . $href . '">' . Advancedform_toolIcon('import') . '</a>';
+    $o .= Advancedform_toolForm('add', $href);
+    $href = $sn . '?advancedform&amp;admin=plugin_main&amp;action=import&amp;form=';
+    $o .= Advancedform_toolForm('import', $href, 'return advfrm_import(this)');
     $o .= '<table>' . PHP_EOL;
     foreach ($forms as $id => $form) {
         if ($id != '%VERSION%') {
             $href = $sn . '?advancedform&amp;admin=plugin_main&amp;action=%s'
                 . '&amp;form=' . $id;
             $o .= '<tr>'
-                . '<td class="tool"><a href="' . sprintf($href, 'delete') . '"'
-                . ' onclick="return confirm(\''
-                . Advancedform_escapeJsString($ptx['message_confirm_delete'])
-                . '\')">' . Advancedform_toolIcon('delete') . '</a></td>'
-                . '<td class="tool"><a href="' . sprintf($href, 'template') . '"'
-                . ' onclick="return confirm(\''
-                . Advancedform_escapeJsString(
-                    sprintf($ptx['message_confirm_template'], $form['name'])
+                . '<td class="tool">'
+                . Advancedform_toolForm(
+                    'delete', sprintf($href, 'delete'),
+                    'return confirm(\'' . Advancedform_escapeJsString(
+                        $ptx['message_confirm_delete']
+                    ) . '\')'
                 )
-                . '\')">' . Advancedform_toolIcon('template') . '</a></td>'
-                . '<td class="tool"><a href="' . sprintf($href, 'copy') . '">'
-                . Advancedform_toolIcon('copy') . '</a></td>'
-                . '<td class="tool"><a href="' . sprintf($href, 'export') . '"'
-                . ' onclick="return confirm(\''
-                . Advancedform_escapeJsString(
-                    sprintf($ptx['message_confirm_export'], $form['name'])
+                . '</td>'
+                . '<td class="tool">'
+                . Advancedform_toolForm(
+                    'template', sprintf($href, 'template'),
+                    'return confirm(\'' . Advancedform_escapeJsString(
+                        sprintf($ptx['message_confirm_template'], $form['name'])
+                    ) . '\')'
                 )
-                . '\')">' . Advancedform_toolIcon('export') . '</a></td>'
+                . '</td>'
+                . '<td class="tool">'
+                . Advancedform_toolForm(
+                    'copy',  sprintf($href, 'copy')
+                )
+                . '</td>'
+                . '<td class="tool">'
+                . Advancedform_toolForm(
+                    'export', sprintf($href, 'export'),
+                    'return confirm(\'' . Advancedform_escapeJsString(
+                        sprintf($ptx['message_confirm_export'], $form['name'])
+                    ) . '\')'
+                )
+                . '</td>'
                 . '<td class="name"><a href="' . sprintf($href, 'edit') . '" title="'
                 . ucfirst($tx['action']['edit']) . '">' . $id . '</a></td>'
                 . '<td class="script" title="' . $ptx['message_script_code'] . '">'
@@ -254,6 +284,9 @@ function Advancedform_createForm()
 {
     global $plugin_cf;
 
+    if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+        return Advancedform_formsAdministration();
+    }
     $pcf = $plugin_cf['advancedform'];
     $forms = Advancedform_db();
     $id = uniqid();
@@ -493,6 +526,9 @@ function Advancedform_saveForm($id)
 
     $ptx = $plugin_tx['advancedform'];
 
+    if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+        return Advancedform_formsAdministration();
+    }
     $forms = Advancedform_db();
     if (!isset($forms[$id])) {
         $e .= '<li><b>' . sprintf($ptx['error_form_missing'], $id) . '</b></li>';
@@ -543,6 +579,9 @@ function Advancedform_deleteForm($id)
 {
     global $e, $plugin_tx;
 
+    if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+        return Advancedform_formsAdministration();
+    }
     $forms = Advancedform_db();
     if (isset($forms[$id])) {
         unset($forms[$id]);
@@ -569,6 +608,9 @@ function Advancedform_copyForm($id)
 {
     global $e, $plugin_tx;
 
+    if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+        return Advancedform_formsAdministration();
+    }
     $forms = Advancedform_db();
     if (isset($forms[$id])) {
         $form = $forms[$id];
@@ -599,6 +641,9 @@ function Advancedform_importForm($id)
 {
     global $plugin_tx, $e;
 
+    if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+        return Advancedform_formsAdministration();
+    }
     $ptx = $plugin_tx['advancedform'];
     $forms = Advancedform_db();
     if (!isset($forms[$id])) {
@@ -640,6 +685,9 @@ function Advancedform_exportForm($id)
 {
     global $e, $plugin_tx;
 
+    if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+        return Advancedform_formsAdministration();
+    }
     $ptx = $plugin_tx['advancedform'];
     $forms = Advancedform_db();
     if (isset($forms[$id])) {
@@ -671,6 +719,9 @@ function Advancedform_createFormTemplate($id)
 {
     global $plugin_cf;
 
+    if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+        return Advancedform_formsAdministration();
+    }
     $forms = Advancedform_db();
     if (isset($forms[$id])) {
         $form = $forms[$id];
