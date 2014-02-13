@@ -1,3 +1,7 @@
+Version 1.0rc5 - released 2014-02-13
+* fixed bug, where GET request could purge a defined form (reported by bca)
+* added CSRF protection according to CMSimple_XH 1.6 API
+
 Version 1.0rc4 - released 2014-02-12
 * fixed potential problem regarding Return-Path header fields (reported by
   ubresien)
