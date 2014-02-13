@@ -161,11 +161,19 @@ function Advancedform_toolIcon($name)
  */
 function Advancedform_toolForm($name, $action, $onsubmit = false)
 {
+    global $_XH_csrfProtection;
+
     $onsubmit = $onsubmit ? 'onsubmit="' . $onsubmit . '"' : '';
     $icon = Advancedform_toolIcon($name);
+    if (isset($_XH_csrfProtection)) {
+        $tokenInput = $_XH_csrfProtection->tokenInput();
+    } else {
+        $tokenInput = '';
+    }
     return <<<EOT
 <form action="$action" method="post" $onsubmit>
     <button>$icon</button>
+    $tokenInput
 </form>
 EOT;
 }
@@ -278,14 +286,18 @@ function Advancedform_formsAdministration()
  *
  * @return string (X)HTML.
  *
- * @global array The configuration of the plugins.
+ * @global array  The configuration of the plugins.
+ * @global object The CSRF protector.
  */
 function Advancedform_createForm()
 {
-    global $plugin_cf;
+    global $plugin_cf, $_XH_csrfProtection;
 
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         return Advancedform_formsAdministration();
+    }
+    if (isset($_XH_csrfProtection)) {
+        $_XH_csrfProtection->check();
     }
     $pcf = $plugin_cf['advancedform'];
     $forms = Advancedform_db();
@@ -327,10 +339,11 @@ function Advancedform_createForm()
  * @global array  The localization of the core.
  * @global array  The localization of the plugins.
  * @global string The (X)HTML fragment containing error messages.
+ * @global object The CSRF protector.
  */
 function Advancedform_editForm($id)
 {
-    global $pth, $sn, $plugin_cf, $tx, $plugin_tx, $e;
+    global $pth, $sn, $plugin_cf, $tx, $plugin_tx, $e, $_XH_csrfProtection;
 
     $pcf = $plugin_cf['advancedform'];
     $ptx = $plugin_tx['advancedform'];
@@ -456,6 +469,9 @@ function Advancedform_editForm($id)
         'input type="submit" class="submit" value="'
         . ucfirst($tx['action']['save']) . '" style="display:none"'
     );
+    if (isset($_XH_csrfProtection)) {
+        $o .= $_XH_csrfProtection->tokenInput();
+    }
     $o .= '</form>' . PHP_EOL . '</div>' . PHP_EOL;
 
     /*
@@ -519,15 +535,19 @@ function Advancedform_editForm($id)
  *
  * @global string The (X)HTML fragments containing error messages.
  * @global array  The localization of the plugins.
+ * @global object The CSRF protector.
  */
 function Advancedform_saveForm($id)
 {
-    global $e, $plugin_tx;
+    global $e, $plugin_tx, $_XH_csrfProtection;
 
     $ptx = $plugin_tx['advancedform'];
 
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         return Advancedform_formsAdministration();
+    }
+    if (isset($_XH_csrfProtection)) {
+        $_XH_csrfProtection->check();
     }
     $forms = Advancedform_db();
     if (!isset($forms[$id])) {
@@ -574,13 +594,17 @@ function Advancedform_saveForm($id)
  *
  * @global string The (X)HTML fragment containing error messages.
  * @global array  The localization of the plugins.
+ * @global object The CSRF protector.
  */
 function Advancedform_deleteForm($id)
 {
-    global $e, $plugin_tx;
+    global $e, $plugin_tx, $_XH_csrfProtection;
 
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         return Advancedform_formsAdministration();
+    }
+    if (isset($_XH_csrfProtection)) {
+        $_XH_csrfProtection->check();
     }
     $forms = Advancedform_db();
     if (isset($forms[$id])) {
@@ -603,13 +627,17 @@ function Advancedform_deleteForm($id)
  *
  * @global string The (X)HTML fragment containing error messages.
  * @global array  The localization of the plugins.
+ * @global object The CSRF protector.
  */
 function Advancedform_copyForm($id)
 {
-    global $e, $plugin_tx;
+    global $e, $plugin_tx, $_XH_csrfProtection;
 
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         return Advancedform_formsAdministration();
+    }
+    if (isset($_XH_csrfProtection)) {
+        $_XH_csrfProtection->check();
     }
     $forms = Advancedform_db();
     if (isset($forms[$id])) {
@@ -636,13 +664,17 @@ function Advancedform_copyForm($id)
  *
  * @global array  The localization of the plugins.
  * @global string The (X)HTML fragment containing error messages.
+ * @global object The CSRF protector.
  */
 function Advancedform_importForm($id)
 {
-    global $plugin_tx, $e;
+    global $plugin_tx, $e, $_XH_csrfProtection;
 
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         return Advancedform_formsAdministration();
+    }
+    if (isset($_XH_csrfProtection)) {
+        $_XH_csrfProtection->check();
     }
     $ptx = $plugin_tx['advancedform'];
     $forms = Advancedform_db();
@@ -680,13 +712,17 @@ function Advancedform_importForm($id)
  *
  * @global string The (X)HTML fragment containing error messages.
  * @global array  The localization of the plugins.
+ * @global object The CSRF protector.
  */
 function Advancedform_exportForm($id)
 {
-    global $e, $plugin_tx;
+    global $e, $plugin_tx, $_XH_csrfProtection;
 
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         return Advancedform_formsAdministration();
+    }
+    if (isset($_XH_csrfProtection)) {
+        $_XH_csrfProtection->check();
     }
     $ptx = $plugin_tx['advancedform'];
     $forms = Advancedform_db();
@@ -713,14 +749,18 @@ function Advancedform_exportForm($id)
  *
  * @return string (X)HTML.
  *
- * @global array The configuration of the plugins.
+ * @global array  The configuration of the plugins.
+ * @global object The CSRF protector.
  */
 function Advancedform_createFormTemplate($id)
 {
-    global $plugin_cf;
+    global $plugin_cf, $_XH_csrfProtection;
 
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         return Advancedform_formsAdministration();
+    }
+    if (isset($_XH_csrfProtection)) {
+        $_XH_csrfProtection->check();
     }
     $forms = Advancedform_db();
     if (isset($forms[$id])) {
