@@ -25,3 +25,6 @@
 * defaults in config anders behandeln (nicht eintragen bei neuem Formular,
   sondern Verwenden, wenn die entsprechenden Felder im Formular leer sind)
   (suggested by Old)
+
+* Drag&Drop Form Editor + Mail-Templates
+  (<http://www.contentmanager.de/nachrichten/software-und-services/drag-drop-formulareditor-fuer-six-cms/>)
