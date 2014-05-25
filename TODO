@@ -1,4 +1,3 @@
-* add French localization (contributed by Bob)
 * remove RC warning in manuals
 * revise forms.dat
 * registerPluginMenuItem()
