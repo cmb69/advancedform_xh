@@ -13,10 +13,14 @@
         <include name="index.php"/>
     </fileset>
 
+    <fileset id="unit-tests" dir="tests/unit">
+        <include name="*Test.php"/>
+    </fileset>
+
     <!-- Checks -->
 
     <target name="sniff">
-        <phpcodesniffer standard="PEAR">
+        <phpcodesniffer standard="PEAR" format="full">
             <fileset refid="php-sources"/>
         </phpcodesniffer>
     </target>
@@ -24,6 +28,17 @@
     <target name="compat">
         <exec command="phpcompatinfo --configuration phpcompatinfo.xml print --exclude-pattern advancedform ."
               logoutput="true"/>
+    </target>
+
+    <!-- Tests -->
+
+    <target name="unit-tests">
+        <phpunit haltonerror="true" haltonfailure="true">
+            <formatter type="plain" usefile="false"/>
+            <batchtest>
+                <fileset refid="unit-tests"/>
+            </batchtest>
+        </phpunit>
     </target>
 
     <!-- Documentation -->

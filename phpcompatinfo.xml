@@ -16,6 +16,8 @@
             <directory name="help"/>
             <directory name="images"/>
             <directory name="languages"/>
+            <directory name="tests"/>
+            <directory name="vendor"/>
 
             <!-- we have a fallback for PHP 4 -->
             <function name="array_combine"/>
