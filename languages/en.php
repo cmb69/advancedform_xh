@@ -112,7 +112,7 @@ $plugin_tx['advancedform']['cf_mail_bcc']="The default for new forms";
 $plugin_tx['advancedform']['cf_mail_captcha']="The default for new forms. Use \"1\" (yes) or \"0\" (no)";
 $plugin_tx['advancedform']['cf_mail_thanks_page']="The default for new forms";
 $plugin_tx['advancedform']['cf_mail_type']="The type of mails to be sent, i.e. \"html\" or \"text\".";
-$plugin_tx['advancedform']['cf_mail_regexp']="The regular expression to check for valid e-mail addresses. The default one is somewhat restrictive, see <a href=\"http://www.regular-expressions.info/email.html\" target=\"_blank\">http://www.regular-expressions.info/email.html</a> for further details.";
+$plugin_tx['advancedform']['cf_mail_regexp']="The regular expression to check for valid e-mail addresses. The default one is somewhat restrictive, http://www.regular-expressions.info/email.html for further details.";
 $plugin_tx['advancedform']['cf_mail_line_ending_*nix']="Whether *nix style line endings should be used in the mail: \"1\" (yes) or \"0\" (no). If sending of mails doesn't work with the default, try the other.";
 $plugin_tx['advancedform']['cf_php_extension']="Whether the addtional extension .php should be used for template and hook files. \"1\" (yes) or \"0\" (no)";
 $plugin_tx['advancedform']['cf_csv_separator']="The field delimiter character for the CSV files. Leave empty to use simple tab delimited files as with Advancedform_XH &le; 1.0rc5.";

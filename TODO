@@ -2,7 +2,6 @@
 * remove RC warning in manuals
 * revise forms.dat
 * registerPluginMenuItem()
-* fix broken config (only XH 1.5?; only German?)
 
 * put JS of template forms to body and add demo form to show how to use CSS
   <http://cmsimpleforum.com/viewtopic.php?f=12&t=7088> (suggested by
