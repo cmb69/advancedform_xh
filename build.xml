@@ -49,7 +49,7 @@
 
     <target name="php-doc">
         <phpdoc title="Advancedform_XH Developer Documentation" destdir="doc/php"
-                output="HTML:frames:default" defaultpackagename="Advancedform"
+                output="HTML:Smarty:HandS" defaultpackagename="Advancedform"
                 defaultcategoryname="Advancedform_XH">
             <fileset refid="php-sources"/>
             <projdocfileset dir=".">
@@ -86,8 +86,12 @@
                 <exclude name=".komodotools"/>
                 <exclude name="advancedform.komodoproject"/>
                 <exclude name="build.xml"/>
+                <exclude name="composer.json"/>
+                <exclude name="composer.lock"/>
+                <exclude name="coverage.xml"/>
                 <exclude name="phpcompatinfo.xml"/>
                 <exclude name="TODO"/>
+                <exclude name="tests/**"/>
             </fileset>
         </move>
         <delete dir="export"/>
