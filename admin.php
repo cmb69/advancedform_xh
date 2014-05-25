@@ -836,6 +836,13 @@ function Advancedform_createFormTemplate($id)
 }
 
 /*
+ * Register the plugin menu items.
+ */
+if (function_exists('XH_registerStandardPluginMenuItems')) {
+    XH_registerStandardPluginMenuItems(true);
+}
+
+/*
  * Handle the plugin administration.
  */
 if (isset($advancedform) && $advancedform == 'true') {
