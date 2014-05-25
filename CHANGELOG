@@ -1,3 +1,10 @@
+Version 1.0 - released 2014-05-25
+* fixed bug, where fields of type "textarea" broke CSV files; has to be
+  configured via csv_separator (reported and suggested by oldnema)
+* fixed broken resp. missing config help texts
+* added integrated plugin menu (available for CMSimple_XH 1.6.2+)
+* added improved French localization (contributed by Bob)
+
 Version 1.0rc5 - released 2014-02-13
 * fixed bug, where GET request could purge a defined form (reported by bca)
 * added CSRF protection according to CMSimple_XH 1.6 API
