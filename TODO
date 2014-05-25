@@ -1,5 +1,4 @@
 * remove RC warning in manuals
-* revise forms.dat
 * registerPluginMenuItem()
 
 * put JS of template forms to body and add demo form to show how to use CSS
