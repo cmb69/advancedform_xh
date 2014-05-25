@@ -1,6 +1,5 @@
 * add French localization (contributed by Bob)
 * remove RC warning in manuals
-* improve CSV (sugg. by oldnema)
 * revise forms.dat
 * registerPluginMenuItem()
 * fix broken config (only XH 1.5?; only German?)

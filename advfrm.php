@@ -16,11 +16,6 @@
  */
 
 /**
- * Compatibility functions.
- */
-require_once $pth['folder']['plugins'] . 'advancedform/compat.php';
-
-/**
  * The version of the database format.
  */
 define('ADVFRM_DB_VERSION', 2);
@@ -480,12 +475,14 @@ function Advancedform_updateLangJs()
  * @return array
  *
  * @global string The (X)HTML fragment containing error messages.
+ * @global array  The configuration of the plugins.
  * @global array  The localization of the plugins.
  */
 function Advancedform_readCsv($id)
 {
-    global $e, $plugin_tx;
+    global $e, $plugin_cf, $plugin_tx;
 
+    $pcf = $plugin_cf['advancedform'];
     $forms = Advancedform_db();
     $fields = array();
     if (isset($forms[$id])) {
@@ -502,17 +499,52 @@ function Advancedform_readCsv($id)
     }
 
     $fn = Advancedform_dataFolder() . $id . '.csv';
-    if (($lines = file($fn)) === false) {
-        e('cntopen', 'file', $fn);
-        return array();
-    }
-    $data = array();
-    foreach ($lines as $line) {
-        $line = array_map('trim', explode("\t", $line));
-        $rec = Advancedform_combineArrays($fields, $line);
-        $data[] = $rec;
+    if ($pcf['csv_separator'] == '') {
+        if (($lines = file($fn)) === false) {
+            e('cntopen', 'file', $fn);
+            return array();
+        }
+        $data = array();
+        foreach ($lines as $line) {
+            $line = array_map('trim', explode("\t", $line));
+            $rec = Advancedform_combineArrays($fields, $line);
+            $data[] = $rec;
+        }
+    } else {
+        $sep = $pcf['csv_separator'];
+        $data = array();
+        if (($stream = fopen($fn, 'r')) !== false) {
+            while (($rec = fgetcsv($stream, 0x10000, $sep)) !== false) {
+                $data[] = Advancedform_combineArrays($fields, $rec);
+            }
+            fclose($stream);
+        } else {
+            e('cntopen', 'file', $fn);
+        }
     }
     return $data;
+}
+
+/**
+ * Escapes a field value for use in a CSV file.
+ *
+ * @param string $field A field value.
+ *
+ * @return string
+ *
+ * @global array The configuration of the plugins.
+ */
+function Advancedform_escapeCsvField($field)
+{
+    global $plugin_cf;
+
+    $specialChars = "\"\r\n" . $plugin_cf['advancedform']['csv_separator'];
+    $specialChars = preg_quote($specialChars, '/');
+    if (preg_match('/[' . $specialChars . ']/', $field)) {
+        $field = str_replace('"', '""', $field);
+        $field = '"' . $field . '"';
+    }
+    return $field;
 }
 
 /**
@@ -521,9 +553,13 @@ function Advancedform_readCsv($id)
  * @param string $id A form ID.
  *
  * @return void
+ *
+ * @global array The configuration of the plugins.
  */
 function Advancedform_appendCsv($id)
 {
+    global $plugin_cf;
+
     $forms = Advancedform_db();
     $fields = array();
     foreach ($forms[$id]['fields'] as $field) {
@@ -537,9 +573,15 @@ function Advancedform_appendCsv($id)
                 : stsl($val);
         }
     }
+    if ($plugin_cf['advancedform']['csv_separator'] != '') {
+        $fields = array_map('Advancedform_escapeCsvField', $fields);
+        $separator = $plugin_cf['advancedform']['csv_separator'];
+    } else {
+        $separator = "\t";
+    }
     $fn = Advancedform_dataFolder() . $id . '.csv';
     if (($fh = fopen($fn, 'a')) === false
-        || fwrite($fh, implode("\t", $fields)."\n") === false
+        || fwrite($fh, implode($separator, $fields)."\n") === false
     ) {
         e('cntwriteto', 'file', $fn);
     }

@@ -15,5 +15,6 @@ $plugin_cf['advancedform']['focus_form']="1";
 $plugin_cf['advancedform']['datepicker_icon']="0";
 $plugin_cf['advancedform']['captcha_plugin']="advancedform";
 $plugin_cf['advancedform']['php_extension']="0";
+$plugin_cf['advancedform']['csv_separator']="";
 
 ?>
