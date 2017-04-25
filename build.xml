@@ -81,7 +81,6 @@
                 <exclude name="pax_global_header"/>
                 <exclude name="phpcompatinfo.json"/>
                 <exclude name="README.md"/>
-                <exclude name="TODO"/>
                 <exclude name="tests/**"/>
             </fileset>
         </move>
