@@ -67,6 +67,11 @@
                 </replacetokens>
             </filterchain>
         </move>
+        <jsMin targetDir="dist" suffix="" failOnError="false">
+            <fileset dir="export">
+                <include name="*.js"/>
+            </fileset>
+        </jsMin>
         <move todir="dist">
             <fileset dir="export">
                 <exclude name=".komodotools"/>
