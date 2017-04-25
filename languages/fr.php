@@ -8,19 +8,13 @@ $plugin_tx['advancedform']['syscheck_magic_quotes']="Guillemets magiques désact
 $plugin_tx['advancedform']['syscheck_jquery']="<a href=\"http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple\">Plugin jQuery4CMSimple</a> installé";
 $plugin_tx['advancedform']['syscheck_captcha_plugin']="CAPTCHA installé";
 $plugin_tx['advancedform']['syscheck_writable']="Répertoire '%s' modifiable";
-
 $plugin_tx['advancedform']['contact_form']="";
-
 $plugin_tx['advancedform']['menu_main']="Formulaires courriel";
-
 $plugin_tx['advancedform']['mail_subject']="%1\$s sur %2\$s envoyé de %3\$s";
 $plugin_tx['advancedform']['mail_subject_confirmation']="%1\$s de %2\$s";
-
 $plugin_tx['advancedform']['captcha_explanation']="Veuillez recopier le code affiché (anti-spam) :";
-
 $plugin_tx['advancedform']['date_order']="dmy";
 $plugin_tx['advancedform']['date_delimiter']="/";
-
 $plugin_tx['advancedform']['message_confirm_delete']="Le formulaire avec toutes les informations sera effacé !";
 $plugin_tx['advancedform']['message_confirm_export']="Le fichier %s.frm éventuellement existant sera remplacé !";
 $plugin_tx['advancedform']['message_confirm_template']="Les fichier %1\$s.tpl et %1\$s.css éventuellement existants seront remplacés !";
@@ -29,13 +23,12 @@ $plugin_tx['advancedform']['message_required_field']="champs requis";
 $plugin_tx['advancedform']['message_required_fields']="Veuillez remplir tous les %s !";
 $plugin_tx['advancedform']['message_script_code']="Code script pour insérer sur une page";
 $plugin_tx['advancedform']['message_import_form']="Nom du formulaire courriel à importer";
-
 $plugin_tx['advancedform']['label_name']="Nom";
 $plugin_tx['advancedform']['label_title']="Titre";
 $plugin_tx['advancedform']['label_to_name']="De (Nom)";
 $plugin_tx['advancedform']['label_to']="A (courriel)";
-$plugin_tx['advancedform']['label_cc']="CC";
-$plugin_tx['advancedform']['label_bcc']="BCC";
+$plugin_tx['advancedform']['label_cc']="Cc";
+$plugin_tx['advancedform']['label_bcc']="Bcc";
 $plugin_tx['advancedform']['label_captcha']="CAPTCHA";
 $plugin_tx['advancedform']['label_store']="Sauvegarder les données";
 $plugin_tx['advancedform']['label_thanks_page']="Page de remerciement";
@@ -55,7 +48,7 @@ $plugin_tx['advancedform']['label_constraint']="Restriction";
 $plugin_tx['advancedform']['label_error_msg']="Message d'erreur";
 $plugin_tx['advancedform']['label_horizontal']="Horizontal";
 $plugin_tx['advancedform']['label_vertical']="Vertical";
-
+$plugin_tx['advancedform']['label_none']="RIEN";
 $plugin_tx['advancedform']['field_text']="Texte";
 $plugin_tx['advancedform']['field_from_name']="Expéditeur (Nom)";
 $plugin_tx['advancedform']['field_from']="Expéditeur (Courriel)";
@@ -72,7 +65,6 @@ $plugin_tx['advancedform']['field_file']="Fichier";
 $plugin_tx['advancedform']['field_hidden']="Caché";
 $plugin_tx['advancedform']['field_output']="Sortie";
 $plugin_tx['advancedform']['field_custom']="Personnalisé";
-
 $plugin_tx['advancedform']['tool_add']="Ajouter";
 $plugin_tx['advancedform']['tool_delete']="Supprimer";
 $plugin_tx['advancedform']['tool_down']="Vers le bas";
@@ -83,12 +75,10 @@ $plugin_tx['advancedform']['tool_clear_defaults']="Effacer les valeurs défaut";
 $plugin_tx['advancedform']['tool_export']="Exporter";
 $plugin_tx['advancedform']['tool_import']="Importer";
 $plugin_tx['advancedform']['tool_template']="Créer template";
-
 $plugin_tx['advancedform']['button_ok']="OK";
 $plugin_tx['advancedform']['button_cancel']="Annuler";
 $plugin_tx['advancedform']['button_send']="Envoyer";
 $plugin_tx['advancedform']['button_reset']="Effacer";
-
 $plugin_tx['advancedform']['error_mail']="Le courriel n'a pas pu être envoyé!";
 $plugin_tx['advancedform']['error_missing_sender']="L'adresse e-mail de l'expéditeur manque ! Le courriel de confirmation n'a pas pu être envoyé !";
 $plugin_tx['advancedform']['error_missing_field']="Le champs requis '%s' manque!";
@@ -108,9 +98,8 @@ $plugin_tx['advancedform']['error_default_too_long']="La valeur par défaut est 
 $plugin_tx['advancedform']['error_invalid_property']="Valeur de propriété invalide !";
 $plugin_tx['advancedform']['error_duplicate_fields']="De noms de champs doubles ne sont pas permis !";
 $plugin_tx['advancedform']['error_too_many_senders']="Seulement un expéditeur permis !";
-
-$plugin_tx['advancedform']['cf_folder_data']="Chemin vers un répertoire relativ au répertoire de racine de CMSimple, où doivent être sauvegardés les données de plugin. Ex. \"userfiles/advancedform/\".";
-$plugin_tx['advancedform']['cf_captcha_plugin']="Le plugin CAPTCHA, qui doit être utilisé par Advancedform_XH. Encodez \"advancedform\" pour utiliser le CAPTCHA inclus.";
+$plugin_tx['advancedform']['cf_folder_data']="Chemin vers un répertoire relatif à la racine de CMSimple, où doivent être sauvegardés les données de plugin. Ex. \"userfiles/advancedform/\".";
+$plugin_tx['advancedform']['cf_captcha_plugin']="Le plugin CAPTCHA, qui doit être utilisé par Advancedform_XH. Entrez \"advancedform\" pour utiliser le CAPTCHA inclus.";
 $plugin_tx['advancedform']['cf_required_field_mark']="Marquage des champs requis. \"%s\" détermine la position du libellé.";
 $plugin_tx['advancedform']['cf_mail_to_name']="Valeur par défaut pour des nouveaux formulaires";
 $plugin_tx['advancedform']['cf_mail_to']="Valeur par défaut pour des nouveaux formulaires";
@@ -121,5 +110,11 @@ $plugin_tx['advancedform']['cf_mail_thanks_page']="Valeur par défaut pour des n
 $plugin_tx['advancedform']['cf_mail_type']="Mode d'envoi du courriel : \"html\" ou \"text\".";
 $plugin_tx['advancedform']['cf_mail_regexp']="Expression régulière pour vérifier la validité d'une adresse e-mail. La valeur par défaut est un peu restrictive. Voir <a href=\"http://www.regular-expressions.info/email.html\" target=\"_blank\">http://www.regular-expressions.info/email.html</a> pour plus d'infos.";
 $plugin_tx['advancedform']['cf_php_extension']="Si l'extension .php doit être utilisée pour les fichiers template et hook. \"1\" (oui) ou \"0\" (non)";
+$plugin_tx['advancedform']['cf_focus_form']="Si le premier champ du formulaire doit être sélectionné (focus) : \"1\" (oui) ou \"0\" (non). Notez que le focus peut forcer le scroll descendant de la page.";
+$plugin_tx['advancedform']['cf_datepicker_icon']="Si l'icône du sélecteur de date doit être affichée à coté du champ date : \"1\" (oui) ou \"0\" (non).";
+$plugin_tx['advancedform']['cf_mail_line_ending_*nix']="Usage du style de fin de lignes *nix dans le mail : \"1\" (oui) ou \"0\" (non). A tester si l'envoi de mails ne fonctionne pas.";
+$plugin_tx['advancedform']['cf_csv_separator']="Délimiteur de champ pour les fichiers CSV. Le plus souvent un point-virgule.";
+$plugin_tx['advancedform']['log_success']="E-mail de <%s> envoyé.";
+$plugin_tx['advancedform']['log_error']="E-mail de <%s> non envoyé !";
 
 ?>
