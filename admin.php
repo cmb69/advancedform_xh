@@ -9,7 +9,7 @@
  * @package   Advancedform
  * @author    Christoph M. Becker <cmbecker69@gmx.de>
  * @copyright 2005-2010 Jan Kanters
- * @copyright 2011-2014 Christoph M. Becker <http://3-magi.net>
+ * @copyright 2011-2017 Christoph M. Becker <http://3-magi.net>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://3-magi.net/?CMSimple_XH/Advancedform_XH
@@ -54,7 +54,7 @@ function Advancedform_version()
         ) . PHP_EOL
         . '<p>Version: ' . ADVANCEDFORM_VERSION . '</p>' . PHP_EOL
         . '<p>Copyright &copy; 2005-2010 Jan Kanters' . tag('br')
-        . 'Copyright &copy; 2011-2014 <a href="http://3-magi.net">'
+        . 'Copyright &copy; 2011-2017 <a href="http://3-magi.net">'
         . 'Christoph M. Becker</a></p>' . PHP_EOL
         . '<p>Advancedform_XH is powered by <a'
         . ' href="http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple"'
