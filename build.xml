@@ -31,8 +31,7 @@
     </target>
 
     <target name="compat" description="checks compatibility with PHP_CompatInfo">
-        <exec command="phpcompatinfo --configuration phpcompatinfo.xml print --exclude-pattern advancedform ."
-              logoutput="true"/>
+        <exec command="phpcompatinfo analyser:run --alias current" logoutput="true"/>
     </target>
 
     <!-- Tests -->
