@@ -1090,7 +1090,7 @@ function Advancedform_check($id)
     foreach ($form['fields'] as $field) {
         $name = 'advfrm-' . $field['field'];
         if ($field['type'] != 'file' && $field['type'] != 'multi_select'
-            && empty($_POST[$name])
+            && (!isset($_POST[$name]) || $_POST[$name] == '')
             || $field['type'] == 'file' && empty($_FILES[$name]['name'])
             || $field['type'] == 'multi_select'
             && (!isset($_POST[$name])
