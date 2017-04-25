@@ -845,8 +845,10 @@ if (function_exists('XH_registerStandardPluginMenuItems')) {
 /*
  * Handle the plugin administration.
  */
-if (function_exists('XH_wantsPluginAdministration') && XH_wantsPluginAdministration('advancedform')
-    || isset($advancedform) && $advancedform == 'true') {
+if (function_exists('XH_wantsPluginAdministration')
+    && XH_wantsPluginAdministration('advancedform')
+    || isset($advancedform) && $advancedform == 'true'
+) {
     if (include_once $pth['folder']['plugins'] . 'jquery/jquery.inc.php') {
         include_jQuery();
         include_jQueryUI();
