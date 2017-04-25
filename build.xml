@@ -50,26 +50,6 @@
         <exec command="phpunit --configuration coverage.xml" logoutput="true"/>
     </target>
 
-    <!-- Documentation -->
-
-    <target name="php-doc">
-        <phpdoc title="Advancedform_XH Developer Documentation" destdir="doc/php"
-                output="HTML:Smarty:HandS" defaultpackagename="Advancedform"
-                defaultcategoryname="Advancedform_XH">
-            <fileset refid="php-sources"/>
-            <projdocfileset dir=".">
-               <include name="README"/>
-               <include name="CHANGELOG"/>
-            </projdocfileset>
-        </phpdoc>
-    </target>
-
-<!--    <target name="js-doc">
-        <exec command="jsdoc -destination doc/js pagemanager.js" checkreturn="true"/>
-    </target>
--->
-    <target name="doc" depends="php-doc"/>
-
     <!-- Build -->
 
     <target name="build" description="builds distributable ZIP archive">
