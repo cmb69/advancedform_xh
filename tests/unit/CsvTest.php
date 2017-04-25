@@ -143,7 +143,7 @@ class CsvTest extends PHPUnit_Framework_TestCase
             'content' => 'form foo missing'
         );
         $this->assertFalse(Advancedform_readCsv('foo'));
-        $this->assertTag($matcher, $e);
+        @$this->assertTag($matcher, $e);
     }
 
     /**
