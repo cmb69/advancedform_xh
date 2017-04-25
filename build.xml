@@ -104,6 +104,7 @@
         <delete>
             <fileset dir="dist/advancedform">
                 <include name="config/config.php"/>
+                <include name="data/**"/>
                 <include name="languages/??.php"/>
                 <include name="css/stylesheet.css"/>
             </fileset>
