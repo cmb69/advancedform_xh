@@ -166,7 +166,7 @@ function Advancedform_toolIcon($name)
  */
 function Advancedform_toolForm($name, $action, $onsubmit = false)
 {
-    global $_XH_csrfProtection;
+    global $_XH_csrfProtection, $plugin_tx;
 
     $onsubmit = $onsubmit ? 'onsubmit="' . $onsubmit . '"' : '';
     $icon = Advancedform_toolIcon($name);
@@ -177,7 +177,7 @@ function Advancedform_toolForm($name, $action, $onsubmit = false)
     }
     return <<<EOT
 <form action="$action" method="post" $onsubmit>
-    <button>$icon</button>
+    <button title="{$plugin_tx['advancedform']['tool_' . $name]}">$icon</button>
     $tokenInput
 </form>
 EOT;
