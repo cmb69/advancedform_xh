@@ -1,3 +1,6 @@
+Version 1.1 – released 2017-04-25
+see <https://github.com/cmb69/advancedform_xh/milestone/2?closed=1>
+
 Version 1.0 - released 2014-05-25
 * fixed bug, where fields of type "textarea" broke CSV files; has to be
   configured via csv_separator (reported and suggested by oldnema)
