@@ -16,7 +16,7 @@ $plugin_tx['advancedform']['menu_main']="E-Mail-Formulare";
 $plugin_tx['advancedform']['mail_subject']="%1\$s auf %2\$s gesendet von %3\$s";
 $plugin_tx['advancedform']['mail_subject_confirmation']="%1\$s von %2\$s";
 
-$plugin_tx['advancedform']['captcha_explanation']="Bitte geben sie zusätzlich die angezeigten Ziffern ein:";
+$plugin_tx['advancedform']['captcha_explanation']="Bitte geben Sie zusätzlich die angezeigten Ziffern ein:";
 
 $plugin_tx['advancedform']['date_order']="dmy";
 $plugin_tx['advancedform']['date_delimiter']=".";
@@ -103,7 +103,7 @@ $plugin_tx['advancedform']['error_upload_general']="Die Datei von Feld '%s' konn
 $plugin_tx['advancedform']['error_captcha_code']="Falscher CAPTCHA Code!";
 $plugin_tx['advancedform']['error_form_exists']="Ein Formular mit diesem Namen existiert bereits!";
 $plugin_tx['advancedform']['error_form_missing']="Ein Formular mit dem Namen '%s' existiert nicht!";
-$plugin_tx['advancedform']['error_missing_fields']="Bitte füllen sie die erforderlichen Felder aus!";
+$plugin_tx['advancedform']['error_missing_fields']="Bitte füllen Sie die erforderlichen Felder aus!";
 $plugin_tx['advancedform']['error_invalid_field']="Feldname is ungültig!";
 $plugin_tx['advancedform']['error_default_too_long']="Der Vorbelegungswert ist länger als die max. Länge!";
 $plugin_tx['advancedform']['error_invalid_property']="Ungültiger Eigenschafts-Wert!";
@@ -126,7 +126,7 @@ $plugin_tx['advancedform']['cf_mail_captcha']="Die Voreinstellung für neue Form
 $plugin_tx['advancedform']['cf_mail_thanks_page']="Die Voreinstellung für neue Formulare";
 $plugin_tx['advancedform']['cf_mail_type']="Die Art der Mail, die verschickt werden soll, d.h. \"html\" or \"text\".";
 $plugin_tx['advancedform']['cf_mail_regexp']="Der reguläre Ausdruck um gültige E-Mail-Adressen zu prüfen. Die Voreinstellung ist etwas restriktiv, siehe http://www.regular-expressions.info/email.html für weitere Informationen.";
-$plugin_tx['advancedform']['cf_mail_line_ending_*nix']="Ob Zeilenenden im *nix Stil in der E-Mail verwendet werden sollen: \"1\" (ja) oder \"0\" (nein). Wenn der Versandt der E-Mails mit der Voreinstellung nicht funktioniert, probieren sie die andere Einstellung.";
+$plugin_tx['advancedform']['cf_mail_line_ending_*nix']="Ob Zeilenenden im *nix Stil in der E-Mail verwendet werden sollen: \"1\" (ja) oder \"0\" (nein). Wenn der Versandt der E-Mails mit der Voreinstellung nicht funktioniert, probieren Sie die andere Einstellung.";
 $plugin_tx['advancedform']['cf_php_extension']="Ob die zusätzliche Erweiterung .php für Template- und Hook-Dateien verwendet werden soll. \"1\" (ja) oder \"0\" (nein)";
 $plugin_tx['advancedform']['cf_csv_separator']="Das Feldtrennzeichen für die CSV-Dateien. Leer lassen, um einfache durch Tabulator getrennte Dateien wie mit Advancedform_XH &le; 1.0rc5 zu verwenden.";
 
