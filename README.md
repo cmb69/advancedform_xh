@@ -5,7 +5,7 @@ Advancedform_XH – a CMSimple_XH plugin
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
 Copyright (c) 2005-2010 Jan Kanters  
-Copyright (c) 2011-2017 Christoph M. Becker
+Copyright (c) 2011-2018 Christoph M. Becker
 
 Advancedform_XH is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
