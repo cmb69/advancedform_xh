@@ -1289,8 +1289,9 @@ function Advancedform_mail($id, $confirmation)
         $mail->set('FromName', $form['to_name']);
         $mail->AddAddress($from, $from_name);
     } else {
-        $mail->set('From', $from);
-        $mail->set('FromName', $from_name);
+        $mail->set('From', $form['to']);
+        $mail->set('FromName', $form['to_name']);
+        $mail->AddReplyTo($from, $from_name);
         $mail->AddAddress($form['to'], $form['to_name']);
         foreach (explode(';', $form['cc']) as $cc) {
             if (trim($cc) != '') {
