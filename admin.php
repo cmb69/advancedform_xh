@@ -58,7 +58,7 @@ function Advancedform_version()
         . '<p>Advancedform_XH is powered by <a'
         . ' href="http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple"'
         . ' target="_blank">jQuery4CMSimple</a>'
-        . ' and <a href="http://phpmailer.worxware.com/" target="_blank">'
+        . ' and <a href="https://github.com/PHPMailer/PHPMailer" target="_blank">'
         . 'PHPMailer</a>.</p>' . PHP_EOL
         . '<p class="advancedform_license">This program is free software:'
         . ' you can redistribute it and/or modify'
