@@ -391,10 +391,12 @@ function Advancedform_updatedDb($forms)
     case 0:
     case 1:
         $forms = array_map(
-            create_function(
-                '$elt',
-                'if (is_array($elt)) {$elt["store"] = false;} return $elt;'
-            ),
+            function ($elt) {
+                if (is_array($elt)) {
+                    $elt["store"] = false;
+                }
+                return $elt;
+            },
             $forms
         );
     }
@@ -769,7 +771,9 @@ function Advancedform_mailBody($id, $show_hidden, $html)
 function Advancedform_prefixFileExtensionList($list)
 {
     $extensions = explode(',', $list);
-    $func = create_function('$x', 'return \'.\' . $x;');
+    $func = function ($x) {
+        return '.' . $x;
+    };
     $extensions = array_map($func, $extensions);
     $list = implode(',', $extensions);
     return $list;
