@@ -1,462 +1,202 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<meta http-equiv="content-type" content="text/html;charset=utf-8">
-<title>Advancedform_XH - Manual</title>
-<link rel="stylesheet" type="text/css" href="./stylesheet.css">
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Advancedform_XH – User Manual</title>
+  <style type="text/css">
+    body {
+        font-family: Georgia, serif;
+        line-height: 1.5;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        background: #ffffe1;
+        max-width: 32em;
+    }
+    p {
+        text-align: justify;
+    }
+    pre {
+        color: black;
+        background: #ffe;
+        overflow: auto;
+        padding: 0.2em 0.5em;
+        border: 1px solid silver;
+    }
+  </style>
 </head>
-
 <body>
-
-<h1>Advancedform_XH - a CMSimple_XH Plugin</h1>
-<img src="../advancedform.png" width="128" height="128" alt="Plugin Icon"
-style="float: left; margin-right: 16px">
-<p>Advancedform_XH facilitates creating
-your own mail forms for integration to CMSimple_XH. It's possible use ranges
-from customized contact forms to complex ordering or booking forms. Even complex
-forms can be constructed by using the form editor, so you don't have to write
-any HTML, CSS or PHP, if the basic form functionality is enough for your needs.
-Advanced customization is available through the template resp. hook system.</p>
-
-<ul id="nav">
-<li><a href="#notice">Important Notice</a></li>
+<h1 id="advancedform_xh">Advancedform_XH</h1>
+<p>Advancedform_XH facilitates creating your own mail forms for integration to CMSimple_XH. It’s possible use ranges from customized contact forms to complex ordering or booking forms. Even complex forms can be constructed by using the form editor, so you don’t have to write any HTML, CSS or PHP, if the basic form functionality is enough for your needs. Advanced customization is available through the template resp. hook system.</p>
+<ul>
 <li><a href="#requirements">Requirements</a></li>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#settings">Settings</a></li>
 <li><a href="#usage">Usage</a>
 <ul>
-<li><a href="#usage-administration">Mail form administration</a></li>
-<li><a href="#usage-editor">Mail form editor</a></li>
-<li><a href="#usage-form">Using the mail form</a></li>
-<li><a href="#usage-link">Replacing the built in mail form</a></li>
-<li><a href="#usage-templates">Template system</a></li>
-<li><a href="#usage-hooks">Hooks</a></li>
-<li><a href="#usage-demo">Demo forms</a></li>
+<li><a href="#mail-form-administration">Mail form administration</a></li>
+<li><a href="#mail-form-editor">Mail form editor</a></li>
+<li><a href="#using-the-mail-form">Using the mail form</a></li>
+<li><a href="#replacing-the-built-in-mail-form">Replacing the built in mail form</a></li>
+<li><a href="#template-system">Template system</a></li>
+<li><a href="#hooks">Hooks</a></li>
+<li><a href="#demo-forms">Demo forms</a></li>
 </ul></li>
 <li><a href="#limitations">Limitations</a></li>
 <li><a href="#license">License</a></li>
 <li><a href="#credits">Credits</a></li>
 </ul>
-
-<div id="body">
-
-<p><strong>Please do read this documentation, <em>before</em> you encounter any
-problems!</strong></p>
-
 <h2 id="requirements">Requirements</h2>
-<p>Advancedform_XH is a plugin for CMSimple_XH. It requires a UTF-8 encoded
-version and PHP ≥ 5.3.0.</p>
-<div class="toplink"><a href="#">back to top</a></div>
-
+<p>Advancedform_XH is a plugin for CMSimple_XH. It requires a UTF-8 encoded version and PHP ≥ 5.3.0.</p>
 <h2 id="installation">Installation</h2>
-<p>The installation is done as with many other CMSimple_XH plugins. See the <a
-href="http://www.cmsimple-xh.org/wiki/doku.php/installation"> CMSimple_XH
-wiki</a> for further details.</p>
-<ol>
+<p>The installation is done as with many other CMSimple_XH plugins. See the <a href="http://www.cmsimple-xh.org/wiki/doku.php/installation">CMSimple_XH wiki</a> for further details.</p>
+<ol type="1">
 <li>Backup the data on your server.</li>
 <li>Unzip the distribution on your computer.</li>
-<li>Upload the whole directory advancedform/ to your server into CMSimple_XH's
-plugins directory.</li>
-<li>Set write permissions to the subdirectories config/, css/, languages/ and to
-the plugin's data folder.</li>
-<li>Protect Advancedform_XH's data folder against direct access by any means
-your webserver provides. .htaccess files for Apache servers are already
-distributed in the default data folder. Note that the subfolders css/ and js/
-must not deny public access.</li>
-<li>Switch to Advancedform in the back-end to check if all requirements are
-fulfilled.</li>
+<li>Upload the whole directory advancedform/ to your server into CMSimple_XH’s plugins directory.</li>
+<li>Set write permissions to the subdirectories config/, css/, languages/ and to the plugin’s data folder.</li>
+<li>Protect Advancedform_XH’s data folder against direct access by any means your webserver provides. .htaccess files for Apache servers are already distributed in the default data folder. Note that the subfolders css/ and js/ must not deny public access.</li>
+<li>Switch to Advancedform in the back-end to check if all requirements are fulfilled.</li>
 </ol>
-<div class="toplink"><a href="#">back to top</a></div>
-
 <h2 id="settings">Settings</h2>
-<p>The plugin's configuration is done as with many other CMSimple_XH plugins in
-the website's back-end. Select "Advancedform" from "Plugins".</p>
-<p>You can change the default settings of Advancedform_XH in "Config". Hints for
-the options will be displayed when hovering over the help icon with your mouse.
-The setting "php_extension" could provide additional security with regard to the
-template and the hook system, if enabled. However, some of the demo forms don't
-work in this case.</p>
-<p>Localization is done in "Language". You can translate the character strings
-to your own language, or customize them according to your needs.</p>
-<p>The look of Advancedform_XH can be customized in "Stylesheet". The upper part
-contains the styling of the forms displayed in the front-end. The mail form is
-displayed as a table with two columns. The left column shows the labels, the
-right colum the fields. You can simply adjust the styles for the classes
-"div.advfrm-mailform td.label" and "div.advfrm-mailform td.field". You can style
-individual forms by selecting "form[name=FORM_NAME]", and even individual fields
-by selecting "#advfrm-FORM_NAME-FIELD_NAME". If you prefer a one column layout,
-you have to use the <a href="#usage-templates">template system</a>.</p>
-<p>The lower part of the stylesheet contains the styling of the mail form
-administration and the form editor. If you want to style the property dialogs to
-fit to your template, you should consider to add jQueryUI theming support to
-your template. How this can be done is explained in the <a
-href="http://www.cmsimpleforum.com/viewtopic.php?f=29&amp;t=3435&amp;start=2">CMSimple_XH
-forum</a>.</p>
+<p>The plugin’s configuration is done as with many other CMSimple_XH plugins in the website’s back-end. Select “Advancedform” from “Plugins”.</p>
+<p>You can change the default settings of Advancedform_XH in “Config”. Hints for the options will be displayed when hovering over the help icon with your mouse. The setting “php_extension” could provide additional security with regard to the template and the hook system, if enabled. However, some of the demo forms don’t work in this case.</p>
+<p>Localization is done in “Language”. You can translate the character strings to your own language, or customize them according to your needs.</p>
+<p>The look of Advancedform_XH can be customized in “Stylesheet”. The upper part contains the styling of the forms displayed in the front-end. The mail form is displayed as a table with two columns. The left column shows the labels, the right colum the fields. You can simply adjust the styles for the classes “div.advfrm-mailform td.label” and “div.advfrm-mailform td.field”. You can style individual forms by selecting “form[name=FORM_NAME]”, and even individual fields by selecting “#advfrm-FORM_NAME-FIELD_NAME”. If you prefer a one column layout, you have to use the <a href="#template-system">template system</a>.</p>
+<p>The lower part of the stylesheet contains the styling of the mail form administration and the form editor. If you want to style the property dialogs to fit to your template, you should consider to add jQueryUI theming support to your template. How this can be done is explained in the <a href="http://www.cmsimpleforum.com/viewtopic.php?f=29&amp;t=3435&amp;start=2">CMSimple_XH forum</a>.</p>
 <p>Only the first part of the stylesheet above the line</p>
-<pre>/* END OF MAIL CSS */</pre>
-<p>will be included inline to sent HTML mails. So put all style information that
-is appropriate for the mails to the top of the stylesheet.</p>
-<div class="toplink"><a href="#">back to top</a></div>
-
+<pre><code>/* END OF MAIL CSS */</code></pre>
+<p>will be included inline to sent HTML mails. So put all style information that is appropriate for the mails to the top of the stylesheet.</p>
 <h2 id="usage">Usage</h2>
-
-<h3 id="usage-administration">Mail form administration</h3>
-<p>In the back-end under "Mail Forms" you'll find the list of all defined mail
-forms. You can add and import new forms and edit, delete, copy and export
-existing ones. To the right of the mail form is the script code needed to show
-the according form on a page. Just copy the code and paste it to the desired
-page.</p>
-<div class="toplink"><a href="#">back to top</a></div>
-
-<h3 id="usage-editor">Mail form editor</h3>
-<p>The mail form editor allows you to construct your mail forms.
-The details are explained in the following sections.</p>
-
-<h4>General form properties</h4>
+<h3 id="mail-form-administration">Mail form administration</h3>
+<p>In the back-end under “Mail Forms” you’ll find the list of all defined mail forms. You can add and import new forms and edit, delete, copy and export existing ones. To the right of the mail form is the script code needed to show the according form on a page. Just copy the code and paste it to the desired page.</p>
+<h3 id="mail-form-editor">Mail form editor</h3>
+<p>The mail form editor allows you to construct your mail forms. The details are explained in the following sections.</p>
+<h4 id="general-form-properties">General form properties</h4>
 <p>In the upper part of the form editor you can edit the general form properties.</p>
-<dl>
-<dt>Name</dt>
-<dd>The name of the form may contain only alphanumeric characters and
-underscores. It must be unique for all defined forms. It is used to identify the
-form.</dd>
-<dt>Title</dt>
-<dd>The title of the form is used in the mails subject only.</dd>
-<dt>To (name)</dt>
-<dd>The name of the recipient of the mail.</dd>
-<dt>To (e-mail)</dt>
-<dd>The address of the recipient of the mail.</dd>
-<dt>CC</dt>
-<dd>The addresses of the CC recipients of the mail separated by semicolon.</dd>
-<dt>BCC</dt>
-<dd>The addresses of the BCC recipients of the mail separated by semicolon.</dd>
-<dt>CAPTCHA</dt>
-<dd>Whether a CAPTCHA should be included in the form.</dd>
-<dt>Store data</dt>
-<dd>Whether the submitted data should additionally be stored in a CSV file.</dd>
-<dt>Thanks page</dt>
-<dd>If empty, after sending the mail the sent information will be displayed. If
-set and if a sender e-mail address is entered, after sending the mail the
-visitor will be redirected to this page, and a confirmation mail with the sent
-information will be sent to him.</dd>
-</dl>
-
-<h4>Form fields</h4>
-<p>In the lower part of the form editor you can edit the fields of the form. Use
-the tool icons to add, delete or move fields.</p>
-<dl>
-<dt>Name</dt>
-<dd>The name of the field may contain only alphanumeric characters and
-underscores. It must be unique for all defined fields of the current form. It is
-used to identify the field.</dd>
-<dt>Label</dt>
-<dd>The label that should be displayed next to the field.</dd>
-<dt>Type</dt>
-<dd>The field's type. Right to the selectbox is the property tool icon. Click it
-to open a dialog for editing the properties of the selected field type.</dd>
-<dt>Req.</dt>
-<dd>Whether the field is required, i.e. must be filled in by the visitor.</dd>
-</dl>
-
-<h4>Field types</h4>
-<dl>
-<dt>Text</dt>
-<dd>A general text field.</dd>
-<dt>Sender (name)</dt>
-<dd>A field to enter the sender's name. This information will be included in the
-mail header. At most one field of type "Sender (name)" may be used for each
-form.</dd>
-<dt>Sender (e-mail)</dt>
-<dd>A field to enter the sender's e-mail address, which will be validated. This
-information will be used as From-Header field of the mail, and as To-Header
-field of the confirmation mail. At most one field of type "Sender (e-mail)" may
-be used for each form.</dd>
-<dt>E-mail</dt>
-<dd>A field to enter a general e-mail address, which will be validated</dd>
-<dt>Date</dt>
-<dd>A field to enter a date, which will be validated. If JavaScript is enabled
-in the visitor's browser, a datepicker is available.</dd>
-<dt>Number</dt>
-<dd>A field to enter a non-negative integer, which will be validated.</dd>
-<dt>Textarea</dt>
-<dd>A field to enter multi-line texts.</dd>
-<dt>Radiobutton</dt>
-<dd>A field to choose one of several options.</dd>
-<dt>Checkbox</dt>
-<dd>A field to choose any of several options.</dd>
-<dt>Selectbox</dt>
-<dd>A field to choose one of several options.</dd>
-<dt>Multi-Selectbox</dt>
-<dd>A field to choose any of several options.</dd>
-<dt>Password</dt>
-<dd>A field to enter a password.</dd>
-<dt>File</dt>
-<dd>A field to allow the visitor to upload a file as mail attachment. The
-attachment will not be sent back to the visitor in the confirmation mail.</dd>
-<dt>Hidden</dt>
-<dd>A hidden field. Hidden fields will never be shown to the visitor. They might
-be useful in combination with the template system and the hooks.</dd>
-<dt>Output</dt>
-<dd>A field to output arbitrary HTML.</dd>
-<dt>Custom</dt>
-<dd>A field that is validated against a given regular expression.</dd>
-</dl>
-
-<h4>Field properties</h4>
-<p>The field properties are edited in a dialog that is opened by clicking on the
-property icon. The different field types have different properties that can be
-set.</p>
-<dl>
-<dt>Size</dt>
-<dd>For text fields and such, the width of the field measured in characters. For
-selectboxes the height of the list. Use 1 for a dropdown box.</dd>
-<dt>Orientation</dt>
-<dd>For radiobuttons and checkboxes only: whether these should be displayed
-horizontally or vertically.</dd>
-<dt>Max. length</dt>
-<dd>The maximum number of characters that can be entered. For file fields it
-specifies the maximum file size in bytes.</dd>
-<dt>Cols</dt>
-<dd>The width of the textarea in characters.</dd>
-<dt>Rows</dt>
-<dd>The height of the textarea in characters.</dd>
-<dt>Default</dt>
-<dd>The default value of the field.</dd>
-<dt>Value</dt>
-<dd>The HTML for output fields.</dd>
-<dt>File types</dt>
-<dd>For file fields only: a comma separated list of permissible file extensions,
-e.g. <em>jpeg,jpg,png,gif,bmp</em> for images.</dd>
-<dt>Constraint</dt>
-<dd>For custom fields only: the regular expression the value should be checked
-against.</dd>
-<dt>Error message</dt>
-<dd>For custom fields only: the error message that should be displayed, if the
-value doesn't match the regular expression. Use <em>%s</em> to insert the label
-of the field into the message.</dd>
-</dl>
-<p>Radiobuttons, checkboxes and selectboxes allow to enter different options.
-Use the tool buttons to add, delete and rearrange them.
-The radiobuttons resp. checkboxes besides the options allow to specify these as default(s).
-Use the tool "clear defaults" to reset them.</p>
-<div class="toplink"><a href="#">back to top</a></div>
-
-<h3 id="usage-form">Using the mail form</h3>
-<p>Edit the page, that you want to display a mail form, and insert the plugin
-call:</p>
-<pre>{{{PLUGIN:advancedform('FORM_NAME');}}}</pre>
-<p>It might be easiest to just copy&amp;paste the necessary code from the mail
-form administration.</p>
-<p>Now the mail form is ready to be used by the visitors of your site. They can
-fill out the form and submit it. If they make any mistakes, e.g. leaving empty
-an required field, entering an invalid e-mail address or number or specifying a
-file that is larger than allowed, the form will be displayed again with the
-already entered input, and with the errors shown above, so the visitors can
-correct the mistakes and submit the form again. It is not necessary that
-JavaScript is enabled in the visitor's browser, but if it is, the first
-erroneous field field will be focused, and for date fields a date picker is
-available. But none of the field validations relies on JavaScript.</p>
-<p>After successful submission of the form,
-an e-mail will be sent to the receivers (To, CC and BCC) specified in the form editor.
-Then the sent information is displayed to the visitor as confirmation,
-or, if a thanks page is specified, the visitor will be redirected there,
-and a confirmation mail will be sent to him.
-The thanks page/confirmation feature will only work,
-if a required field of type "Sender (e-mail)" is specified for the form.</p>
-<p>Under CMSimple_XH 1.6 and higher, attempts to send an email via Advancedform
-are logged in CMSimple_XH's system log (Settings &rarr; Log File).</p>
-<p>Note, that it is possible to have multiple forms on a single page, which can
-be sent independent from each other.</p>
-<div class="toplink"><a href="#">back to top</a></div>
-
-<h3 id="usage-link">Replacing the built in mail form</h3>
-<p>It is possible to replace CMSimple_XH's built in mail form with a user
-defined one. So just define the desired form, and enter its name in
-Advancedform_XH's language settings as "contact form". Now CMSimple_XH's
-mailform link will directly call your custom form. Note, that an email address
-has to be configured for CMSimple_XH to display the mailform link, but its value
-is completely ignored by Advancedform_XH.</p>
-<p>Alternatively create a hidden CMSimple_XH page and insert the required script
-code to call the form. Then you have to modify your template. Just replace</p>
-<pre>&lt;?php echo mailformlink()?&gt;</pre>
+<ul>
+<li><strong>Name</strong>: The name of the form may contain only alphanumeric characters and underscores. It must be unique for all defined forms. It is used to identify the form.</li>
+<li><strong>Title</strong>: The title of the form is used in the mails subject only.</li>
+<li><strong>To (name)</strong>: The name of the recipient of the mail.</li>
+<li><strong>To (e-mail)</strong>: The address of the recipient of the mail.</li>
+<li><strong>CC</strong>: The addresses of the CC recipients of the mail separated by semicolon.</li>
+<li><strong>BCC</strong>: The addresses of the BCC recipients of the mail separated by semicolon.</li>
+<li><strong>CAPTCHA</strong>: Whether a CAPTCHA should be included in the form.</li>
+<li><strong>Store data</strong>: Whether the submitted data should additionally be stored in a CSV file.</li>
+<li><strong>Thanks page</strong>: If empty, after sending the mail the sent information will be displayed. If set and if a sender e-mail address is entered, after sending the mail the visitor will be redirected to this page, and a confirmation mail with the sent information will be sent to him.</li>
+</ul>
+<h4 id="form-fields">Form fields</h4>
+<p>In the lower part of the form editor you can edit the fields of the form. Use the tool icons to add, delete or move fields.</p>
+<ul>
+<li><strong>Name</strong>: The name of the field may contain only alphanumeric characters and underscores. It must be unique for all defined fields of the current form. It is used to identify the field.</li>
+<li><strong>Label</strong>: The label that should be displayed next to the field.</li>
+<li><strong>Type</strong>: The field’s type. Right to the selectbox is the property tool icon. Click it to open a dialog for editing the properties of the selected field type.</li>
+<li><strong>Req.</strong>: Whether the field is required, i.e. must be filled in by the visitor.</li>
+</ul>
+<h4 id="field-types">Field types</h4>
+<ul>
+<li><strong>Text</strong>: A general text field.</li>
+<li><strong>Sender (name)</strong>: A field to enter the sender’s name. This information will be included in the mail header. At most one field of type “Sender (name)” may be used for each form.</li>
+<li><strong>Sender (e-mail)</strong>: A field to enter the sender’s e-mail address, which will be validated. This information will be used as From-Header field of the mail, and as To-Header field of the confirmation mail. At most one field of type “Sender (e-mail)” may be used for each form.</li>
+<li><strong>E-mail</strong>: A field to enter a general e-mail address, which will be validated</li>
+<li><strong>Date</strong>: A field to enter a date, which will be validated. If JavaScript is enabled in the visitor’s browser, a datepicker is available.</li>
+<li><strong>Number</strong>: A field to enter a non-negative integer, which will be validated.</li>
+<li><strong>Textarea</strong>: A field to enter multi-line texts.</li>
+<li><strong>Radiobutton</strong>: A field to choose one of several options.</li>
+<li><strong>Checkbox</strong>: A field to choose any of several options.</li>
+<li><strong>Selectbox</strong>: A field to choose one of several options.</li>
+<li><strong>Multi-Selectbox</strong>: A field to choose any of several options.</li>
+<li><strong>Password</strong>: A field to enter a password.</li>
+<li><strong>File</strong>: A field to allow the visitor to upload a file as mail attachment. The attachment will not be sent back to the visitor in the confirmation mail.</li>
+<li><strong>Hidden</strong>: A hidden field. Hidden fields will never be shown to the visitor. They might be useful in combination with the template system and the hooks.</li>
+<li><strong>Output</strong>: A field to output arbitrary HTML.</li>
+<li><strong>Custom</strong>: A field that is validated against a given regular expression.</li>
+</ul>
+<h4 id="field-properties">Field properties</h4>
+<p>The field properties are edited in a dialog that is opened by clicking on the property icon. The different field types have different properties that can be set.</p>
+<ul>
+<li><strong>Size</strong>: For text fields and such, the width of the field measured in characters. For selectboxes the height of the list. Use 1 for a dropdown box.</li>
+<li><strong>Orientation</strong>: For radiobuttons and checkboxes only: whether these should be displayed horizontally or vertically.</li>
+<li><strong>Max. length</strong>: The maximum number of characters that can be entered. For file fields it specifies the maximum file size in bytes.</li>
+<li><strong>Cols</strong>: The width of the textarea in characters.</li>
+<li><strong>Rows</strong>: The height of the textarea in characters.</li>
+<li><strong>Default</strong>: The default value of the field.</li>
+<li><strong>Value</strong>: The HTML for output fields.</li>
+<li><strong>File types</strong>: For file fields only: a comma separated list of permissible file extensions, e.g. <em>jpeg,jpg,png,gif,bmp</em> for images.</li>
+<li><strong>Constraint</strong>: For custom fields only: the regular expression the value should be checked against.</li>
+<li><strong>Error message</strong>: For custom fields only: the error message that should be displayed, if the value doesn’t match the regular expression. Use <em>%s</em> to insert the label of the field into the message.</li>
+</ul>
+<p>Radiobuttons, checkboxes and selectboxes allow to enter different options. Use the tool buttons to add, delete and rearrange them. The radiobuttons resp. checkboxes besides the options allow to specify these as default(s). Use the tool “clear defaults” to reset them.</p>
+<h3 id="using-the-mail-form">Using the mail form</h3>
+<p>Edit the page, that you want to display a mail form, and insert the plugin call:</p>
+<pre><code>{{{PLUGIN:advancedform(&#39;FORM_NAME&#39;);}}}</code></pre>
+<p>It might be easiest to just copy&amp;paste the necessary code from the mail form administration.</p>
+<p>Now the mail form is ready to be used by the visitors of your site. They can fill out the form and submit it. If they make any mistakes, e.g. leaving empty an required field, entering an invalid e-mail address or number or specifying a file that is larger than allowed, the form will be displayed again with the already entered input, and with the errors shown above, so the visitors can correct the mistakes and submit the form again. It is not necessary that JavaScript is enabled in the visitor’s browser, but if it is, the first erroneous field field will be focused, and for date fields a date picker is available. But none of the field validations relies on JavaScript.</p>
+<p>After successful submission of the form, an e-mail will be sent to the receivers (To, CC and BCC) specified in the form editor. Then the sent information is displayed to the visitor as confirmation, or, if a thanks page is specified, the visitor will be redirected there, and a confirmation mail will be sent to him. The thanks page/confirmation feature will only work, if a required field of type “Sender (e-mail)” is specified for the form.</p>
+<p>Under CMSimple_XH 1.6 and higher, attempts to send an email via Advancedform are logged in CMSimple_XH’s system log (Settings → Log File).</p>
+<p>Note, that it is possible to have multiple forms on a single page, which can be sent independent from each other.</p>
+<h3 id="replacing-the-built-in-mail-form">Replacing the built in mail form</h3>
+<p>It is possible to replace CMSimple_XH’s built in mail form with a user defined one. So just define the desired form, and enter its name in Advancedform_XH’s language settings as “contact form”. Now CMSimple_XH’s mailform link will directly call your custom form. Note, that an email address has to be configured for CMSimple_XH to display the mailform link, but its value is completely ignored by Advancedform_XH.</p>
+<p>Alternatively create a hidden CMSimple_XH page and insert the required script code to call the form. Then you have to modify your template. Just replace</p>
+<pre><code>&lt;?php echo mailformlink()?&gt;</code></pre>
 <p>with</p>
-<pre>&lt;?php echo advancedformlink('PAGE_URL')?&gt;</pre>
-<p>where PAGE_URL should be the part of the URL of the page after the question
-mark. It is possible to specify multiple advancedformlink()s this way.</p>
-<div class="toplink"><a href="#">back to top</a></div>
-
-<h3 id="usage-templates">Template system</h3>
-<p>The template system allows to build highly customized mail forms. Power
-users, who need to create or alter mail forms frequently, might have a look at
-the <a href="http://simplesolutions.dk/?Form_Mailer">Form Mailer</a> by Jerry
-Jakobsfeld, which is even more versatile than Advancedform_XH.</p>
-<p>If a file with the name FORM_NAME.tpl(.php) is found in Advancedform_XH's
-data folder, it will be used as the template file. Additionally the file
-css/FORM_NAME.css, if it exists, will be included as stylesheet in the
-CMSimple_XH page and the top of this stylesheet (delimited as for the plugin
-stylesheet) will be included in the e-mail. And if a file js/FORM_NAME.js
-exists, it will be included in the page, too.</p>
-<p>You can write the template file and it's stylesheet manually, but it might be
-easiest to let Advancedform_XH create a basic one in the mail form
-administration. By default the generated template files will display the form
-similar to the original Advancedform's one column layout. If that's all you
-want, you're done.</p>
-<p>If you want to adjust the styling, have a look at the generated files. In the
-template file you can see it's simplistic structure. Everything is encapsulated
-within &lt;div&gt;s for flexibility. Have a look at the class of the
-container-divs. This is set to "break" by default, so every field will start in
-a new row. Change it to "float" and the fields will be put right beside each
-other. If you want to have the labels to the left of the fields, just remove the
-comments in the prepared styles for div.label and div.field.</p>
+<pre><code>&lt;?php echo advancedformlink(&#39;PAGE_URL&#39;)?&gt;</code></pre>
+<p>where PAGE_URL should be the part of the URL of the page after the question mark. It is possible to specify multiple advancedformlink()s this way.</p>
+<h3 id="template-system">Template system</h3>
+<p>The template system allows to build highly customized mail forms. Power users, who need to create or alter mail forms frequently, might have a look at the <a href="http://simplesolutions.dk/?Form_Mailer">Form Mailer</a> by Jerry Jakobsfeld, which is even more versatile than Advancedform_XH.</p>
+<p>If a file with the name FORM_NAME.tpl(.php) is found in Advancedform_XH’s data folder, it will be used as the template file. Additionally the file css/FORM_NAME.css, if it exists, will be included as stylesheet in the CMSimple_XH page and the top of this stylesheet (delimited as for the plugin stylesheet) will be included in the e-mail. And if a file js/FORM_NAME.js exists, it will be included in the page, too.</p>
+<p>You can write the template file and it’s stylesheet manually, but it might be easiest to let Advancedform_XH create a basic one in the mail form administration. By default the generated template files will display the form similar to the original Advancedform’s one column layout. If that’s all you want, you’re done.</p>
+<p>If you want to adjust the styling, have a look at the generated files. In the template file you can see it’s simplistic structure. Everything is encapsulated within &lt;div&gt;s for flexibility. Have a look at the class of the container-divs. This is set to “break” by default, so every field will start in a new row. Change it to “float” and the fields will be put right beside each other. If you want to have the labels to the left of the fields, just remove the comments in the prepared styles for div.label and div.field.</p>
 <p>A template file is basically a PHP file with one addition to the syntax:</p>
-<pre>&lt;?field FIELD_NAME?&gt;</pre>
-<p>will output the field with the name FIELD_NAME. Do not use any additional
-characters such as whitespace except a single space between field and
-FIELD_NAME. This notation is actually a shorthand for</p>
-<pre>&lt;?php echo Advancedform_displayField('FORM_NAME', 'FIELD_NAME')?&gt;</pre>
-<p>The template file will be evaluated in the context of CMSimple_XH, so any
-global variables, constants and functions are available to use. However, it is
-not possible to alter any global variables (besides the superglobals, what might
-disturb the system's functioning). And do not call non-existent functions as
-this will cause the PHP interpreter to fail. <strong>Particularly you should be
-cautious using template files from untrusted sources, as those could contain
-malicious code that might harm your CMSimple_XH installation.</strong></p>
+<pre><code>&lt;?field FIELD_NAME?&gt;</code></pre>
+<p>will output the field with the name FIELD_NAME. Do not use any additional characters such as whitespace except a single space between field and FIELD_NAME. This notation is actually a shorthand for</p>
+<pre><code>&lt;?php echo Advancedform_displayField(&#39;FORM_NAME&#39;, &#39;FIELD_NAME&#39;)?&gt;</code></pre>
+<p>The template file will be evaluated in the context of CMSimple_XH, so any global variables, constants and functions are available to use. However, it is not possible to alter any global variables (besides the superglobals, what might disturb the system’s functioning). And do not call non-existent functions as this will cause the PHP interpreter to fail. <strong>Particularly you should be cautious using template files from untrusted sources, as those could contain malicious code that might harm your CMSimple_XH installation.</strong></p>
 <p>One particularly useful function might be</p>
-<pre>Advancedform_focusField($form_name, $field_name)</pre>
+<pre><code>Advancedform_focusField($form_name, $field_name)</code></pre>
 <p>that will set the focus to the given field.</p>
-<div class="toplink"><a href="#">back to top</a></div>
-
-<h3 id="usage-hooks">Hooks</h3>
-<p>The hooks are provided to give you even more flexibility, if you're able to
-write some PHP code. Define them in a file FORM_NAME.inc(.php) in
-Advancedform_XH's data folder. N.B.: this file will be include()'d, so it has to
-be a proper PHP file. The hooks will be called from Advancedform_XH on certain
-occassions. They are not tied to the template system.</p>
-<pre>function advfrm_custom_field_default($form_name, $field_name, $opt, $is_resent)</pre>
-<p>This will be called before the form is sent to the browser. It gives the
-opportunity to dynamically set default values for fields. Just return the value
-you want to be used as the fields default value. If you don't want to change the
-default value, just return NULL. The third parameter is set for radiobuttons,
-checkboxes and selects only. It contains the option, that is currently
-processed. Return TRUE to check the option, FALSE to uncheck it, or NULL to use
-whatever was specified in the form editor. The parameter $is_resent tells
-whether the form was resent to the browser after submission, because of
-validation errors. If this is the case the values already entered by the user
-are sent back instead of the default values specified in the form editor. You
-might consider to return NULL in this case, to not overwrite the users
-input.</p>
-<pre>function advfrm_custom_valid_field($form_name, $field_name, $value)</pre>
-<p>This will be called after the form was submitted, and gives the opportunity
-to add additional validation to the field values. Return TRUE, if the given
-$value is valid, otherwise return an error message, which will be displayed to
-the user by Advancedform_XH. For fields of type "file", $value is the $_FILES[]
-array belonging to the given field.</p>
-<pre>function advfrm_custom_mail($form_name, &amp;$mail, $is_confirmation)</pre>
-<p>This will be called after the $mail object is initialized with all
-information and just before the mail is sent, and gives the opportunity to alter
-the $mail object. The call-by-reference for $mail is important for PHP4, and
-does no harm for PHP5. The documentation for PHPMailer is not distributed with
-Advancedform_XH, but it can be downloaded from <a
-href="http://sourceforge.net/projects/phpmailer/files/phpmailer%20for%20php4/PHPMailer%20v2.0.4%20for%20PHP4/PHPMailer_v2.0.4.zip/download">
-Sourceforge</a>. The parameter $form_name specifies the currently processed
-form, and the parameter $is_confirmation specifies whether the $mail object
-contains the information for the mail or the confirmation mail (i.e. the
-response). If you want to suppress sending of the mail at all, just return
-FALSE.</p>
-<pre>function advfrm_custom_thanks_page($form_name, $fields)</pre>
-<p>This is called after the mail is sent, and can be utilized to switch to a
-personalized thanks page. Return the query string (i.e. the part of the URL of
-the page after the question mark) of the page you want to redirect to. Returning
-an empty string will redirect to the thanks page that's defined in the form
-editor. If no default thanks page is defined, the sent information will be
-displayed. The parameter $fields is an array holding the values of all submitted
-form fields.</p>
-<div class="toplink"><a href="#">back to top</a></div>
-
-<h3 id="usage-demo">Demo forms</h3>
-<p>You should have a look at the shipped demo forms (see data/README for further
-details) to see what can be done, and how it can be done.</p>
-<p><strong>Caution:</strong> of course you're free to use the demo forms as base
-for your own forms. But as most of the demo forms use the template resp. hook
-system, the result might not be as expected. Either remove the unwanted
-template/hook files manually, or make a copy of the form in the form
-administration and use this copy.</p>
-<div class="toplink"><a href="#">back to top</a></div>
-
+<h3 id="hooks">Hooks</h3>
+<p>The hooks are provided to give you even more flexibility, if you’re able to write some PHP code. Define them in a file FORM_NAME.inc(.php) in Advancedform_XH’s data folder. N.B.: this file will be include()’d, so it has to be a proper PHP file. The hooks will be called from Advancedform_XH on certain occassions. They are not tied to the template system.</p>
+<pre><code>function advfrm_custom_field_default($form_name, $field_name, $opt, $is_resent)</code></pre>
+<p>This will be called before the form is sent to the browser. It gives the opportunity to dynamically set default values for fields. Just return the value you want to be used as the fields default value. If you don’t want to change the default value, just return NULL. The third parameter is set for radiobuttons, checkboxes and selects only. It contains the option, that is currently processed. Return TRUE to check the option, FALSE to uncheck it, or NULL to use whatever was specified in the form editor. The parameter $is_resent tells whether the form was resent to the browser after submission, because of validation errors. If this is the case the values already entered by the user are sent back instead of the default values specified in the form editor. You might consider to return NULL in this case, to not overwrite the users input.</p>
+<pre><code>function advfrm_custom_valid_field($form_name, $field_name, $value)</code></pre>
+<p>This will be called after the form was submitted, and gives the opportunity to add additional validation to the field values. Return TRUE, if the given $value is valid, otherwise return an error message, which will be displayed to the user by Advancedform_XH. For fields of type “file”, $value is the $_FILES[] array belonging to the given field.</p>
+<pre><code>function advfrm_custom_mail($form_name, &amp;$mail, $is_confirmation)</code></pre>
+<p>This will be called after the $mail object is initialized with all information and just before the mail is sent, and gives the opportunity to alter the $mail object. The call-by-reference for $mail is important for PHP4, and does no harm for PHP5. The documentation for PHPMailer is not distributed with Advancedform_XH, but it can be downloaded from <a href="http://sourceforge.net/projects/phpmailer/files/phpmailer%20for%20php4/PHPMailer%20v2.0.4%20for%20PHP4/PHPMailer_v2.0.4.zip/download">Sourceforge</a>. The parameter $form_name specifies the currently processed form, and the parameter $is_confirmation specifies whether the $mail object contains the information for the mail or the confirmation mail (i.e. the response). If you want to suppress sending of the mail at all, just return FALSE.</p>
+<pre><code>function advfrm_custom_thanks_page($form_name, $fields)</code></pre>
+<p>This is called after the mail is sent, and can be utilized to switch to a personalized thanks page. Return the query string (i.e. the part of the URL of the page after the question mark) of the page you want to redirect to. Returning an empty string will redirect to the thanks page that’s defined in the form editor. If no default thanks page is defined, the sent information will be displayed. The parameter $fields is an array holding the values of all submitted form fields.</p>
+<h3 id="demo-forms">Demo forms</h3>
+<p>You should have a look at the shipped demo forms (see data/README for further details) to see what can be done, and how it can be done.</p>
+<p><strong>Caution:</strong> of course you’re free to use the demo forms as base for your own forms. But as most of the demo forms use the template resp. hook system, the result might not be as expected. Either remove the unwanted template/hook files manually, or make a copy of the form in the form administration and use this copy.</p>
 <h2 id="limitations">Limitations</h2>
-
-<h3>Sending of Mails fails</h3>
-<p>If the sending of mails fails with the message "Could not instantiate mail
-function", please check whether sending of mails via CMSimple_XH's built-in
-mailform works. If so, ask for support in the <a
-href="http://cmsimpleforum.com/">CMSimple_XH Forum</a>; otherwise ask the
-provider of your webspace, if there are any restrictions on sending mails with
-PHP's mail() function.</p>
-
-<h3>jQuery</h3>
-<p>Advancedform_XH <em>may</em> not work in installations with jQuery dependent
-plugins/addons/templates that don't use jQuery4CMSimple, but import their own
-jQuery library. This won't get fixed (as it's not possible to fix it in all
-cases), because all developers are advised to use only jQuery4CMSimple together
-with all their jQuery based code for CMSimple_XH.</p>
-
-<h3>Alternative mailers</h3>
-<p>The original AdvancedForm supported different kinds of mailers. IMO this is a
-rarely needed feature. Most webhosters will provide the possibility to send mail
-via mail(), which should be easily configured and quite acceptable for the
-purposes of Advancedform_XH.</p>
-
-<h3>Spam protection</h3>
-<p>The original Advancedform offered several features regarding spam protection:
-IP blacklists, a badword filter, a XSS detection facility. I'm not quite sure if
-these mechanisms are really the best way of preventing spam. So I have
-implemented none of them (besides rendering XSS harmless), but instead a CAPTCHA
-is available. This is only a minimal text-based solution, but more comprehensive
-CAPTCHAs can be used through an additional conforming CAPTCHA plugin. AFAIK
-currently the only conforming CAPTCHA plugins are <a
-href="http://3-magi.net/?CMSimple_XH/Recaptcha_XH">Recaptcha_XH</a> and <a
-href="http://3-magi.net/?CMSimple_XH/Cryptographp_XH">Cryptographp_XH</a>.</p>
-<div class="toplink"><a href="#">back to top</a></div>
-
+<h3 id="sending-of-mails-fails">Sending of Mails fails</h3>
+<p>If the sending of mails fails with the message “Could not instantiate mail function”, please check whether sending of mails via CMSimple_XH’s built-in mailform works. If so, ask for support in the <a href="http://cmsimpleforum.com/">CMSimple_XH Forum</a>; otherwise ask the provider of your webspace, if there are any restrictions on sending mails with PHP’s mail() function.</p>
+<h3 id="jquery">jQuery</h3>
+<p>Advancedform_XH <em>may</em> not work in installations with jQuery dependent plugins/addons/templates that don’t use jQuery4CMSimple, but import their own jQuery library. This won’t get fixed (as it’s not possible to fix it in all cases), because all developers are advised to use only jQuery4CMSimple together with all their jQuery based code for CMSimple_XH.</p>
+<h3 id="alternative-mailers">Alternative mailers</h3>
+<p>The original AdvancedForm supported different kinds of mailers. IMO this is a rarely needed feature. Most webhosters will provide the possibility to send mail via mail(), which should be easily configured and quite acceptable for the purposes of Advancedform_XH.</p>
+<h3 id="spam-protection">Spam protection</h3>
+<p>The original Advancedform offered several features regarding spam protection: IP blacklists, a badword filter, a XSS detection facility. I’m not quite sure if these mechanisms are really the best way of preventing spam. So I have implemented none of them (besides rendering XSS harmless), but instead a CAPTCHA is available. This is only a minimal text-based solution, but more comprehensive CAPTCHAs can be used through an additional conforming CAPTCHA plugin. AFAIK currently the only conforming CAPTCHA plugins are <a href="http://3-magi.net/?CMSimple_XH/Recaptcha_XH">Recaptcha_XH</a> and <a href="http://3-magi.net/?CMSimple_XH/Cryptographp_XH">Cryptographp_XH</a>.</p>
 <h2 id="license">License</h2>
-<p>Advancedform_XH is licensed under
-<a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.</p>
-<p>&copy; 2005-2010 Jan Kanters<br>
-&copy; 2011-2018 Christoph M. Becker</p>
-<p>Czech translation &copy; 2011-2012 Josef Němec<br>
-Danish translation &copy; 2012 Jens Maegard<br>
-Estonian translation &copy; 2012 Alo Tänavots<br>
-French translation &copy; 2014 Patrick Varlet<br>
-Slovak translation &copy; 2012 Dr. Martin Sereday</p>
-<div class="toplink"><a href="#">back to top</a></div>
-
+<p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+<p>This program is distributed in the hope that it will be useful, but <em>without any warranty</em>; without even the implied warranty of <em>merchantibility</em> or <em>fitness for a particular purpose</em>. See the GNU General Public License for more details.</p>
+<p>You should have received a copy of the GNU General Public License along with this program. If not, see <a href="http://www.gnu.org/licenses/" class="uri">http://www.gnu.org/licenses/</a>.</p>
+<p>© 2005-2010 Jan Kanters<br />
+© 2011-2018 Christoph M. Becker</p>
+<p>Czech translation © 2011-2012 Josef Němec<br />
+Danish translation © 2012 Jens Maegard<br />
+Estonian translation © 2012 Alo Tänavots<br />
+French translation © 2014 Patrick Varlet<br />
+Slovak translation © 2012 Dr. Martin Sereday</p>
 <h2 id="credits">Credits</h2>
-<p>Advancedform_XH is based on AdvancedForm Pro by Jan Kanters. Many thanks to
-him for giving the permission to use his code for a CMSimple_XH conforming
-version, and to Holger and johnjdoe who negotiated this permission.</p>
-<p>The regular expression to check for a valid email address is by courtesy of
-<a href="http://www.regular-expressions.info/email.html">Jan Goyvaerts</a>. Many
-thanks for the great regular expression tutorial and the examples.</p>
-<p>The plugin icon is designed by <a href="http://www.doublejdesign.co.uk/">Jack
-Cai</a>. Many thanks for releasing it under CC BY-ND.</p>
-<p>This plugin uses free applications icons from <a
-href="http://www.aha-soft.com/">Aha-Soft</a>. Many thanks for making these icons
-freely available.</p>
-<p>Many thanks to the community at the <a
-href="http://cmsimpleforum.com/">CMSimple_XH forum</a> for tips, suggestions and
-testing. Especially, I want to thank Tata for having the idea to let
-Advancedform_XH generate a basic template and stylesheet, and manu for
-requesting the hooks and co-designing their API. And many thanks to maeg, who
-allowed me to do some debugging on his server, so I was able to find and fix a
-bug, which caused the sending of mails to fail on several servers.</p>
-<p>And last but not least many thanks to <a href="http://www.harteg.dk/">Peter
-Harteg</a>, the "father" of CMSimple, and all developers of <a
-href="http://www.cmsimple-xh.org"> CMSimple_XH</a> without whom this amazing CMS
-wouldn't exist.</p>
-<div class="toplink"><a href="#">back to top</a></div>
-
-</div>
-
+<p>Advancedform_XH is based on AdvancedForm Pro by Jan Kanters. Many thanks to him for giving the permission to use his code for a CMSimple_XH conforming version, and to Holger and johnjdoe who negotiated this permission.</p>
+<p>The regular expression to check for a valid email address is by courtesy of <a href="http://www.regular-expressions.info/email.html">Jan Goyvaerts</a>. Many thanks for the great regular expression tutorial and the examples.</p>
+<p>The plugin icon is designed by <a href="http://www.doublejdesign.co.uk/">Jack Cai</a>. Many thanks for releasing it under CC BY-ND.</p>
+<p>This plugin uses free applications icons from <a href="http://www.aha-soft.com/">Aha-Soft</a>. Many thanks for making these icons freely available.</p>
+<p>Many thanks to the community at the <a href="http://cmsimpleforum.com/">CMSimple_XH forum</a> for tips, suggestions and testing. Especially, I want to thank Tata for having the idea to let Advancedform_XH generate a basic template and stylesheet, and manu for requesting the hooks and co-designing their API. And many thanks to maeg, who allowed me to do some debugging on his server, so I was able to find and fix a bug, which caused the sending of mails to fail on several servers.</p>
+<p>And last but not least many thanks to <a href="http://www.harteg.dk/">Peter Harteg</a>, the “father” of CMSimple, and all developers of <a href="http://www.cmsimple-xh.org">CMSimple_XH</a> without whom this amazing CMS wouldn’t exist.</p>
 </body>
-
 </html>

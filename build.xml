@@ -47,6 +47,11 @@
         <exec command="phpunit --configuration coverage.xml" logoutput="true"/>
     </target>
 
+    <target name="gen-help" description="builds help.htm from README.md">
+        <exec command="pandoc -s --eol=lf --template=help/template.htm -Vlang=en -Vpagetitle=&quot;User Manual&quot; -o help/help.htm README.md -t html" logoutput="true"/>
+        <exec command="pandoc -s --eol=lf --template=help/template.htm -Vlang=de -Vpagetitle=&quot;Benutzerhandbuch&quot; -o help/help_de.htm README_de.md -t html" logoutput="true"/>
+    </target>
+
     <!-- Build -->
 
     <target name="build" description="builds distributable ZIP archive">
@@ -65,8 +70,8 @@
                 <exclude name="composer.json"/>
                 <exclude name="composer.lock"/>
                 <exclude name="coverage.xml"/>
+                <exclude name="help/template.htm"/>
                 <exclude name="phpcompatinfo.json"/>
-                <exclude name="README.md"/>
                 <exclude name="tests/**"/>
             </fileset>
         </move>
