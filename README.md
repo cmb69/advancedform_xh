@@ -8,6 +8,11 @@ any HTML, CSS or PHP, if the basic form functionality is enough for your
 needs. Advanced customization is available through the template resp.
 hook system.
 
+Advancedform\_XH is [hosted on
+Github](https://github.com/cmb69/advancedform_xh) where you can get new
+releases, file bug reports etc. Support is available in the
+[CMSimple\_XH Forum](https://cmsimpleforum.com/).
+
   - [Requirements](#requirements)
   - [Installation](#installation)
   - [Settings](#settings)

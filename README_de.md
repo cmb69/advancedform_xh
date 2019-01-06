@@ -9,6 +9,11 @@ müssen, wenn Ihnen die grundlegende Formular-Funktionalität genügt.
 Weitergehende Anpassungen sind durch das Template- bzw. Hook-System
 möglich.
 
+Advancedform\_XH wird [auf Github
+gehostet](https://github.com/cmb69/advancedform_xh), wo neue Releases
+herunter geladen und Bugs gemeldet werden können, etc. Support wird im
+[CMSimple\_XH Forum](https://cmsimpleforum.com/) gewährt.
+
   - [Vorraussetzungen](#vorraussetzungen)
   - [Installation](#installation)
   - [Einstellungen](#einstellungen)
