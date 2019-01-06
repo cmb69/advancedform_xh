@@ -10,7 +10,7 @@
  * @subpackage Captcha
  * @author     Christoph M. Becker <cmbecker69@gmx.de>
  * @copyright  2005-2010 Jan Kanters
- * @copyright  2011-2018 Christoph M. Becker <http://3-magi.net>
+ * @copyright  2011-2019 Christoph M. Becker <http://3-magi.net>
  * @license    http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link       http://3-magi.net/?CMSimple_XH/Advancedform_XH
  */

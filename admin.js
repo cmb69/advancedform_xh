@@ -1,7 +1,7 @@
 /*
  * Form editor of Advancedform_XH.
  * Copyright (c) 2005-2010 Jan Kanters
- * Copyright (c) 2011-2018 Christoph M. Becker (see license.txt)
+ * Copyright (c) 2011-2019 Christoph M. Becker (see license.txt)
  */
 
 

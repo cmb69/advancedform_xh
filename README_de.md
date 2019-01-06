@@ -521,7 +521,7 @@ diesem Programm erhalten haben. Falls nicht, siehe
 <http://www.gnu.org/licenses/>.
 
 © 2005-2010 Jan Kanters  
-© 2011-2018 Christoph M. Becker
+© 2011-2019 Christoph M. Becker
 
 Dänische Übersetzung © 2012 Jens Maegard  
 Estnische Übersetzung © 2012 Alo Tänavots  

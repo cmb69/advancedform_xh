@@ -479,7 +479,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 © 2005-2010 Jan Kanters  
-© 2011-2018 Christoph M. Becker
+© 2011-2019 Christoph M. Becker
 
 Czech translation © 2011-2012 Josef Němec  
 Danish translation © 2012 Jens Maegard  
