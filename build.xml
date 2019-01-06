@@ -61,13 +61,10 @@
         </jsMin>
         <move todir="dist">
             <fileset dir="export">
-                <exclude name=".komodotools"/>
-                <exclude name="advancedform.komodoproject"/>
                 <exclude name="build.xml"/>
                 <exclude name="composer.json"/>
                 <exclude name="composer.lock"/>
                 <exclude name="coverage.xml"/>
-                <exclude name="pax_global_header"/>
                 <exclude name="phpcompatinfo.json"/>
                 <exclude name="README.md"/>
                 <exclude name="tests/**"/>
