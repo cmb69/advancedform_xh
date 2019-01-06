@@ -1038,7 +1038,7 @@ function Advancedform_templateView($id)
  */
 function Advancedform_formView($id)
 {
-    global $sn, $su, $pth, $plugin_cf, $plugin_tx;
+    global $sn, $su, $pth, $plugin_cf, $plugin_tx, $f;
 
     $ptx = $plugin_tx['advancedform'];
     $pcf = $plugin_cf['advancedform'];
@@ -1048,7 +1048,7 @@ function Advancedform_formView($id)
     Advancedform_initJQuery();
     $o = '';
     $o .= '<div class="advfrm-mailform">' . PHP_EOL
-        . '<form name="' . $id . '" action="' . $sn . '?' . $su . '" method="post"'
+        . '<form name="' . $id . '" action="' . $sn . '?' . ($f === 'mailform' ? '&mailform' : $su)  . '" method="post"'
         . ' enctype="multipart/form-data" accept-charset="UTF-8">' . PHP_EOL
         . tag('input type="hidden" name="advfrm" value="'.$id.'"') . PHP_EOL
         . '<div class="required">'
