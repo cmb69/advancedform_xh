@@ -386,14 +386,11 @@ which will be displayed to the user by Advancedform\_XH. For fields of
 type "file", $value is the $\_FILES\[\] array belonging to the given
 field.
 
-    function advfrm_custom_mail($form_name, &$mail, $is_confirmation)
+    function advfrm_custom_mail($form_name, $mail, $is_confirmation)
 
 This will be called after the $mail object is initialized with all
 information and just before the mail is sent, and gives the opportunity
-to alter the $mail object. The call-by-reference for $mail is important
-for PHP4, and does no harm for PHP5. The documentation for PHPMailer is
-not distributed with Advancedform\_XH, but it can be downloaded from
-[Sourceforge](http://sourceforge.net/projects/phpmailer/files/phpmailer%20for%20php4/PHPMailer%20v2.0.4%20for%20PHP4/PHPMailer_v2.0.4.zip/download).
+to alter the $mail object.
 The parameter $form\_name specifies the currently processed form, and
 the parameter $is\_confirmation specifies whether the $mail object
 contains the information for the mail or the confirmation mail (i.e. the

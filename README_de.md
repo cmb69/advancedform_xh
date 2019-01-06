@@ -419,15 +419,11 @@ eine Fehlermeldung zurück geben, die dem Benutzer angezeigt wird. Für
 Felder des Typs "Datei" ist $value das $\_FILES\[\]-Array des
 angegebenen Felds.
 
-    function advfrm_custom_mail($form_name, &$mail, $is_confirmation)
+    function advfrm_custom_mail($form_name, $mail, $is_confirmation)
 
 Dies wird aufgerufen nachdem das $mail-Objekt mit allen Informationen
 initialisiert wurden, und gerade bevor die E-Mail verschickt wird, und
-ermöglicht das $mail-Objekt zu ändern. Die Parameterübergabe per
-Referenz ist wichtig unter PHP4, und schadet nicht unter PHP5. Die
-Dokumentation des PHPMailer wird nicht mit Advancedform\_XH
-ausgeliefert, aber kann von
-[Sourceforge](http://sourceforge.net/projects/phpmailer/files/phpmailer%20for%20php4/PHPMailer%20v2.0.4%20for%20PHP4/PHPMailer_v2.0.4.zip/download)
+ermöglicht das $mail-Objekt zu ändern.
 herunter geladen werden. Der Parameter $form\_name gibt das gerade
 verarbeitete Formular an, und der Parameter $is\_confirmation gibt an,
 ob das $mail-Objekt die Information für die E-Mail oder die
