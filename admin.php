@@ -264,7 +264,7 @@ function Advancedform_formsAdministration()
                 )
                 . '</td>'
                 . '<td class="name"><a href="' . sprintf($href, 'edit') . '" title="'
-                . ucfirst($tx['action']['edit']) . '">' . $id . '</a></td>'
+                . utf8_ucfirst($tx['action']['edit']) . '">' . $id . '</a></td>'
                 . '<td class="script" title="' . $ptx['message_script_code'] . '">'
                 . '<input type="text" readonly onclick="this.select()" value="'
                 . '{{{PLUGIN:advancedform(\'' . $id . '\');}}}"></input></td>'
@@ -447,7 +447,7 @@ function Advancedform_editForm($id)
     }
     $o .= '</table>' . PHP_EOL;
     $o .= '<input type="submit" class="submit" value="'
-        . ucfirst($tx['action']['save']) . '" style="display:none">';
+        . utf8_ucfirst($tx['action']['save']) . '" style="display:none">';
     if (isset($_XH_csrfProtection)) {
         $o .= $_XH_csrfProtection->tokenInput();
     }
