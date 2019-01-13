@@ -812,11 +812,7 @@ if (XH_wantsPluginAdministration('advancedform')) {
         include_jQuery();
         include_jQueryUI();
     }
-    if (Advancedform_updateLangJs()) {
-        $hjs .= PHP_EOL . '<script type="text/javascript" src="'
-            . $pth['folder']['plugins'] . 'advancedform/languages/' . $sl . '.js">'
-            . '</script>' . PHP_EOL;
-    }
+    $hjs .= '<script>ADVFRM_TX = ' . json_encode(Advancedform_getLangForJs()) . ';</script>';
     $hjs .= '<script type="text/javascript" src="' . $pth['folder']['plugins']
         . 'advancedform/admin.js"></script>' . PHP_EOL;
 
