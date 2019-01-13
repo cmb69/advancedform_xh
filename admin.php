@@ -44,8 +44,7 @@ function Advancedform_version()
 {
     global $pth;
 
-    $o = '<h1><a href="http://3-magi.net/?CMSimple_XH/Advancedform_XH">'
-        . 'Advancedform_XH</a></h1>' . PHP_EOL
+    $o = '<h1>Advancedform_XH</h1>' . PHP_EOL
         . '<img src="'.$pth['folder']['plugins'].'advancedform/advancedform.png"'
         . ' width="128" height="128" alt="Plugin icon"'
         . ' class="advancedform_plugin_icon">'
