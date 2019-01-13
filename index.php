@@ -25,7 +25,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 /**
  * The version number.
  */
-define('ADVANCEDFORM_VERSION', '1.2');
+define('ADVANCEDFORM_VERSION', '2.0dev');
 
 /**
  * Main plugin call.
