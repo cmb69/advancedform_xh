@@ -266,7 +266,8 @@ function Advancedform_formsAdministration()
                 . '<td class="name"><a href="' . sprintf($href, 'edit') . '" title="'
                 . ucfirst($tx['action']['edit']) . '">' . $id . '</a></td>'
                 . '<td class="script" title="' . $ptx['message_script_code'] . '">'
-                . '{{{PLUGIN:advancedform(\'' . $id . '\');}}}</td>'
+                . '<input type="text" readonly onclick="this.select()" value="'
+                . '{{{PLUGIN:advancedform(\'' . $id . '\');}}}"></input></td>'
                 . '</tr>' . PHP_EOL;
         }
     }
