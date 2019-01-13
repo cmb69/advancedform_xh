@@ -65,18 +65,6 @@ define('ADVFRM_PROP_CONSTRAINT', 3);
 define('ADVFRM_PROP_ERROR_MSG', 4);
 
 /**
- * Returns string with a BR element inserted before all linebreaks.
- *
- * @param string $string An (X)HTML fragment.
- *
- * @return string (X)HTML.
- */
-function Advancedform_nl2br($string)
-{
-    return preg_replace('/(\r\n|\n\r|\n|\r)/su', tag('br').'$1', $string);
-}
-
-/**
  * @param string $date ISO-8061
  * @return string
  */
@@ -621,7 +609,7 @@ function Advancedform_mailInfo($id, $show_hidden, $html)
                         $val = Advancedform_formatDate($val);
                     }
                     $o .= $html
-                        ? Advancedform_nl2br(Advancedform_hsc($val))
+                        ? nl2br(Advancedform_hsc($val))
                         : '  ' . Advancedform_indent($val) . PHP_EOL;
                 }
             } elseif (isset($_FILES[$name])) {
@@ -678,15 +666,7 @@ function Advancedform_mailBody($id, $show_hidden, $html)
     $form = $forms[$id];
     $o = '';
     if ($html) {
-        if ($cf['xhtml']['endtags'] == 'true') {
-            $o .= '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"'
-                . ' "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'
-                . PHP_EOL . '<html xmlns="http://www.w3.org/1999/xhtml">' . PHP_EOL;
-        } else {
-            $o .= '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"'
-                . ' "http://www.w3.org/TR/html4/loose.dtd">' . PHP_EOL
-                . '<html>' . PHP_EOL;
-        }
+        $o .= '<!DOCTYPE html>' . PHP_EOL;
         $o .= '<head>' . PHP_EOL . '<style type="text/css">' . PHP_EOL;
         $o .= Advancedform_mailCss(
             $pth['folder']['plugins'] . 'advancedform/css/stylesheet.css'
@@ -787,11 +767,9 @@ function Advancedform_displayField($form_id, $field)
                 $o .= '<option' . $sel . '>' . Advancedform_hsc($opt) . '</option>';
             } else {
                 $o .= '<div class="' . $orient . '"><label>'
-                    . tag(
-                        'input type="'.$field['type'] . '" name="' . $name
-                        . $brackets . '" value="' . Advancedform_hsc($opt) . '"'
-                        . $sel
-                    )
+                    . '<input type="'.$field['type'] . '" name="' . $name
+                    . $brackets . '" value="' . Advancedform_hsc($opt) . '"'
+                    . $sel . '>'
                     . '&nbsp;' . Advancedform_hsc($opt)
                     . '</label></div>';
             }
@@ -833,10 +811,8 @@ function Advancedform_displayField($form_id, $field)
                 ? ''
                 : ' maxlength="' . $props[ADVFRM_PROP_MAXLEN] . '"';
             if ($field['type'] == 'file' && !empty($props[ADVFRM_PROP_MAXLEN])) {
-                $o .= tag(
-                    'input type="hidden" name="MAX_FILE_SIZE" value="'
-                    . $props[ADVFRM_PROP_MAXLEN] . '"'
-                );
+                $o .= '<input type="hidden" name="MAX_FILE_SIZE" value="'
+                    . $props[ADVFRM_PROP_MAXLEN] . '">';
             }
             if ($field['type'] == 'file') {
                 $value = '';
@@ -847,11 +823,10 @@ function Advancedform_displayField($form_id, $field)
                 $value = ' value="' . Advancedform_hsc($val) . '"';
                 $accept = '';
             }
-            $o .= tag(
-                'input type="' . $type . '" id="' . $id . '" name="' . $name
+            $o .= '<input type="' . $type . '" id="' . $id . '" name="' . $name
                 . '"' . $value . $accept . $size . $maxlen
                 . (isset($placeholder) ? (' placeholder="' . $placeholder . '"') : '')
-            );
+                . '>';
         }
     }
     return $o;
@@ -923,9 +898,7 @@ function Advancedform_templateView($id)
     $forms = Advancedform_db();
     $fn = Advancedform_dataFolder() . 'css/' . $id . '.css';
     if (file_exists($fn)) {
-        $hjs .= tag(
-            'link rel="stylesheet" href="' . $fn . '" type="text/css"'
-        )
+        $hjs .= '<link rel="stylesheet" href="' . $fn . '" type="text/css">'
         . PHP_EOL;
     }
     $fn = Advancedform_dataFolder() . 'js/' . $id . '.js';
@@ -978,7 +951,7 @@ function Advancedform_formView($id)
     $o .= '<div class="advfrm-mailform">' . PHP_EOL
         . '<form name="' . $id . '" action="' . $sn . '?' . ($f === 'mailform' ? '&mailform' : $su)  . '" method="post"'
         . ' enctype="multipart/form-data" accept-charset="UTF-8">' . PHP_EOL
-        . tag('input type="hidden" name="advfrm" value="'.$id.'"') . PHP_EOL
+        . '<input type="hidden" name="advfrm" value="'.$id.'">' . PHP_EOL
         . '<div class="required">'
         . sprintf(
             $ptx['message_required_fields'],
@@ -994,9 +967,9 @@ function Advancedform_formView($id)
         $o .= call_user_func($pcf['captcha_plugin'] . '_captcha_display');
     }
     $o .= '<div class="buttons">'
-        . tag('input type="submit" class="submit" value="'.$ptx['button_send'].'"')
+        . '<input type="submit" class="submit" value="'.$ptx['button_send'].'">'
         . '&nbsp;'
-        . tag('input type="reset" class="submit" value="'.$ptx['button_reset'].'"')
+        . '<input type="reset" class="submit" value="'.$ptx['button_reset'].'">'
         . '</div>' . PHP_EOL;
     $o .= '</form>' . PHP_EOL . '</div>' . PHP_EOL;
     return $o;

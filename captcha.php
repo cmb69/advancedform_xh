@@ -53,11 +53,9 @@ function Advancedform_Captcha_display()
         . '<span class="captcha-explanation">'
         . $plugin_tx['advancedform']['captcha_explanation'] . '</span>'
         . '<span class="captcha">' . $code . '</span>'
-        . tag('input type="text" name="advancedform-captcha"')
-        . tag(
-            'input type="hidden" name="advancedform-captcha_id"'
-            . ' value="'.$_SESSION['advfrm_captcha_id'].'"'
-        )
+        . '<input type="text" name="advancedform-captcha">'
+        . '<input type="hidden" name="advancedform-captcha_id"'
+        . ' value="'.$_SESSION['advfrm_captcha_id'].'">'
         . '</div>' . PHP_EOL;
 }
 

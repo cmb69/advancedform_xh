@@ -46,13 +46,12 @@ function Advancedform_version()
 
     $o = '<h1><a href="http://3-magi.net/?CMSimple_XH/Advancedform_XH">'
         . 'Advancedform_XH</a></h1>' . PHP_EOL
-        . tag(
-            'img src="'.$pth['folder']['plugins'].'advancedform/advancedform.png"'
-            . ' width="128" height="128" alt="Plugin icon"'
-            . ' class="advancedform_plugin_icon"'
-        ) . PHP_EOL
+        . '<img src="'.$pth['folder']['plugins'].'advancedform/advancedform.png"'
+        . ' width="128" height="128" alt="Plugin icon"'
+        . ' class="advancedform_plugin_icon">'
+        . PHP_EOL
         . '<p>Version: ' . ADVANCEDFORM_VERSION . '</p>' . PHP_EOL
-        . '<p>Copyright &copy; 2005-2010 Jan Kanters' . tag('br')
+        . '<p>Copyright &copy; 2005-2010 Jan Kanters' . '<br>'
         . 'Copyright &copy; 2011-2019 <a href="http://3-magi.net">'
         . 'Christoph M. Becker</a></p>' . PHP_EOL
         . '<p>Advancedform_XH is powered by <a'
@@ -95,28 +94,28 @@ function Advancedform_systemCheck()
     define('ADVFRM_PHP_VERSION', '5.5.0');
     $ptx = $plugin_tx['advancedform'];
     $imgdir = $pth['folder']['plugins'] . 'advancedform/images/';
-    $ok = tag('img src="' . $imgdir . 'ok.png" alt="ok"');
-    $warn = tag('img src="' . $imgdir . 'warn.png" alt="warning"');
-    $fail = tag('img src="' . $imgdir . 'fail.png" alt="failure"');
-    $o = tag('hr') . '<h4>' . $ptx['syscheck_title'] . '</h4>'
+    $ok = '<img src="' . $imgdir . 'ok.png" alt="ok">';
+    $warn = '<img src="' . $imgdir . 'warn.png" alt="warning">';
+    $fail = '<img src="' . $imgdir . 'fail.png" alt="failure">';
+    $o = '<hr>' . '<h4>' . $ptx['syscheck_title'] . '</h4>'
         . (version_compare(PHP_VERSION, ADVFRM_PHP_VERSION) >= 0 ? $ok : $fail)
         . '&nbsp;&nbsp;' . sprintf($ptx['syscheck_phpversion'], ADVFRM_PHP_VERSION)
-        . tag('br') . tag('br') . PHP_EOL;
+        . '<br>' . '<br>' . PHP_EOL;
     foreach (array('ctype', 'mbstring', 'pcre', 'session') as $ext) {
         $o .= (extension_loaded($ext) ? $ok : $fail)
             . '&nbsp;&nbsp;' . sprintf($ptx['syscheck_extension'], $ext)
-            . tag('br') . PHP_EOL;
+            . '<br>' . PHP_EOL;
     }
-    $o .= tag('br') . (strtoupper($tx['meta']['codepage']) == 'UTF-8' ? $ok : $warn)
+    $o .= '<br>' . (strtoupper($tx['meta']['codepage']) == 'UTF-8' ? $ok : $warn)
         . '&nbsp;&nbsp;' . $ptx['syscheck_encoding'] . tag('br') . PHP_EOL;
     $filename = $pth['folder']['plugins'] . 'jquery/jquery.inc.php';
     $o .= (file_exists($filename) ? $ok : $fail)
-        . '&nbsp;&nbsp;' . $ptx['syscheck_jquery'] . tag('br') . PHP_EOL;
+        . '&nbsp;&nbsp;' . $ptx['syscheck_jquery'] . '<br>' . PHP_EOL;
     $filename = $pth['folder']['plugins']
         . $plugin_cf['advancedform']['captcha_plugin'] . '/captcha.php';
     $o .= (file_exists($filename) ? $ok : $warn)
         . '&nbsp;&nbsp;' . $ptx['syscheck_captcha_plugin']
-        . tag('br') . tag('br') . PHP_EOL;
+        . '<br>' . '<br>' . PHP_EOL;
     foreach (array('config/', 'css/', 'languages/') as $folder) {
         $folders[] = $pth['folder']['plugins'] . 'advancedform/' . $folder;
     }
@@ -124,7 +123,7 @@ function Advancedform_systemCheck()
     foreach ($folders as $folder) {
         $o .= (is_writable($folder) ? $ok : $warn)
             . '&nbsp;&nbsp;' . sprintf($ptx['syscheck_writable'], $folder)
-            . tag('br') . PHP_EOL;
+            . '<br>' . PHP_EOL;
     }
     return $o;
 }
@@ -147,9 +146,7 @@ function Advancedform_toolIcon($name)
 
     $src = $pth['folder']['plugins'] . 'advancedform/images/' . $name . '.gif';
     $title = $ptx['tool_'.$name];
-    return tag(
-        'img src="' . $src . '" alt="' . $title . '" title="' . $title . '"'
-    );
+    return '<img src="' . $src . '" alt="' . $title . '" title="' . $title . '">';
 }
 
 /**
@@ -382,10 +379,8 @@ function Advancedform_editForm($id)
         case 'store':
             $checked = $form[$det] ? ' checked="checked"' : '';
             $o .= '<td>'
-                . tag(
-                    'input type="checkbox" id="' . $name . '" name="' . $name . '"'
-                    . $checked
-                )
+                . '<input type="checkbox" id="' . $name . '" name="' . $name . '"'
+                . $checked . '>'
                 . '</td>';
             break;
         case 'thanks_page':
@@ -393,10 +388,8 @@ function Advancedform_editForm($id)
             break;
         default:
             $o .= '<td>'
-                . tag(
-                    'input type="text" id="' . $name . '" name="' . $name . '"'
-                    . ' value="' . Advancedform_hsc($form[$det]) . '" size="40"'
-                )
+                . '<input type="text" id="' . $name . '" name="' . $name . '"'
+                . ' value="' . Advancedform_hsc($form[$det]) . '" size="40">'
                 . '</td>';
         }
         $o .= '</tr>' . PHP_EOL;
@@ -423,16 +416,12 @@ function Advancedform_editForm($id)
     foreach ($form['fields'] as $num => $field) {
         $o .= '<tr>'
             . '<td>'
-            . tag(
-                'input type="text" size="10" name="advfrm-field[]"'
-                . ' value="' . $field['field'] . '" class="highlightable"'
-            )
+            . '<input type="text" size="10" name="advfrm-field[]"'
+            . ' value="' . $field['field'] . '" class="highlightable">'
             . '</td>'
             . '<td>'
-            . tag(
-                'input type="text" size="10" name="advfrm-label[]" value="'
-                . Advancedform_hsc($field['label']) . '" class="highlightable"'
-            )
+            . '<input type="text" size="10" name="advfrm-label[]" value="'
+            . Advancedform_hsc($field['label']) . '" class="highlightable">'
             . '</td>'
             . '<td><select name="advfrm-type[]" onfocus="this.oldvalue = this.value"'
             . ' class="highlightable">';
@@ -448,29 +437,21 @@ function Advancedform_editForm($id)
         }
         $o .= '</select></td>'
             . '<td>'
-            . tag(
-                'input type="hidden" class="hidden" name="advfrm-props[]"'
-                . ' value="' . Advancedform_hsc($field['props']) . '"'
-            )
+            . '<input type="hidden" class="hidden" name="advfrm-props[]"'
+            . ' value="' . Advancedform_hsc($field['props']) . '">'
             . '<td><a>' . Advancedform_toolIcon('props') . '</a>' . PHP_EOL;
         $checked = $field['required'] ? ' checked="checked"' : '';
         $o .= '<td>'
-            . tag(
-                'input type="checkbox"' . $checked . ' onchange="this.'
-                . 'nextSibling.value = this.checked ? 1 : 0"'
-            )
-            . tag(
-                'input type="hidden" name="advfrm-required[]" value="'
-                . $field['required'] . '"'
-            )
+            . '<input type="checkbox"' . $checked . ' onchange="this.'
+            . 'nextSibling.value = this.checked ? 1 : 0">'
+            . '<input type="hidden" name="advfrm-required[]" value="'
+            . $field['required'] . '">'
             . '</td>'
             . '</tr>' . PHP_EOL;
     }
     $o .= '</table>' . PHP_EOL;
-    $o .= tag(
-        'input type="submit" class="submit" value="'
-        . ucfirst($tx['action']['save']) . '" style="display:none"'
-    );
+    $o .= '<input type="submit" class="submit" value="'
+        . ucfirst($tx['action']['save']) . '" style="display:none">';
     if (isset($_XH_csrfProtection)) {
         $o .= $_XH_csrfProtection->tokenInput();
     }
@@ -484,25 +465,21 @@ function Advancedform_editForm($id)
     $properties = array('size', 'maxlength', 'default', 'constraint', 'error_msg');
     foreach ($properties as $prop) {
         $o .= '<tr id="advfrm-text-props-' . $prop . '"><td>' . $prop . '</td>'
-            . '<td>' . tag('input type="text" size="30"') . '</td></tr>'
+            . '<td>' . '<input type="text" size="30">' . '</td></tr>'
             . PHP_EOL;
     }
     $o .= '</table>' . PHP_EOL . '</div>' . PHP_EOL;
 
     $o .= '<div id="advfrm-select-props" style="display:none">' .  PHP_EOL;
     $o .= '<p id="advfrm-select-props-size">' . $ptx['label_size'] . ' '
-        . tag('input type="text"') . '</p>' . PHP_EOL;
+        . '<input type="text">' . '</p>' . PHP_EOL;
     $o .= '<p id="advfrm-select-props-orient">'
-        . tag(
-            'input type="radio" id="advrm-select-props-orient-horz"'
-            . ' name="advrm-select-props-orient"'
-        )
+        . '<input type="radio" id="advrm-select-props-orient-horz"'
+        . ' name="advrm-select-props-orient">'
         . '<label for="advrm-select-props-orient-horz">&nbsp;'
         . $ptx['label_horizontal'] . '</label>&nbsp;&nbsp;&nbsp;'
-        . tag(
-            'input type="radio" id="advrm-select-props-orient-vert"'
-            . ' name="advrm-select-props-orient"'
-        )
+        . '<input type="radio" id="advrm-select-props-orient-vert"'
+        . ' name="advrm-select-props-orient">'
         . '<label for="advrm-select-props-orient-vert">&nbsp;'
         . $ptx['label_vertical'] . '</label>'
         . '</p>' . PHP_EOL;
@@ -514,13 +491,11 @@ function Advancedform_editForm($id)
     $o .= '</div>' . PHP_EOL;
     $o .= '<table id="advfrm-prop-fields">' . PHP_EOL . '<tr>'
         . '<td>'
-        . tag('input type="radio" name="advfrm-select-props-default"')
+        . '<input type="radio" name="advfrm-select-props-default">'
         . '</td>'
         . '<td>'
-        . tag(
-            'input type="text" name="advfrm-select-props-opt" size="25"'
-            . ' class="highlightable"'
-        )
+        . '<input type="text" name="advfrm-select-props-opt" size="25"'
+        . ' class="highlightable">'
         . '</td>'
         . '</tr>' . PHP_EOL . '</table>' . PHP_EOL . '</div>' . PHP_EOL;
 
