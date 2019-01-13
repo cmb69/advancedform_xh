@@ -65,32 +65,6 @@ define('ADVFRM_PROP_CONSTRAINT', 3);
 define('ADVFRM_PROP_ERROR_MSG', 4);
 
 /**
- * Returns a new array as with {@link array_combine array_combine()}.
- *
- * @param array $array1 An array.
- * @param array $array2 An array.
- *
- * @return array
- */
-function Advancedform_combineArrays($array1, $array2)
-{
-    if (function_exists('array_combine')) {
-        return array_combine($array1, $array2);
-    } else {
-        if (count($arr1) !== count($arr2)) {
-            return false;
-        }
-        $res = array();
-        $arr1 = array_values($arr1);
-        $arr2 = array_values($arr2);
-        foreach ($arr1 as $key1 => $value1) {
-            $res[(string)$value1] = $arr2[$key1];
-        }
-        return $res;
-    }
-}
-
-/**
  * Returns string with a BR element inserted before all linebreaks.
  *
  * @param string $string An (X)HTML fragment.
@@ -257,26 +231,6 @@ function Advancedform_dataFolder()
 }
 
 /**
- * Returns the remaining contents of a stream.
- *
- * @param resource $stream An open stream.
- *
- * @return string
- */
-function Advancedform_getStreamContents($stream)
-{
-    $func = 'stream_get_contents';
-    if (function_exists($func)) {
-        $contents = $func($stream);
-    } else {
-        ob_start();
-        fpassthru($stream);
-        $contents = ob_get_clean();
-    }
-    return $contents;
-}
-
-/**
  * Reads a file and returns its contents; <var>false</var> on failure.
  * During reading, the file is locked for shared access.
  *
@@ -290,7 +244,7 @@ function Advancedform_readFile($filename)
     $stream = fopen($filename, 'rb');
     if ($stream) {
         if (flock($stream, LOCK_SH)) {
-            $contents = Advancedform_getStreamContents($stream);
+            $contents = stream_get_contents($stream);
             flock($stream, LOCK_UN);
         }
         fclose($stream);
@@ -495,7 +449,7 @@ function Advancedform_readCsv($id)
         $data = array();
         foreach ($lines as $line) {
             $line = array_map('trim', explode("\t", $line));
-            $rec = Advancedform_combineArrays($fields, $line);
+            $rec = array_combine($fields, $line);
             $data[] = $rec;
         }
     } else {
@@ -503,7 +457,7 @@ function Advancedform_readCsv($id)
         $data = array();
         if (($stream = fopen($fn, 'r')) !== false) {
             while (($rec = fgetcsv($stream, 0x10000, $sep)) !== false) {
-                $data[] = Advancedform_combineArrays($fields, $rec);
+                $data[] = array_combine($fields, $rec);
             }
             fclose($stream);
         } else {
