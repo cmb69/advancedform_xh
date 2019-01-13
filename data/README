@@ -12,8 +12,8 @@ possibilities of Advancedform_XH:
 - Phone is a custom field; it's value is checked against a custom
 constraint (i.e. a regular expression)
 - The "...-Info" fields are for output of additional information only
-- The date field demonstrates the flexibility through the language strings
-'date_order' and 'date_delimiter', as well as the datepicker, if JS is enabled
+- The date field demonstrates the datepickers which are supported by
+  contemporary browsers, and the formatting of dates
 - A hidden field is included to demonstrate how this is handled
 - A "Thanks page" is defined. After submitting the form, the mail is sent
 (including the hidden field), a confirmation mail is sent to the submitter,

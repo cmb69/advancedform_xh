@@ -173,8 +173,8 @@ form. Use the tool icons to add, delete or move fields.
   - **E-mail**:
     A field to enter a general e-mail address, which will be validated
   - **Date**:
-    A field to enter a date, which will be validated. If JavaScript is
-    enabled in the visitor's browser, a datepicker is available.
+    A field to enter a date, which will be validated. In contemporary browsers,
+    a datepicker is available.
   - **Number**:
     A field to enter a non-negative integer, which will be validated.
   - **Textarea**:
@@ -260,7 +260,7 @@ be displayed again with the already entered input, and with the errors
 shown above, so the visitors can correct the mistakes and submit the
 form again. It is not necessary that JavaScript is enabled in the
 visitor's browser, but if it is, the first erroneous field field will be
-focused, and for date fields a date picker is available. But none of the
+focused. But none of the
 field validations relies on JavaScript.
 
 After successful submission of the form, an e-mail will be sent to the

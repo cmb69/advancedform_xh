@@ -103,6 +103,23 @@ function Advancedform_nl2br($string)
 }
 
 /**
+ * @param string $date ISO-8061
+ * @return string
+ */
+function Advancedform_formatDate($date)
+{
+    global $plugin_tx;
+
+    if ($date) {
+        list($year, $month, $day) = explode('-', $date);
+        $timestamp = mktime(null, null, null, $month, $day, $year);
+        return date($plugin_tx['advancedform']['date_format'], $timestamp);
+    } else {
+        return '';
+    }
+}
+
+/**
  * Returns string with two spaces inserted after all linebreaks.
  *
  * @param string $string A string.
@@ -144,55 +161,23 @@ SCRIPT;
 }
 
 /**
- * Includes jquery and initializes the datepicker, if not already done.
+ * Includes jquery
  *
  * @return void
  *
  * @global array  The paths of system files and folders.
- * @global string The current language.
- * @global string The (X)HTML fragment for insertion into the HEAD element.
- * @global array  The configuration of the core.
- * @global array  The configuration of the plugins.
- * @global array  The localization of the plugins.
  */
 function Advancedform_initJQuery()
 {
-    global $pth, $sl, $hjs, $cf, $plugin_cf, $plugin_tx;
+    global $pth;
 
     if (defined('ADVFRM_JQUERY_INITIALIZED')) {
         return;
     }
-    $ptx = $plugin_tx['advancedform'];
-
     if (include_once $pth['folder']['plugins'] . 'jquery/jquery.inc.php') {
         include_jQuery();
         include_jQueryUI();
     }
-    $date_format = $ptx['date_order'][0] . $ptx['date_order'][0]
-        . $ptx['date_delimiter'] . $ptx['date_order'][1] . $ptx['date_order'][1]
-        . $ptx['date_delimiter'] . $ptx['date_order'][2] . $ptx['date_order'][2];
-
-    $lang = (strlen($sl) == 2) ? $sl : $cf['language']['default'];
-    $fn = $pth['folder']['plugins']
-        . 'advancedform/languages/jquery.ui.datepicker-' . $lang . '.js';
-    if (file_exists($fn)) {
-        $hjs .= '<script type="text/javascript" src="' . $fn . '"></script>'
-            . PHP_EOL;
-    } else {
-        if ($sl != 'en') {
-            e('missing', 'language', $fn);
-        }
-    }
-    $hjs .= <<<SCRIPT
-
-<script type="text/javascript">/* <![CDATA[ */
-jQuery(function() {
-    jQuery.datepicker.setDefaults(jQuery.datepicker.regional['$lang']);
-    jQuery.datepicker.setDefaults({dateFormat: '$date_format'});
-})
-/* ]]> */</script>
-
-SCRIPT;
     define('ADVFRM_JQUERY_INITIALIZED', true);
 }
 
@@ -677,9 +662,13 @@ function Advancedform_mailInfo($id, $show_hidden, $html)
                             : '  ' . stsl($val) . PHP_EOL;
                     }
                 } else {
+                    $val = stsl($_POST[$name]);
+                    if ($field['type'] === 'date') {
+                        $val = Advancedform_formatDate($val);
+                    }
                     $o .= $html
-                        ? Advancedform_nl2br(Advancedform_hsc(stsl($_POST[$name])))
-                        : '  ' . Advancedform_indent(stsl($_POST[$name])) . PHP_EOL;
+                        ? Advancedform_nl2br(Advancedform_hsc($val))
+                        : '  ' . Advancedform_indent($val) . PHP_EOL;
                 }
             } elseif (isset($_FILES[$name])) {
                 $o .= $html
@@ -789,11 +778,10 @@ function Advancedform_prefixFileExtensionList($list)
  *
  * @global array  The paths of system files and folders.
  * @global array  The configuration of the core.
- * @global string The (X)HTML fragment for insertion into the HEAD element.
  */
 function Advancedform_displayField($form_id, $field)
 {
-    global $pth, $plugin_cf, $hjs;
+    global $pth, $plugin_cf;
 
     $pcf = $plugin_cf['advancedform'];
 
@@ -858,7 +846,7 @@ function Advancedform_displayField($form_id, $field)
             $o .= '</select>';
         }
     } else {
-        $type = in_array($field['type'], array('file', 'password', 'hidden'))
+        $type = in_array($field['type'], array('file', 'password', 'hidden', 'date'))
             ? $field['type']
             : 'text';
         if (function_exists('advfrm_custom_field_default')) {
@@ -881,22 +869,7 @@ function Advancedform_displayField($form_id, $field)
             $o .= $val;
         } else {
             if ($field['type'] == 'date') {
-                $showOn = $pcf['datepicker_icon'] ? 'both' : 'focus';
-                $iconPath = $pth['folder']['plugins']
-                    . 'advancedform/images/calendar.png';
-                $hjs .= <<<EOS
-<script type="text/javascript">/* <![CDATA[ */
-jQuery(function() {
-    jQuery('.advfrm-mailform form[name="$form_id"] input[name="$name"]')
-        .datepicker({
-            showOn: "$showOn",
-            buttonImage: "$iconPath",
-            buttonImageOnly: true
-        })
-});
-/* ]]> */</script>
-
-EOS;
+                $placeholder = '2019-03-24';
             }
             $size = $field['type'] == 'hidden' || empty($props[ADVFRM_PROP_SIZE])
                 ? ''
@@ -923,6 +896,7 @@ EOS;
             $o .= tag(
                 'input type="' . $type . '" id="' . $id . '" name="' . $name
                 . '"' . $value . $accept . $size . $maxlen
+                . (isset($placeholder) ? (' placeholder="' . $placeholder . '"') : '')
             );
         }
     }
@@ -1126,13 +1100,12 @@ function Advancedform_check($id)
                 }
                 break;
             case 'date':
-                $pattern = '/^([0-9]+)\\' . $ptx['date_delimiter']
-                    . '([0-9]+)\\' . $ptx['date_delimiter'] . '([0-9]+)$/';
+                $pattern = '/^([0-9]+)-([0-9]+)-([0-9]+)$/';
                 $matched = preg_match($pattern, stsl($_POST[$name]), $matches);
                 if (count($matches) == 4) {
-                    $month = $matches[strpos($ptx['date_order'], 'm') + 1];
-                    $day = $matches[strpos($ptx['date_order'], 'd') + 1];
-                    $year = $matches[strpos($ptx['date_order'], 'y') + 1];
+                    $year = $matches[1];
+                    $month = $matches[2];
+                    $day = $matches[3];
                 }
                 if (!$matched || !checkdate($month, $day, $year)) {
                     $o .= '<li>'

@@ -13,8 +13,7 @@
 	$plugin_tx['advancedform']['mail_subject']="%1\$s -l %2\$s saadeti %3\$s poolt";
 	$plugin_tx['advancedform']['mail_subject_confirmation']="%1\$s saatjalt %2\$s";
 	$plugin_tx['advancedform']['captcha_explanation']="Palun sisesta toodud numbrid:";
-	$plugin_tx['advancedform']['date_order']="dmy";
-	$plugin_tx['advancedform']['date_delimiter']="/";
+	$plugin_tx['advancedform']['date_format']="d/m/Y";
 	$plugin_tx['advancedform']['message_confirm_delete']="Vorm ja kõik selles sisalduv info kusutatakse!";
 	$plugin_tx['advancedform']['message_confirm_export']="Võimalik, et olemasolev %s.frm fail kirjutatakse üle!";
 	$plugin_tx['advancedform']['message_confirm_template']="Võimalik, et olemasolev %\$1s.tpl ja %1\$s.css fail kirjutatakse üle!";

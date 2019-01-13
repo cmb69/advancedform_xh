@@ -13,8 +13,7 @@ $plugin_tx['advancedform']['menu_main']="Formulaires courriel";
 $plugin_tx['advancedform']['mail_subject']="%1\$s sur %2\$s envoyé de %3\$s";
 $plugin_tx['advancedform']['mail_subject_confirmation']="%1\$s de %2\$s";
 $plugin_tx['advancedform']['captcha_explanation']="Veuillez recopier le code affiché (anti-spam) :";
-$plugin_tx['advancedform']['date_order']="dmy";
-$plugin_tx['advancedform']['date_delimiter']="/";
+$plugin_tx['advancedform']['date_format']="d/m/Y";
 $plugin_tx['advancedform']['message_confirm_delete']="Le formulaire avec toutes les informations sera effacé !";
 $plugin_tx['advancedform']['message_confirm_export']="Le fichier %s.frm éventuellement existant sera remplacé !";
 $plugin_tx['advancedform']['message_confirm_template']="Les fichier %1\$s.tpl et %1\$s.css éventuellement existants seront remplacés !";
@@ -111,7 +110,6 @@ $plugin_tx['advancedform']['cf_mail_type']="Mode d'envoi du courriel : \"html\" 
 $plugin_tx['advancedform']['cf_mail_regexp']="Expression régulière pour vérifier la validité d'une adresse e-mail. La valeur par défaut est un peu restrictive. Voir <a href=\"http://www.regular-expressions.info/email.html\" target=\"_blank\">http://www.regular-expressions.info/email.html</a> pour plus d'infos.";
 $plugin_tx['advancedform']['cf_php_extension']="Si l'extension .php doit être utilisée pour les fichiers template et hook. \"1\" (oui) ou \"0\" (non)";
 $plugin_tx['advancedform']['cf_focus_form']="Si le premier champ du formulaire doit être sélectionné (focus) : \"1\" (oui) ou \"0\" (non). Notez que le focus peut forcer le scroll descendant de la page.";
-$plugin_tx['advancedform']['cf_datepicker_icon']="Si l'icône du sélecteur de date doit être affichée à coté du champ date : \"1\" (oui) ou \"0\" (non).";
 $plugin_tx['advancedform']['cf_mail_line_ending_*nix']="Usage du style de fin de lignes *nix dans le mail : \"1\" (oui) ou \"0\" (non). A tester si l'envoi de mails ne fonctionne pas.";
 $plugin_tx['advancedform']['cf_csv_separator']="Délimiteur de champ pour les fichiers CSV. Le plus souvent un point-virgule.";
 $plugin_tx['advancedform']['log_success']="E-mail de <%s> envoyé.";

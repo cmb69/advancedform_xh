@@ -18,8 +18,7 @@ $plugin_tx['advancedform']['mail_subject_confirmation']="%1\$s von %2\$s";
 
 $plugin_tx['advancedform']['captcha_explanation']="Bitte geben Sie zusätzlich die angezeigten Ziffern ein:";
 
-$plugin_tx['advancedform']['date_order']="dmy";
-$plugin_tx['advancedform']['date_delimiter']=".";
+$plugin_tx['advancedform']['date_format']="d.m.Y";
 
 $plugin_tx['advancedform']['message_confirm_delete']="Das Formular incl. der gesamten Information wird gelöscht!";
 $plugin_tx['advancedform']['message_confirm_export']="Eine möglicherweise existierende %s.frm Datei wird überschrieben!";
@@ -117,7 +116,6 @@ $plugin_tx['advancedform']['cf_folder_data']="Pfad zu einem Ordner relativ zu CM
 $plugin_tx['advancedform']['cf_captcha_plugin']="Das CAPTCHA-Plugin, das von Advancedform_XH verwendet werden soll. Geben Sie \"advancedform\" ein, um das eingebaute CAPTCHA zu verwenden.";
 $plugin_tx['advancedform']['cf_required_field_mark']="Die Markierung für erforderliche Felder. \"%s\" bestimmt die Position der Beschriftung.";
 $plugin_tx['advancedform']['cf_focus_form']="Ob das erste Formular-Feld automatisch fokusiert werden soll: \"1\" (ja) oder \"0\" (nein). Beachten Sie, dass die Fokusierung ein Herunterscrollen der Seite beim Aufruf bewirken kann.";
-$plugin_tx['advancedform']['cf_datepicker_icon']="Ob ein Datumsauswahl-Icon neben Datumsfeldern angezeigt werden soll: \"1\" (ja) oder \"0\" (nein).";
 $plugin_tx['advancedform']['cf_mail_to_name']="Die Voreinstellung für neue Formulare";
 $plugin_tx['advancedform']['cf_mail_to']="Die Voreinstellung für neue Formulare";
 $plugin_tx['advancedform']['cf_mail_cc']="Die Voreinstellung für neue Formulare";

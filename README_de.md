@@ -190,9 +190,8 @@ löschen oder zu verschieben.
     Ein Feld zur Eingabe einer allgemeinen E-Mail-Adresse, die validiert
     wird.
   - **Datum**:
-    Ein Feld zur Eingabe eines Datums, das validiert wird. Wenn
-    JavaScript im Browser des Besuchers aktiviert ist, steht ein
-    Datepicker zur Verfügung.
+    Ein Feld zur Eingabe eines Datums, das validiert wird. In zeitgemäßen
+    Browsern steht ein Datepicker zur Verfügung.
   - **Zahl**:
     Ein Feld zur Eingabe einer nicht negativen Ganzzahl, die validiert
     wird.
@@ -285,7 +284,7 @@ getätigten Eingaben und den Fehlermeldungen darüber erneut angezeigt, so
 dass die Besucher die Fehler korrigieren und das Formular erneut
 absenden können. Es ist nicht nötig, dass JavaScript im Browser des
 Besucher aktiviert ist, aber falls doch, wird das erste fehlerhafte Feld
-fokusiert, und für Datum-Felder ist ein Datepicker verfügbar. Allerdings
+fokusiert. Allerdings
 ist keine der Feld-Validierungen auf JavaScript angewiesen.
 
 Nach dem erfolgreichen Absenden des Formulars wird eine E-Mail an die
