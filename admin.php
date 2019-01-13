@@ -651,9 +651,9 @@ function Advancedform_importForm($id)
     $ptx = $plugin_tx['advancedform'];
     $forms = Advancedform_db();
     if (!isset($forms[$id])) {
-        $fn = Advancedform_dataFolder() . $id . '.frm';
+        $fn = Advancedform_dataFolder() . $id . '.json';
         if (($cnt = file_get_contents($fn)) !== false
-            && ($form = unserialize($cnt)) !== false
+            && ($form = json_decode($cnt, true)) !== false
             && isset($form['%VERSION%'])
             && count($form) == 2
         ) {
@@ -701,8 +701,8 @@ function Advancedform_exportForm($id)
     if (isset($forms[$id])) {
         $form[$id] = $forms[$id];
         $form['%VERSION%'] = ADVFRM_DB_VERSION;
-        $fn = Advancedform_dataFolder() . $id . '.frm';
-        if (!($fh = fopen($fn, 'w')) || fwrite($fh, serialize($form)) === false) {
+        $fn = Advancedform_dataFolder() . $id . '.json';
+        if (!($fh = fopen($fn, 'w')) || fwrite($fh, json_encode($form, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)) === false) {
             e('cntwriteto', 'file', $fn);
         }
         if ($fh) {

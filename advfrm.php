@@ -232,17 +232,24 @@ function Advancedform_db($forms = null)
 
     if (isset($forms)) { // write
         ksort($forms);
-        $fn = Advancedform_dataFolder() . 'forms.dat';
-        $contents = serialize($forms);
+        $fn = Advancedform_dataFolder() . 'forms.json';
+        $contents = json_encode($forms, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         if (!XH_writeFile($fn, $contents)) {
             e('cntwriteto', 'file', $fn);
         }
         $db = $forms;
     } else {  // read
         if (!isset($db)) {
-            $fn = Advancedform_dataFolder() . 'forms.dat';
-            $contents = XH_readFile($fn);
-            $db = ($contents !== false) ? unserialize($contents) : array();
+            $fn = Advancedform_dataFolder() . 'forms.json';
+            if (file_exists($fn)) {
+                $contents = XH_readFile($fn);
+                $db = ($contents !== false) ? json_decode($contents, true) : array();
+            } else {
+                $fn = Advancedform_dataFolder() . 'forms.dat';
+                $contents = XH_readFile($fn);
+                $db = ($contents !== false) ? unserialize($contents) : array();
+                Advancedform_db($db);
+            }
             if (empty($db['%VERSION%'])) {
                 $db['%VERSION%'] = 0;
             }

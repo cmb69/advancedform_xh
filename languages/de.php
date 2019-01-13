@@ -19,7 +19,7 @@ $plugin_tx['advancedform']['captcha_explanation']="Bitte geben Sie zusätzlich d
 $plugin_tx['advancedform']['date_format']="d.m.Y";
 
 $plugin_tx['advancedform']['message_confirm_delete']="Das Formular incl. der gesamten Information wird gelöscht!";
-$plugin_tx['advancedform']['message_confirm_export']="Eine möglicherweise existierende %s.frm Datei wird überschrieben!";
+$plugin_tx['advancedform']['message_confirm_export']="Eine möglicherweise existierende %s.json Datei wird überschrieben!";
 $plugin_tx['advancedform']['message_confirm_template']="Eine möglicherweise existierende %1\$s.tpl und %1\$s.css Datei wird überschrieben!";
 $plugin_tx['advancedform']['message_sent_info']="Vielen Dank für das Ausfüllen des Formulars. Die folgenden Informationen wurden verschickt:";
 $plugin_tx['advancedform']['message_required_field']="erforderlichen Felder";

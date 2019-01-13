@@ -13,7 +13,7 @@
 	$plugin_tx['advancedform']['captcha_explanation']="Palun sisesta toodud numbrid:";
 	$plugin_tx['advancedform']['date_format']="d/m/Y";
 	$plugin_tx['advancedform']['message_confirm_delete']="Vorm ja kõik selles sisalduv info kusutatakse!";
-	$plugin_tx['advancedform']['message_confirm_export']="Võimalik, et olemasolev %s.frm fail kirjutatakse üle!";
+	$plugin_tx['advancedform']['message_confirm_export']="Võimalik, et olemasolev %s.json fail kirjutatakse üle!";
 	$plugin_tx['advancedform']['message_confirm_template']="Võimalik, et olemasolev %\$1s.tpl ja %1\$s.css fail kirjutatakse üle!";
 	$plugin_tx['advancedform']['message_sent_info']="Täname Teid vormi täitmise eest. Saadeti järgnev informatsioon:";
 	$plugin_tx['advancedform']['message_required_field']="nõutud väljad";
