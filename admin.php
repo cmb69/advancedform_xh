@@ -813,7 +813,7 @@ if (XH_wantsPluginAdministration('advancedform')) {
         include_jQueryUI();
     }
     $hjs .= '<script>ADVFRM_TX = ' . json_encode(Advancedform_getLangForJs()) . ';</script>';
-    $hjs .= '<script type="text/javascript" src="' . $pth['folder']['plugins']
+    $hjs .= '<script src="' . $pth['folder']['plugins']
         . 'advancedform/admin.js"></script>' . PHP_EOL;
 
     $o .= print_plugin_admin('on');

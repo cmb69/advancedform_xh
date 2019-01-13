@@ -112,7 +112,7 @@ function Advancedform_focusField($form_id, $name)
     }
     Advancedform_initJQuery();
     $hjs .= <<<SCRIPT
-<script type="text/javascript">/* <![CDATA[ */
+<script>/* <![CDATA[ */
 jQuery(function() {
     jQuery('.advfrm-mailform form[name="$form_id"] *[name="$name"]').focus()
 })
@@ -803,7 +803,7 @@ function Advancedform_templateView($id)
     }
     $fn = Advancedform_dataFolder() . 'js/' . $id . '.js';
     if (file_exists($fn)) {
-        $hjs .= '<script type="text/javascript" src="' . $fn . '"></script>'
+        $hjs .= '<script src="' . $fn . '"></script>'
             . PHP_EOL;
     }
 
