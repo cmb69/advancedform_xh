@@ -109,8 +109,6 @@ function Advancedform_systemCheck()
     }
     $o .= tag('br') . (strtoupper($tx['meta']['codepage']) == 'UTF-8' ? $ok : $warn)
         . '&nbsp;&nbsp;' . $ptx['syscheck_encoding'] . tag('br') . PHP_EOL;
-    $o .= (!get_magic_quotes_runtime() ? $ok : $warn)
-        . '&nbsp;&nbsp;' . $ptx['syscheck_magic_quotes'] . tag('br') . PHP_EOL;
     $filename = $pth['folder']['plugins'] . 'jquery/jquery.inc.php';
     $o .= (file_exists($filename) ? $ok : $fail)
         . '&nbsp;&nbsp;' . $ptx['syscheck_jquery'] . tag('br') . PHP_EOL;
@@ -576,11 +574,11 @@ function Advancedform_saveForm($id)
                 if (in_array($keys[1], array('captcha', 'store'))) {
                     $forms[$id][$keys[1]] = true;
                 } else {
-                    $forms[$id][$keys[1]] = stsl($val);
+                    $forms[$id][$keys[1]] = $val;
                 }
             } else {
                 foreach ($val as $num => $fieldval) {
-                    $forms[$id]['fields'][$num][$keys[1]] = stsl($fieldval);
+                    $forms[$id]['fields'][$num][$keys[1]] = $fieldval;
                 }
             }
         }

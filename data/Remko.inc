@@ -12,7 +12,7 @@ function advfrm_custom_mail($form_name, &$mail, $is_confirmation) {
     // Sender can fill in a subject which then overrules the standard subject
     // and appears as the subject of the e-mail
     $field_name = 'Subject'; // change to the name your subject field
-    $mail->set('Subject', stsl($_POST['advfrm-'.$field_name]));
+    $mail->set('Subject', $_POST['advfrm-'.$field_name]);
 
 }
 

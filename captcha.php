@@ -70,7 +70,7 @@ function Advancedform_Captcha_display()
 function Advancedform_Captcha_check()
 {
     $ok = isset($_SESSION['advfrm_captcha'][$_POST['advancedform-captcha_id']])
-        && stsl($_POST['advancedform-captcha'])
+        && $_POST['advancedform-captcha']
         == $_SESSION['advfrm_captcha'][$_POST['advancedform-captcha_id']];
     unset($_SESSION['advfrm_captcha'][$_POST['advancedform-captcha_id']]);
     return $ok;

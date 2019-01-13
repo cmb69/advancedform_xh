@@ -31,7 +31,7 @@ releases, file bug reports etc. Support is available in the
 ## Requirements
 
 Advancedform\_XH is a plugin for CMSimple\_XH. It requires a UTF-8
-encoded version and PHP ≥ 5.3.0.
+encoded version and PHP ≥ 5.5.0.
 
 ## Installation
 

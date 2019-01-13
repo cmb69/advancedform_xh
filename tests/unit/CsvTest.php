@@ -16,11 +16,6 @@
 require_once './vendor/autoload.php';
 require_once './advfrm.php';
 
-function stsl($string)
-{
-    return $string;
-}
-
 function e($et, $ft, $fn)
 {
 

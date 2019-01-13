@@ -12,7 +12,6 @@ $plugin_tx['advancedform']['syscheck_title']="System check";
 $plugin_tx['advancedform']['syscheck_phpversion']="PHP version = %s";
 $plugin_tx['advancedform']['syscheck_extension']="Extension '%s' loaded";
 $plugin_tx['advancedform']['syscheck_encoding']="Encoding 'UTF-8' configured";
-$plugin_tx['advancedform']['syscheck_magic_quotes']="magic_quotes_runtime off";
 $plugin_tx['advancedform']['syscheck_jquery']="<a href=\"http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple\">jQuery4CMSimple plugin</a> installed";
 $plugin_tx['advancedform']['syscheck_captcha_plugin']="CAPTCHA installeret";
 $plugin_tx['advancedform']['syscheck_writable']="Folder '%s' writable";

@@ -511,8 +511,8 @@ function Advancedform_appendCsv($id)
                 ? $_FILES['advfrm-'.$name]['name']
                 : $_POST['advfrm-'.$name];
             $fields[] = is_array($val)
-                ? implode("\xC2\xA6", array_map('stsl', $val))
-                : stsl($val);
+                ? implode("\xC2\xA6", $val)
+                : $val;
         }
     }
     if ($plugin_cf['advancedform']['csv_separator'] != '') {
@@ -543,8 +543,8 @@ function Advancedform_fields()
     foreach ($_POST as $key => $val) {
         if (strpos($key, 'advfrm-') === 0) {
             $fields[substr($key, 7)] = is_array($val)
-                ? implode("\xC2\xA6", array_map('stsl', $val))
-                : stsl($val);
+                ? implode("\xC2\xA6", $val)
+                : $val;
         }
     }
     return $fields;
@@ -612,11 +612,11 @@ function Advancedform_mailInfo($id, $show_hidden, $html)
                 if (is_array($_POST[$name])) {
                     foreach ($_POST[$name] as $val) {
                         $o .= $html
-                            ? '<div>' . Advancedform_hsc(stsl($val)) . '</div>'
-                            : '  ' . stsl($val) . PHP_EOL;
+                            ? '<div>' . Advancedform_hsc($val) . '</div>'
+                            : '  ' . $val . PHP_EOL;
                     }
                 } else {
-                    $val = stsl($_POST[$name]);
+                    $val = $_POST[$name];
                     if ($field['type'] === 'date') {
                         $val = Advancedform_formatDate($val);
                     }
@@ -626,8 +626,8 @@ function Advancedform_mailInfo($id, $show_hidden, $html)
                 }
             } elseif (isset($_FILES[$name])) {
                 $o .= $html
-                    ? stsl($_FILES[$name]['name'])
-                    : '  ' . stsl($_FILES[$name]['name']) . PHP_EOL;
+                    ? $_FILES[$name]['name']
+                    : '  ' . $_FILES[$name]['name'] . PHP_EOL;
             }
             if ($html) {
                 $o .= '</td></tr>' . PHP_EOL;
@@ -776,8 +776,8 @@ function Advancedform_displayField($form_id, $field)
             } else {
                 $f = isset($_POST['advfrm']) && isset($_POST[$name])
                     && ($is_multi
-                        ? in_array($opt, array_map('stsl', $_POST[$name]))
-                        : stsl($_POST[$name]) == $opt)
+                        ? in_array($opt, $_POST[$name])
+                        : $_POST[$name] == $opt)
                     || !isset($_POST['advfrm']) && $f;
             }
             $sel = $f
@@ -810,7 +810,7 @@ function Advancedform_displayField($form_id, $field)
         }
         if (!isset($val)) {
             $val =  isset($_POST[$name])
-                ? stsl($_POST[$name])
+                ? $_POST[$name]
                 : $props[ADVFRM_PROP_DEFAULT];
         }
         if ($field['type'] == 'textarea') {
@@ -1043,7 +1043,7 @@ function Advancedform_check($id)
             switch ($field['type']) {
             case 'from':
             case 'mail':
-                if (!preg_match($pcf['mail_regexp'], stsl($_POST[$name]))) {
+                if (!preg_match($pcf['mail_regexp'], $_POST[$name])) {
                     $o .= '<li>'
                         . sprintf(
                             $ptx['error_invalid_email'],
@@ -1055,7 +1055,7 @@ function Advancedform_check($id)
                 break;
             case 'date':
                 $pattern = '/^([0-9]+)-([0-9]+)-([0-9]+)$/';
-                $matched = preg_match($pattern, stsl($_POST[$name]), $matches);
+                $matched = preg_match($pattern, $_POST[$name], $matches);
                 if (count($matches) == 4) {
                     $year = $matches[1];
                     $month = $matches[2];
@@ -1072,7 +1072,7 @@ function Advancedform_check($id)
                 }
                 break;
             case 'number':
-                if (!ctype_digit(stsl($_POST[$name]))) {
+                if (!ctype_digit($_POST[$name])) {
                     $o .= '<li>'
                         . sprintf(
                             $ptx['error_invalid_number'],
@@ -1135,7 +1135,7 @@ function Advancedform_check($id)
                 $props = explode("\xC2\xA6", $field['props']);
                 $pattern = $props[ADVFRM_PROP_CONSTRAINT];
                 if (!empty($pattern)
-                    && !preg_match($pattern, stsl($_POST[$name]))
+                    && !preg_match($pattern, $_POST[$name])
                 ) {
                     $msg = empty($props[ADVFRM_PROP_ERROR_MSG])
                         ? $ptx['error_invalid_custom']
@@ -1148,7 +1148,7 @@ function Advancedform_check($id)
             if (function_exists('advfrm_custom_valid_field')) {
                 $value = $field['type'] == 'file'
                     ? $_FILES[$name]
-                    : stsl($_POST[$name]);
+                    : $_POST[$name];
                 $valid = advfrm_custom_valid_field($id, $field['field'], $value);
                 if ($valid !== true) {
                     $o .= '<li>' . $valid . '</li>' . PHP_EOL;
@@ -1197,9 +1197,9 @@ function Advancedform_mail($id, $confirmation)
     $from_name = '';
     foreach ($form['fields'] as $field) {
         if ($field['type'] == 'from_name') {
-            $from_name = stsl($_POST['advfrm-' . $field['field']]);
+            $from_name = $_POST['advfrm-' . $field['field']];
         } elseif ($field['type'] == 'from') {
-            $from = stsl($_POST['advfrm-' . $field['field']]);
+            $from = $_POST['advfrm-' . $field['field']];
         }
     }
     if ($confirmation && empty($from)) {
@@ -1266,7 +1266,7 @@ function Advancedform_mail($id, $confirmation)
                 $name = 'advfrm-' . $field['field'];
                 $mail->AddAttachment(
                     $_FILES[$name]['tmp_name'],
-                    stsl($_FILES[$name]['name'])
+                    $_FILES[$name]['name']
                 );
             }
         }
