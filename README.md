@@ -502,10 +502,6 @@ The plugin icon is designed by [Jack
 Cai](http://www.doublejdesign.co.uk/). Many thanks for releasing it
 under CC BY-ND.
 
-This plugin uses free applications icons from
-[Aha-Soft](http://www.aha-soft.com/). Many thanks for making these icons
-freely available.
-
 Many thanks to the community at the [CMSimple\_XH
 forum](http://cmsimpleforum.com/) for tips, suggestions and testing.
 Especially, I want to thank Tata for having the idea to let

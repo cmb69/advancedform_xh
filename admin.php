@@ -91,12 +91,12 @@ function Advancedform_systemCheck()
 {
     global $pth, $plugin_cf, $tx, $plugin_tx;
 
+    (new Fa\RequireCommand)->execute();
     define('ADVFRM_PHP_VERSION', '5.5.0');
     $ptx = $plugin_tx['advancedform'];
-    $imgdir = $pth['folder']['plugins'] . 'advancedform/images/';
-    $ok = '<img src="' . $imgdir . 'ok.png" alt="ok">';
-    $warn = '<img src="' . $imgdir . 'warn.png" alt="warning">';
-    $fail = '<img src="' . $imgdir . 'fail.png" alt="failure">';
+    $ok = '<span class="fa fa-check" title="ok"></span>';
+    $warn = '<span class="fa fa-exclamation" title="warning"></span>';
+    $fail = '<span class="fa fa-exclamation-triangle" title="failure"></span>';
     $o = '<hr>' . '<h4>' . $ptx['syscheck_title'] . '</h4>'
         . (version_compare(PHP_VERSION, ADVFRM_PHP_VERSION) >= 0 ? $ok : $fail)
         . '&nbsp;&nbsp;' . sprintf($ptx['syscheck_phpversion'], ADVFRM_PHP_VERSION)
@@ -128,24 +128,32 @@ function Advancedform_systemCheck()
 }
 
 /**
- * Returns the IMG element for the tool $name.
+ * Returns FA span for the tool $name.
  *
  * @param string $name A tool's name.
  *
  * @return string (X)HTML.
  *
- * @global array The paths of system files and folders.
  * @global array The localization of the plugins.
  */
 function Advancedform_toolIcon($name)
 {
-    global $pth, $plugin_tx;
+    global $plugin_tx;
 
-    $ptx = $plugin_tx['advancedform'];
-
-    $src = $pth['folder']['plugins'] . 'advancedform/images/' . $name . '.gif';
-    $title = $ptx['tool_'.$name];
-    return '<img src="' . $src . '" alt="' . $title . '" title="' . $title . '">';
+    $title = $plugin_tx['advancedform']['tool_'.$name];
+    $map = array(
+        'add' => 'plus',
+        'clear_defaults' => 'bullseye',
+        'copy' => 'clone',
+        'delete' => 'trash',
+        'down' => 'chevron-down',
+        'export' => 'download',
+        'import' => 'upload',
+        'props' => 'wrench',
+        'template' => 'file-text-o',
+        'up' => 'chevron-up',
+    );
+    return '<span class="fa fa-' . $map[$name] . '" title="' . $title . '"></span>';
 }
 
 /**
@@ -221,6 +229,7 @@ function Advancedform_formsAdministration()
 
     $ptx = $plugin_tx['advancedform'];
 
+    (new Fa\RequireCommand)->execute();
     $forms = Advancedform_db();
     $o = '<div id="advfrm-form-list">' . PHP_EOL
         .'<h1>' . $ptx['menu_main'] . '</h1>' . PHP_EOL;
@@ -343,6 +352,7 @@ function Advancedform_editForm($id)
     $pcf = $plugin_cf['advancedform'];
     $ptx = $plugin_tx['advancedform'];
 
+    (new Fa\RequireCommand)->execute();
     $forms = Advancedform_db();
     $form = $forms[$id];
     if (!isset($form)) {
@@ -397,8 +407,8 @@ function Advancedform_editForm($id)
      */
     $o .= '<div class="toolbar">';
     foreach (array('add', 'delete', 'up', 'down') as $tool) {
-        $o .=  '<a onclick="advfrm_' . $tool . '(\'advfrm-fields\')">'
-            . Advancedform_toolIcon($tool) . '</a>' . PHP_EOL;
+        $o .=  '<button type="button" onclick="advfrm_' . $tool . '(\'advfrm-fields\')">'
+            . Advancedform_toolIcon($tool) . '</button>' . PHP_EOL;
     }
     $o .= '</div>' . PHP_EOL;
 
@@ -435,7 +445,7 @@ function Advancedform_editForm($id)
             . '<td>'
             . '<input type="hidden" class="hidden" name="advfrm-props[]"'
             . ' value="' . XH_hsc($field['props']) . '">'
-            . '<td><a>' . Advancedform_toolIcon('props') . '</a>' . PHP_EOL;
+            . '<td><button type="button">' . Advancedform_toolIcon('props') . '</button>' . PHP_EOL;
         $checked = $field['required'] ? ' checked="checked"' : '';
         $o .= '<td>'
             . '<input type="checkbox"' . $checked . ' onchange="this.'
@@ -481,8 +491,8 @@ function Advancedform_editForm($id)
         . '</p>' . PHP_EOL;
     $o .= '<div class="toolbar">';
     foreach (array('add', 'delete', 'up', 'down', 'clear_defaults') as $tool) {
-        $o .=  '<a onclick="advfrm_' . $tool . '(\'advfrm-prop-fields\')">'
-            . Advancedform_toolIcon($tool) . '</a>' . PHP_EOL;
+        $o .=  '<button type="button" onclick="advfrm_' . $tool . '(\'advfrm-prop-fields\')">'
+            . Advancedform_toolIcon($tool) . '</button>' . PHP_EOL;
     }
     $o .= '</div>' . PHP_EOL;
     $o .= '<table id="advfrm-prop-fields">' . PHP_EOL . '<tr>'

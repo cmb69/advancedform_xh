@@ -497,8 +497,8 @@ jQuery(function() {
     });
     jQuery('#advfrm-name').focus();
     jQuery('#advfrm-fields tbody td > *[name]').focus(function() {advfrm_highlightRow('advfrm-fields', jQuery(this))});
-    jQuery('#advfrm-fields tbody td > a').click(function() {advfrm_highlightRow('advfrm-fields', jQuery(this))});
-    jQuery('#advfrm-fields tbody td > a').click(advfrm_props);
+    jQuery('#advfrm-fields tbody td > button').click(function() {advfrm_highlightRow('advfrm-fields', jQuery(this))});
+    jQuery('#advfrm-fields tbody td > button').click(advfrm_props);
     jQuery('#advfrm-fields tbody input[name="advfrm-field[]"]').change(advfrm_fillLabel);
     jQuery('#advfrm-fields tbody select[name="advfrm-type[]"]').change(advfrm_changeType);
 

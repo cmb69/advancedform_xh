@@ -543,10 +543,6 @@ Beispiele.
 Das Plugin-Icon wurde von [Jack Cai](http://www.doublejdesign.co.uk/)
 entworfen. Vielen Dank für die Veröffentlichung unter CC BY-ND.
 
-Dieses Plugin verwendet freie Anwendungs-Icons von
-[Aha-Soft](http://www.aha-soft.com/). Vielen Dank für die freie
-Verwendbarkeit dieser Icons.
-
 Vielen Dank an die Community im [CMSimple\_XH
 Forum](http://cmsimpleforum.com/) für Tipps, Vorschläge und das Testen.
 Besonders möchte ich Tata für die Idee danken, dass Advancedform\_XH

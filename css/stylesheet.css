@@ -74,12 +74,6 @@ div.advfrm-mailform div.buttons {
 #advfrm-form-list form {
     display: inline-block;
 }
-#advfrm-form-list button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    padding: 0;
-}
 
 #advfrm-form-list table {
     margin: 10px 0;
