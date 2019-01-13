@@ -78,7 +78,6 @@ $plugin_tx['advancedform']['button_send']="Envoyer";
 $plugin_tx['advancedform']['button_reset']="Effacer";
 $plugin_tx['advancedform']['error_mail']="Le courriel n'a pas pu être envoyé!";
 $plugin_tx['advancedform']['error_missing_sender']="L'adresse e-mail de l'expéditeur manque ! Le courriel de confirmation n'a pas pu être envoyé !";
-$plugin_tx['advancedform']['error_missing_field']="Le champs requis '%s' manque!";
 $plugin_tx['advancedform']['error_invalid_email']="Le champs '%s' ne contient pas d'adresse e-mail valide !";
 $plugin_tx['advancedform']['error_invalid_number']="Le champs '%s' ne contient pas de chiffre valide !";
 $plugin_tx['advancedform']['error_invalid_date']="Le champs '%s' ne contient pas de date valide!";

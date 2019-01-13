@@ -78,7 +78,6 @@ $plugin_tx['advancedform']['button_send']="Odeslat e-mail";
 $plugin_tx['advancedform']['button_reset']="Resetovat formulář";
 $plugin_tx['advancedform']['error_mail']="E-mail se nepodařilo odeslat!";
 $plugin_tx['advancedform']['error_missing_sender']="Chybí e-mail odesilatele! Ověřovací e-mail nebyl odeslán!";
-$plugin_tx['advancedform']['error_missing_field']="Požadované pole '%s' chybí!";
 $plugin_tx['advancedform']['error_invalid_email']="Pole '%s' obsahuje neplatnou e-mailovou adresu!";
 $plugin_tx['advancedform']['error_invalid_number']="Pole '%s' obsahuje neplatné číslo!";
 $plugin_tx['advancedform']['error_invalid_date']="Pole '%s' obsahuje neplatné datum!";

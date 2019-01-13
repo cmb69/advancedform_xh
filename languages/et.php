@@ -77,7 +77,6 @@
 	$plugin_tx['advancedform']['button_reset']="Lähtesta vorm";
 	$plugin_tx['advancedform']['error_mail']="E-posti ei suudetud saata!";
 	$plugin_tx['advancedform']['error_missing_sender']="Puudub saatja e-posti aadress! Kinnituskirja ei saa saata!";
-	$plugin_tx['advancedform']['error_missing_field']="Nõutud väli '%s' puudub!";
 	$plugin_tx['advancedform']['error_invalid_email']="Väli '%s' ei sisalda korrektset e-posti aadressi!";
 	$plugin_tx['advancedform']['error_invalid_number']="Väli '%s' ei sisalda korrektset numbrit!";
 	$plugin_tx['advancedform']['error_invalid_date']="Väli '%s' ei sisalda korrektset kuupäeva!";

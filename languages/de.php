@@ -89,7 +89,7 @@ $plugin_tx['advancedform']['button_reset']="Formular zurücksetzen";
 
 $plugin_tx['advancedform']['error_mail']="Die E-Mail konnte nicht versendet werden!";
 $plugin_tx['advancedform']['error_missing_sender']="Die E-Mail-Adresse des Absenders fehlt! Die Bestätigungs-Mail konnte nicht versendet werden!";
-$plugin_tx['advancedform']['error_missing_field']="Das erforderliche Feld '%s' fehlt!";
+$plugin_tx['advancedform']['error_missing_field']="Das erforderliche Feld '%s' ist leer!";
 $plugin_tx['advancedform']['error_invalid_email']="Das Feld '%s' enthält keine gültige E-Mail-Adresse!";
 $plugin_tx['advancedform']['error_invalid_number']="Das Feld '%s' enthält keine gültige Zahl!";
 $plugin_tx['advancedform']['error_invalid_date']="Das Feld '%s' enthält kein gültiges Datum!";
