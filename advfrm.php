@@ -219,56 +219,6 @@ function Advancedform_dataFolder()
 }
 
 /**
- * Reads a file and returns its contents; <var>false</var> on failure.
- * During reading, the file is locked for shared access.
- *
- * @param string $filename A file path.
- *
- * @return string
- */
-function Advancedform_readFile($filename)
-{
-    $contents = false;
-    $stream = fopen($filename, 'rb');
-    if ($stream) {
-        if (flock($stream, LOCK_SH)) {
-            $contents = stream_get_contents($stream);
-            flock($stream, LOCK_UN);
-        }
-        fclose($stream);
-    }
-    return $contents;
-}
-
-/**
- * Writes <var>$contents</var> to the file <var>$filename</var>.
- * During writing the file is locked exclusively.
- *
- * @param string $filename The filename.
- * @param string $contents The content to write.
- *
- * @return int The number of bytes written, or false on failure.
- */
-function Advancedform_writeFile($filename, $contents)
-{
-    $res = false;
-    // we can't use "cb" as it is available only since PHP 5.2.6
-    // we can't use "r+b" as it will fail if the file does not already exist
-    $stream = fopen($filename, 'a+b');
-    if ($stream) {
-        if (flock($stream, LOCK_EX)) {
-            fseek($stream, 0);
-            ftruncate($stream, 0);
-            $res = fwrite($stream, $contents);
-            fflush($stream);
-            flock($stream, LOCK_UN);
-        }
-        fclose($stream);
-    }
-    return $res;
-}
-
-/**
  * Returns the form database, if $forms is omitted.
  * Otherwise writes $forms as form database.
  *
@@ -284,14 +234,14 @@ function Advancedform_db($forms = null)
         ksort($forms);
         $fn = Advancedform_dataFolder() . 'forms.dat';
         $contents = serialize($forms);
-        if (!Advancedform_writeFile($fn, $contents)) {
+        if (!XH_writeFile($fn, $contents)) {
             e('cntwriteto', 'file', $fn);
         }
         $db = $forms;
     } else {  // read
         if (!isset($db)) {
             $fn = Advancedform_dataFolder() . 'forms.dat';
-            $contents = Advancedform_readFile($fn);
+            $contents = XH_readFile($fn);
             $db = ($contents !== false) ? unserialize($contents) : array();
             if (empty($db['%VERSION%'])) {
                 $db['%VERSION%'] = 0;
@@ -539,22 +489,6 @@ function Advancedform_fields()
 }
 
 /**
- * Returns a string where all special HTML characters are replaced with entities.
- *
- * @param string $string A string.
- *
- * @return string
- */
-function Advancedform_hsc($string)
-{
-    if (function_exists('XH_hsc')) {
-        return XH_hsc($string);
-    } else {
-        return htmlspecialchars($string, ENT_COMPAT, 'UTF-8');
-    }
-}
-
-/**
  * Returns the information sent/to send.
  *
  * @param string $id          A form ID.
@@ -591,7 +525,7 @@ function Advancedform_mailInfo($id, $show_hidden, $html)
         ) {
             $name = 'advfrm-' . $field['field'];
             if ($html) {
-                $o .= '<tr><td class="label">' . Advancedform_hsc($field['label'])
+                $o .= '<tr><td class="label">' . XH_hsc($field['label'])
                     . '</td><td class="field">';
             } else {
                 $o .= $field['label'] . PHP_EOL;
@@ -600,7 +534,7 @@ function Advancedform_mailInfo($id, $show_hidden, $html)
                 if (is_array($_POST[$name])) {
                     foreach ($_POST[$name] as $val) {
                         $o .= $html
-                            ? '<div>' . Advancedform_hsc($val) . '</div>'
+                            ? '<div>' . XH_hsc($val) . '</div>'
                             : '  ' . $val . PHP_EOL;
                     }
                 } else {
@@ -609,7 +543,7 @@ function Advancedform_mailInfo($id, $show_hidden, $html)
                         $val = Advancedform_formatDate($val);
                     }
                     $o .= $html
-                        ? nl2br(Advancedform_hsc($val))
+                        ? nl2br(XH_hsc($val))
                         : '  ' . Advancedform_indent($val) . PHP_EOL;
                 }
             } elseif (isset($_FILES[$name])) {
@@ -764,13 +698,13 @@ function Advancedform_displayField($form_id, $field)
                 ? ($is_real_select ? ' selected="selected"' : ' checked="checked"')
                 : '';
             if ($is_real_select) {
-                $o .= '<option' . $sel . '>' . Advancedform_hsc($opt) . '</option>';
+                $o .= '<option' . $sel . '>' . XH_hsc($opt) . '</option>';
             } else {
                 $o .= '<div class="' . $orient . '"><label>'
                     . '<input type="'.$field['type'] . '" name="' . $name
-                    . $brackets . '" value="' . Advancedform_hsc($opt) . '"'
+                    . $brackets . '" value="' . XH_hsc($opt) . '"'
                     . $sel . '>'
-                    . '&nbsp;' . Advancedform_hsc($opt)
+                    . '&nbsp;' . XH_hsc($opt)
                     . '</label></div>';
             }
         }
@@ -796,7 +730,7 @@ function Advancedform_displayField($form_id, $field)
             $rows = empty($props[ADVFRM_PROP_ROWS]) ? 4 : $props[ADVFRM_PROP_ROWS];
             $o .= '<textarea id="' . $id . '" name="' . $name . '" cols="' . $cols
                 . '" rows="' . $rows . '">'
-                . Advancedform_hsc($val) . '</textarea>';
+                . XH_hsc($val) . '</textarea>';
         } elseif ($field['type'] == 'output') {
             $o .= $val;
         } else {
@@ -817,10 +751,10 @@ function Advancedform_displayField($form_id, $field)
             if ($field['type'] == 'file') {
                 $value = '';
                 $accept = ' accept="'
-                    . Advancedform_hsc(Advancedform_prefixFileExtensionList($val))
+                    . XH_hsc(Advancedform_prefixFileExtensionList($val))
                     . '"';
             } else {
-                $value = ' value="' . Advancedform_hsc($val) . '"';
+                $value = ' value="' . XH_hsc($val) . '"';
                 $accept = '';
             }
             $o .= '<input type="' . $type . '" id="' . $id . '" name="' . $name
@@ -852,7 +786,7 @@ function Advancedform_defaultView($id)
     $o = '';
     $o .= '<div style="overflow:auto">' . PHP_EOL . '<table>' . PHP_EOL;
     foreach ($form['fields'] as $field) {
-        $label = Advancedform_hsc($field['label']);
+        $label = XH_hsc($field['label']);
         $label = $field['required']
             ? sprintf($pcf['required_field_mark'], $label)
             : $label;
@@ -1007,7 +941,7 @@ function Advancedform_check($id)
                 $o .= '<li>'
                     . sprintf(
                         $ptx['error_missing_field'],
-                        Advancedform_hsc($field['label'])
+                        XH_hsc($field['label'])
                     )
                     . '</li>' . PHP_EOL;
                 Advancedform_focusField($id, $name);
@@ -1020,7 +954,7 @@ function Advancedform_check($id)
                     $o .= '<li>'
                         . sprintf(
                             $ptx['error_invalid_email'],
-                            Advancedform_hsc($field['label'])
+                            XH_hsc($field['label'])
                         )
                         . '</li>' . PHP_EOL;
                     Advancedform_focusField($id, $name);
@@ -1038,7 +972,7 @@ function Advancedform_check($id)
                     $o .= '<li>'
                         . sprintf(
                             $ptx['error_invalid_date'],
-                            Advancedform_hsc($field['label'])
+                            XH_hsc($field['label'])
                         )
                         .'</li>' . PHP_EOL;
                     Advancedform_focusField($id, $name);
@@ -1049,7 +983,7 @@ function Advancedform_check($id)
                     $o .= '<li>'
                         . sprintf(
                             $ptx['error_invalid_number'],
-                            Advancedform_hsc($field['label'])
+                            XH_hsc($field['label'])
                         )
                         . '</li>' . PHP_EOL;
                     Advancedform_focusField($id, $name);
@@ -1065,7 +999,7 @@ function Advancedform_check($id)
                         $o .= '<li>'
                             . sprintf(
                                 $ptx['error_upload_too_large'],
-                                Advancedform_hsc($field['label'])
+                                XH_hsc($field['label'])
                             )
                             . '</li>' . PHP_EOL;
                         Advancedform_focusField($id, $name);
@@ -1076,7 +1010,7 @@ function Advancedform_check($id)
                     $o .= '<li>'
                         . sprintf(
                             $ptx['error_upload_too_large'],
-                            Advancedform_hsc($field['label'])
+                            XH_hsc($field['label'])
                         )
                         . '</li>' . PHP_EOL;
                     Advancedform_focusField($id, $name);
@@ -1085,7 +1019,7 @@ function Advancedform_check($id)
                     $o .= '<li>'
                         . sprintf(
                             $ptx['error_upload_general'],
-                            Advancedform_hsc($field['label'])
+                            XH_hsc($field['label'])
                         )
                         . '</li>' . PHP_EOL;
                     Advancedform_focusField($id, $name);
@@ -1097,8 +1031,8 @@ function Advancedform_check($id)
                     $o .= '<li>'
                         . sprintf(
                             $ptx['error_upload_illegal_ftype'],
-                            Advancedform_hsc($field['label']),
-                            Advancedform_hsc($ext)
+                            XH_hsc($field['label']),
+                            XH_hsc($ext)
                         )
                         . '</li>' . PHP_EOL;
                     Advancedform_focusField($id, $name);
@@ -1256,7 +1190,7 @@ function Advancedform_mail($id, $confirmation)
     if (!$confirmation) {
         if (!$ok) {
             $message = !empty($mail->ErrorInfo)
-                ? Advancedform_hsc($mail->ErrorInfo)
+                ? XH_hsc($mail->ErrorInfo)
                 : $ptx['error_mail'];
             $e .= '<li>' . $message . '</li>' . PHP_EOL;
         }

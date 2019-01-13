@@ -4,7 +4,6 @@ $plugin_tx['advancedform']['utf-8-marker']="äöüßě";
 $plugin_tx['advancedform']['syscheck_title']="Kontrola systému";
 $plugin_tx['advancedform']['syscheck_phpversion']="PHP verze ≥ %s";
 $plugin_tx['advancedform']['syscheck_extension']="Rozšíření '%s' načteno";
-$plugin_tx['advancedform']['syscheck_encoding']="Kódování 'UTF-8' nastaveno";
 $plugin_tx['advancedform']['syscheck_jquery']="<a href=\"http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple\">jQuery4CMSimple plugin</a> nainstalováno";
 $plugin_tx['advancedform']['syscheck_captcha_plugin']="CAPTCHA nainstalován";
 $plugin_tx['advancedform']['syscheck_writable']="Do adresáře '%s' lze zapisovat";

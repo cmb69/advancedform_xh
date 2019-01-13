@@ -106,8 +106,7 @@ function Advancedform_systemCheck()
             . '&nbsp;&nbsp;' . sprintf($ptx['syscheck_extension'], $ext)
             . '<br>' . PHP_EOL;
     }
-    $o .= '<br>' . (strtoupper($tx['meta']['codepage']) == 'UTF-8' ? $ok : $warn)
-        . '&nbsp;&nbsp;' . $ptx['syscheck_encoding'] . tag('br') . PHP_EOL;
+    $o .= '<br>';
     $filename = $pth['folder']['plugins'] . 'jquery/jquery.inc.php';
     $o .= (file_exists($filename) ? $ok : $fail)
         . '&nbsp;&nbsp;' . $ptx['syscheck_jquery'] . '<br>' . PHP_EOL;
@@ -185,26 +184,22 @@ EOT;
  *
  * @return string (X)HTML.
  *
- * @global int    The number of pages.
- * @global array  The page headings.
- * @global array  The page URLs.
- * @global array  The page levels.
- * @global string The script name.
  * @global array  The localization of the plugins.
  */
 function Advancedform_pageSelect($name, $selected)
 {
-    global $cl, $h, $u, $l, $sn, $plugin_tx;
+    global $plugin_tx;
 
+    $pagelist = (new XH\Pages)->linkList();
     $ptx = $plugin_tx['advancedform'];
     $o = '<select id="' . $name . '" name="' . $name . '">' . PHP_EOL;
     $sel = ($selected == '') ? ' selected="selected"' : '';
     $o .= '<option value=""' . $sel . '>' . $ptx['label_none'] . '</option>'
         . PHP_EOL;
-    for ($i = 0; $i < $cl; $i++) {
-        $sel = ($u[$i] == $selected) ? ' selected="selected"' : '';
-        $o .= '<option value="' . $u[$i] . '"' . $sel . '>'
-            . str_repeat('&nbsp;&nbsp;', $l[$i] - 1) . $h[$i] . '</option>'
+    foreach ($pagelist as $page) {
+        $sel = ($page[1] == $selected) ? ' selected="selected"' : '';
+        $o .= '<option value="' . $page[1] . '"' . $sel . '>'
+            . $page[0] . '</option>'
             . PHP_EOL;
     }
     $o .= '</select>' . PHP_EOL;
@@ -389,7 +384,7 @@ function Advancedform_editForm($id)
         default:
             $o .= '<td>'
                 . '<input type="text" id="' . $name . '" name="' . $name . '"'
-                . ' value="' . Advancedform_hsc($form[$det]) . '" size="40">'
+                . ' value="' . XH_hsc($form[$det]) . '" size="40">'
                 . '</td>';
         }
         $o .= '</tr>' . PHP_EOL;
@@ -421,7 +416,7 @@ function Advancedform_editForm($id)
             . '</td>'
             . '<td>'
             . '<input type="text" size="10" name="advfrm-label[]" value="'
-            . Advancedform_hsc($field['label']) . '" class="highlightable">'
+            . XH_hsc($field['label']) . '" class="highlightable">'
             . '</td>'
             . '<td><select name="advfrm-type[]" onfocus="this.oldvalue = this.value"'
             . ' class="highlightable">';
@@ -438,7 +433,7 @@ function Advancedform_editForm($id)
         $o .= '</select></td>'
             . '<td>'
             . '<input type="hidden" class="hidden" name="advfrm-props[]"'
-            . ' value="' . Advancedform_hsc($field['props']) . '">'
+            . ' value="' . XH_hsc($field['props']) . '">'
             . '<td><a>' . Advancedform_toolIcon('props') . '</a>' . PHP_EOL;
         $checked = $field['required'] ? ' checked="checked"' : '';
         $o .= '<td>'
@@ -807,20 +802,12 @@ function Advancedform_createFormTemplate($id)
     return Advancedform_formsAdministration();
 }
 
-/*
- * Register the plugin menu items.
- */
-if (function_exists('XH_registerStandardPluginMenuItems')) {
-    XH_registerStandardPluginMenuItems(true);
-}
+XH_registerStandardPluginMenuItems(true);
 
 /*
  * Handle the plugin administration.
  */
-if (function_exists('XH_wantsPluginAdministration')
-    && XH_wantsPluginAdministration('advancedform')
-    || isset($advancedform) && $advancedform == 'true'
-) {
+if (XH_wantsPluginAdministration('advancedform')) {
     if (include_once $pth['folder']['plugins'] . 'jquery/jquery.inc.php') {
         include_jQuery();
         include_jQueryUI();
