@@ -51,10 +51,6 @@ function advancedform($id)
  * @param string $page A page URL.
  *
  * @return string  (X)HTML.
- *
- * @global string The script name.
- * @global array  The localization of the core.
- * @global array  The page URLs.
  */
 function advancedformlink($page)
 {

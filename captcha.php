@@ -37,8 +37,6 @@ function Advancedform_Captcha_code()
  * such as an reload and an audio button.
  *
  * @return string (X)HTML.
- *
- * @global array The localization of the plugins.
  */
 function Advancedform_Captcha_display()
 {

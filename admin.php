@@ -32,8 +32,6 @@ require_once $pth['folder']['plugins'].'advancedform/advfrm.php';
  * Returns the plugin version information.
  *
  * @return string (X)HTML
- *
- * @global array The paths of system files and folders.
  */
 function Advancedform_version()
 {
@@ -75,10 +73,6 @@ function Advancedform_version()
  * Returns requirements information.
  *
  * @return string (X)HTML
- *
- * @global array The paths of system files and folders.
- * @global array The configuration of the plugins.
- * @global array The localization of the plugins.
  */
 function Advancedform_systemCheck()
 {
@@ -126,8 +120,6 @@ function Advancedform_systemCheck()
  * @param string $name A tool's name.
  *
  * @return string (X)HTML.
- *
- * @global array The localization of the plugins.
  */
 function Advancedform_toolIcon($name)
 {
@@ -184,8 +176,6 @@ EOT;
  * @param string $selected URL of the thanks page.
  *
  * @return string (X)HTML.
- *
- * @global array  The localization of the plugins.
  */
 function Advancedform_pageSelect($name, $selected)
 {
@@ -211,10 +201,6 @@ function Advancedform_pageSelect($name, $selected)
  * Returns the mail forms administration.
  *
  * @return string (X)HTML.
- *
- * @global string The script name.
- * @global array  The localization of the core.
- * @global array  The localization of the plugins.
  */
 function Advancedform_formsAdministration()
 {
@@ -287,9 +273,6 @@ function Advancedform_formsAdministration()
  * Creates a new mail form and returns the form editor.
  *
  * @return string (X)HTML.
- *
- * @global array  The configuration of the plugins.
- * @global object The CSRF protector.
  */
 function Advancedform_createForm()
 {
@@ -334,12 +317,6 @@ function Advancedform_createForm()
  * @param string $id A form ID.
  *
  * @return string (X)HTML.
- *
- * @global string The script name.
- * @global array  The localization of the core.
- * @global array  The localization of the plugins.
- * @global string The (X)HTML fragment containing error messages.
- * @global object The CSRF protector.
  */
 function Advancedform_editForm($id)
 {
@@ -510,10 +487,6 @@ function Advancedform_editForm($id)
  * @param string $id A form ID.
  *
  * @return string (X)HTML.
- *
- * @global string The (X)HTML fragments containing error messages.
- * @global array  The localization of the plugins.
- * @global object The CSRF protector.
  */
 function Advancedform_saveForm($id)
 {
@@ -569,10 +542,6 @@ function Advancedform_saveForm($id)
  * @param string $id A form ID.
  *
  * @return string (X)HTML.
- *
- * @global string The (X)HTML fragment containing error messages.
- * @global array  The localization of the plugins.
- * @global object The CSRF protector.
  */
 function Advancedform_deleteForm($id)
 {
@@ -602,10 +571,6 @@ function Advancedform_deleteForm($id)
  * @param string $id A form ID.
  *
  * @return string (X)HTML.
- *
- * @global string The (X)HTML fragment containing error messages.
- * @global array  The localization of the plugins.
- * @global object The CSRF protector.
  */
 function Advancedform_copyForm($id)
 {
@@ -639,10 +604,6 @@ function Advancedform_copyForm($id)
  * @param string $id A form ID.
  *
  * @return string (X)HTML.
- *
- * @global array  The localization of the plugins.
- * @global string The (X)HTML fragment containing error messages.
- * @global object The CSRF protector.
  */
 function Advancedform_importForm($id)
 {
@@ -687,10 +648,6 @@ function Advancedform_importForm($id)
  * @param string $id A form ID.
  *
  * @return string (X)HTML.
- *
- * @global string The (X)HTML fragment containing error messages.
- * @global array  The localization of the plugins.
- * @global object The CSRF protector.
  */
 function Advancedform_exportForm($id)
 {
@@ -727,9 +684,6 @@ function Advancedform_exportForm($id)
  * @param string $id A form ID.
  *
  * @return string (X)HTML.
- *
- * @global array  The configuration of the plugins.
- * @global object The CSRF protector.
  */
 function Advancedform_createFormTemplate($id)
 {

@@ -100,8 +100,6 @@ function Advancedform_indent($string)
  * @param string $name    A field name.
  *
  * @return void
- *
- * @global string The (X)HTML fragment to for insertion into the HEAD element.
  */
 function Advancedform_focusField($form_id, $name)
 {
@@ -126,8 +124,6 @@ SCRIPT;
  * Includes jquery
  *
  * @return void
- *
- * @global array  The paths of system files and folders.
  */
 function Advancedform_initJQuery()
 {
@@ -186,9 +182,6 @@ function Advancedform_isMulti($field)
  * Returns the data folder path. Tries to create it, if necessary.
  *
  * @return string
- *
- * @global array The paths of system files and folders.
- * @global array The configuration of the plugins.
  */
 function Advancedform_dataFolder()
 {
@@ -304,8 +297,6 @@ function Advancedform_escapeJsString($string)
  * Returns an associative array of language texts required for JS.
  *
  * @return array
- *
- * @global array  The localization of the plugins.
  */
 function Advancedform_getLangForJs()
 {
@@ -326,10 +317,6 @@ function Advancedform_getLangForJs()
  * @param string $id A form ID.
  *
  * @return array
- *
- * @global string The (X)HTML fragment containing error messages.
- * @global array  The configuration of the plugins.
- * @global array  The localization of the plugins.
  */
 function Advancedform_readCsv($id)
 {
@@ -384,8 +371,6 @@ function Advancedform_readCsv($id)
  * @param string $field A field value.
  *
  * @return string
- *
- * @global array The configuration of the plugins.
  */
 function Advancedform_escapeCsvField($field)
 {
@@ -406,8 +391,6 @@ function Advancedform_escapeCsvField($field)
  * @param string $id A form ID.
  *
  * @return void
- *
- * @global array The configuration of the plugins.
  */
 function Advancedform_appendCsv($id)
 {
@@ -469,8 +452,6 @@ function Advancedform_fields()
  * @param bool   $html        Whether to return (X)HTML.
  *
  * @return string
- *
- * @global array The localization of the plugins.
  */
 function Advancedform_mailInfo($id, $show_hidden, $html)
 {
@@ -560,8 +541,6 @@ function Advancedform_mailCss($fn)
  * @param bool   $html        Whether to return (X)HTML.
  *
  * @return string
- *
- * @global array The paths of system files and folders.
  */
 function Advancedform_mailBody($id, $show_hidden, $html)
 {
@@ -730,8 +709,6 @@ function Advancedform_displayField($form_id, $field)
  * @param string $id A form ID.
  *
  * @return string (X)HTML.
- *
- * @global array The configuration of the plugins.
  */
 function Advancedform_defaultView($id)
 {
@@ -779,9 +756,6 @@ function Advancedform_defaultView($id)
  * @param string $id A form ID.
  *
  * @return string (X)HTML.
- *
- * @global string The (X)HTML fragment for insertion into the HEAD element.
- * @global array  The configuration of the plugins.
  */
 function Advancedform_templateView($id)
 {
@@ -822,11 +796,6 @@ function Advancedform_templateView($id)
  * @param string $id A form ID.
  *
  * @return string (X)HTML.
- *
- * @global string The script name.
- * @global string The current page URL.
- * @global array  The configuration of the plugins.
- * @global array  The localization of the plugins.
  */
 function Advancedform_formView($id)
 {
@@ -872,9 +841,6 @@ function Advancedform_formView($id)
  * @param string $id A form ID.
  *
  * @return mixed
- *
- * @global array The configuration of the plugins.
- * @global array The localization of the plugins.
  */
 function Advancedform_check($id)
 {
@@ -1039,12 +1005,6 @@ function Advancedform_check($id)
  * @param bool   $confirmation Whether to send the confirmation mail.
  *
  * @return bool
- *
- * @global array  The paths of system files and folders.
- * @global string The current language.
- * @global array  The configuration of the plugins.
- * @global array  The localization of the plugins.
- * @global string The (X)HTML fragment that contains error messages.
  */
 function Advancedform_mail($id, $confirmation)
 {
@@ -1162,12 +1122,6 @@ function Advancedform_mail($id, $confirmation)
  * @param string $id A form ID.
  *
  * @return string (X)HTML.
- *
- * @global array  The configuration of the plugins.
- * @global array  The localization of the plugins.
- * @global string The script name.
- * @global string The (X)HTML fragment containing error messages.
- * @global array  The paths of system files and folders.
  */
 function Advancedform_main($id)
 {
