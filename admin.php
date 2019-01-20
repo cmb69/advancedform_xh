@@ -78,12 +78,11 @@ function Advancedform_version()
  *
  * @global array The paths of system files and folders.
  * @global array The configuration of the plugins.
- * @global array The localization of the core.
  * @global array The localization of the plugins.
  */
 function Advancedform_systemCheck()
 {
-    global $pth, $plugin_cf, $tx, $plugin_tx;
+    global $pth, $plugin_cf, $plugin_tx;
 
     (new Fa\RequireCommand)->execute();
     define('ADVFRM_PHP_VERSION', '5.5.0');
@@ -336,9 +335,7 @@ function Advancedform_createForm()
  *
  * @return string (X)HTML.
  *
- * @global array  The paths of system files and folders.
  * @global string The script name.
- * @global array  The configuration of the plugins.
  * @global array  The localization of the core.
  * @global array  The localization of the plugins.
  * @global string The (X)HTML fragment containing error messages.
@@ -346,9 +343,8 @@ function Advancedform_createForm()
  */
 function Advancedform_editForm($id)
 {
-    global $pth, $sn, $plugin_cf, $tx, $plugin_tx, $e, $_XH_csrfProtection;
+    global $sn, $tx, $plugin_tx, $e, $_XH_csrfProtection;
 
-    $pcf = $plugin_cf['advancedform'];
     $ptx = $plugin_tx['advancedform'];
 
     (new Fa\RequireCommand)->execute();
@@ -418,7 +414,7 @@ function Advancedform_editForm($id)
         . '<th colspan="3">' . $ptx['label_type'] . '</th>'
         . '<th>' . $ptx['label_required'] . '</th>'
         . '</tr></thead>' . PHP_EOL;
-    foreach ($form['fields'] as $num => $field) {
+    foreach ($form['fields'] as $field) {
         $o .= '<tr>'
             . '<td>'
             . '<input type="text" size="10" name="advfrm-field[]"'
@@ -737,7 +733,7 @@ function Advancedform_exportForm($id)
  */
 function Advancedform_createFormTemplate($id)
 {
-    global $plugin_cf, $_XH_csrfProtection;
+    global $e, $plugin_cf, $plugin_tx, $_XH_csrfProtection;
 
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         return Advancedform_formsAdministration();
@@ -806,7 +802,7 @@ function Advancedform_createFormTemplate($id)
             fclose($fh);
         }
     } else {
-        $e .= '<li><b>' . sprintf($ptx['error_form_missing'], $id) . '</b></li>';
+        $e .= '<li><b>' . sprintf($plugin_tx['advancedform']['error_form_missing'], $id) . '</b></li>';
     }
     return Advancedform_formsAdministration();
 }

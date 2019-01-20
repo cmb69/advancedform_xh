@@ -470,12 +470,11 @@ function Advancedform_fields()
  *
  * @return string
  *
- * @global array The configuration of the core.
  * @global array The localization of the plugins.
  */
 function Advancedform_mailInfo($id, $show_hidden, $html)
 {
-    global $cf, $plugin_tx;
+    global $plugin_tx;
 
     $ptx = $plugin_tx['advancedform'];
     $forms = Advancedform_db();
@@ -562,12 +561,11 @@ function Advancedform_mailCss($fn)
  *
  * @return string
  *
- * @global array The configuration of the core.
  * @global array The paths of system files and folders.
  */
 function Advancedform_mailBody($id, $show_hidden, $html)
 {
-    global $cf, $pth;
+    global $pth;
 
     $o = '';
     if ($html) {
@@ -614,16 +612,9 @@ function Advancedform_prefixFileExtensionList($list)
  * @param string $field   A field.
  *
  * @return string (X)HTML.
- *
- * @global array  The paths of system files and folders.
- * @global array  The configuration of the core.
  */
 function Advancedform_displayField($form_id, $field)
 {
-    global $pth, $plugin_cf;
-
-    $pcf = $plugin_cf['advancedform'];
-
     $o = '';
     $name = 'advfrm-' . $field['field'];
     $id = 'advfrm-' . $form_id . '-' . $field['field'];
@@ -642,7 +633,7 @@ function Advancedform_displayField($form_id, $field)
         } else {
             $orient = array_shift($props) ? 'vert' : 'horz';
         }
-        foreach ($props as $i => $opt) {
+        foreach ($props as $opt) {
             $opt = explode("\xE2\x97\x8F", $opt);
             if (count($opt) > 1) {
                 $f = true;
@@ -834,13 +825,12 @@ function Advancedform_templateView($id)
  *
  * @global string The script name.
  * @global string The current page URL.
- * @global array  The paths of system files and folders.
  * @global array  The configuration of the plugins.
  * @global array  The localization of the plugins.
  */
 function Advancedform_formView($id)
 {
-    global $sn, $su, $pth, $plugin_cf, $plugin_tx, $f;
+    global $sn, $su, $plugin_cf, $plugin_tx, $f;
 
     $ptx = $plugin_tx['advancedform'];
     $pcf = $plugin_cf['advancedform'];

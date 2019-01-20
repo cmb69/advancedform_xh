@@ -36,6 +36,8 @@ define('ADVANCEDFORM_VERSION', '2.0dev');
  */
 function advancedform($id)
 {
+    global $pth;
+
     extract($GLOBALS);
     include_once $pth['folder']['plugins'] . 'advancedform/advfrm.php';
     return Advancedform_main($id);
