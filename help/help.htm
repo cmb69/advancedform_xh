@@ -133,7 +133,7 @@
 <p>Radiobuttons, checkboxes and selectboxes allow to enter different options. Use the tool buttons to add, delete and rearrange them. The radiobuttons resp. checkboxes besides the options allow to specify these as default(s). Use the tool “clear defaults” to reset them.</p>
 <h3 id="using-the-mail-form">Using the mail form</h3>
 <p>Edit the page, that you want to display a mail form, and insert the plugin call:</p>
-<pre><code>{{{PLUGIN:advancedform(&#39;FORM_NAME&#39;);}}}</code></pre>
+<pre><code>{{{advancedform(&#39;FORM_NAME&#39;)}}}</code></pre>
 <p>It might be easiest to just copy&amp;paste the necessary code from the mail form administration.</p>
 <p>Now the mail form is ready to be used by the visitors of your site. They can fill out the form and submit it. If they make any mistakes, e.g. leaving empty an required field, entering an invalid e-mail address or number or specifying a file that is larger than allowed, the form will be displayed again with the already entered input, and with the errors shown above, so the visitors can correct the mistakes and submit the form again. It is not necessary that JavaScript is enabled in the visitor’s browser, but if it is, the first erroneous field field will be focused. But none of the field validations relies on JavaScript.</p>
 <p>After successful submission of the form, an e-mail will be sent to the receivers (To, CC and BCC) specified in the form editor. Then the sent information is displayed to the visitor as confirmation, or, if a thanks page is specified, the visitor will be redirected there, and a confirmation mail will be sent to him. The thanks page/confirmation feature will only work, if a required field of type “Sender (e-mail)” is specified for the form.</p>
@@ -142,9 +142,9 @@
 <h3 id="replacing-the-built-in-mail-form">Replacing the built in mail form</h3>
 <p>It is possible to replace CMSimple_XH’s built in mail form with a user defined one. So just define the desired form, and enter its name in Advancedform_XH’s language settings as “contact form”. Now CMSimple_XH’s mailform link will directly call your custom form. Note, that an email address has to be configured for CMSimple_XH to display the mailform link, but its value is completely ignored by Advancedform_XH.</p>
 <p>Alternatively create a hidden CMSimple_XH page and insert the required script code to call the form. Then you have to modify your template. Just replace</p>
-<pre><code>&lt;?php echo mailformlink()?&gt;</code></pre>
+<pre><code>&lt;?=mailformlink()?&gt;</code></pre>
 <p>with</p>
-<pre><code>&lt;?php echo advancedformlink(&#39;PAGE_URL&#39;)?&gt;</code></pre>
+<pre><code>&lt;?=advancedformlink(&#39;PAGE_URL&#39;)?&gt;</code></pre>
 <p>where PAGE_URL should be the part of the URL of the page after the question mark. It is possible to specify multiple advancedformlink()s this way.</p>
 <h3 id="template-system">Template system</h3>
 <p>The template system allows to build highly customized mail forms. Power users, who need to create or alter mail forms frequently, might have a look at the <a href="http://simplesolutions.dk/?Form_Mailer">Form Mailer</a> by Jerry Jakobsfeld, which is even more versatile than Advancedform_XH.</p>
@@ -154,7 +154,7 @@
 <p>A template file is basically a PHP file with one addition to the syntax:</p>
 <pre><code>&lt;?field FIELD_NAME?&gt;</code></pre>
 <p>will output the field with the name FIELD_NAME. Do not use any additional characters such as whitespace except a single space between field and FIELD_NAME. This notation is actually a shorthand for</p>
-<pre><code>&lt;?php echo Advancedform_displayField(&#39;FORM_NAME&#39;, &#39;FIELD_NAME&#39;)?&gt;</code></pre>
+<pre><code>&lt;?=Advancedform_displayField(&#39;FORM_NAME&#39;, &#39;FIELD_NAME&#39;)?&gt;</code></pre>
 <p>The template file will be evaluated in the context of CMSimple_XH, so any global variables, constants and functions are available to use. However, it is not possible to alter any global variables (besides the superglobals, what might disturb the system’s functioning). And do not call non-existent functions as this will cause the PHP interpreter to fail. <strong>Particularly you should be cautious using template files from untrusted sources, as those could contain malicious code that might harm your CMSimple_XH installation.</strong></p>
 <p>One particularly useful function might be</p>
 <pre><code>Advancedform_focusField($form_name, $field_name)</code></pre>

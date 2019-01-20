@@ -4,5 +4,5 @@
     <span class="blue"><?field Number2?></span>
     <span class="red"><?field Result?></span>
     <?field Tries?>
-    <p>BTW: today is <?php echo date('l')?>!</p>
+    <p>BTW: today is <?=date('l')?>!</p>
 </div>

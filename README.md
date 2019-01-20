@@ -247,7 +247,7 @@ as default(s). Use the tool "clear defaults" to reset them.
 Edit the page, that you want to display a mail form, and insert the
 plugin call:
 
-    {{{PLUGIN:advancedform('FORM_NAME');}}}
+    {{{advancedform('FORM_NAME')}}}
 
 It might be easiest to just copy\&paste the necessary code from the mail
 form administration.
@@ -292,11 +292,11 @@ Alternatively create a hidden CMSimple\_XH page and insert the required
 script code to call the form. Then you have to modify your template.
 Just replace
 
-    <?php echo mailformlink()?>
+    <?=mailformlink()?>
 
 with
 
-    <?php echo advancedformlink('PAGE_URL')?>
+    <?=advancedformlink('PAGE_URL')?>
 
 where PAGE\_URL should be the part of the URL of the page after the
 question mark. It is possible to specify multiple advancedformlink()s
@@ -340,7 +340,7 @@ will output the field with the name FIELD\_NAME. Do not use any
 additional characters such as whitespace except a single space between
 field and FIELD\_NAME. This notation is actually a shorthand for
 
-    <?php echo Advancedform_displayField('FORM_NAME', 'FIELD_NAME')?>
+    <?=Advancedform_displayField('FORM_NAME', 'FIELD_NAME')?>
 
 The template file will be evaluated in the context of CMSimple\_XH, so
 any global variables, constants and functions are available to use.

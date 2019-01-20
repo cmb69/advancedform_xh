@@ -275,7 +275,7 @@ function Advancedform_formsAdministration()
                 . utf8_ucfirst($tx['action']['edit']) . '">' . $id . '</a></td>'
                 . '<td class="script" title="' . $ptx['message_script_code'] . '">'
                 . '<input type="text" readonly onclick="this.select()" value="'
-                . '{{{PLUGIN:advancedform(\'' . $id . '\');}}}"></input></td>'
+                . '{{{advancedform(\'' . $id . '\')}}}"></input></td>'
                 . '</tr>' . PHP_EOL;
         }
     }

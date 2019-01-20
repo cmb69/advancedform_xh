@@ -319,11 +319,11 @@ Alternativ fügen Sie den erforderlichen Skript-Code zum Aufruf des
 Formulars auf einer versteckten CMSimple-Seite ein. Dann müssen Sie Ihr
 Template ändern. Ersetzen Sie
 
-    <?php echo mailformlink()?>
+    <?=mailformlink()?>
 
 durch
 
-    <?php echo advancedformlink('SEITEN_URL')?>
+    <?=advancedformlink('SEITEN_URL')?>
 
 wobei SEITEN\_URL der Teil der URL der Seite nach dem Fragezeichen ist.
 Es ist möglich auf diese Weise mehrere advancedformlink()s anzugeben.
@@ -369,7 +369,7 @@ gibt das Feld mit dem Namen FELD\_NAME aus. Verwenden Sie keine weiteren
 Zeichen wie Leerzeichen außer einem einzigen Leerzeichen zwischen field
 und FELD\_NAME. Diese Notation ist eigentlich eine Abkürzung für
 
-    <?php echo Advancedform_displayField('FORMULAR_NAME', 'FELD_NAME')?>
+    <?=Advancedform_displayField('FORMULAR_NAME', 'FELD_NAME')?>
 
 Die Vorlagen-Datei wird im Kontext von CMSimple\_XH ausgewertet, so dass
 alle globalen Variablen, Konstanten und Funktionen verwendet werden

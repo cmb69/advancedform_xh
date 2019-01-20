@@ -70,7 +70,7 @@ function petition_count($form_name) {
 
 To display the count on a CMSimple page use something in the line of:
 
-Already {{{PLUGIN:petition_count('Petition');}}} petitors!
+Already {{{petition_count('Petition')}}} petitors!
 
 
 Confirmation
