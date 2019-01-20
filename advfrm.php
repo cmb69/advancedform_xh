@@ -569,8 +569,6 @@ function Advancedform_mailBody($id, $show_hidden, $html)
 {
     global $cf, $pth;
 
-    $forms = Advancedform_db();
-    $form = $forms[$id];
     $o = '';
     if ($html) {
         $o .= '<!DOCTYPE html>' . PHP_EOL;
