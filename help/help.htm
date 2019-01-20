@@ -153,8 +153,7 @@
 <p>If you want to adjust the styling, have a look at the generated files. In the template file you can see it’s simplistic structure. Everything is encapsulated within &lt;div&gt;s for flexibility. Have a look at the class of the container-divs. This is set to “break” by default, so every field will start in a new row. Change it to “float” and the fields will be put right beside each other. If you want to have the labels to the left of the fields, just remove the comments in the prepared styles for div.label and div.field.</p>
 <p>A template file is basically a PHP file with one addition to the syntax:</p>
 <pre><code>&lt;?field FIELD_NAME?&gt;</code></pre>
-<p>will output the field with the name FIELD_NAME. Do not use any additional characters such as whitespace except a single space between field and FIELD_NAME. This notation is actually a shorthand for</p>
-<pre><code>&lt;?=Advancedform_displayField(&#39;FORM_NAME&#39;, &#39;FIELD_NAME&#39;)?&gt;</code></pre>
+<p>will output the field with the name FIELD_NAME. Do not use any additional characters such as whitespace except a single space between field and FIELD_NAME.</p>
 <p>The template file will be evaluated in the context of CMSimple_XH, so any global variables, constants and functions are available to use. However, it is not possible to alter any global variables (besides the superglobals, what might disturb the system’s functioning). And do not call non-existent functions as this will cause the PHP interpreter to fail. <strong>Particularly you should be cautious using template files from untrusted sources, as those could contain malicious code that might harm your CMSimple_XH installation.</strong></p>
 <p>One particularly useful function might be</p>
 <pre><code>Advancedform_focusField($form_name, $field_name)</code></pre>

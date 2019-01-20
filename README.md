@@ -338,9 +338,7 @@ A template file is basically a PHP file with one addition to the syntax:
 
 will output the field with the name FIELD\_NAME. Do not use any
 additional characters such as whitespace except a single space between
-field and FIELD\_NAME. This notation is actually a shorthand for
-
-    <?=Advancedform_displayField('FORM_NAME', 'FIELD_NAME')?>
+field and FIELD\_NAME.
 
 The template file will be evaluated in the context of CMSimple\_XH, so
 any global variables, constants and functions are available to use.

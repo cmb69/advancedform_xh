@@ -367,9 +367,7 @@ der Syntax:
 
 gibt das Feld mit dem Namen FELD\_NAME aus. Verwenden Sie keine weiteren
 Zeichen wie Leerzeichen außer einem einzigen Leerzeichen zwischen field
-und FELD\_NAME. Diese Notation ist eigentlich eine Abkürzung für
-
-    <?=Advancedform_displayField('FORMULAR_NAME', 'FELD_NAME')?>
+und FELD\_NAME.
 
 Die Vorlagen-Datei wird im Kontext von CMSimple\_XH ausgewertet, so dass
 alle globalen Variablen, Konstanten und Funktionen verwendet werden
