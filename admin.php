@@ -244,31 +244,36 @@ function Advancedform_formsAdministration()
             $o .= '<tr>'
                 . '<td class="tool">'
                 . Advancedform_toolForm(
-                    'delete', sprintf($href, 'delete'),
-                    'return confirm(\'' . Advancedform_escapeJsString(
-                        $ptx['message_confirm_delete']
-                    ) . '\')'
+                    'delete',
+                    sprintf($href, 'delete'),
+                    'return confirm(\''
+                    . Advancedform_escapeJsString($ptx['message_confirm_delete'])
+                    . '\')'
                 )
                 . '</td>'
                 . '<td class="tool">'
                 . Advancedform_toolForm(
-                    'template', sprintf($href, 'template'),
-                    'return confirm(\'' . Advancedform_escapeJsString(
+                    'template',
+                    sprintf($href, 'template'),
+                    'return confirm(\''
+                    . Advancedform_escapeJsString(
                         sprintf($ptx['message_confirm_template'], $form['name'])
-                    ) . '\')'
+                    )
+                    . '\')'
                 )
                 . '</td>'
                 . '<td class="tool">'
-                . Advancedform_toolForm(
-                    'copy',  sprintf($href, 'copy')
-                )
+                . Advancedform_toolForm('copy', sprintf($href, 'copy'))
                 . '</td>'
                 . '<td class="tool">'
                 . Advancedform_toolForm(
-                    'export', sprintf($href, 'export'),
-                    'return confirm(\'' . Advancedform_escapeJsString(
+                    'export',
+                    sprintf($href, 'export'),
+                    'return confirm(\''
+                    . Advancedform_escapeJsString(
                         sprintf($ptx['message_confirm_export'], $form['name'])
-                    ) . '\')'
+                    )
+                    . '\')'
                 )
                 . '</td>'
                 . '<td class="name"><a href="' . sprintf($href, 'edit') . '" title="'
@@ -380,22 +385,22 @@ function Advancedform_editForm($id)
             . '<td><label for="' . $name . '">' . $ptx['label_'.$det]
             . '</label></td>';
         switch ($det) {
-        case 'captcha':
-        case 'store':
-            $checked = $form[$det] ? ' checked="checked"' : '';
-            $o .= '<td>'
-                . '<input type="checkbox" id="' . $name . '" name="' . $name . '"'
-                . $checked . '>'
-                . '</td>';
-            break;
-        case 'thanks_page':
-            $o .= '<td>' . Advancedform_pageSelect($name, $form[$det]) . '</td>';
-            break;
-        default:
-            $o .= '<td>'
-                . '<input type="text" id="' . $name . '" name="' . $name . '"'
-                . ' value="' . XH_hsc($form[$det]) . '" size="40">'
-                . '</td>';
+            case 'captcha':
+            case 'store':
+                $checked = $form[$det] ? ' checked="checked"' : '';
+                $o .= '<td>'
+                    . '<input type="checkbox" id="' . $name . '" name="' . $name . '"'
+                    . $checked . '>'
+                    . '</td>';
+                break;
+            case 'thanks_page':
+                $o .= '<td>' . Advancedform_pageSelect($name, $form[$det]) . '</td>';
+                break;
+            default:
+                $o .= '<td>'
+                    . '<input type="text" id="' . $name . '" name="' . $name . '"'
+                    . ' value="' . XH_hsc($form[$det]) . '" size="40">'
+                    . '</td>';
         }
         $o .= '</tr>' . PHP_EOL;
     }
@@ -712,7 +717,8 @@ function Advancedform_exportForm($id)
         $form[$id] = $forms[$id];
         $form['%VERSION%'] = ADVFRM_DB_VERSION;
         $fn = Advancedform_dataFolder() . $id . '.json';
-        if (!($fh = fopen($fn, 'w')) || fwrite($fh, json_encode($form, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)) === false) {
+        $json = json_encode($form, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        if (!($fh = fopen($fn, 'w')) || fwrite($fh, $json) === false) {
             e('cntwriteto', 'file', $fn);
         }
         if ($fh) {
@@ -765,9 +771,7 @@ function Advancedform_createFormTemplate($id)
                     . ' // focus the first field?>' . PHP_EOL;
                 $first = false;
             }
-            $labelled = !in_array(
-                $field['type'], array('checkbox', 'radio', 'hidden')
-            );
+            $labelled = !in_array($field['type'], array('checkbox', 'radio', 'hidden'));
             if (in_array($field['type'], array('hidden'))) {
                 $label = '';
             } elseif (!$field['required']) {
@@ -828,42 +832,40 @@ if (XH_wantsPluginAdministration('advancedform')) {
 
     $o .= print_plugin_admin('on');
     switch ($admin) {
-    case '':
-        $o .= Advancedform_version() . Advancedform_systemCheck();
-        break;
-    case 'plugin_main':
-        switch ($action) {
-        case 'new':
-            $o .= Advancedform_createForm();
+        case '':
+            $o .= Advancedform_version() . Advancedform_systemCheck();
             break;
-        case 'edit':
-            $o .= Advancedform_editForm($_GET['form']);
-            break;
-        case 'save':
-            $o .= Advancedform_saveForm($_GET['form']);
-            break;
-        case 'delete':
-            $o .= Advancedform_deleteForm($_GET['form']);
-            break;
-        case 'copy':
-            $o .= Advancedform_copyForm($_GET['form']);
-            break;
-        case 'import':
-            $o .= Advancedform_importForm($_GET['form']);
-            break;
-        case 'export':
-            $o .= Advancedform_exportForm($_GET['form']);
-            break;
-        case 'template':
-            $o .= Advancedform_createFormTemplate($_GET['form']);
+        case 'plugin_main':
+            switch ($action) {
+                case 'new':
+                    $o .= Advancedform_createForm();
+                    break;
+                case 'edit':
+                    $o .= Advancedform_editForm($_GET['form']);
+                    break;
+                case 'save':
+                    $o .= Advancedform_saveForm($_GET['form']);
+                    break;
+                case 'delete':
+                    $o .= Advancedform_deleteForm($_GET['form']);
+                    break;
+                case 'copy':
+                    $o .= Advancedform_copyForm($_GET['form']);
+                    break;
+                case 'import':
+                    $o .= Advancedform_importForm($_GET['form']);
+                    break;
+                case 'export':
+                    $o .= Advancedform_exportForm($_GET['form']);
+                    break;
+                case 'template':
+                    $o .= Advancedform_createFormTemplate($_GET['form']);
+                    break;
+                default:
+                    $o .= Advancedform_formsAdministration();
+            }
             break;
         default:
-            $o .= Advancedform_formsAdministration();
-        }
-        break;
-    default:
-        $o .= plugin_admin_common($action, $admin, $plugin);
+            $o .= plugin_admin_common($action, $admin, $plugin);
     }
 }
-
-?>

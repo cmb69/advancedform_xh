@@ -79,5 +79,3 @@ if (function_exists('XH_startSession')) {
 } elseif (session_id() == '') {
     session_start();
 }
-
-?>

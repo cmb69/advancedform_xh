@@ -272,17 +272,17 @@ function Advancedform_db($forms = null)
 function Advancedform_updatedDb($forms)
 {
     switch ($forms['%VERSION%']) {
-    case 0:
-    case 1:
-        $forms = array_map(
-            function ($elt) {
-                if (is_array($elt)) {
-                    $elt["store"] = false;
-                }
-                return $elt;
-            },
-            $forms
-        );
+        case 0:
+        case 1:
+            $forms = array_map(
+                function ($elt) {
+                    if (is_array($elt)) {
+                        $elt["store"] = false;
+                    }
+                    return $elt;
+                },
+                $forms
+            );
     }
     $forms['%VERSION%'] = ADVFRM_DB_VERSION;
     return $forms;
@@ -654,9 +654,7 @@ function Advancedform_displayField($form_id, $field)
                 $opt = $opt[0];
             }
             if (function_exists('advfrm_custom_field_default')) {
-                $cust_f = advfrm_custom_field_default(
-                    $form_id, $field['field'], $opt, isset($_POST['advfrm'])
-                );
+                $cust_f = advfrm_custom_field_default($form_id, $field['field'], $opt, isset($_POST['advfrm']));
             }
             if (isset($cust_f)) {
                 $f = $cust_f;
@@ -689,9 +687,7 @@ function Advancedform_displayField($form_id, $field)
             ? $field['type']
             : 'text';
         if (function_exists('advfrm_custom_field_default')) {
-            $val = advfrm_custom_field_default(
-                $form_id, $field['field'], null, isset($_POST['advfrm'])
-            );
+            $val = advfrm_custom_field_default($form_id, $field['field'], null, isset($_POST['advfrm']));
         }
         if (!isset($val)) {
             $val =  isset($_POST[$name])
@@ -921,109 +917,109 @@ function Advancedform_check($id)
             }
         } else {
             switch ($field['type']) {
-            case 'from':
-            case 'mail':
-                if (!preg_match($pcf['mail_regexp'], $_POST[$name])) {
-                    $o .= '<li>'
-                        . sprintf(
-                            $ptx['error_invalid_email'],
-                            XH_hsc($field['label'])
-                        )
-                        . '</li>' . PHP_EOL;
-                    Advancedform_focusField($id, $name);
-                }
-                break;
-            case 'date':
-                $pattern = '/^([0-9]+)-([0-9]+)-([0-9]+)$/';
-                $matched = preg_match($pattern, $_POST[$name], $matches);
-                if (count($matches) == 4) {
-                    $year = $matches[1];
-                    $month = $matches[2];
-                    $day = $matches[3];
-                }
-                if (!$matched || !checkdate($month, $day, $year)) {
-                    $o .= '<li>'
-                        . sprintf(
-                            $ptx['error_invalid_date'],
-                            XH_hsc($field['label'])
-                        )
-                        .'</li>' . PHP_EOL;
-                    Advancedform_focusField($id, $name);
-                }
-                break;
-            case 'number':
-                if (!ctype_digit($_POST[$name])) {
-                    $o .= '<li>'
-                        . sprintf(
-                            $ptx['error_invalid_number'],
-                            XH_hsc($field['label'])
-                        )
-                        . '</li>' . PHP_EOL;
-                    Advancedform_focusField($id, $name);
-                }
-                break;
-            case 'file':
-                $props = explode("\xC2\xA6", $field['props']);
-                switch ($_FILES[$name]['error']) {
-                case UPLOAD_ERR_OK:
-                    if (!empty($props[ADVFRM_PROP_MAXLEN])
-                        && $_FILES[$name]['size'] > $props[ADVFRM_PROP_MAXLEN]
-                    ) {
+                case 'from':
+                case 'mail':
+                    if (!preg_match($pcf['mail_regexp'], $_POST[$name])) {
                         $o .= '<li>'
                             . sprintf(
-                                $ptx['error_upload_too_large'],
+                                $ptx['error_invalid_email'],
                                 XH_hsc($field['label'])
                             )
                             . '</li>' . PHP_EOL;
                         Advancedform_focusField($id, $name);
                     }
                     break;
-                case UPLOAD_ERR_INI_SIZE:
-                case UPLOAD_ERR_FORM_SIZE:
-                    $o .= '<li>'
-                        . sprintf(
-                            $ptx['error_upload_too_large'],
-                            XH_hsc($field['label'])
-                        )
-                        . '</li>' . PHP_EOL;
-                    Advancedform_focusField($id, $name);
+                case 'date':
+                    $pattern = '/^([0-9]+)-([0-9]+)-([0-9]+)$/';
+                    $matched = preg_match($pattern, $_POST[$name], $matches);
+                    if (count($matches) == 4) {
+                        $year = $matches[1];
+                        $month = $matches[2];
+                        $day = $matches[3];
+                    }
+                    if (!$matched || !checkdate($month, $day, $year)) {
+                        $o .= '<li>'
+                            . sprintf(
+                                $ptx['error_invalid_date'],
+                                XH_hsc($field['label'])
+                            )
+                            .'</li>' . PHP_EOL;
+                        Advancedform_focusField($id, $name);
+                    }
                     break;
-                default:
-                    $o .= '<li>'
-                        . sprintf(
-                            $ptx['error_upload_general'],
-                            XH_hsc($field['label'])
-                        )
-                        . '</li>' . PHP_EOL;
-                    Advancedform_focusField($id, $name);
-                }
-                $ext = pathinfo($_FILES[$name]['name'], PATHINFO_EXTENSION);
-                if (!empty($props[ADVFRM_PROP_FTYPES])
-                    && !in_array($ext, explode(',', $props[ADVFRM_PROP_FTYPES]))
-                ) {
-                    $o .= '<li>'
-                        . sprintf(
-                            $ptx['error_upload_illegal_ftype'],
-                            XH_hsc($field['label']),
-                            XH_hsc($ext)
-                        )
-                        . '</li>' . PHP_EOL;
-                    Advancedform_focusField($id, $name);
-                }
-                break;
-            case 'custom':
-                $props = explode("\xC2\xA6", $field['props']);
-                $pattern = $props[ADVFRM_PROP_CONSTRAINT];
-                if (!empty($pattern)
-                    && !preg_match($pattern, $_POST[$name])
-                ) {
-                    $msg = empty($props[ADVFRM_PROP_ERROR_MSG])
-                        ? $ptx['error_invalid_custom']
-                        : $props[ADVFRM_PROP_ERROR_MSG];
-                    $o .= '<li>' . sprintf($msg, $field['label']) . '</li>'
-                        . PHP_EOL;
-                    Advancedform_focusField($id, $name);
-                }
+                case 'number':
+                    if (!ctype_digit($_POST[$name])) {
+                        $o .= '<li>'
+                            . sprintf(
+                                $ptx['error_invalid_number'],
+                                XH_hsc($field['label'])
+                            )
+                            . '</li>' . PHP_EOL;
+                        Advancedform_focusField($id, $name);
+                    }
+                    break;
+                case 'file':
+                    $props = explode("\xC2\xA6", $field['props']);
+                    switch ($_FILES[$name]['error']) {
+                        case UPLOAD_ERR_OK:
+                            if (!empty($props[ADVFRM_PROP_MAXLEN])
+                                && $_FILES[$name]['size'] > $props[ADVFRM_PROP_MAXLEN]
+                            ) {
+                                $o .= '<li>'
+                                    . sprintf(
+                                        $ptx['error_upload_too_large'],
+                                        XH_hsc($field['label'])
+                                    )
+                                    . '</li>' . PHP_EOL;
+                                Advancedform_focusField($id, $name);
+                            }
+                            break;
+                        case UPLOAD_ERR_INI_SIZE:
+                        case UPLOAD_ERR_FORM_SIZE:
+                            $o .= '<li>'
+                                . sprintf(
+                                    $ptx['error_upload_too_large'],
+                                    XH_hsc($field['label'])
+                                )
+                                . '</li>' . PHP_EOL;
+                            Advancedform_focusField($id, $name);
+                            break;
+                        default:
+                            $o .= '<li>'
+                                . sprintf(
+                                    $ptx['error_upload_general'],
+                                    XH_hsc($field['label'])
+                                )
+                                . '</li>' . PHP_EOL;
+                            Advancedform_focusField($id, $name);
+                    }
+                    $ext = pathinfo($_FILES[$name]['name'], PATHINFO_EXTENSION);
+                    if (!empty($props[ADVFRM_PROP_FTYPES])
+                        && !in_array($ext, explode(',', $props[ADVFRM_PROP_FTYPES]))
+                    ) {
+                        $o .= '<li>'
+                            . sprintf(
+                                $ptx['error_upload_illegal_ftype'],
+                                XH_hsc($field['label']),
+                                XH_hsc($ext)
+                            )
+                            . '</li>' . PHP_EOL;
+                        Advancedform_focusField($id, $name);
+                    }
+                    break;
+                case 'custom':
+                    $props = explode("\xC2\xA6", $field['props']);
+                    $pattern = $props[ADVFRM_PROP_CONSTRAINT];
+                    if (!empty($pattern)
+                        && !preg_match($pattern, $_POST[$name])
+                    ) {
+                        $msg = empty($props[ADVFRM_PROP_ERROR_MSG])
+                            ? $ptx['error_invalid_custom']
+                            : $props[ADVFRM_PROP_ERROR_MSG];
+                        $o .= '<li>' . sprintf($msg, $field['label']) . '</li>'
+                            . PHP_EOL;
+                        Advancedform_focusField($id, $name);
+                    }
             }
             if (function_exists('advfrm_custom_valid_field')) {
                 $value = $field['type'] == 'file'
@@ -1118,18 +1114,12 @@ function Advancedform_mail($id, $confirmation)
     if ($confirmation) {
         $mail->set(
             'Subject',
-            sprintf(
-                $ptx['mail_subject_confirmation'], $form['title'],
-                $_SERVER['SERVER_NAME']
-            )
+            sprintf($ptx['mail_subject_confirmation'], $form['title'], $_SERVER['SERVER_NAME'])
         );
     } else {
         $mail->set(
             'Subject',
-            sprintf(
-                $ptx['mail_subject'], $form['title'],
-                $_SERVER['SERVER_NAME'], $_SERVER['REMOTE_ADDR']
-            )
+            sprintf($ptx['mail_subject'], $form['title'], $_SERVER['SERVER_NAME'], $_SERVER['REMOTE_ADDR'])
         );
     }
     $mail->IsHtml($type != 'text');
@@ -1247,5 +1237,3 @@ function Advancedform_main($id)
     }
     return Advancedform_formView($id);
 }
-
-?>

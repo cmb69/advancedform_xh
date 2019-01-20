@@ -72,5 +72,3 @@ if ($f == 'mailform' && !empty($plugin_tx['advancedform']['contact_form'])) {
         . advancedform($plugin_tx['advancedform']['contact_form']);
     $f = '';
 }
-
-?>
