@@ -43,7 +43,6 @@
     },
     "Confirmation": {
         "captcha": false,
-        "store": false,
         "name": "Confirmation",
         "title": "Confirmation",
         "to_name": "Webmaster",
@@ -87,11 +86,11 @@
                 "props": "0¦I agree to the terms of use",
                 "required": "1"
             }
-        ]
+        ],
+        "store": false
     },
     "Contact": {
         "captcha": false,
-        "store": false,
         "name": "Contact",
         "title": "Contact",
         "to_name": "Webmaster",
@@ -177,11 +176,11 @@
                 "props": "¦¦This is a hidden field!¦",
                 "required": "0"
             }
-        ]
+        ],
+        "store": false
     },
     "Memberpage": {
         "captcha": false,
-        "store": false,
         "name": "Memberpage",
         "title": "Memberpage",
         "to_name": "Webmaster",
@@ -204,7 +203,8 @@
                 "props": "¦¦¦",
                 "required": "0"
             }
-        ]
+        ],
+        "store": false
     },
     "Pay_By": {
         "captcha": false,
@@ -242,7 +242,6 @@
     },
     "Petition": {
         "captcha": false,
-        "store": true,
         "name": "Petition",
         "title": "Petition",
         "to_name": "Webmaster",
@@ -265,11 +264,11 @@
                 "props": "¦¦¦",
                 "required": "1"
             }
-        ]
+        ],
+        "store": true
     },
     "Pizza": {
         "captcha": false,
-        "store": false,
         "name": "Pizza",
         "title": "Pizza",
         "to_name": "Webmaster",
@@ -313,7 +312,8 @@
                 "props": "5¦Coke¦Soda Water¦Lemonade¦Beer¦Wine",
                 "required": "0"
             }
-        ]
+        ],
+        "store": false
     },
     "Remko": {
         "captcha": false,

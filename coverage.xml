@@ -7,7 +7,6 @@
     </testsuites>
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
-            <file>advfrm.php</file>
         </whitelist>
     </filter>
     <logging>

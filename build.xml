@@ -6,9 +6,9 @@
 
     <fileset id="php-sources" dir=".">
         <include name="admin.php"/>
-        <include name="advfrm.php"/>
         <include name="captcha.php"/>
         <include name="index.php"/>
+        <include name="classes/*.php"/>
     </fileset>
 
     <fileset id="unit-tests" dir="tests/unit">
