@@ -162,11 +162,7 @@ function Advancedform_toolForm($name, $action, $onsubmit = false)
 
     $onsubmit = $onsubmit ? 'onsubmit="' . $onsubmit . '"' : '';
     $icon = Advancedform_toolIcon($name);
-    if (isset($_XH_csrfProtection)) {
-        $tokenInput = $_XH_csrfProtection->tokenInput();
-    } else {
-        $tokenInput = '';
-    }
+    $tokenInput = $_XH_csrfProtection->tokenInput();
     return <<<EOT
 <form action="$action" method="post" $onsubmit>
     <button title="{$plugin_tx['advancedform']['tool_' . $name]}">$icon</button>
@@ -287,9 +283,7 @@ function Advancedform_createForm()
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         return Advancedform_formsAdministration();
     }
-    if (isset($_XH_csrfProtection)) {
-        $_XH_csrfProtection->check();
-    }
+    $_XH_csrfProtection->check();
     $pcf = $plugin_cf['advancedform'];
     $forms = Advancedform_db();
     $id = uniqid();
@@ -436,9 +430,7 @@ function Advancedform_editForm($id)
     $o .= '</table>' . PHP_EOL;
     $o .= '<input type="submit" class="submit" value="'
         . utf8_ucfirst($tx['action']['save']) . '" style="display:none">';
-    if (isset($_XH_csrfProtection)) {
-        $o .= $_XH_csrfProtection->tokenInput();
-    }
+    $o .= $_XH_csrfProtection->tokenInput();
     $o .= '</form>' . PHP_EOL . '</div>' . PHP_EOL;
 
     /*
@@ -503,9 +495,7 @@ function Advancedform_saveForm($id)
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         return Advancedform_formsAdministration();
     }
-    if (isset($_XH_csrfProtection)) {
-        $_XH_csrfProtection->check();
-    }
+    $_XH_csrfProtection->check();
     $forms = Advancedform_db();
     if (!isset($forms[$id])) {
         $e .= '<li><b>' . sprintf($ptx['error_form_missing'], $id) . '</b></li>';
@@ -556,9 +546,7 @@ function Advancedform_deleteForm($id)
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         return Advancedform_formsAdministration();
     }
-    if (isset($_XH_csrfProtection)) {
-        $_XH_csrfProtection->check();
-    }
+    $_XH_csrfProtection->check();
     $forms = Advancedform_db();
     if (isset($forms[$id])) {
         unset($forms[$id]);
@@ -585,9 +573,7 @@ function Advancedform_copyForm($id)
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         return Advancedform_formsAdministration();
     }
-    if (isset($_XH_csrfProtection)) {
-        $_XH_csrfProtection->check();
-    }
+    $_XH_csrfProtection->check();
     $forms = Advancedform_db();
     if (isset($forms[$id])) {
         $form = $forms[$id];
@@ -618,9 +604,7 @@ function Advancedform_importForm($id)
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         return Advancedform_formsAdministration();
     }
-    if (isset($_XH_csrfProtection)) {
-        $_XH_csrfProtection->check();
-    }
+    $_XH_csrfProtection->check();
     $ptx = $plugin_tx['advancedform'];
     $forms = Advancedform_db();
     if (!isset($forms[$id])) {
@@ -662,9 +646,7 @@ function Advancedform_exportForm($id)
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         return Advancedform_formsAdministration();
     }
-    if (isset($_XH_csrfProtection)) {
-        $_XH_csrfProtection->check();
-    }
+    $_XH_csrfProtection->check();
     $ptx = $plugin_tx['advancedform'];
     $forms = Advancedform_db();
     if (isset($forms[$id])) {
@@ -698,9 +680,7 @@ function Advancedform_createFormTemplate($id)
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         return Advancedform_formsAdministration();
     }
-    if (isset($_XH_csrfProtection)) {
-        $_XH_csrfProtection->check();
-    }
+    $_XH_csrfProtection->check();
     $forms = Advancedform_db();
     if (isset($forms[$id])) {
         $form = $forms[$id];
