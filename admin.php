@@ -23,11 +23,6 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 /**
- * Compatibility functions.
- */
-require_once $pth['folder']['plugins'] . 'advancedform/compat.php';
-
-/**
  * The main functionality.
  */
 require_once $pth['folder']['plugins'].'advancedform/advfrm.php';
