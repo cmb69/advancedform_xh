@@ -102,7 +102,7 @@ class AdminController extends Controller
             . (version_compare(PHP_VERSION, $phpversion) >= 0 ? $ok : $fail)
             . '&nbsp;&nbsp;' . sprintf($this->text['syscheck_phpversion'], $phpversion)
             . '<br>' . '<br>' . PHP_EOL;
-        foreach (array('ctype', 'mbstring', 'pcre', 'session') as $ext) {
+        foreach (array('ctype', 'mbstring', 'session') as $ext) {
             $o .= (extension_loaded($ext) ? $ok : $fail)
                 . '&nbsp;&nbsp;' . sprintf($this->text['syscheck_extension'], $ext)
                 . '<br>' . PHP_EOL;
