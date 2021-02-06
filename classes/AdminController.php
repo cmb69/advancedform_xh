@@ -113,7 +113,7 @@ class AdminController extends Controller
         (new FaRequireCommand)->execute();
         $forms = Functions::database();
         $o = '<div id="advfrm-form-list">' . PHP_EOL
-            .'<h1>' . $this->text['menu_main'] . '</h1>' . PHP_EOL;
+            .'<h1>Advancedform – ' . $this->text['menu_main'] . '</h1>' . PHP_EOL;
         $href = $this->scriptName . '?advancedform&amp;admin=plugin_main&amp;action=new';
         $o .= $this->toolForm('add', $href);
         $href = $this->scriptName . '?advancedform&amp;admin=plugin_main&amp;action=import&amp;form=';
