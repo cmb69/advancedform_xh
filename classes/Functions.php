@@ -35,10 +35,9 @@ class Functions
     public static function focusField($form_id, $name)
     {
         global $hjs;
+        static $done = false;
 
-        if (defined('ADVFRM_FIELD_FOCUSED')) {
-            return;
-        }
+        if ($done) return;
         $hjs .= <<<SCRIPT
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -48,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 SCRIPT;
-        define('ADVFRM_FIELD_FOCUSED', true);
+        $done = true;
     }
 
     /**
