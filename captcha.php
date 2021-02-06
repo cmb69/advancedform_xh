@@ -47,6 +47,7 @@ function Advancedform_Captcha_display()
 {
     global $plugin_tx;
 
+    XH_startSession();
     $code = Advancedform_Captcha_code();
     $_SESSION['advfrm_captcha_id'] = isset($_SESSION['advfrm_captcha_id'])
         ? $_SESSION['advfrm_captcha_id'] + 1
@@ -70,15 +71,10 @@ function Advancedform_Captcha_display()
  */
 function Advancedform_Captcha_check()
 {
+    XH_startSession();
     $ok = isset($_SESSION['advfrm_captcha'][$_POST['advancedform-captcha_id']])
         && $_POST['advancedform-captcha']
         == $_SESSION['advfrm_captcha'][$_POST['advancedform-captcha_id']];
     unset($_SESSION['advfrm_captcha'][$_POST['advancedform-captcha_id']]);
     return $ok;
-}
-
-if (function_exists('XH_startSession')) {
-    XH_startSession();
-} elseif (session_id() == '') {
-    session_start();
 }
