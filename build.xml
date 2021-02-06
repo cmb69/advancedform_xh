@@ -55,6 +55,8 @@
                 <exclude name="composer.lock"/>
                 <exclude name="help/template.htm"/>
                 <exclude name="phpcompatinfo.json"/>
+                <exclude name="README*.md"/>
+                <exclude name="teplad.xml"/>
             </fileset>
         </move>
         <delete dir="export"/>
