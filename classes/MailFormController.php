@@ -100,7 +100,6 @@ class MailFormController extends Controller
 
         $forms = Functions::database();
         $form = $forms[$id];
-        Functions::initJQuery();
         $o = '';
         $o .= '<div class="advfrm-mailform">' . PHP_EOL
             . '<form name="' . $id . '" action="' . $this->scriptName . '?' . ($f === 'mailform' ? '&mailform' : $su)  . '" method="post"'

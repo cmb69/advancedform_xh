@@ -39,35 +39,16 @@ class Functions
         if (defined('ADVFRM_FIELD_FOCUSED')) {
             return;
         }
-        self::initJQuery();
         $hjs .= <<<SCRIPT
-<script>/* <![CDATA[ */
-jQuery(function() {
-    jQuery('.advfrm-mailform form[name="$form_id"] *[name="$name"]').focus()
-})
-/* ]]> */</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    var element = document.querySelector('.advfrm-mailform form[name="$form_id"] *[name="$name"]');
+    if (element) element.focus();
+});
+</script>
 
 SCRIPT;
         define('ADVFRM_FIELD_FOCUSED', true);
-    }
-
-    /**
-     * Includes jquery
-     *
-     * @return void
-     */
-    public static function initJQuery()
-    {
-        global $pth;
-
-        if (defined('ADVFRM_JQUERY_INITIALIZED')) {
-            return;
-        }
-        if (include_once $pth['folder']['plugins'] . 'jquery/jquery.inc.php') {
-            include_jQuery();
-            include_jQueryUI();
-        }
-        define('ADVFRM_JQUERY_INITIALIZED', true);
     }
 
     /**
