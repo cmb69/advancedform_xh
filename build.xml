@@ -2,15 +2,6 @@
 
 <project name="Advancedform" default="help">
 
-    <!-- Filesets -->
-
-    <fileset id="php-sources" dir=".">
-        <include name="admin.php"/>
-        <include name="captcha.php"/>
-        <include name="index.php"/>
-        <include name="classes/*.php"/>
-    </fileset>
-
     <!-- Checks -->
 
     <target name="help" description="lists available targets">
@@ -30,9 +21,9 @@
     </target>
 
     <target name="mess" description="detects code flaws">
-        <phpmd rulesets="codesize,unusedcode">
-            <fileset refid="php-sources"/>
-         </phpmd>
+        <exec executable="phpmd" passthru="true" checkreturn="true">
+            <arg line="admin.php,captcha.php,index.php,classes ansi codesize,unusedcode"/>
+        </exec>
     </target>
 
     <target name="compat" description="checks compatibility with PHP_CompatInfo">
@@ -58,13 +49,12 @@
         </jsMin>
         <move todir="dist">
             <fileset dir="export">
+                <exclude name=".phive/**"/>
                 <exclude name="build.xml"/>
                 <exclude name="composer.json"/>
                 <exclude name="composer.lock"/>
-                <exclude name="coverage.xml"/>
                 <exclude name="help/template.htm"/>
                 <exclude name="phpcompatinfo.json"/>
-                <exclude name="tests/**"/>
             </fileset>
         </move>
         <delete dir="export"/>
