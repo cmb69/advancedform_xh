@@ -2,7 +2,7 @@
 
 /**
  * Copyright 2005-2010 Jan Kanters
- * Copyright 2011-2019 Christoph M. Becker
+ * Copyright 2011-2021 Christoph M. Becker
  *
  * This file is part of Advancedform_XH.
  *
@@ -61,7 +61,7 @@ class AdminController extends Controller
             . PHP_EOL
             . '<p>Version: ' . ADVANCEDFORM_VERSION . '</p>' . PHP_EOL
             . '<p>Copyright &copy; 2005-2010 Jan Kanters' . '<br>'
-            . 'Copyright &copy; 2011-2019 <a href="http://3-magi.net">'
+            . 'Copyright &copy; 2011-2021 <a href="http://3-magi.net">'
             . 'Christoph M. Becker</a></p>' . PHP_EOL
             . '<p>Advancedform_XH is powered by <a'
             . ' href="http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple"'
