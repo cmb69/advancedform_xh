@@ -54,36 +54,9 @@ class AdminController extends Controller
      */
     private function version()
     {
-        $o = '<h1>Advancedform_XH</h1>' . PHP_EOL
-            . '<img src="'.$this->pluginsFolder.'advancedform/advancedform.png"'
-            . ' width="128" height="128" alt="Plugin icon"'
-            . ' class="advancedform_plugin_icon">'
+        return '<h1>Advancedform</h1>' . PHP_EOL
             . PHP_EOL
-            . '<p>Version: ' . ADVANCEDFORM_VERSION . '</p>' . PHP_EOL
-            . '<p>Copyright &copy; 2005-2010 Jan Kanters' . '<br>'
-            . 'Copyright &copy; 2011-2021 <a href="http://3-magi.net">'
-            . 'Christoph M. Becker</a></p>' . PHP_EOL
-            . '<p>Advancedform_XH is powered by <a'
-            . ' href="http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple"'
-            . ' target="_blank">jQuery4CMSimple</a>'
-            . ' and <a href="https://github.com/PHPMailer/PHPMailer" target="_blank">'
-            . 'PHPMailer</a>.</p>' . PHP_EOL
-            . '<p class="advancedform_license">This program is free software:'
-            . ' you can redistribute it and/or modify'
-            . ' it under the terms of the GNU General Public License as published by'
-            . ' the Free Software Foundation, either version 3 of the License, or'
-            . ' (at your option) any later version.</p>' . PHP_EOL
-            . '<p class="advancedform_license">This program is distributed'
-            . ' in the hope that it will be useful,'
-            . ' but WITHOUT ANY WARRANTY; without even the implied warranty of'
-            . ' MERCHAN&shy;TABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the'
-            . ' GNU General Public License for more details.</p>' . PHP_EOL
-            . '<p class="advancedform_license">You should have received'
-            . ' a copy of the GNU General Public License along with this program.'
-            . ' If not, see'
-            . ' <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>'
-            . '</p>' . PHP_EOL;
-        return $o;
+            . '<p>Version: ' . ADVANCEDFORM_VERSION . '</p>' . PHP_EOL;
     }
 
     /**
