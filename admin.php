@@ -40,7 +40,7 @@ if (XH_wantsPluginAdministration('advancedform')) {
     }
     $hjs .= '<script>ADVFRM_TX = ' . json_encode(Advancedform\Functions::getLangForJs()) . ';</script>';
     $hjs .= '<script src="' . $pth['folder']['plugins']
-        . 'advancedform/admin.js"></script>' . PHP_EOL;
+        . 'advancedform/admin.min.js"></script>' . PHP_EOL;
 
     $o .= print_plugin_admin('on');
     $temp = new Advancedform\AdminController;
