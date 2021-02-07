@@ -37,7 +37,9 @@ class Functions
         global $hjs;
         static $done = false;
 
-        if ($done) return;
+        if ($done) {
+            return;
+        }
         $hjs .= <<<SCRIPT
 <script>
 document.addEventListener("DOMContentLoaded", function () {

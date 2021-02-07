@@ -103,8 +103,9 @@ class MailFormController extends Controller
         $forms = Functions::database();
         $form = $forms[$id];
         $o = '';
+        $url = $this->scriptName . '?' . ($f === 'mailform' ? '&mailform' : $su);
         $o .= '<div class="advfrm-mailform">' . PHP_EOL
-            . '<form name="' . $id . '" action="' . $this->scriptName . '?' . ($f === 'mailform' ? '&mailform' : $su)  . '" method="post"'
+            . '<form name="' . $id . '" action="' . $url . '" method="post"'
             . ' enctype="multipart/form-data" accept-charset="UTF-8">' . PHP_EOL
             . '<input type="hidden" name="advfrm" value="'.$id.'">' . PHP_EOL
             . '<div class="required">'
