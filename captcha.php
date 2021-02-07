@@ -27,9 +27,13 @@
  */
 function Advancedform_Captcha_code()
 {
+    do {
+        $num = unpack('V', random_bytes(3) . "\0")[1];
+    } while ($num > 16777209);
     $res = '';
     for ($i = 0; $i < 5; $i++) {
-        $res .= rand(0, 9);
+        $res .= $num % 10;
+        $num = (int) ($num / 10);
     }
     return $res;
 }
