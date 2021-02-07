@@ -647,10 +647,9 @@ class MailFormController extends Controller
             foreach ($form->getFields() as $field) {
                 if ($field->getType() == 'file') {
                     $name = 'advfrm-' . $field->getName();
-                    $mail->AddAttachment(
-                        $_FILES[$name]['tmp_name'],
-                        $_FILES[$name]['name']
-                    );
+                    if ($_FILES[$name]['error'] === UPLOAD_ERR_OK) {
+                        $mail->AddAttachment($_FILES[$name]['tmp_name'], $_FILES[$name]['name']);
+                    }
                 }
             }
         }
