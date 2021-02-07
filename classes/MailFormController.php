@@ -670,12 +670,10 @@ class MailFormController extends Controller
                     : $this->text['error_mail'];
                 $e .= '<li>' . $message . '</li>' . PHP_EOL;
             }
-            if (function_exists('XH_logMessage')) {
-                $type = $ok ? 'info' : 'error';
-                $message = $ok ? $this->text['log_success'] : $this->text['log_error'];
-                $message = sprintf($message, $from);
-                XH_logMessage($type, 'Advancedform', $id, $message);
-            }
+            $type = $ok ? 'info' : 'error';
+            $message = $ok ? $this->text['log_success'] : $this->text['log_error'];
+            $message = sprintf($message, $from);
+            XH_logMessage($type, 'Advancedform', $id, $message);
         }
 
         return $ok;
