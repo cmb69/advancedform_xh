@@ -180,8 +180,8 @@ Verwenden sie die Tool-Icons um Felder hinzuzufügen, zu löschen oder zu versch
   Höchstens ein Feld des Typs `Absender (Name)` darf pro Formular verwendet werden.
 - `Absender (E-Mail)`:
   Ein Feld zur Eingabe der E-Mail-Adresse des Absenders, welche validiert wird.
-  Diese Information wird als From-Header der Mail verwendet
-  und als To-Header der Bestätigungs-E-Mail.
+  Diese Information wird als Antwort-An-Header der Mail verwendet
+  und als An-Header der Bestätigungs-E-Mail.
   Höchstens ein Feld des Typs `Absender (E-Mail)` darf pro Formular verwendet werden.
 - `E-mail`:
   Ein Feld zur Eingabe einer allgemeinen E-Mail-Adresse, die validiert wird.

@@ -166,8 +166,8 @@ Use the tool icons to add, delete or move fields.
   At most one field of type `Sender (name)` may be used for each form.
 - `Sender (e-mail)`:
   A field to enter the email address of the sender, which will be validated.
-  This information will be used as From-Header field of the mail,
-  and as To-Header field of the confirmation mail.
+  This information will be used as Reply-To header field of the mail,
+  and as To header field of the confirmation mail.
   At most one field of type `Sender (e-mail)` may be used for each form.
 - `E-mail`:
   A field to enter a general email address, which will be validated
