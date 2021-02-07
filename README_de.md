@@ -9,7 +9,7 @@ müssen, wenn Ihnen die grundlegende Formular-Funktionalität genügt.
 Weitergehende Anpassungen sind durch das Template- bzw. Hook-System
 möglich.
 
-- [Vorraussetzungen](#vorraussetzungen)
+- [Voraussetzungen](#voraussetzungen)
 - [Installation](#installation)
 - [Einstellungen](#einstellungen)
 - [Verwendung](#verwendung)
@@ -25,10 +25,10 @@ möglich.
 - [Lizenz](#lizenz)
 - [Danksagung](#danksagung)
 
-## Vorraussetzungen
+## Voraussetzungen
 
 Advancedform\_XH ist ein Plugin für CMSimple\_XH ≥ 1.7.
-Es benötigt PHP ≥ 5.5.0.
+Es benötigt PHP ≥ 5.5.0 mit den ctype, filter und hash Extensions.
 
 ## Download
 

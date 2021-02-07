@@ -28,7 +28,7 @@ hook system, respectively.
 ## Requirements
 
 Advancedform\_XH is a plugin for CMSimple\_XH ≥ 1.7.
-It requires PHP ≥ 5.5.0.
+It requires PHP ≥ 5.5.0 with the ctype, filter and hash extensions.
 
 ## Download
 
