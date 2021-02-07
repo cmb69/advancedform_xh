@@ -112,6 +112,5 @@ $plugin_tx['advancedform']['cf_mail_bcc']="Standard for nye forms";
 $plugin_tx['advancedform']['cf_mail_captcha']="Standard for nye forms. Vælg \"1\" (ja) eller \"0\" (Nej)";
 $plugin_tx['advancedform']['cf_mail_thanks_page']="Standard for nye forms";
 $plugin_tx['advancedform']['cf_mail_type']="Hvordan skal e-mail sendes fx. \"html\" eller \"tekst\".";
-$plugin_tx['advancedform']['cf_mail_line_ending_*nix']="Hvad enten * style line endings bør anvendes i mailen: \"1\" (ja) eller \"0\" (nej). Hvis afsendelse af mails ikke virker med standard, skal du prøve den anden.";
 
 ?>

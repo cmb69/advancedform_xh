@@ -22,7 +22,7 @@
 
 namespace Advancedform;
 
-use PHPMailer;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class MailFormController extends Controller
 {
@@ -577,8 +577,8 @@ class MailFormController extends Controller
     {
         global $sl, $e;
 
-        include_once $this->pluginsFolder
-            . 'advancedform/phpmailer/class.phpmailer.php';
+        include_once "{$this->pluginsFolder}advancedform/phpmailer/PHPMailer.php";
+        include_once "{$this->pluginsFolder}advancedform/phpmailer/Exception.php";
         $forms = Functions::database();
         $form = $forms[$id];
         $type = strtolower($this->conf['mail_type']);
@@ -597,7 +597,6 @@ class MailFormController extends Controller
         }
 
         $mail = new PHPMailer();
-        $mail->LE = $this->conf['mail_line_ending_*nix'] ? "\n" : "\r\n";
         $mail->set('CharSet', 'UTF-8');
         $mail->SetLanguage(
             $sl,

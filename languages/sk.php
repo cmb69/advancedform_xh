@@ -112,7 +112,6 @@ $plugin_tx['advancedform']['cf_mail_captcha']="Predvolené pre nové formuláre.
 $plugin_tx['advancedform']['cf_mail_thanks_page']="Predvolené pre nové formuláre.";
 $plugin_tx['advancedform']['cf_mail_type']="V akom formáte sa majú e-maily odosielať? Napr.: \"html\" alebo \"text\".";
 $plugin_tx['advancedform']['cf_mail_regexp']="Znak pre kontrolu správnosti e-mailovej adresy. Prednastavená hodnota je trochu prísna, viac o tom na <a href=\"http://www.regular-expressions.info/email.html\" target=\"_blank\">http://www.regular-expressions.info/email.html</a>.";
-$plugin_tx['advancedform']['cf_mail_line_ending_*nix']="Majú sa v e-mailoch použiť konce riadkov ako v *nix? \"1\" (áno) alebo \"0\" (nie). Ak by nefungovalo odosielanie e-mailov, skúste iné nastavenie.";
 $plugin_tx['advancedform']['cf_php_extension']="Má sa pre nové formuláre použiť prípona .php?  \"1\" (áno) alebo \"0\" (nie)";
 $plugin_tx['advancedform']['cf_utf-8-marker']="Iba pre vnútorné použitie. <strong>Nič nememniť!</strong>";
 
