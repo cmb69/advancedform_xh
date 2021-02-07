@@ -269,6 +269,12 @@ and a confirmation mail will be sent to them.
 The thanks page/confirmation feature will only work,
 if a required field of type `Sender (e-mail)` is specified for the form.
 
+The confirmation mail feature can be abused by anybody,
+namely by sending abusive contents to an arbitrary recipient
+by using the email address of that recipient.
+**It is highly recommended to not use
+the thanks page feature for that reason.**
+
 Attempts to send an email via Advancedform are logged
 in the system log of CMSimple\_XH (`Settings` → `Log File`).
 

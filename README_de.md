@@ -288,6 +288,12 @@ und eine Bestätigungs-E-Mail wird an sie versendet.
 Die Weiterleitung auf die Dank-Seite mit Bestätigungs-E-Mail ist nur möglich,
 wenn ein erforderliches Feld des Typs `Absender (E-Mail)` im Formular existiert.
 
+Das Bestätigung-E-Mail-Feature kann von jedermann missbraucht werden,
+nämlich durch Versenden beleidigender Inhalte an beliebige Empfänger,
+indem die E-Mail-Addresse dieses Empfängers genutzt wird.
+**Es wird unbedingt empfohlen, aus diesem Grund
+auf die Verwendung einer Dank-Seite zu verzichten.**
+
 Versuche eine E-Mail per Advancedform zu versenden werden im System-Protokoll
 von CMSimple\_XH (`Einstellungen` → `Log-Datei`) aufgezeichnet.
 
