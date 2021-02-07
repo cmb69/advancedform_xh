@@ -74,7 +74,7 @@ class MailFormController extends Controller
                     $thanks = $form->getThanksPage();
                 }
                 if (!empty($thanks)) {
-                    if (!$this->mail($id, true)) {
+                    if ($this->conf['mail_confirmation'] && !$this->mail($id, true)) {
                         return $this->formView($id);
                     }
                     header('Location: ' . $this->scriptName . '?' . $thanks);
