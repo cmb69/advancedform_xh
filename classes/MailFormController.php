@@ -37,13 +37,6 @@ class MailFormController extends Controller
     {
         global $e;
 
-        $fn = $this->pluginsFolder . $this->conf['captcha_plugin'] . '/captcha.php';
-        if (file_exists($fn)) {
-            include_once $fn;
-        } else {
-            e('cntopen', 'file', $fn);
-        }
-
         $hooks = Functions::dataFolder() . $id . '.inc'
             . ($this->conf['php_extension'] ? '.php' : '');
         if (file_exists($hooks)) {
@@ -56,6 +49,15 @@ class MailFormController extends Controller
             return '';
         }
         $form = $forms[$id];
+
+        if ($form->getCaptcha()) {
+            $fn = $this->pluginsFolder . $this->conf['captcha_plugin'] . '/captcha.php';
+            if (!is_file($fn) || !include_once $fn) {
+                e('cntopen', 'file', $fn);
+                return '';
+            }
+        }
+
         if (isset($_POST['advfrm']) && $_POST['advfrm'] == $id) {
             if (($res = $this->check($id)) === true) {
                 if ($form->getStore()) {
