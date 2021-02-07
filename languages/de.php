@@ -3,7 +3,7 @@
 $plugin_tx['advancedform']['syscheck_title']="System-Prüfung";
 $plugin_tx['advancedform']['syscheck_phpversion']="PHP-Version ≥ %s";
 $plugin_tx['advancedform']['syscheck_extension']="Erweiterung '%s' geladen";
-$plugin_tx['advancedform']['syscheck_jquery']="<a href=\"http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple\">jQuery4CMSimple Plugin</a> installiert";
+$plugin_tx['advancedform']['syscheck_jquery']="jQuery Plugin installiert";
 $plugin_tx['advancedform']['syscheck_captcha_plugin']="CAPTCHA installiert";
 $plugin_tx['advancedform']['syscheck_writable']="Ordner '%s' beschreibbar";
 

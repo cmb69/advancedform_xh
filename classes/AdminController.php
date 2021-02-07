@@ -67,36 +67,28 @@ class AdminController extends Controller
     private function systemCheck()
     {
         (new FaRequireCommand)->execute();
-        $ok = '<span class="fa fa-check" title="ok"></span>';
-        $warn = '<span class="fa fa-exclamation" title="warning"></span>';
-        $fail = '<span class="fa fa-exclamation-triangle" title="failure"></span>';
         $phpversion = '5.5.0';
-        $o = '<hr>' . '<h4>' . $this->text['syscheck_title'] . '</h4>'
-            . (version_compare(PHP_VERSION, $phpversion) >= 0 ? $ok : $fail)
-            . '&nbsp;&nbsp;' . sprintf($this->text['syscheck_phpversion'], $phpversion)
-            . '<br>' . '<br>' . PHP_EOL;
+        $o = '<h2>' . $this->text['syscheck_title'] . '</h2>';
+        $result = version_compare(PHP_VERSION, $phpversion) >= 0 ? 'success' : 'fail';
+        $o .= XH_message($result, $this->text['syscheck_phpversion'], $phpversion);
         foreach (array('ctype', 'filter', 'hash') as $ext) {
-            $o .= (extension_loaded($ext) ? $ok : $fail)
-                . '&nbsp;&nbsp;' . sprintf($this->text['syscheck_extension'], $ext)
-                . '<br>' . PHP_EOL;
+            $result = extension_loaded($ext) ? 'success' : 'fail';
+            $o .= XH_message($result, $this->text['syscheck_extension'], $ext);
         }
-        $o .= '<br>';
         $filename = $this->pluginsFolder . 'jquery/jquery.inc.php';
-        $o .= (file_exists($filename) ? $ok : $fail)
-            . '&nbsp;&nbsp;' . $this->text['syscheck_jquery'] . '<br>' . PHP_EOL;
+        $result = file_exists($filename) ? 'success' : 'fail';
+        $o .= XH_message($result, $this->text['syscheck_jquery']);
         $filename = $this->pluginsFolder
             . $this->conf['captcha_plugin'] . '/captcha.php';
-        $o .= (file_exists($filename) ? $ok : $warn)
-            . '&nbsp;&nbsp;' . $this->text['syscheck_captcha_plugin']
-            . '<br>' . '<br>' . PHP_EOL;
+        $result = file_exists($filename) ? 'success' : 'warn';
+        $o .= XH_message($result, $this->text['syscheck_captcha_plugin']);
         foreach (array('config/', 'css/', 'languages/') as $folder) {
             $folders[] = $this->pluginsFolder . 'advancedform/' . $folder;
         }
         $folders[] = Functions::dataFolder();
         foreach ($folders as $folder) {
-            $o .= (is_writable($folder) ? $ok : $warn)
-                . '&nbsp;&nbsp;' . sprintf($this->text['syscheck_writable'], $folder)
-                . '<br>' . PHP_EOL;
+            $result = is_writable($folder) ? 'success' : 'warn';
+            $o .= XH_message($result, $this->text['syscheck_writable'], $folder);
         }
         return $o;
     }
