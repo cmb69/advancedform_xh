@@ -8,7 +8,6 @@
 	$plugin_tx['advancedform']['syscheck_writable']="Kaust '%s' on kirjutatav";
 	$plugin_tx['advancedform']['contact_form']="";
 	$plugin_tx['advancedform']['menu_main']="Kirja vormid";
-	$plugin_tx['advancedform']['mail_subject']="%1\$s -l %2\$s saadeti %3\$s poolt";
 	$plugin_tx['advancedform']['mail_subject_confirmation']="%1\$s saatjalt %2\$s";
 	$plugin_tx['advancedform']['captcha_explanation']="Palun sisesta toodud numbrid:";
 	$plugin_tx['advancedform']['date_format']="d/m/Y";

@@ -630,7 +630,7 @@ class MailFormController extends Controller
         } else {
             $mail->set(
                 'Subject',
-                sprintf($this->text['mail_subject'], $form->getTitle(), $_SERVER['SERVER_NAME'], $_SERVER['REMOTE_ADDR'])
+                sprintf($this->text['mail_subject'], $form->getTitle(), $_SERVER['SERVER_NAME'])
             );
         }
         $mail->IsHtml($type != 'text');
