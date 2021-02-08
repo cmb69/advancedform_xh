@@ -47,11 +47,11 @@
   <!-- the name of the Plugin -->
   <name type="plugin">Advancedform_XH</name>
   <!-- Date this xml-file was updated, yyyy.mm.dd -->
-  <date_update>2021.01.23</date_update>
+  <date_update>2021.02.08</date_update>
   <!-- version of Plugin -->
-  <version>1.2</version>
+  <version>2.0</version>
   <!-- date of publication, yyyy.mm.dd -->
-  <date_version>2019.01.06</date_version>
+  <date_version>2021.02.08</date_version>
   <!-- the name of the programmer -->
   <coder>Christoph M. Becker</coder>
   <!-- Categories must be written in lower case. More than one possible, separated by comma without spaces. -->
@@ -64,7 +64,7 @@
   <url>
     <!-- URL where you can download the plugin -->
     <!-- If there no Download-URL, enter this follows! - <download_url></download_url> -->
-    <download_url>https://github.com/cmb69/advancedform_xh/releases/1.2</download_url>
+    <download_url>https://github.com/cmb69/advancedform_xh/releases/2.0</download_url>
     <!-- URL of the programmer's website -->
     <!-- If there no Website, enter this follows! - <coder_url></coder_url> -->
     <coder_url>https://3-magi.net</coder_url>
@@ -73,26 +73,34 @@
     <demo_url></demo_url>
   </url>
   <!-- compatibility with versions of XH, i.e. 1.6, 1.6.7 - 1.7.2, ≥ 1.7, ... -->
-  <compatibility>≥ 1.6</compatibility>
+  <compatibility>≥ 1.7.0</compatibility>
   <!-- minimum version of PHP that is required, i.e. 5.3, 5.6, 7, ≥ 5.6, ... -->
   <!-- If there no specification, e.g. for templates, enter this follows! - <php_ver></php_ver> -->
-  <php_ver>≥ 5.3</php_ver>
+  <php_ver>≥ 5.5.0</php_ver>
   <!-- the License for the Plugin, GPLv3, AGPL, LGPL, GPLv2 ... -->
   <license>GPLv3</license>
   <!-- Description in English is mandatory -->
   <descriptions>
     <!-- description of the plugin, ca. 200 characters, you can use <br/>, <ol></ol>, <ul></ul>, <li></li>, <b></b>, <i></i>. -->
     <description lang="en">
-      Advancedform_XH facilitates creating your own mail forms for
-      integration to CMSimple_XH. It is possible use ranges from customized
-      contact forms to complex ordering or booking forms.
+      Advancedform_XH facilitates to create your own mail forms for
+      integration into CMSimple_XH. Its possible usage ranges from customized
+      contact forms to complex ordering or booking forms. Even complex forms
+      can be constructed by using the form editor, so you do not have to write
+      any HTML, CSS or PHP, if the basic form functionality is enough for your
+      needs. Advanced customization is available through the template and
+      hook system, respectively.
     </description>
     <!-- Beschreibung des Plugins, ca. 200 Zeichen, es können <br/>, <ol></ol>, <ul></ul>, <li></li>, <b></b>, <i></i> genutzt werden. -->
     <description lang="de">
       Advancedform_XH ermöglicht es Ihnen Ihre eigenen E-Mail-Formulare zur
       Integration in CMSimple_XH zu erstellen. Die Möglichkeiten reichen von
       angepassten Kontaktformularen bis zu komplexen Bestell- oder
-      Buchungsformularen.
+      Buchungsformularen. Selbst komplexe Formulare können im Formular-Editor
+      konstruiert werden, so dass Sie kein HTML, CSS oder PHP schreiben
+      müssen, wenn Ihnen die grundlegende Formular-Funktionalität genügt.
+      Weitergehende Anpassungen sind durch das Template- bzw. Hook-System
+      möglich.
     </description>
     <!-- additional languages are possible, i.e. da, fr, pl, ... -->
     <!-- The use of this language is limited by the website where the repository is hosted. -->

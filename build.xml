@@ -61,13 +61,13 @@
         <delete dir="export"/>
         <copy file="dist/config/config.php" tofile="dist/config/defaultconfig.php"/>
         <copy file="dist/languages/en.php" tofile="dist/languages/default.php"/>
-        <zip destfile="Advancedform_XH-1.2.zip" basedir="dist" prefix="advancedform/"/>
+        <zip destfile="Advancedform_XH-2.0.zip" basedir="dist" prefix="advancedform/"/>
         <delete dir="dist"/>
     </target>
 
     <target name="build-patch" description="builds a distributable update package">
         <fail unless="patchee" message="patchee is not defined!"/>
-        <unzip file="Advancedform_XH-1.2.zip" todir="current"/>
+        <unzip file="Advancedform_XH-2.0.zip" todir="current"/>
         <unzip file="${patchee}" todir="patchee"/>
         <copy todir="dist">
             <fileset dir="current">
@@ -82,7 +82,7 @@
                 <include name="css/stylesheet.css"/>
             </fileset>
         </delete>
-        <zip destfile="Advancedform_XH-1.2-PATCH.zip" basedir="dist"
+        <zip destfile="Advancedform_XH-2.0-PATCH.zip" basedir="dist"
              includeemptydirs="false"/>
         <delete dir="patchee" quiet="true"/>
         <delete dir="current" quiet="true"/>
