@@ -76,18 +76,18 @@ class AdminController extends Controller
             $o .= XH_message($result, $this->text['syscheck_extension'], $ext);
         }
         $filename = $this->pluginsFolder . 'jquery/jquery.inc.php';
-        $result = file_exists($filename) ? 'success' : 'fail';
+        $result = is_file($filename) ? 'success' : 'fail';
         $o .= XH_message($result, $this->text['syscheck_jquery']);
         $filename = $this->pluginsFolder
             . $this->conf['captcha_plugin'] . '/captcha.php';
-        $result = file_exists($filename) ? 'success' : 'warn';
+        $result = is_file($filename) ? 'success' : 'warning';
         $o .= XH_message($result, $this->text['syscheck_captcha_plugin']);
         foreach (array('config/', 'css/', 'languages/') as $folder) {
             $folders[] = $this->pluginsFolder . 'advancedform/' . $folder;
         }
         $folders[] = Functions::dataFolder();
         foreach ($folders as $folder) {
-            $result = is_writable($folder) ? 'success' : 'warn';
+            $result = is_writable($folder) ? 'success' : 'warning';
             $o .= XH_message($result, $this->text['syscheck_writable'], $folder);
         }
         return $o;
