@@ -51,8 +51,6 @@ Die Installation erfolgt wie bei vielen anderen CMSimple\_XH-Plugins auch.
    `.htaccess`-Dateien für Apache Server sind bereits im voreingestellten
    Daten-Ordner enthalten. Beachten Sie, dass die Unterordner `css/` und
    `js/` öffentlichen Zugriff erlauben müssen.
-1. Navigieren Sie zu `Plugins` → `Advancedform` → `Konfiguration`
-   und Speichern Sie die Konfiguration.
 1. Navigieren Sie zu `Plugins` → `Advancedform` im Administrationsbereich,
    und prüfen Sie, ob alle Vorraussetzungen erfüllt sind.
 

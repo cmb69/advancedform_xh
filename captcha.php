@@ -49,16 +49,21 @@ function Advancedform_Captcha_code()
  */
 function Advancedform_Captcha_display()
 {
-    global $plugin_cf, $plugin_tx;
+    global $plugin_tx;
 
+    XH_startSession();
     $code = Advancedform_Captcha_code();
-    $hmac = hash_hmac('sha256', $code, $plugin_cf['advancedform']['captcha_key']);
+    $_SESSION['advfrm_captcha_id'] = isset($_SESSION['advfrm_captcha_id'])
+        ? $_SESSION['advfrm_captcha_id'] + 1
+        : 1;
+    $_SESSION['advfrm_captcha'][$_SESSION['advfrm_captcha_id']] = $code;
     return '<div class="captcha">'
         . '<span class="captcha-explanation">'
         . $plugin_tx['advancedform']['captcha_explanation'] . '</span>'
         . '<span class="captcha">' . $code . '</span>'
         . '<input type="text" name="advancedform-captcha">'
-        . '<input type="hidden" name="advancedform-mac" value="' . $hmac . '">'
+        . '<input type="hidden" name="advancedform-captcha_id"'
+        . ' value="'.$_SESSION['advfrm_captcha_id'].'">'
         . '</div>' . PHP_EOL;
 }
 
@@ -70,9 +75,10 @@ function Advancedform_Captcha_display()
  */
 function Advancedform_Captcha_check()
 {
-    global $plugin_cf;
-
-    $code = $_POST['advancedform-captcha'];
-    $hmac = hash_hmac('sha256', $code, $plugin_cf['advancedform']['captcha_key']);
-    return $hmac === $_POST['advancedform-mac'];
+    XH_startSession();
+    $ok = isset($_SESSION['advfrm_captcha'][$_POST['advancedform-captcha_id']])
+        && $_POST['advancedform-captcha']
+        == $_SESSION['advfrm_captcha'][$_POST['advancedform-captcha_id']];
+    unset($_SESSION['advfrm_captcha'][$_POST['advancedform-captcha_id']]);
+    return $ok;
 }

@@ -13,7 +13,6 @@ $plugin_cf['advancedform']['mail_confirmation']="";
 $plugin_cf['advancedform']['required_field_mark']="%s&nbsp;<span style=\"color:red\">*</span>";
 $plugin_cf['advancedform']['focus_form']="1";
 $plugin_cf['advancedform']['captcha_plugin']="advancedform";
-$plugin_cf['advancedform']['captcha_key']="";
 $plugin_cf['advancedform']['php_extension']="0";
 $plugin_cf['advancedform']['csv_separator']="";
 

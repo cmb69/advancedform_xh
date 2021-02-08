@@ -90,7 +90,7 @@
         "store": false
     },
     "Contact": {
-        "captcha": false,
+        "captcha": true,
         "name": "Contact",
         "title": "Contact",
         "to_name": "Webmaster",

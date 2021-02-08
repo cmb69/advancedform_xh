@@ -84,8 +84,6 @@ class AdminController extends Controller
             . $this->conf['captcha_plugin'] . '/captcha.php';
         $result = is_file($filename) ? 'success' : 'warning';
         $o .= XH_message($result, $this->text['syscheck_captcha_plugin']);
-        $result = !empty($this->conf['captcha_key']) ? 'success' : 'warning';
-        $o .= XH_message($result, $this->text['syscheck_captcha_key']);
         foreach (array('config/', 'css/', 'languages/') as $folder) {
             $folders[] = $this->pluginsFolder . 'advancedform/' . $folder;
         }
