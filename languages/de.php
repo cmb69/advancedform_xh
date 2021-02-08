@@ -5,6 +5,7 @@ $plugin_tx['advancedform']['syscheck_phpversion']="PHP-Version ≥ %s";
 $plugin_tx['advancedform']['syscheck_extension']="Erweiterung '%s' geladen";
 $plugin_tx['advancedform']['syscheck_jquery']="jQuery Plugin installiert";
 $plugin_tx['advancedform']['syscheck_captcha_plugin']="CAPTCHA installiert";
+$plugin_tx['advancedform']['syscheck_captcha_key']="CAPTCHA Schlüssel konfiguriert";
 $plugin_tx['advancedform']['syscheck_writable']="Ordner '%s' beschreibbar";
 
 $plugin_tx['advancedform']['contact_form']="";

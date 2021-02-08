@@ -49,6 +49,8 @@ The installation is done as with many other CMSimple\_XH plugins.
    means your Webserver provides. `.htaccess` files for Apache servers
    are already distributed in the default data folder. Note that the
    subfolders `css/` and `js/` must not deny public access.
+1. Navigate to `Plugins` → `Advancedform` → `Config`
+   and save the configuration.
 1. Navigate to `Plugins` → `Advancedform` in the back-end to check if all
    requirements are fulfilled.
 
