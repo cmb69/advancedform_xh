@@ -343,7 +343,7 @@ class MailFormController extends Controller
     {
         $extensions = explode(',', $list);
         $func = function ($x) {
-            return '.' . $x;
+            return '.' . trim($x);
         };
         $extensions = array_map($func, $extensions);
         $list = implode(',', $extensions);
