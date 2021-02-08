@@ -3,7 +3,6 @@
 $plugin_tx['advancedform']['syscheck_title']="Vérification du système";
 $plugin_tx['advancedform']['syscheck_phpversion']="Version PHP ≥ %s";
 $plugin_tx['advancedform']['syscheck_extension']="Extension '%s' chargée";
-$plugin_tx['advancedform']['syscheck_jquery']="Plugin jQuery4 installé";
 $plugin_tx['advancedform']['syscheck_captcha_plugin']="CAPTCHA installé";
 $plugin_tx['advancedform']['syscheck_writable']="Répertoire '%s' modifiable";
 $plugin_tx['advancedform']['contact_form']="";

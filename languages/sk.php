@@ -11,7 +11,6 @@ $plugin_tx['advancedform']['utf-8-marker']="äöüßľščťžýáíéňô";
 $plugin_tx['advancedform']['syscheck_title']="Kontrola systému";
 $plugin_tx['advancedform']['syscheck_phpversion']="PHP verzia ≥ %s";
 $plugin_tx['advancedform']['syscheck_extension']="Rozšírenie '%s' načítané";
-$plugin_tx['advancedform']['syscheck_jquery']="jQuery plugin nainštalované";
 $plugin_tx['advancedform']['syscheck_captcha_plugin']="CAPTCHA nainštalované";
 $plugin_tx['advancedform']['syscheck_writable']="Do adresára '%s' možno zapisovať";
 $plugin_tx['advancedform']['contact_form']="";

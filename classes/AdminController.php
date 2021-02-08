@@ -75,9 +75,11 @@ class AdminController extends Controller
             $result = extension_loaded($ext) ? 'success' : 'fail';
             $o .= XH_message($result, $this->text['syscheck_extension'], $ext);
         }
-        $filename = $this->pluginsFolder . 'jquery/jquery.inc.php';
-        $result = is_file($filename) ? 'success' : 'fail';
-        $o .= XH_message($result, $this->text['syscheck_jquery']);
+        foreach (array('fa', 'jquery') as $plugin) {
+            $filename = $this->pluginsFolder . 'jquery';
+            $result = is_dir($filename) ? 'success' : 'fail';
+            $o .= XH_message($result, $this->text['syscheck_plugin'], ucfirst($plugin));
+        }
         $filename = $this->pluginsFolder
             . $this->conf['captcha_plugin'] . '/captcha.php';
         $result = is_file($filename) ? 'success' : 'warning';
