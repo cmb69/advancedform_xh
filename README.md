@@ -40,16 +40,16 @@ is available for download on Github.
 The installation is done as with many other CMSimple\_XH plugins.
 
 1. Backup the data on your server.
-2. Unzip the distribution on your computer.
-3. Upload the whole directory `advancedform/` to your server into
+1. Unzip the distribution on your computer.
+1. Upload the whole directory `advancedform/` to your server into
    the `plugins/` directory of CMSimple\_XH.
-4. Set write permissions to the subdirectories `config/`, `css/`,
+1. Set write permissions to the subdirectories `config/`, `css/`,
    `languages/` and to the data folder of the plugin.
-5. Protect the data folder of Advancedform\_XH against direct access by any
+1. Protect the data folder of Advancedform\_XH against direct access by any
    means your Webserver provides. `.htaccess` files for Apache servers
    are already distributed in the default data folder. Note that the
    subfolders `css/` and `js/` must not deny public access.
-6. Navigate to `Plugins` → `Advancedform` in the back-end to check if all
+1. Navigate to `Plugins` → `Advancedform` in the back-end to check if all
    requirements are fulfilled.
 
 ## Settings

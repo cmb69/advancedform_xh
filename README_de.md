@@ -40,17 +40,17 @@ kann von Github herunter geladen werden.
 Die Installation erfolgt wie bei vielen anderen CMSimple\_XH-Plugins auch.
 
 1. Sichern Sie die Daten auf Ihrem Server.
-2. Entpacken Sie die ZIP-Datei auf Ihrem Computer.
-3. Laden Sie das gesamte Verzeichnis `advancedform/` auf Ihren Server in
+1. Entpacken Sie die ZIP-Datei auf Ihrem Computer.
+1. Laden Sie das gesamte Verzeichnis `advancedform/` auf Ihren Server in
    das `plugins/` Verzeichnis von CMSimple\_XH hoch.
-4. Vergeben Sie falls nötig Schreibrechte für die Unterverzeichnisse
+1. Vergeben Sie falls nötig Schreibrechte für die Unterverzeichnisse
    `config/`, `css/`, `languages/` und den Daten-Ordner von Advancedform\_XH.
-5. Schützen Sie den Daten-Ordner von Advancedform\_XH vor direktem
+1. Schützen Sie den Daten-Ordner von Advancedform\_XH vor direktem
    Zugriff auf eine Weise, die Ihr Webserver unterstützt.
    `.htaccess`-Dateien für Apache Server sind bereits im voreingestellten
    Daten-Ordner enthalten. Beachten Sie, dass die Unterordner `css/` und
    `js/` öffentlichen Zugriff erlauben müssen.
-6. Navigieren Sie zu `Plugins` → `Advancedform` im Administrationsbereich,
+1. Navigieren Sie zu `Plugins` → `Advancedform` im Administrationsbereich,
    und prüfen Sie, ob alle Vorraussetzungen erfüllt sind.
 
 ## Einstellungen
