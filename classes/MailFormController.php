@@ -459,9 +459,7 @@ class MailFormController extends Controller
                                 Functions::focusField($id, $name);
                         }
                         $ext = pathinfo($_FILES[$name]['name'], PATHINFO_EXTENSION);
-                        if (!empty($props[ADVFRM_PROP_FTYPES])
-                            && !in_array($ext, explode(',', $props[ADVFRM_PROP_FTYPES]))
-                        ) {
+                        if (!$this->isFileTypeAllowed($ext, $props)) {
                             $o .= '<li>'
                                 . sprintf(
                                     $this->text['error_upload_illegal_ftype'],
@@ -507,6 +505,24 @@ class MailFormController extends Controller
         return $o == ''
             ? true
             : '<ul class="advfrm-error">' . PHP_EOL . $o . '</ul>' . PHP_EOL;
+    }
+
+    /**
+     * @param string $extension
+     * @return bool
+     */
+    private function isFileTypeAllowed($extension, array $properties)
+    {
+        if (trim($properties[ADVFRM_PROP_FTYPES]) === '') {
+            return false;
+        }
+        $types = explode(',', $properties[ADVFRM_PROP_FTYPES]);
+        foreach ($types as $type) {
+            if (!strcasecmp($extension, trim($type))) {
+                return true;
+            };
+        }
+        return false;
     }
 
     /**
