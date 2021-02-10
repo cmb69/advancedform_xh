@@ -665,7 +665,7 @@ class AdminController extends Controller
                     $label = $field->getLabel();
                 } else {
                     $label = sprintf(
-                        $this->conf['advancedform']['required_field_mark'],
+                        $this->conf['required_field_mark'],
                         $field->getLabel()
                     );
                 }
