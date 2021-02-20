@@ -408,7 +408,7 @@ class AdminController extends Controller
      */
     private function pageSelect($name, $selected)
     {
-        $pagelist = (new Pages)->linkList();
+        $pagelist = (new Pages)->linkList('', false);
         $o = '<select id="' . $name . '" name="' . $name . '">' . PHP_EOL;
         $sel = ($selected == '') ? ' selected="selected"' : '';
         $o .= '<option value=""' . $sel . '>' . $this->text['label_none'] . '</option>'
