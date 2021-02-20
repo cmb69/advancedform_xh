@@ -89,7 +89,7 @@ div.advfrm-mailform div.buttons {
 
 #advfrm-form-list td.script {
     /*padding-left: 20px;*/
-    font-size: xx-small;
+    /* font-size: xx-small; */
     font-family: monospace;
 }
 
