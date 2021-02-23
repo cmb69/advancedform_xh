@@ -41,11 +41,15 @@
         <exec command="git archive -o export.zip HEAD" checkreturn="true"/>
         <unzip file="export.zip" todir="export"/>
         <delete file="export.zip"/>
-        <jsMin targetDir="dist" suffix="" failOnError="false">
-            <fileset dir="export">
-                <include name="*.js"/>
-            </fileset>
-        </jsMin>
+        <exec executable="closure-compiler" passthru="true">
+            <arg value="--language_in"/>
+            <arg value="ECMASCRIPT5"/>
+            <arg value="--language_out"/>
+            <arg value="ECMASCRIPT5"/>
+            <arg value="--js_output_file"/>
+            <arg file="dist/admin.min.js"/>
+            <arg file="export/admin.min.js"/>
+        </exec>
         <move todir="dist">
             <fileset dir="export">
                 <exclude name=".phive/**"/>
