@@ -32,13 +32,18 @@ class AdminController extends Controller
      */
     private $csrfProtector;
 
+    /** @var View */
+    private $view;
+
     public function __construct()
     {
         global $_XH_csrfProtection;
 
         parent::__construct();
         $this->csrfProtector = $_XH_csrfProtection;
+        $this->view = new View();
     }
+
     /**
      * @return string
      */
@@ -248,12 +253,14 @@ class AdminController extends Controller
         /*
         * field settings
         */
-        $o .= '<div class="toolbar">';
-        foreach (array('add', 'delete', 'up', 'down') as $tool) {
-            $o .=  '<button type="button" onclick="advfrm_' . $tool . '(\'advfrm-fields\')">'
-                . $this->toolIcon($tool) . '</button>' . PHP_EOL;
-        }
-        $o .= '</div>' . PHP_EOL;
+        ob_start();
+        $this->view->render('toolbar', [
+            'tools' => ['add', 'delete', 'up', 'down'],
+            'toolIcon' => function ($tool) {
+                return $this->toolIcon($tool);
+            },
+        ]);
+        $o .= ob_get_clean();
 
         $o .= '<table id="advfrm-fields">' . PHP_EOL;
         $o .= '<thead><tr>'
@@ -274,44 +281,18 @@ class AdminController extends Controller
         /*
         * property dialogs
         */
-        $o .= '<div id="advfrm-text-props" style="display:none">' . PHP_EOL
-            . '<table>' . PHP_EOL;
-        $properties = array('size', 'maxlength', 'default', 'constraint', 'error_msg');
-        foreach ($properties as $prop) {
-            $o .= '<tr id="advfrm-text-props-' . $prop . '"><td>' . $prop . '</td>'
-                . '<td>' . '<input type="text" size="30">' . '</td></tr>'
-                . PHP_EOL;
-        }
-        $o .= '</table>' . PHP_EOL . '</div>' . PHP_EOL;
-
-        $o .= '<div id="advfrm-select-props" style="display:none">' .  PHP_EOL;
-        $o .= '<p id="advfrm-select-props-size">' . $this->text['label_size'] . ' '
-            . '<input type="text">' . '</p>' . PHP_EOL;
-        $o .= '<p id="advfrm-select-props-orient">'
-            . '<input type="radio" id="advrm-select-props-orient-horz"'
-            . ' name="advrm-select-props-orient">'
-            . '<label for="advrm-select-props-orient-horz">&nbsp;'
-            . $this->text['label_horizontal'] . '</label>&nbsp;&nbsp;&nbsp;'
-            . '<input type="radio" id="advrm-select-props-orient-vert"'
-            . ' name="advrm-select-props-orient">'
-            . '<label for="advrm-select-props-orient-vert">&nbsp;'
-            . $this->text['label_vertical'] . '</label>'
-            . '</p>' . PHP_EOL;
-        $o .= '<div class="toolbar">';
-        foreach (array('add', 'delete', 'up', 'down', 'clear_defaults') as $tool) {
-            $o .=  '<button type="button" onclick="advfrm_' . $tool . '(\'advfrm-prop-fields\')">'
-                . $this->toolIcon($tool) . '</button>' . PHP_EOL;
-        }
-        $o .= '</div>' . PHP_EOL;
-        $o .= '<table id="advfrm-prop-fields">' . PHP_EOL . '<tr>'
-            . '<td>'
-            . '<input type="radio" name="advfrm-select-props-default">'
-            . '</td>'
-            . '<td>'
-            . '<input type="text" name="advfrm-select-props-opt" size="25"'
-            . ' class="highlightable">'
-            . '</td>'
-            . '</tr>' . PHP_EOL . '</table>' . PHP_EOL . '</div>' . PHP_EOL;
+        ob_start();
+        $this->view->render('text-props', [
+            'properties' => ['size', 'maxlength', 'default', 'constraint', 'error_msg']
+        ]);
+        $this->view->render('select-props', [
+            'tx' => $this->text,
+            'tools' => ['add', 'delete', 'up', 'down', 'clear_defaults'],
+            'toolIcon' => function ($tool) {
+                return $this->toolIcon($tool);
+            },
+        ]);
+        $o .= ob_get_clean();
 
         return $o;
     }
