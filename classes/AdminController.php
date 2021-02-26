@@ -351,7 +351,7 @@ class AdminController extends Controller
             . '<input type="text" size="10" name="advfrm-label[]" value="'
             . XH_hsc($field->getLabel()) . '" class="highlightable">'
             . '</td>'
-            . '<td><select name="advfrm-type[]" onfocus="this.oldvalue = this.value"'
+            . '<td><select name="advfrm-type[]"'
             . ' class="highlightable">';
         $types = array(
             'text', 'from_name', 'from', 'mail', 'date', 'number', 'textarea',
