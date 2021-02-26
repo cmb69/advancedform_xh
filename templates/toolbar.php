@@ -7,7 +7,7 @@ if (!isset($this)) {
 
 <div class="toolbar">
 <?php foreach ($tools as $tool):?>
-    <button type="button" onclick="advfrm_<?=$tool?>('advfrm-fields')">
+    <button type="button" class="advfrm-<?=$tool?>">
         <?=$toolIcon($tool)?>
     </button>
 <?php endforeach?>

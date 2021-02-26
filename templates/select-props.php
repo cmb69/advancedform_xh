@@ -22,7 +22,7 @@ if (!isset($this)) {
     </p>
     <div class="toolbar">
 <?php foreach ($tools as $tool):?>
-        <button type="button" onclick="advfrm_<?=$tool?>('advfrm-prop-fields')">
+        <button type="button" class="advfrm-prop-<?=$tool?>">
             <?=$toolIcon($tool)?>
         </button>
 <?php endforeach?>

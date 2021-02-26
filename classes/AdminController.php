@@ -116,7 +116,7 @@ class AdminController extends Controller
         $href = $this->scriptName . '?advancedform&amp;admin=plugin_main&amp;action=new';
         $o .= $this->toolForm('add', $href);
         $href = $this->scriptName . '?advancedform&amp;admin=plugin_main&amp;action=import&amp;form=';
-        $o .= $this->toolForm('import', $href, 'return advfrm_import(this)');
+        $o .= $this->toolForm('import', $href);
         $o .= '<table>' . PHP_EOL;
         foreach ($forms as $id => $form) {
             if ($id != '%VERSION%') {
@@ -247,7 +247,7 @@ class AdminController extends Controller
         $action = $this->scriptName
             . '?advancedform&amp;admin=plugin_main&amp;action=save&amp;form=' . $id;
         $o .= '<form action="' . $action . '" method="post" accept-charset="UTF-8"'
-            . ' onsubmit="return advfrm_checkForm()">' . PHP_EOL
+            . '>' . PHP_EOL
             . $this->renderEditFormTable($form);
 
         /*
@@ -693,7 +693,7 @@ class AdminController extends Controller
         $icon = $this->toolIcon($name);
         $tokenInput = $this->csrfProtector->tokenInput();
         return <<<EOT
-<form action="$action" method="post" $onsubmit>
+<form class="advfrm-$name-form" action="$action" method="post" $onsubmit>
     <button title="{$this->text['tool_' . $name]}">$icon</button>
     $tokenInput
 </form>
