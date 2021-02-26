@@ -76,7 +76,7 @@ if (!isset($this)) {
           <input type="text" size="10" name="advfrm-label[]" value="<?=$field['label']?>" class="highlightable">
         </td>
         <td>
-          <select name="advfrm-type[]" onfocus="this.oldvalue = this.value" class="highlightable">
+          <select name="advfrm-type[]" class="highlightable">
 <?  foreach ($field_types as $type):?>
             <option value="<?=$type?>"<?=$field['selected']($type)?>><?=$field_typelabel($type)?></option>
 <?  endforeach?>
