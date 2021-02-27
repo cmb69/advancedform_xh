@@ -30,6 +30,12 @@
         <exec command="phpcompatinfo analyser:run --alias current" logoutput="true"/>
     </target>
 
+    <target name="eslint" description="checks JavaScript with ESLint">
+        <exec executable="eslint" passthru="true" checkreturn="true">
+            <arg file="admin.min.js"/>
+        </exec>
+    </target>
+
     <target name="ts-check" description="">
         <exec executable="tsc" passthru="true" checkreturn="true">
             <arg line="--allowJs --lib es5,dom --noEmit"/>
