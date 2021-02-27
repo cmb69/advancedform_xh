@@ -38,7 +38,11 @@ if (XH_wantsPluginAdministration('advancedform')) {
         include_jQuery();
         include_jQueryUI();
     }
-    $hjs .= '<script>ADVFRM_TX = ' . json_encode(Advancedform\Functions::getLangForJs()) . ';</script>';
+    $temp = json_encode(
+        Advancedform\Functions::getLangForJs(),
+        JSON_HEX_APOS|JSON_HEX_AMP|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE
+    );
+    $hjs .= "<meta name=\"advancedform.config\" content='$temp'>\n";
     $hjs .= '<script src="' . $pth['folder']['plugins']
         . 'advancedform/admin.min.js"></script>' . PHP_EOL;
 
