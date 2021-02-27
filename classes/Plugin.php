@@ -253,8 +253,12 @@ SCRIPT;
             include_jQuery();
             include_jQueryUI();
         }
-        $hjs .= '<script>ADVFRM_TX = ' . json_encode(Plugin::getLangForJs()) . ';</script>';
-        $hjs .= '<script src="' . $pth['folder']['plugins']
+        $json = json_encode(
+            self::getLangForJs(),
+            JSON_HEX_APOS|JSON_HEX_AMP|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE
+        );
+        $hjs .= "<meta name=\"advancedform.config\" content='$json'>\n";
+            $hjs .= '<script src="' . $pth['folder']['plugins']
             . 'advancedform/admin.min.js"></script>' . PHP_EOL;
     }
 }
