@@ -5,7 +5,8 @@ if (!isset($this)) {
 }
 ?>
 
-<div id="advfrm-select-props" style="display:none">
+<fieldset id="advfrm-select-props" style="display:none">
+    <legend></legend>
     <p id="advfrm-select-props-size"><?=$tx['label_size']?>
         <input type="text">
     </p>
@@ -37,4 +38,4 @@ if (!isset($this)) {
             </td>
         </tr>
     </table>
-</div>
+</fieldset>

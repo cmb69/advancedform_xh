@@ -90,11 +90,6 @@ Wenn Sie ein einspaltiges Layout bevorzugen, müssen Sie auf das
 
 Der untere Teil des Stylesheets enthält das Styling der
 Formular-Verwaltung und des Formular-Editors.
-Wollen Sie, dass das Aussehen der Eigenschafts-Dialoge zu Ihrem Template passt,
-sollten Sie in Erwägung ziehen, jQueryUI-Theming zu Ihrem Template hinzuzufügen.
-Wie das geht, wird im
-[CMSimple\_XH Forum](https://www.cmsimpleforum.com/viewtopic.php?f=29&t=3435&start=2)
-erklärt.
 
 Nur der erste Teil des Stylesheets oberhalb der Zeile
 

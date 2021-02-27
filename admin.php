@@ -36,7 +36,6 @@ XH_registerStandardPluginMenuItems(true);
 if (XH_wantsPluginAdministration('advancedform')) {
     if (include_once $pth['folder']['plugins'] . 'jquery/jquery.inc.php') {
         include_jQuery();
-        include_jQueryUI();
     }
     $temp = json_encode(
         Advancedform\Functions::getLangForJs(),

@@ -84,10 +84,6 @@ you have to use the [template system](#template-system).
 
 The lower part of the stylesheet contains the styling
 of the mail form administration and the form editor.
-If you want to style the property dialogs to fit to your template,
-you should consider to add jQueryUI theming support to your template.
-How this can be done is explained in the
-[CMSimple\_XH forum](https://www.cmsimpleforum.com/viewtopic.php?f=29&t=3435&start=2).
 
 Only the first part of the stylesheet above the line
 

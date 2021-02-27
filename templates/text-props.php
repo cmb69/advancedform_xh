@@ -5,7 +5,8 @@ if (!isset($this)) {
 }
 ?>
 
-<div id="advfrm-text-props" style="display:none">
+<fieldset id="advfrm-text-props" style="display:none">
+    <legend></legend>
     <table>
 <?php foreach ($properties as $prop):?>
         <tr id="advfrm-text-props-<?=$prop?>">
@@ -14,4 +15,4 @@ if (!isset($this)) {
         </tr>
 <?php endforeach?>
     </table>
-</div>
+</fieldset>
