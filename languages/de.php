@@ -3,6 +3,7 @@
 $plugin_tx['advancedform']['syscheck_title']="System-Prüfung";
 $plugin_tx['advancedform']['syscheck_phpversion']="PHP-Version ≥ %s";
 $plugin_tx['advancedform']['syscheck_extension']="Erweiterung '%s' geladen";
+$plugin_tx['advancedform']['syscheck_xhversion']="CMSimple_XH Version ≥ %s";
 $plugin_tx['advancedform']['syscheck_plugin']="Plugin '%s' installiert";
 $plugin_tx['advancedform']['syscheck_captcha_plugin']="CAPTCHA installiert";
 $plugin_tx['advancedform']['syscheck_writable']="Ordner '%s' beschreibbar";

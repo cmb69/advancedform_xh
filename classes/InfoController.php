@@ -49,6 +49,8 @@ class InfoController extends Controller
         foreach (array('ctype', 'filter', 'hash') as $ext) {
             $o .= XH_message($this->checkExtension($ext), $this->text['syscheck_extension'], $ext);
         }
+        $xhversion = '1.7.0';
+        $o .= XH_message($this->checkXhVersion($xhversion), $this->text['syscheck_xhversion'], $xhversion);
         foreach (array('fa', 'jquery') as $plugin) {
             $o .= XH_message($this->checkPlugin($plugin), $this->text['syscheck_plugin'], ucfirst($plugin));
         }
@@ -64,6 +66,7 @@ class InfoController extends Controller
     }
 
     /**
+     * @param string $version
      * @return string
      */
     private function checkPhpVersion($version)
@@ -78,6 +81,15 @@ class InfoController extends Controller
     private function checkExtension($extension)
     {
         return extension_loaded($extension) ? 'success' :'fail';
+    }
+
+    /**
+     * @param string $version
+     * @return string
+     */
+    private function checkXhVersion($version)
+    {
+        return version_compare(CMSIMPLE_XH_VERSION, "CMSimple_XH $version") >= 0 ? 'success' : 'fail';
     }
 
     /**
