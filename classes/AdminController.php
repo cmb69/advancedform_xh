@@ -45,62 +45,6 @@ class AdminController extends Controller
     }
 
     /**
-     * @return string
-     */
-    public function infoAction()
-    {
-        return $this->version() . $this->systemCheck();
-    }
-
-    /**
-     * Returns the plugin version information.
-     *
-     * @return string (X)HTML
-     */
-    private function version()
-    {
-        return '<h1>Advancedform</h1>' . PHP_EOL
-            . PHP_EOL
-            . '<p>Version: ' . ADVANCEDFORM_VERSION . '</p>' . PHP_EOL;
-    }
-
-    /**
-     * Returns requirements information.
-     *
-     * @return string (X)HTML
-     */
-    private function systemCheck()
-    {
-        (new FaRequireCommand)->execute();
-        $phpversion = '5.5.0';
-        $o = '<h2>' . $this->text['syscheck_title'] . '</h2>';
-        $result = version_compare(PHP_VERSION, $phpversion) >= 0 ? 'success' : 'fail';
-        $o .= XH_message($result, $this->text['syscheck_phpversion'], $phpversion);
-        foreach (array('ctype', 'filter', 'hash') as $ext) {
-            $result = extension_loaded($ext) ? 'success' : 'fail';
-            $o .= XH_message($result, $this->text['syscheck_extension'], $ext);
-        }
-        foreach (array('fa', 'jquery') as $plugin) {
-            $filename = $this->pluginsFolder . 'jquery';
-            $result = is_dir($filename) ? 'success' : 'fail';
-            $o .= XH_message($result, $this->text['syscheck_plugin'], ucfirst($plugin));
-        }
-        $filename = $this->pluginsFolder
-            . $this->conf['captcha_plugin'] . '/captcha.php';
-        $result = is_file($filename) ? 'success' : 'warning';
-        $o .= XH_message($result, $this->text['syscheck_captcha_plugin']);
-        foreach (array('config/', 'css/', 'languages/') as $folder) {
-            $folders[] = $this->pluginsFolder . 'advancedform/' . $folder;
-        }
-        $folders[] = Functions::dataFolder();
-        foreach ($folders as $folder) {
-            $result = is_writable($folder) ? 'success' : 'warning';
-            $o .= XH_message($result, $this->text['syscheck_writable'], $folder);
-        }
-        return $o;
-    }
-
-    /**
      * Returns the mail forms administration.
      *
      * @return string (X)HTML.

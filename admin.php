@@ -20,6 +20,10 @@
  * along with Advancedform_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Advancedform\Functions;
+use Advancedform\AdminController;
+use Advancedform\InfoController;
+
 /*
  * Prevent direct access.
  */
@@ -38,44 +42,43 @@ if (XH_wantsPluginAdministration('advancedform')) {
         include_jQuery();
         include_jQueryUI();
     }
-    $hjs .= '<script>ADVFRM_TX = ' . json_encode(Advancedform\Functions::getLangForJs()) . ';</script>';
+    $hjs .= '<script>ADVFRM_TX = ' . json_encode(Functions::getLangForJs()) . ';</script>';
     $hjs .= '<script src="' . $pth['folder']['plugins']
         . 'advancedform/admin.min.js"></script>' . PHP_EOL;
 
     $o .= print_plugin_admin('on');
-    $temp = new Advancedform\AdminController;
     switch ($admin) {
         case '':
-            $o .= $temp->infoAction();
+            $o .= (new InfoController)->infoAction();
             break;
         case 'plugin_main':
             switch ($action) {
                 case 'new':
-                    $o .= $temp->createFormAction();
+                    $o .= (new AdminController)->createFormAction();
                     break;
                 case 'edit':
-                    $o .= $temp->editFormAction($_GET['form']);
+                    $o .= (new AdminController)->editFormAction($_GET['form']);
                     break;
                 case 'save':
-                    $o .= $temp->saveFormAction($_GET['form']);
+                    $o .= (new AdminController)->saveFormAction($_GET['form']);
                     break;
                 case 'delete':
-                    $o .= $temp->deleteFormAction($_GET['form']);
+                    $o .= (new AdminController)->deleteFormAction($_GET['form']);
                     break;
                 case 'copy':
-                    $o .= $temp->copyFormAction($_GET['form']);
+                    $o .= (new AdminController)->copyFormAction($_GET['form']);
                     break;
                 case 'import':
-                    $o .= $temp->importFormAction($_GET['form']);
+                    $o .= (new AdminController)->importFormAction($_GET['form']);
                     break;
                 case 'export':
-                    $o .= $temp->exportFormAction($_GET['form']);
+                    $o .= (new AdminController)->exportFormAction($_GET['form']);
                     break;
                 case 'template':
-                    $o .= $temp->createFormTemplateAction($_GET['form']);
+                    $o .= (new AdminController)->createFormTemplateAction($_GET['form']);
                     break;
                 default:
-                    $o .= $temp->formsAdministrationAction();
+                    $o .= (new AdminController)->formsAdministrationAction();
             }
             break;
         default:
