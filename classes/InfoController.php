@@ -22,8 +22,6 @@
 
 namespace Advancedform;
 
-use Fa\RequireCommand as FaRequireCommand;
-
 class InfoController extends Controller
 {
     /**
@@ -42,7 +40,6 @@ class InfoController extends Controller
      */
     private function systemCheck()
     {
-        (new FaRequireCommand)->execute();
         $o = '<h2>' . $this->text['syscheck_title'] . '</h2>';
         $phpversion = '5.5.0';
         $o .= XH_message($this->checkPhpVersion($phpversion), $this->text['syscheck_phpversion'], $phpversion);
