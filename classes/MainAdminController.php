@@ -286,41 +286,30 @@ class MainAdminController extends Controller
      */
     private function renderEditFormField(Field $field)
     {
-        $o = '<tr>'
-            . '<td>'
-            . '<input type="text" size="10" name="advfrm-field[]"'
-            . ' value="' . $field->getName() . '" class="highlightable">'
-            . '</td>'
-            . '<td>'
-            . '<input type="text" size="10" name="advfrm-label[]" value="'
-            . XH_hsc($field->getLabel()) . '" class="highlightable">'
-            . '</td>'
-            . '<td><select name="advfrm-type[]" onfocus="this.oldvalue = this.value"'
-            . ' class="highlightable">';
-        $types = array(
-            'text', 'from_name', 'from', 'mail', 'date', 'number', 'textarea',
-            'radio', 'checkbox', 'select', 'multi_select', 'password', 'file',
-            'hidden', 'output', 'custom'
+        ob_start();
+        $this->view->render(
+            'edit-form-field',
+            array(
+                'name' => $field->getName(),
+                'label' => XH_hsc($field->getLabel()),
+                'types' => [
+                    'text', 'from_name', 'from', 'mail', 'date', 'number', 'textarea',
+                    'radio', 'checkbox', 'select', 'multi_select', 'password', 'file',
+                    'hidden', 'output', 'custom',
+                ],
+                'selected' => function ($type) use ($field) {
+                    return $field->getType() == $type ? ' selected="selected"' : '';
+                },
+                'typelabel' => function ($type) {
+                    return $this->text["field_$type"];
+                },
+                'properties' => XH_hsc($field->getProps()),
+                'toolicon' => $this->toolIcon('props'),
+                'checked' => $field->getRequired() ? ' checked="checked"' : '',
+                'required' => $field->getRequired(),
+            )
         );
-        foreach ($types as $type) {
-            $sel = ($field->getType() == $type) ? ' selected="selected"' : '';
-            $o .= '<option value="' . $type . '"' . $sel . '>'
-                . $this->text['field_' . $type] . '</option>';
-        }
-        $o .= '</select></td>'
-            . '<td>'
-            . '<input type="hidden" class="hidden" name="advfrm-props[]"'
-            . ' value="' . XH_hsc($field->getProps()) . '">'
-            . '<td><button type="button">' . $this->toolIcon('props') . '</button>' . PHP_EOL;
-        $checked = $field->getRequired() ? ' checked="checked"' : '';
-        $o .= '<td>'
-            . '<input type="checkbox"' . $checked . ' onchange="this.'
-            . 'nextSibling.value = this.checked ? 1 : 0">'
-            . '<input type="hidden" name="advfrm-required[]" value="'
-            . $field->getRequired() . '">'
-            . '</td>'
-            . '</tr>' . PHP_EOL;
-        return $o;
+        return ob_get_clean();
     }
 
     /**
