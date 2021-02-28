@@ -21,7 +21,7 @@
  */
 
 use Advancedform\Functions;
-use Advancedform\AdminController;
+use Advancedform\MainAdminController;
 use Advancedform\InfoController;
 
 /*
@@ -38,47 +38,46 @@ XH_registerStandardPluginMenuItems(true);
  * Handle the plugin administration.
  */
 if (XH_wantsPluginAdministration('advancedform')) {
-    if (include_once $pth['folder']['plugins'] . 'jquery/jquery.inc.php') {
-        include_jQuery();
-        include_jQueryUI();
-    }
-    $hjs .= '<script>ADVFRM_TX = ' . json_encode(Functions::getLangForJs()) . ';</script>';
-    $hjs .= '<script src="' . $pth['folder']['plugins']
-        . 'advancedform/admin.min.js"></script>' . PHP_EOL;
-
     $o .= print_plugin_admin('on');
     switch ($admin) {
         case '':
             $o .= (new InfoController)->infoAction();
             break;
         case 'plugin_main':
+            if (include_once $pth['folder']['plugins'] . 'jquery/jquery.inc.php') {
+                include_jQuery();
+                include_jQueryUI();
+            }
+            $hjs .= '<script>ADVFRM_TX = ' . json_encode(Functions::getLangForJs()) . ';</script>';
+            $hjs .= '<script src="' . $pth['folder']['plugins']
+                . 'advancedform/admin.min.js"></script>' . PHP_EOL;
             switch ($action) {
                 case 'new':
-                    $o .= (new AdminController)->createFormAction();
+                    $o .= (new MainAdminController)->createFormAction();
                     break;
                 case 'edit':
-                    $o .= (new AdminController)->editFormAction($_GET['form']);
+                    $o .= (new MainAdminController)->editFormAction($_GET['form']);
                     break;
                 case 'save':
-                    $o .= (new AdminController)->saveFormAction($_GET['form']);
+                    $o .= (new MainAdminController)->saveFormAction($_GET['form']);
                     break;
                 case 'delete':
-                    $o .= (new AdminController)->deleteFormAction($_GET['form']);
+                    $o .= (new MainAdminController)->deleteFormAction($_GET['form']);
                     break;
                 case 'copy':
-                    $o .= (new AdminController)->copyFormAction($_GET['form']);
+                    $o .= (new MainAdminController)->copyFormAction($_GET['form']);
                     break;
                 case 'import':
-                    $o .= (new AdminController)->importFormAction($_GET['form']);
+                    $o .= (new MainAdminController)->importFormAction($_GET['form']);
                     break;
                 case 'export':
-                    $o .= (new AdminController)->exportFormAction($_GET['form']);
+                    $o .= (new MainAdminController)->exportFormAction($_GET['form']);
                     break;
                 case 'template':
-                    $o .= (new AdminController)->createFormTemplateAction($_GET['form']);
+                    $o .= (new MainAdminController)->createFormTemplateAction($_GET['form']);
                     break;
                 default:
-                    $o .= (new AdminController)->formsAdministrationAction();
+                    $o .= (new MainAdminController)->formsAdministrationAction();
             }
             break;
         default:

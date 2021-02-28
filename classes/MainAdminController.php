@@ -25,7 +25,7 @@ namespace Advancedform;
 use XH\Pages;
 use Fa\RequireCommand as FaRequireCommand;
 
-class AdminController extends Controller
+class MainAdminController extends Controller
 {
     /**
      * @var object
