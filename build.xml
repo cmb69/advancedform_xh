@@ -66,6 +66,7 @@
         <move todir="dist">
             <fileset dir="export">
                 <exclude name=".phive/**"/>
+                <exclude name=".eslintrc.json"/>
                 <exclude name="build.xml"/>
                 <exclude name="composer.json"/>
                 <exclude name="composer.lock"/>
