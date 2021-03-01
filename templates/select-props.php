@@ -21,11 +21,11 @@ if (!isset($this)) {
     </label>
   </p>
   <div class="toolbar">
-<?php foreach ($tools as $tool):?>
+<?foreach ($tools as $tool):?>
     <button type="button" class="advfrm-prop-<?=$tool?>">
       <?=$toolIcon($tool)?>
     </button>
-<?php endforeach?>
+<?endforeach?>
   </div>
   <table id="advfrm-prop-fields">
     <tr>

@@ -52,6 +52,16 @@
         </exec>
         <move todir="dist">
             <fileset dir="export">
+                <include name="templates/*.php"/>
+            </fileset>
+            <filterchain>
+                <replaceregexp>
+                    <regexp pattern="&lt;\?(?!=)" replace="&lt;?php "/>
+                </replaceregexp>
+            </filterchain>
+        </move>
+        <move todir="dist">
+            <fileset dir="export">
                 <exclude name=".phive/**"/>
                 <exclude name="build.xml"/>
                 <exclude name="composer.json"/>

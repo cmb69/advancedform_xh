@@ -6,9 +6,9 @@ if (!isset($this)) {
 ?>
 <!-- advancedform/toolbar -->
 <div class="toolbar">
-<?php foreach ($tools as $tool):?>
+<?foreach ($tools as $tool):?>
   <button type="button" class="advfrm-<?=$tool?>">
     <?=$toolIcon($tool)?>
   </button>
-<?php endforeach?>
+<?endforeach?>
 </div>

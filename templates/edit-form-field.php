@@ -14,9 +14,9 @@ if (!isset($this)) {
   </td>
   <td>
     <select name="advfrm-type[]" onfocus="this.oldvalue = this.value" class="highlightable">
-<?php foreach ($types as $type):?>
+<?foreach ($types as $type):?>
       <option value="<?=$type?>"<?=$selected($type)?>><?=$typelabel($type)?></option>
-<?php endforeach?>
+<?endforeach?>
     </select>
   </td>
   <td>
