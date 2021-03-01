@@ -4,11 +4,11 @@ if (!isset($this)) {
     exit;
 }
 ?>
-
+<!-- advancedform/toolbar -->
 <div class="toolbar">
 <?php foreach ($tools as $tool):?>
-    <button type="button" class="advfrm-<?=$tool?>">
-        <?=$toolIcon($tool)?>
-    </button>
+  <button type="button" class="advfrm-<?=$tool?>">
+    <?=$toolIcon($tool)?>
+  </button>
 <?php endforeach?>
 </div>

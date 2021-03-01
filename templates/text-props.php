@@ -4,14 +4,14 @@ if (!isset($this)) {
     exit;
 }
 ?>
-
+<!-- advancedform/text-props -->
 <div id="advfrm-text-props" style="display:none">
-    <table>
+  <table>
 <?php foreach ($properties as $prop):?>
-        <tr id="advfrm-text-props-<?=$prop?>">
-            <td><?=$prop?></td>
-            <td><input type="text" size="30"></td>
-        </tr>
+    <tr id="advfrm-text-props-<?=$prop?>">
+      <td><?=$prop?></td>
+      <td><input type="text" size="30"></td>
+    </tr>
 <?php endforeach?>
-    </table>
+  </table>
 </div>
