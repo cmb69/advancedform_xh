@@ -55,63 +55,53 @@ class MainAdminController extends Controller
 
         (new FaRequireCommand)->execute();
         $forms = Functions::database();
-        $o = '<div id="advfrm-form-list">' . PHP_EOL
-            .'<h1>Advancedform – ' . $this->text['menu_main'] . '</h1>' . PHP_EOL;
-        $href = $this->scriptName . '?advancedform&amp;admin=plugin_main&amp;action=new';
-        $o .= $this->toolForm('add', $href);
-        $href = $this->scriptName . '?advancedform&amp;admin=plugin_main&amp;action=import&amp;form=';
-        $o .= $this->toolForm('import', $href);
-        $o .= '<table>' . PHP_EOL;
+        $bag = array(
+            'title' => 'Advancedform – ' . $this->text['menu_main'],
+            'add_form' => $this->toolData(
+                'add',
+                $this->scriptName . '?advancedform&amp;admin=plugin_main&amp;action=new'
+            ),
+            'import_form' => $this->toolData(
+                'import',
+                $this->scriptName . '?advancedform&amp;admin=plugin_main&amp;action=import&amp;form='
+            ),
+            'forms' => [],
+            'edit_label' => utf8_ucfirst($tx['action']['edit']),
+            'code_label' => $this->text['message_script_code'],
+        );
         foreach ($forms as $id => $form) {
             if ($id != '%VERSION%') {
-                $href = $this->scriptName . '?advancedform&amp;admin=plugin_main&amp;action=%s'
-                    . '&amp;form=' . $id;
-                $o .= '<tr>'
-                    . '<td class="tool">'
-                    . $this->toolForm(
+                $href = $this->scriptName . '?advancedform&amp;admin=plugin_main&amp;action=%s' . '&amp;form=' . $id;
+                $bag['forms'][$id] = array(
+                    'delete_form' => $this->toolData(
                         'delete',
                         sprintf($href, 'delete'),
                         'return confirm(\''
-                        . $this->escapeJsString($this->text['message_confirm_delete'])
-                        . '\')'
-                    )
-                    . '</td>'
-                    . '<td class="tool">'
-                    . $this->toolForm(
+                            . $this->escapeJsString($this->text['message_confirm_delete'])
+                            . '\')'
+                    ),
+                    'template_form' => $this->toolData(
                         'template',
                         sprintf($href, 'template'),
                         'return confirm(\''
-                        . $this->escapeJsString(
-                            sprintf($this->text['message_confirm_template'], $form->getName())
-                        )
-                        . '\')'
-                    )
-                    . '</td>'
-                    . '<td class="tool">'
-                    . $this->toolForm('copy', sprintf($href, 'copy'))
-                    . '</td>'
-                    . '<td class="tool">'
-                    . $this->toolForm(
+                            . $this->escapeJsString(sprintf($this->text['message_confirm_template'], $form->getName()))
+                            . '\')'
+                    ),
+                    'copy_form' => $this->toolData('copy', sprintf($href, 'copy')),
+                    'export_form' => $this->toolData(
                         'export',
                         sprintf($href, 'export'),
                         'return confirm(\''
-                        . $this->escapeJsString(
-                            sprintf($this->text['message_confirm_export'], $form->getName())
-                        )
-                        . '\')'
-                    )
-                    . '</td>'
-                    . '<td class="name"><a href="' . sprintf($href, 'edit') . '" title="'
-                    . utf8_ucfirst($tx['action']['edit']) . '">' . $id . '</a></td>'
-                    . '<td class="script" title="' . $this->text['message_script_code'] . '">'
-                    . '<input type="text" readonly onclick="this.select()" value="'
-                    . '{{{advancedform(\'' . $id . '\')}}}"></input></td>'
-                    . '</tr>' . PHP_EOL;
+                            . $this->escapeJsString(sprintf($this->text['message_confirm_export'], $form->getName()))
+                            . '\')'
+                    ),
+                    'edit_url' => sprintf($href, 'edit'),
+                );
             }
         }
-        $o .= '</table>' . PHP_EOL;
-        $o .= '</div>' . PHP_EOL;
-        return $o;
+        ob_start();
+        $this->view->render('forms-admin', $bag);
+        return ob_get_clean();
     }
 
     /**
@@ -612,25 +602,22 @@ class MainAdminController extends Controller
     }
 
     /**
-     * Returns a tool form.
+     * @param string $tool
+     * @param string $action
+     * @param string $onsubmit
      *
-     * @param string $name     A tool name.
-     * @param string $action   A URL.
-     * @param string $onsubmit An onsubmit event handler.
-     *
-     * @return string (X)HTML.
+     * @return array
      */
-    private function toolForm($name, $action, $onsubmit = false)
+    private function toolData($tool, $action, $onsubmit = false)
     {
-        $onsubmit = $onsubmit ? 'onsubmit="' . $onsubmit . '"' : '';
-        $icon = $this->toolIcon($name);
-        $tokenInput = $this->csrfProtector->tokenInput();
-        return <<<EOT
-<form class="advfrm-$name-form" action="$action" method="post" $onsubmit>
-    <button title="{$this->text['tool_' . $name]}">$icon</button>
-    $tokenInput
-</form>
-EOT;
+        return array(
+            'class' => "advfrm-$tool-form",
+            'title' => $this->text['tool_' . $tool],
+            'icon' => $this->toolIcon($tool),
+            'action' => $action,
+            'onsubmit' => $onsubmit ? 'onsubmit="' . $onsubmit . '"' : '',
+            'token_input' => $this->csrfProtector->tokenInput(),
+        );
     }
 
     /**
