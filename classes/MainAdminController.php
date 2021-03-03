@@ -27,6 +27,9 @@ use Fa\RequireCommand as FaRequireCommand;
 
 class MainAdminController extends Controller
 {
+    /** @var FormGateway */
+    private $formGateway;
+
     /**
      * @var object
      */
@@ -35,11 +38,12 @@ class MainAdminController extends Controller
     /** @var View */
     private $view;
 
-    public function __construct()
+    public function __construct(FormGateway $formGateway)
     {
         global $_XH_csrfProtection;
 
         parent::__construct();
+        $this->formGateway = $formGateway;
         $this->csrfProtector = $_XH_csrfProtection;
         $this->view = new View();
     }
@@ -54,7 +58,7 @@ class MainAdminController extends Controller
         global $tx;
 
         (new FaRequireCommand)->execute();
-        $forms = Functions::database();
+        $forms = $this->formGateway->findAll();
         $bag = array(
             'title' => 'Advancedform – ' . $this->text['menu_main'],
             'add_form' => $this->toolData(
@@ -127,7 +131,7 @@ class MainAdminController extends Controller
             return $this->formsAdministrationAction();
         }
         $this->csrfProtector->check();
-        $forms = Functions::database();
+        $forms = $this->formGateway->findAll();
         $id = uniqid();
         $forms[$id] = Form::createFromArray(array(
             'name' => '',
@@ -149,7 +153,7 @@ class MainAdminController extends Controller
                 )
             )
         ));
-        Functions::database($forms);
+        $this->formGateway->updateAll($forms);
         return $this->editFormAction($id);
     }
 
@@ -165,7 +169,7 @@ class MainAdminController extends Controller
         global $tx, $e;
 
         (new FaRequireCommand)->execute();
-        $forms = Functions::database();
+        $forms = $this->formGateway->findAll();
         $form = $forms[$id];
         if (!isset($form)) {
             $e .= '<li><b>'
@@ -343,7 +347,7 @@ class MainAdminController extends Controller
             return $this->formsAdministrationAction();
         }
         $this->csrfProtector->check();
-        $forms = Functions::database();
+        $forms = $this->formGateway->findAll();
         if (!isset($forms[$id])) {
             $e .= '<li><b>' . sprintf($this->text['error_form_missing'], $id) . '</b></li>';
             return $this->formsAdministrationAction();
@@ -358,7 +362,7 @@ class MainAdminController extends Controller
             $ok = false;
         }
         $forms[$id] = Form::createFromArray($this->getFormArrayFromPost());
-        Functions::database($forms);
+        $this->formGateway->updateAll($forms);
         return $ok ? $this->formsAdministrationAction() : $this->editFormAction($id);
     }
 
@@ -404,10 +408,10 @@ class MainAdminController extends Controller
             return $this->formsAdministrationAction();
         }
         $this->csrfProtector->check();
-        $forms = Functions::database();
+        $forms = $this->formGateway->findAll();
         if (isset($forms[$id])) {
             unset($forms[$id]);
-            Functions::database($forms);
+            $this->formGateway->updateAll($forms);
         } else {
             $e .= '<li><b>'
                 . sprintf($this->text['error_form_missing'], $id)
@@ -431,13 +435,13 @@ class MainAdminController extends Controller
             return $this->formsAdministrationAction();
         }
         $this->csrfProtector->check();
-        $forms = Functions::database();
+        $forms = $this->formGateway->findAll();
         if (isset($forms[$id])) {
             $form = clone $forms[$id];
             $form->setName('');
             $id = uniqid();
             $forms[$id] = $form;
-            Functions::database($forms);
+            $this->formGateway->updateAll($forms);
         } else {
             $e .= '<li><b>'
                 . sprintf($this->text['error_form_missing'], $id)
@@ -462,9 +466,9 @@ class MainAdminController extends Controller
             return $this->formsAdministrationAction();
         }
         $this->csrfProtector->check();
-        $forms = Functions::database();
+        $forms = $this->formGateway->findAll();
         if (!isset($forms[$id])) {
-            $fn = Functions::dataFolder() . $id . '.json';
+            $fn = $this->formGateway->dataFolder() . $id . '.json';
             if (($cnt = file_get_contents($fn)) !== false
                 && ($form = json_decode($cnt, true)) !== false
                 && isset($form['%VERSION%'])
@@ -476,14 +480,14 @@ class MainAdminController extends Controller
                     }
                 }
                 if ($form['%VERSION%'] < ADVFRM_DB_VERSION) {
-                    $form = Functions::updatedDb($form);
+                    $form = $this->formGateway->updatedDb($form);
                 }
                 unset($form['%VERSION%']);
                 foreach ($form as $f) {
                     $f->setName($id);
                     $forms[$id] = $f;
                 }
-                Functions::database($forms);
+                $this->formGateway->updateAll($forms);
             } else {
                 e('cntopen', 'file', $fn);
             }
@@ -508,11 +512,11 @@ class MainAdminController extends Controller
             return $this->formsAdministrationAction();
         }
         $this->csrfProtector->check();
-        $forms = Functions::database();
+        $forms = $this->formGateway->findAll();
         if (isset($forms[$id])) {
             $form[$id] = $forms[$id];
             $form['%VERSION%'] = ADVFRM_DB_VERSION;
-            $fn = Functions::dataFolder() . $id . '.json';
+            $fn = $this->formGateway->dataFolder() . $id . '.json';
             $json = json_encode($form, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
             if (!($fh = fopen($fn, 'w')) || fwrite($fh, $json) === false) {
                 e('cntwriteto', 'file', $fn);
@@ -541,7 +545,7 @@ class MainAdminController extends Controller
             return $this->formsAdministrationAction();
         }
         $this->csrfProtector->check();
-        $forms = Functions::database();
+        $forms = $this->formGateway->findAll();
         if (isset($forms[$id])) {
             $form = $forms[$id];
             $tpl = '<div id="advfrm-' . $id . '">' . PHP_EOL;
@@ -587,11 +591,11 @@ class MainAdminController extends Controller
                 $css .= '#advfrm-' . $id . '-' . $field->getName() . ' {}' . PHP_EOL;
             }
             $tpl .= '  <div class="break"></div>' . PHP_EOL . '</div>' . PHP_EOL;
-            $fn = Functions::dataFolder() . $id . '.tpl';
+            $fn = $this->formGateway->dataFolder() . $id . '.tpl';
             if (file_put_contents($fn, $tpl) === false) {
                 e('cntsave', 'file', $fn);
             }
-            $fn = Functions::dataFolder() . 'css/' . $id . '.css';
+            $fn = $this->formGateway->dataFolder() . 'css/' . $id . '.css';
             if (file_put_contents($fn, $css) === false) {
                 e('cntsave', 'file', $fn);
             }

@@ -24,6 +24,15 @@ namespace Advancedform;
 
 class InfoController extends Controller
 {
+    /** @var FormGateway */
+    private $formGateway;
+
+    public function __construct(FormGateway $formGateway)
+    {
+        parent::__construct();
+        $this->formGateway = $formGateway;
+    }
+
     /**
      * @return string
      */
@@ -55,7 +64,7 @@ class InfoController extends Controller
         foreach (array('config/', 'css/', 'languages/') as $folder) {
             $folders[] = $this->pluginsFolder . 'advancedform/' . $folder;
         }
-        $folders[] = Functions::dataFolder();
+        $folders[] = $this->formGateway->dataFolder();
         foreach ($folders as $folder) {
             $o .= XH_message($this->checkWritability($folder), $this->text['syscheck_writable'], $folder);
         }

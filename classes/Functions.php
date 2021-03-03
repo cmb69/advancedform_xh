@@ -53,114 +53,6 @@ SCRIPT;
     }
 
     /**
-     * Returns the data folder path. Tries to create it, if necessary.
-     *
-     * @return string
-     */
-    public static function dataFolder()
-    {
-        global $pth, $plugin_cf;
-
-        $pcf = $plugin_cf['advancedform'];
-
-        if ($pcf['folder_data'] == '') {
-            $fn = $pth['folder']['plugins'] . 'advancedform/data/';
-        } else {
-            $fn = $pth['folder']['base'] . $pcf['folder_data'];
-        }
-        if (substr($fn, -1) != '/') {
-            $fn .= '/';
-        }
-        if (file_exists($fn)) {
-            if (!is_dir($fn)) {
-                e('cntopen', 'folder', $fn);
-            }
-        } else {
-            if (mkdir($fn, 0777, true)) {
-                chmod($fn, 0777);
-            } else {
-                e('cntwriteto', 'folder', $fn);
-            }
-        }
-        return $fn;
-    }
-
-    /**
-     * Returns the form database, if $forms is omitted.
-     * Otherwise writes $forms as form database.
-     *
-     * @param array $forms A forms collection.
-     *
-     * @return mixed
-     */
-    public static function database($forms = null)
-    {
-        static $db;
-
-        if (isset($forms)) { // write
-            ksort($forms);
-            $fn = self::dataFolder() . 'forms.json';
-            $contents = json_encode($forms, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-            if (!XH_writeFile($fn, $contents)) {
-                e('cntwriteto', 'file', $fn);
-            }
-            $db = $forms;
-        } else {  // read
-            if (!isset($db)) {
-                $fn = self::dataFolder() . 'forms.json';
-                if (file_exists($fn)) {
-                    $contents = XH_readFile($fn);
-                    $db = ($contents !== false) ? json_decode($contents, true) : array();
-                } else {
-                    $fn = self::dataFolder() . 'forms.dat';
-                    $contents = XH_readFile($fn);
-                    $db = ($contents !== false) ? unserialize($contents) : array();
-                    self::database($db);
-                }
-                if (empty($db['%VERSION%'])) {
-                    $db['%VERSION%'] = 0;
-                }
-                if ($db['%VERSION%'] < ADVFRM_DB_VERSION) {
-                    $db = self::updatedDb($db);
-                    self::database($db);
-                }
-                foreach ($db as &$form) {
-                    if (is_array($form)) {
-                        $form = Form::createFromArray($form);
-                    }
-                }
-            }
-            return $db;
-        }
-    }
-
-    /**
-     * Returns the forms database updated to the current version.
-     *
-     * @param array $forms A forms collection.
-     *
-     * @return array
-     */
-    public static function updatedDb($forms)
-    {
-        switch ($forms['%VERSION%']) {
-            case 0:
-            case 1:
-                $forms = array_map(
-                    function ($elt) {
-                        if (is_object($elt)) {
-                            $elt->setStore(false);
-                        }
-                        return $elt;
-                    },
-                    $forms
-                );
-        }
-        $forms['%VERSION%'] = ADVFRM_DB_VERSION;
-        return $forms;
-    }
-
-    /**
      * Returns an associative array of language texts required for JS.
      *
      * @return array
@@ -190,7 +82,7 @@ SCRIPT;
         global $e, $plugin_cf, $plugin_tx;
 
         $pcf = $plugin_cf['advancedform'];
-        $forms = self::database();
+        $forms = FormGateway::instance()->findAll();
         $fields = array();
         if (isset($forms[$id])) {
             foreach ($forms[$id]->getFields() as $field) {
@@ -205,7 +97,7 @@ SCRIPT;
             return false;
         }
 
-        $fn = self::dataFolder() . $id . '.csv';
+        $fn = FormGateway::instance()->dataFolder() . $id . '.csv';
         if ($pcf['csv_separator'] == '') {
             if (($lines = file($fn)) === false) {
                 e('cntopen', 'file', $fn);

@@ -20,6 +20,9 @@
  * along with Advancedform_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Advancedform\FormGateway;
+use Advancedform\MailFormController;
+
 /*
  * Prevent direct access.
  */
@@ -92,7 +95,7 @@ define('ADVFRM_PROP_ERROR_MSG', 4);
  */
 function advancedform($id)
 {
-    return (new Advancedform\MailFormController)->main($id);
+    return (new MailFormController(FormGateway::instance()))->main($id);
 }
 
 /**

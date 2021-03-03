@@ -26,6 +26,15 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class MailFormController extends Controller
 {
+    /** @var FormGateway */
+    private $formGateway;
+
+    public function __construct(FormGateway $formGateway)
+    {
+        parent::__construct();
+        $this->formGateway = $formGateway;
+    }
+
     /**
      * Main plugin call.
      *
@@ -37,13 +46,13 @@ class MailFormController extends Controller
     {
         global $e;
 
-        $hooks = Functions::dataFolder() . $id . '.inc'
+        $hooks = $this->formGateway->dataFolder() . $id . '.inc'
             . ($this->conf['php_extension'] ? '.php' : '');
         if (file_exists($hooks)) {
             include $hooks;
         }
 
-        $forms = Functions::database();
+        $forms = $this->formGateway->findAll();
         if (!isset($forms[$id])) {
             $e .= '<li>' . sprintf($this->text['error_form_missing'], $id) . '</li>' . PHP_EOL;
             return '';
@@ -100,7 +109,7 @@ class MailFormController extends Controller
     {
         global $su, $f;
 
-        $forms = Functions::database();
+        $forms = $this->formGateway->findAll();
         $form = $forms[$id];
         $o = '';
         $url = $this->scriptName . '?' . ($f === 'mailform' ? '&mailform' : $su);
@@ -114,7 +123,7 @@ class MailFormController extends Controller
                 sprintf($this->conf['required_field_mark'], $this->text['message_required_field'])
             )
             . '</div>' . PHP_EOL;
-        if (file_exists(Functions::dataFolder() . $id . '.tpl')) {
+        if (file_exists($this->formGateway->dataFolder() . $id . '.tpl')) {
             $o .= $this->templateView($id);
         } else {
             $o .= $this->defaultView($id);
@@ -140,7 +149,7 @@ class MailFormController extends Controller
      */
     private function defaultView($id)
     {
-        $forms = Functions::database();
+        $forms = $this->formGateway->findAll();
         $form = $forms[$id];
 
         $o = '';
@@ -186,20 +195,20 @@ class MailFormController extends Controller
     {
         global $hjs;
 
-        $forms = Functions::database();
-        $fn = Functions::dataFolder() . 'css/' . $id . '.css';
+        $forms = $this->formGateway->findAll();
+        $fn = $this->formGateway->dataFolder() . 'css/' . $id . '.css';
         if (file_exists($fn)) {
             $hjs .= '<link rel="stylesheet" href="' . $fn . '" type="text/css">'
             . PHP_EOL;
         }
-        $fn = Functions::dataFolder() . 'js/' . $id . '.js';
+        $fn = $this->formGateway->dataFolder() . 'js/' . $id . '.js';
         if (file_exists($fn)) {
             $hjs .= '<script src="' . $fn . '"></script>'
                 . PHP_EOL;
         }
 
         $form = $forms[$id];
-        $fn = Functions::dataFolder() . $id . '.tpl'
+        $fn = $this->formGateway->dataFolder() . $id . '.tpl'
             . ($this->conf['php_extension'] ? '.php' : '');
         $advfrm_script = file_get_contents($fn);
         foreach ($form->getFields() as $field) {
@@ -360,7 +369,7 @@ class MailFormController extends Controller
     private function check($id)
     {
         $o = '';
-        $forms = Functions::database();
+        $forms = $this->formGateway->findAll();
         $form = $forms[$id];
         foreach ($form->getFields() as $field) {
             $name = 'advfrm-' . $field->getName();
@@ -534,7 +543,7 @@ class MailFormController extends Controller
      */
     private function appendCsv($id)
     {
-        $forms = Functions::database();
+        $forms = $this->formGateway->findAll();
         $fields = array();
         foreach ($forms[$id]->getFields() as $field) {
             if ($field->getType() != 'output') {
@@ -553,7 +562,7 @@ class MailFormController extends Controller
         } else {
             $separator = "\t";
         }
-        $fn = Functions::dataFolder() . $id . '.csv';
+        $fn = $this->formGateway->dataFolder() . $id . '.csv';
         if (($fh = fopen($fn, 'a')) === false
             || fwrite($fh, implode($separator, $fields)."\n") === false
         ) {
@@ -596,7 +605,7 @@ class MailFormController extends Controller
 
         include_once "{$this->pluginsFolder}advancedform/phpmailer/PHPMailer.php";
         include_once "{$this->pluginsFolder}advancedform/phpmailer/Exception.php";
-        $forms = Functions::database();
+        $forms = $this->formGateway->findAll();
         $form = $forms[$id];
         $type = strtolower($this->conf['mail_type']);
         $from = '';
@@ -712,7 +721,7 @@ class MailFormController extends Controller
             $o .= $this->mailCss(
                 $this->pluginsFolder . 'advancedform/css/stylesheet.css'
             );
-            $fn = Functions::dataFolder() . 'css/' . $id . '.css';
+            $fn = $this->formGateway->dataFolder() . 'css/' . $id . '.css';
             if (file_exists($fn)) {
                 $o .= $this->mailCss($fn);
             }
@@ -736,7 +745,7 @@ class MailFormController extends Controller
      */
     private function mailInfo($id, $show_hidden, $html)
     {
-        $forms = Functions::database();
+        $forms = $this->formGateway->findAll();
         $form = $forms[$id];
         $o = '';
         if ($html) {
