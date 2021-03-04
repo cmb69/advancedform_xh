@@ -309,18 +309,16 @@ class MainAdminController extends Controller
     private function pageSelect($name, $selected)
     {
         $pagelist = (new Pages)->linkList('', false);
-        $o = '<select id="' . $name . '" name="' . $name . '">' . PHP_EOL;
-        $sel = ($selected == '') ? ' selected="selected"' : '';
-        $o .= '<option value=""' . $sel . '>' . $this->text['label_none'] . '</option>'
-            . PHP_EOL;
-        foreach ($pagelist as $page) {
-            $sel = ($page[1] == $selected) ? ' selected="selected"' : '';
-            $o .= '<option value="' . $page[1] . '"' . $sel . '>'
-                . $page[0] . '</option>'
-                . PHP_EOL;
-        }
-        $o .= '</select>' . PHP_EOL;
-        return $o;
+        $bag = [
+            'name' => $name,
+            'selected' => ($selected == '') ? ' selected="selected"' : '',
+            'tx' => $this->text,
+            'pages' => $pagelist,
+            'page_selected' => function ($page) use ($selected) {
+                return ($page[1] == $selected) ? ' selected="selected"' : '';
+            },
+        ];
+        return $this->view->render('page-select', $bag);
     }
 
     /**
