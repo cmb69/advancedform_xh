@@ -114,8 +114,7 @@ class MailFormController extends Controller
         global $su, $f;
 
         $form = $this->formGateway->findAll()[$id];
-        ob_start();
-        $this->view->render('mail-form', [
+        return $this->view->render('mail-form', [
             'id' => $id,
             'url' => $this->scriptName . '?' . ($f === 'mailform' ? '&mailform' : $su),
             'required_message' => sprintf(
@@ -128,7 +127,6 @@ class MailFormController extends Controller
             'captcha' => $form->getCaptcha() ? call_user_func($this->conf['captcha_plugin'] . '_captcha_display') : '',
             'tx' => $this->text,
         ]);
-        return ob_get_clean();
     }
 
     /**

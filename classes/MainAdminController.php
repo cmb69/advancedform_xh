@@ -103,9 +103,7 @@ class MainAdminController extends Controller
                 );
             }
         }
-        ob_start();
-        $this->view->render('forms-admin', $bag);
-        return ob_get_clean();
+        return $this->view->render('forms-admin', $bag);
     }
 
     /**
@@ -191,14 +189,12 @@ class MainAdminController extends Controller
         /*
         * field settings
         */
-        ob_start();
-        $this->view->render('toolbar', [
+        $o .= $this->view->render('toolbar', [
             'tools' => ['add', 'delete', 'up', 'down'],
             'toolIcon' => function ($tool) {
                 return $this->toolIcon($tool);
             },
         ]);
-        $o .= ob_get_clean();
 
         $o .= '<table id="advfrm-fields">' . PHP_EOL;
         $o .= '<thead><tr>'
@@ -219,18 +215,16 @@ class MainAdminController extends Controller
         /*
         * property dialogs
         */
-        ob_start();
-        $this->view->render('text-props', [
+        $o .= $this->view->render('text-props', [
             'properties' => ['size', 'maxlength', 'default', 'constraint', 'error_msg']
         ]);
-        $this->view->render('select-props', [
+        $o .= $this->view->render('select-props', [
             'tx' => $this->text,
             'tools' => ['add', 'delete', 'up', 'down', 'clear_defaults'],
             'toolIcon' => function ($tool) {
                 return $this->toolIcon($tool);
             },
         ]);
-        $o .= ob_get_clean();
 
         return $o;
     }
@@ -280,8 +274,7 @@ class MainAdminController extends Controller
      */
     private function renderEditFormField(Field $field)
     {
-        ob_start();
-        $this->view->render(
+        return $this->view->render(
             'edit-form-field',
             array(
                 'name' => $field->getName(),
@@ -303,7 +296,6 @@ class MainAdminController extends Controller
                 'required' => $field->getRequired(),
             )
         );
-        return ob_get_clean();
     }
 
     /**

@@ -25,12 +25,15 @@ class View
 {
     /**
      * @param string $_template
+     * @return string
      */
     public function render($_template, array $_bag)
     {
         global $pth;
 
         extract($_bag);
+        ob_start();
         include("{$pth['folder']['plugins']}advancedform/templates/$_template.php");
+        return ob_get_clean();
     }
 }
