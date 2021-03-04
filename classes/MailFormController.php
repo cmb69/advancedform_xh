@@ -29,10 +29,14 @@ class MailFormController extends Controller
     /** @var FormGateway */
     private $formGateway;
 
+    /** @var View */
+    private $view;
+
     public function __construct(FormGateway $formGateway)
     {
         parent::__construct();
         $this->formGateway = $formGateway;
+        $this->view = new View();
     }
 
     /**
@@ -109,35 +113,22 @@ class MailFormController extends Controller
     {
         global $su, $f;
 
-        $forms = $this->formGateway->findAll();
-        $form = $forms[$id];
-        $o = '';
-        $url = $this->scriptName . '?' . ($f === 'mailform' ? '&mailform' : $su);
-        $o .= '<div class="advfrm-mailform">' . PHP_EOL
-            . '<form name="' . $id . '" action="' . $url . '" method="post"'
-            . ' enctype="multipart/form-data" accept-charset="UTF-8">' . PHP_EOL
-            . '<input type="hidden" name="advfrm" value="'.$id.'">' . PHP_EOL
-            . '<div class="required">'
-            . sprintf(
+        $form = $this->formGateway->findAll()[$id];
+        ob_start();
+        $this->view->render('mail-form', [
+            'id' => $id,
+            'url' => $this->scriptName . '?' . ($f === 'mailform' ? '&mailform' : $su),
+            'required_message' => sprintf(
                 $this->text['message_required_fields'],
                 sprintf($this->conf['required_field_mark'], $this->text['message_required_field'])
-            )
-            . '</div>' . PHP_EOL;
-        if (file_exists($this->formGateway->dataFolder() . $id . '.tpl')) {
-            $o .= $this->templateView($id);
-        } else {
-            $o .= $this->defaultView($id);
-        }
-        if ($form->getCaptcha()) {
-            $o .= call_user_func($this->conf['captcha_plugin'] . '_captcha_display');
-        }
-        $o .= '<div class="buttons">'
-            . '<input type="submit" class="submit" value="'.$this->text['button_send'].'">'
-            . '&nbsp;'
-            . '<input type="reset" class="submit" value="'.$this->text['button_reset'].'">'
-            . '</div>' . PHP_EOL;
-        $o .= '</form>' . PHP_EOL . '</div>' . PHP_EOL;
-        return $o;
+            ),
+            'inner_view' => file_exists($this->formGateway->dataFolder() . $id . '.tpl')
+                ? $this->templateView($id)
+                : $this->defaultView($id),
+            'captcha' => $form->getCaptcha() ? call_user_func($this->conf['captcha_plugin'] . '_captcha_display') : '',
+            'tx' => $this->text,
+        ]);
+        return ob_get_clean();
     }
 
     /**
