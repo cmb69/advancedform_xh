@@ -138,39 +138,27 @@ class MailFormController extends Controller
      */
     private function defaultView($id)
     {
-        $forms = $this->formGateway->findAll();
-        $form = $forms[$id];
-
-        $o = '';
-        $o .= '<div style="overflow:auto">' . PHP_EOL . '<table>' . PHP_EOL;
+        $form = $this->formGateway->findAll()[$id];
+        $bag = [
+            'fields' => [],
+        ];
         foreach ($form->getFields() as $field) {
-            $label = XH_hsc($field->getLabel());
-            $label = $field->getRequired()
-                ? sprintf($this->conf['required_field_mark'], $label)
-                : $label;
-            $hidden = $field->getType() == 'hidden';
-            $class = $hidden ? ' class="hidden"' : '';
-            $field_id = 'advfrm-' . $id . '-' . $field->getName();
-            $labelled = !in_array($field->getType(), array('checkbox', 'radio', 'output'));
-            $o .= '<tr' . $class . '>';
-            if (!$hidden) {
-                $o .= '<td class="label">'
-                    . ($labelled ? '<label for="' . $field_id . '">' : '')
-                    . $label
-                    . ($labelled ? '</label>' : '')
-                    . '</td>';
-            } else {
-                $o .= '<td></td>';
-            }
-            $o .= '<td class="field">';
-            $o .= $this->displayField($id, $field);
-            $o .= '</td></tr>' . PHP_EOL;
-            if ($labelled && $this->conf['focus_form']) {
+            $labeled = !in_array($field->getType(), ['checkbox', 'radio', 'output']);
+            $bag['fields'][] = [
+                'label' => $field->getRequired()
+                    ? sprintf($this->conf['required_field_mark'], XH_hsc($field->getLabel()))
+                    : XH_hsc($field->getLabel()),
+                'hidden' => $field->getType() == 'hidden',
+                'class' => $field->getType() == 'hidden' ? ' class="hidden"' : '',
+                'field_id' => 'advfrm-' . $id . '-' . $field->getName(),
+                'labeled' => $labeled,
+                'inner_view' => $this->displayField($id, $field),
+            ];
+            if ($labeled && $this->conf['focus_form']) {
                 Functions::focusField($id, 'advfrm-' . $field->getName());
             }
         }
-        $o .= '</table>' . PHP_EOL . '</div>' . PHP_EOL;
-        return $o;
+        return $this->view->render('mail-form-default-view', $bag);
     }
 
     /**
