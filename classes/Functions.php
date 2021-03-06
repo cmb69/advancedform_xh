@@ -139,6 +139,11 @@ SCRIPT;
                     : $val;
             }
         }
+        foreach ($_FILES as $key => $val) {
+            if (strpos($key, 'advfrm-') === 0) {
+                $fields[substr($key, 7)] = $val;
+            }
+        }
         return $fields;
     }
 }
