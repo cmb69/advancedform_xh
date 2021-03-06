@@ -432,6 +432,28 @@ If no default thanks page is defined,
 the sent information will be displayed.
 The parameter `$fields` is an array
 holding the values of all submitted form fields.
+For details on the `$fields` parameter, see `Advancedform_fields()`.
+
+The following functions can be useful for custom hooks:
+
+- `Advancedform_fields()`
+  returns an array which holds the values of all submitted form fields.
+  The format is identical to what is contained in
+  the PHP superglobals `$_POST` and `$_FILES`
+  except that the array keys are stripped of the `advfrm-` prefixes,
+  i.e. the keys are exactly the names of the respective fields.
+  Also, for historic reasons, the values of
+  `Checkbox`, `Radiobutton`, `Selectbox` and `Multi-Selectbox` fields
+  are returned as strings, instead of subarrays.
+  If there are multiple values for these fields,
+  they are separated by broken bar characters (`¦`).
+  While it is possible to access the superglobals in hooks directly,
+  it is recommended to use `Advancedform_fields()` instead,
+  because the names of the keys may change in the future.
+- `Advancedform_readCsv()`
+  returns an array of records of the data already stored in the CSV file.
+  The records are arrays where each element represents a single field;
+  the key is the name of the field.
 
 ### Demo forms
 

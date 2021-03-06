@@ -456,6 +456,28 @@ Wenn keine Dank-Seite vordefiniert wurde,
 werden die versendeten Informationen angezeigt.
 Der Parameter `$fields` ist ein Array,
 das die Werte aller abgeschickten Formular-Felder enthält.
+Für Details zum `$fields` Parameter siehe `Advancedform_fields()`.
+
+Folgende Funktionen können für benutzerdefinierte Hooks nützlich sein:
+
+- `Advancedform_fields()`
+  gibt ein Array zurück, das die Werte aller übermittelten Formularfelder enthält.
+  Das Format ist identisch zum Inhalt der PHP Superglobalen `$_POST` und `$_FILES`,
+  außer das die `advfrm-` Prefixe in den Schlüsseln entfernt wurden,
+  d.h. die Schlüssel sind genau die Namen der entsprechenden Felder.
+  Außerdem werden aus historischen Gründen die Werte von
+  `Checkbox`, `Radiobutton`, `Selectbox` und `Multi-Selectbox` Feldern
+  als Strings und nicht als Unterarrays zurückgegeben.
+  Gibt es mehrere Werte für diese Felder,
+  dann werden sie durch unterbrochene Striche (`¦`) getrennt.
+  Obgleich es möglich ist, auf die Superglobalen in Hooks direkt zuzugreifen,
+  wird empfohlen statt dessen `Advancedform_fields()` zu verwenden,
+  da sich die Namen der Schlüssel in Zukunft ändern könnten.
+- `Advancedform_readCsv()`
+  gibt ein Array von Datensätzen der Daten,
+  die bereits in der CSV-Datei gespeichert sind, zurück.
+  Die Datensätze sind Arrays, wo jedes Element ein einziges Feld repräsentiert;
+  der Schlüssel ist der Name des Feldes.
 
 ### Demo-Formulare
 
