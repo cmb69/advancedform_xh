@@ -80,7 +80,7 @@ class MailFormController extends Controller
                     return $this->formView($id);
                 }
                 if (function_exists('advfrm_custom_thanks_page')) {
-                    Advancedform_fields($fields);
+                    $fields = Functions::fields();
                     $thanks = advfrm_custom_thanks_page($id, $fields);
                 }
                 if (empty($thanks)) {
