@@ -121,7 +121,7 @@ class Form implements JsonSerializable
 
     public function setStore($value)
     {
-        $this->store($value);
+        $this->store = $value;
     }
 
     public function jsonSerialize()
