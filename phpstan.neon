@@ -1,0 +1,18 @@
+parameters:
+  level: 5
+  paths:
+    - classes/
+    - admin.php
+    - captcha.php
+    - index.php
+  bootstrapFiles:
+    - constants.php
+  scanFiles:
+    - ../../cmsimple/classes/Pages.php
+    - ../../cmsimple/adminfuncs.php
+    - ../../cmsimple/functions.php
+    - ../../cmsimple/utf8.php
+    - ../fa/classes/RequireCommand.php
+    - ../jquery/jquery.inc.php
+    - phpmailer/PHPMailer.php
+    - hooks.stub.php

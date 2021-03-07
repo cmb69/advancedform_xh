@@ -56,7 +56,7 @@ function advancedformlink($page)
 
 function Advancedform_focusField($form_id, $name)
 {
-    return Plugin::focusField($form_id, $name);
+    Plugin::focusField($form_id, $name);
 }
 
 function Advancedform_readCsv($id)

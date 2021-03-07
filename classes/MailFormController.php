@@ -384,21 +384,21 @@ class MailFormController extends Controller
                         break;
                     case 'date':
                         $pattern = '/^([0-9]+)-([0-9]+)-([0-9]+)$/';
-                        $matched = preg_match($pattern, $_POST[$name], $matches);
-                        if (count($matches) == 4) {
+                        if (preg_match($pattern, $_POST[$name], $matches)) {
                             $year = $matches[1];
                             $month = $matches[2];
                             $day = $matches[3];
+                            if (checkdate($month, $day, $year)) {
+                                break;
+                            }
                         }
-                        if (!$matched || !checkdate($month, $day, $year)) {
-                            $o .= '<li>'
-                                . sprintf(
-                                    $this->text['error_invalid_date'],
-                                    XH_hsc($field->getLabel())
-                                )
-                                .'</li>' . PHP_EOL;
-                            Plugin::focusField($id, $name);
-                        }
+                        $o .= '<li>'
+                            . sprintf(
+                                $this->text['error_invalid_date'],
+                                XH_hsc($field->getLabel())
+                            )
+                            .'</li>' . PHP_EOL;
+                        Plugin::focusField($id, $name);
                         break;
                     case 'number':
                         if (!ctype_digit($_POST[$name])) {

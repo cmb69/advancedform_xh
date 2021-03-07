@@ -602,7 +602,7 @@ class MainAdminController extends Controller
      *
      * @return array
      */
-    private function toolData($tool, $action, $onsubmit = false)
+    private function toolData($tool, $action, $onsubmit = '')
     {
         return array(
             'class' => "advfrm-$tool-form",

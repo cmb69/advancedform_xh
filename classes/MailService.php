@@ -253,7 +253,7 @@ class MailService
     {
         if ($date) {
             list($year, $month, $day) = explode('-', $date);
-            $timestamp = mktime(null, null, null, $month, $day, $year);
+            $timestamp = mktime(0, 0, 0, (int) $month, (int) $day, (int) $year);
             return date($this->text['date_format'], $timestamp);
         } else {
             return '';
@@ -263,7 +263,7 @@ class MailService
     /**
      * Returns string with two spaces inserted after all linebreaks.
      *
-     * @param string
+     * @param string $string
      * @return string
      */
     private function indent($string)

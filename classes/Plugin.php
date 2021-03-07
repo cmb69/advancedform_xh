@@ -89,7 +89,7 @@ SCRIPT;
      *
      * @param string $id A form ID.
      *
-     * @return array
+     * @return array|false
      */
     public static function readCsv($id)
     {
@@ -172,7 +172,7 @@ SCRIPT;
             $f = '';
         }
 
-        if (XH_ADM) {
+        if (XH_ADM) { // @phpstan-ignore-line
             XH_registerStandardPluginMenuItems(true);
             if (XH_wantsPluginAdministration('advancedform')) {
                 $this->administration();
@@ -182,7 +182,7 @@ SCRIPT;
 
     private function administration()
     {
-        global $o, $admin, $action, $plugin, $hjs, $pth;
+        global $o, $admin, $action, $hjs, $pth;
 
         $o .= print_plugin_admin('on');
         switch ($admin) {
@@ -228,7 +228,7 @@ SCRIPT;
                 }
                 break;
             default:
-                $o .= plugin_admin_common($action, $admin, $plugin);
+                $o .= plugin_admin_common();
         }
     }
 }

@@ -25,6 +25,13 @@
         </exec>
     </target>
 
+    <target name="stan" description="run static analysis">
+        <exec executable="phpstan" passthru="true" checkreturn="true">
+            <arg value="--ansi"/>
+            <arg value="analyze"/>
+        </exec>
+    </target>
+
     <target name="compat" description="checks compatibility with PHP_CompatInfo">
         <exec command="phpcompatinfo analyser:run --alias current" logoutput="true"/>
     </target>
@@ -65,6 +72,7 @@
                 <exclude name="build.xml"/>
                 <exclude name="composer.json"/>
                 <exclude name="composer.lock"/>
+                <exclude name="constants.php"/>
                 <exclude name="help/template.htm"/>
                 <exclude name="phpcompatinfo.json"/>
                 <exclude name="README*.md"/>
