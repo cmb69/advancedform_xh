@@ -188,7 +188,7 @@ SCRIPT;
      */
     private function administration()
     {
-        global $o, $admin, $action, $hjs, $pth;
+        global $o, $admin;
 
         $o .= print_plugin_admin('on');
         switch ($admin) {
@@ -196,45 +196,65 @@ SCRIPT;
                 $o .= (new InfoController(FormGateway::instance()))->infoAction();
                 break;
             case 'plugin_main':
-                if (include_once $pth['folder']['plugins'] . 'jquery/jquery.inc.php') {
-                    include_jQuery();
-                    include_jQueryUI();
-                }
-                $hjs .= '<script>ADVFRM_TX = ' . json_encode(Plugin::getLangForJs()) . ';</script>';
-                $hjs .= '<script src="' . $pth['folder']['plugins']
-                    . 'advancedform/admin.min.js"></script>' . PHP_EOL;
-                $controller = new MainAdminController(FormGateway::instance());
-                switch ($action) {
-                    case 'new':
-                        $o .= $controller->createFormAction();
-                        break;
-                    case 'edit':
-                        $o .= $controller->editFormAction($_GET['form']);
-                        break;
-                    case 'save':
-                        $o .= $controller->saveFormAction($_GET['form']);
-                        break;
-                    case 'delete':
-                        $o .= $controller->deleteFormAction($_GET['form']);
-                        break;
-                    case 'copy':
-                        $o .= $controller->copyFormAction($_GET['form']);
-                        break;
-                    case 'import':
-                        $o .= $controller->importFormAction($_GET['form']);
-                        break;
-                    case 'export':
-                        $o .= $controller->exportFormAction($_GET['form']);
-                        break;
-                    case 'template':
-                        $o .= $controller->createFormTemplateAction($_GET['form']);
-                        break;
-                    default:
-                        $o .= $controller->formsAdministrationAction();
-                }
+                $this->mainAdministration();
                 break;
             default:
                 $o .= plugin_admin_common();
         }
+    }
+
+    /**
+     * @return void
+     */
+    private function mainAdministration()
+    {
+        global $o, $action;
+
+        $this->mainAdministrationJs();
+        $controller = new MainAdminController(FormGateway::instance());
+        switch ($action) {
+            case 'new':
+                $o .= $controller->createFormAction();
+                break;
+            case 'edit':
+                $o .= $controller->editFormAction($_GET['form']);
+                break;
+            case 'save':
+                $o .= $controller->saveFormAction($_GET['form']);
+                break;
+            case 'delete':
+                $o .= $controller->deleteFormAction($_GET['form']);
+                break;
+            case 'copy':
+                $o .= $controller->copyFormAction($_GET['form']);
+                break;
+            case 'import':
+                $o .= $controller->importFormAction($_GET['form']);
+                break;
+            case 'export':
+                $o .= $controller->exportFormAction($_GET['form']);
+                break;
+            case 'template':
+                $o .= $controller->createFormTemplateAction($_GET['form']);
+                break;
+            default:
+                $o .= $controller->formsAdministrationAction();
+        }
+    }
+
+    /**
+     * @return void
+     */
+    private function mainAdministrationJs()
+    {
+        global $hjs, $pth;
+
+        if (include_once $pth['folder']['plugins'] . 'jquery/jquery.inc.php') {
+            include_jQuery();
+            include_jQueryUI();
+        }
+        $hjs .= '<script>ADVFRM_TX = ' . json_encode(Plugin::getLangForJs()) . ';</script>';
+        $hjs .= '<script src="' . $pth['folder']['plugins']
+            . 'advancedform/admin.min.js"></script>' . PHP_EOL;
     }
 }
