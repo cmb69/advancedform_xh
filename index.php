@@ -76,11 +76,4 @@ function Advancedform_fields()
     return Advancedform\Plugin::fields();
 }
 
-/*
- * Handle the replacement of the built-in mailform.
- */
-if ($f == 'mailform' && !empty($plugin_tx['advancedform']['contact_form'])) {
-    $o .= '<h1>' . $tx['title']['mailform'] . '</h1>' . PHP_EOL
-        . advancedform($plugin_tx['advancedform']['contact_form']);
-    $f = '';
-}
+(new Advancedform\Plugin())->run();

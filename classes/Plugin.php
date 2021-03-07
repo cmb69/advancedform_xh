@@ -160,4 +160,75 @@ SCRIPT;
         }
         return $fields;
     }
+
+    public function run()
+    {
+        global $f, $o, $tx, $plugin_tx;
+
+        // Handle the replacement of the built-in mailform.
+        if ($f == 'mailform' && !empty($plugin_tx['advancedform']['contact_form'])) {
+            $o .= '<h1>' . $tx['title']['mailform'] . '</h1>' . PHP_EOL
+                . advancedform($plugin_tx['advancedform']['contact_form']);
+            $f = '';
+        }
+
+        if (XH_ADM) {
+            XH_registerStandardPluginMenuItems(true);
+            if (XH_wantsPluginAdministration('advancedform')) {
+                $this->administration();
+            }
+        }
+    }
+
+    private function administration()
+    {
+        global $o, $admin, $action, $plugin, $hjs, $pth;
+
+        $o .= print_plugin_admin('on');
+        switch ($admin) {
+            case '':
+                $o .= (new InfoController(FormGateway::instance()))->infoAction();
+                break;
+            case 'plugin_main':
+                if (include_once $pth['folder']['plugins'] . 'jquery/jquery.inc.php') {
+                    include_jQuery();
+                    include_jQueryUI();
+                }
+                $hjs .= '<script>ADVFRM_TX = ' . json_encode(Plugin::getLangForJs()) . ';</script>';
+                $hjs .= '<script src="' . $pth['folder']['plugins']
+                    . 'advancedform/admin.min.js"></script>' . PHP_EOL;
+                $controller = new MainAdminController(FormGateway::instance());
+                switch ($action) {
+                    case 'new':
+                        $o .= $controller->createFormAction();
+                        break;
+                    case 'edit':
+                        $o .= $controller->editFormAction($_GET['form']);
+                        break;
+                    case 'save':
+                        $o .= $controller->saveFormAction($_GET['form']);
+                        break;
+                    case 'delete':
+                        $o .= $controller->deleteFormAction($_GET['form']);
+                        break;
+                    case 'copy':
+                        $o .= $controller->copyFormAction($_GET['form']);
+                        break;
+                    case 'import':
+                        $o .= $controller->importFormAction($_GET['form']);
+                        break;
+                    case 'export':
+                        $o .= $controller->exportFormAction($_GET['form']);
+                        break;
+                    case 'template':
+                        $o .= $controller->createFormTemplateAction($_GET['form']);
+                        break;
+                    default:
+                        $o .= $controller->formsAdministrationAction();
+                }
+                break;
+            default:
+                $o .= plugin_admin_common($action, $admin, $plugin);
+        }
+    }
 }

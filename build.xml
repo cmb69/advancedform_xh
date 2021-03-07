@@ -13,7 +13,6 @@
         <exec executable="phpcs" passthru="true" checkreturn="true">
             <arg value="--standard=PSR2"/>
             <arg line="--runtime-set ignore_warnings_on_exit true"/>
-            <arg file="admin.php"/>
             <arg file="captcha.php"/>
             <arg file="index.php"/>
             <arg file="classes"/>
@@ -22,7 +21,7 @@
 
     <target name="mess" description="detects code flaws">
         <exec executable="phpmd" passthru="true" checkreturn="true">
-            <arg line="admin.php,captcha.php,index.php,classes ansi codesize,unusedcode"/>
+            <arg line="captcha.php,index.php,classes ansi codesize,unusedcode"/>
         </exec>
     </target>
 
