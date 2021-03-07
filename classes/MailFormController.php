@@ -27,16 +27,20 @@ class MailFormController extends Controller
     /** @var FormGateway */
     private $formGateway;
 
+    /** @var FieldRenderer */
+    private $fieldRenderer;
+
     /** @var MailService */
     private $mailService;
 
     /** @var View */
     private $view;
 
-    public function __construct(FormGateway $formGateway)
+    public function __construct(FormGateway $formGateway, FieldRenderer $fieldRenderer)
     {
         parent::__construct();
         $this->formGateway = $formGateway;
+        $this->fieldRenderer = $fieldRenderer;
         $this->mailService = new MailService($this->formGateway->dataFolder(), $this->pluginsFolder, $this->text);
         $this->view = new View();
     }
@@ -155,7 +159,7 @@ class MailFormController extends Controller
                 'class' => $field->getType() == 'hidden' ? ' class="hidden"' : '',
                 'field_id' => 'advfrm-' . $id . '-' . $field->getName(),
                 'labeled' => $labeled,
-                'inner_view' => $this->displayField($id, $field),
+                'inner_view' => $this->displayField($field),
             ];
             if ($labeled && $this->conf['focus_form']) {
                 Plugin::focusField($id, 'advfrm-' . $field->getName());
@@ -194,7 +198,7 @@ class MailFormController extends Controller
         foreach ($form->getFields() as $field) {
             $advfrm_script = str_replace(
                 '<?field ' . $field->getName() . '?>',
-                $this->displayField($id, $field),
+                $this->displayField($field),
                 $advfrm_script
             );
         }
@@ -207,13 +211,11 @@ class MailFormController extends Controller
     /**
      * Returns the view of a form field.
      *
-     * @param string $form_id A form ID.
-     *
      * @return string (X)HTML.
      */
-    private function displayField($form_id, Field $field)
+    private function displayField(Field $field)
     {
-        return (new FieldRenderer($form_id))->render($field);
+        return $this->fieldRenderer->render($field);
     }
 
     /**

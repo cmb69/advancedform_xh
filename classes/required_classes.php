@@ -20,6 +20,7 @@
  * along with Advancedform_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Advancedform\FieldRenderer;
 use Advancedform\FormGateway;
 use Advancedform\MailFormController;
 use Advancedform\Plugin;
@@ -33,7 +34,7 @@ use Advancedform\Plugin;
  */
 function advancedform($id)
 {
-    return (new MailFormController(FormGateway::instance()))->main($id);
+    return (new MailFormController(FormGateway::instance(), new FieldRenderer($id)))->main($id);
 }
 
 /**
