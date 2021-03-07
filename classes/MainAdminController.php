@@ -168,13 +168,13 @@ class MainAdminController extends Controller
 
         (new FaRequireCommand)->execute();
         $forms = $this->formGateway->findAll();
-        $form = $forms[$id];
-        if (!isset($form)) {
+        if (!array_key_exists($id, $forms)) {
             $e .= '<li><b>'
                 . sprintf($this->text['error_form_missing'], $id)
                 . '</b></li>';
             return $this->formsAdministrationAction();
         }
+        $form = $forms[$id];
 
         /*
         * general settings
@@ -357,7 +357,7 @@ class MainAdminController extends Controller
     }
 
     /**
-     * @return array
+     * @return array<string,(string|bool|array)>
      */
     private function getFormArrayFromPost()
     {
@@ -375,7 +375,11 @@ class MainAdminController extends Controller
                     }
                 } else {
                     foreach ($val as $num => $fieldval) {
-                        $form['fields'][$num][$keys[1]] = $fieldval;
+                        if ($keys[1] === 'required') {
+                            $form['fields'][$num][$keys[1]] = (bool) $fieldval;
+                        } else {
+                            $form['fields'][$num][$keys[1]] = $fieldval;
+                        }
                     }
                 }
             }
@@ -600,7 +604,7 @@ class MainAdminController extends Controller
      * @param string $action
      * @param string $onsubmit
      *
-     * @return array
+     * @return array<string,string>
      */
     private function toolData($tool, $action, $onsubmit = '')
     {

@@ -54,16 +54,28 @@ function advancedformlink($page)
         : '';
 }
 
+/**
+ * @param string $form_id
+ * @param string $name
+ * @return void
+ */
 function Advancedform_focusField($form_id, $name)
 {
     Plugin::focusField($form_id, $name);
 }
 
+/**
+ * @param string $id
+ * @return array<string,string>[]|false
+ */
 function Advancedform_readCsv($id)
 {
     return Plugin::readCsv($id);
 }
 
+/**
+ * @return array<string,(string|array)>
+ */
 function Advancedform_fields()
 {
     return Plugin::fields();

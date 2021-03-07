@@ -38,7 +38,7 @@ class FormGateway
         return self::$instance;
     }
 
-    /** @var array */
+    /** @var array<string,(int|Form)> */
     private $db;
 
     private function __construct()
@@ -79,7 +79,7 @@ class FormGateway
     }
 
     /**
-     * @return array
+     * @return array<string,(int|Form)>
      */
     public function findAll()
     {
@@ -87,31 +87,34 @@ class FormGateway
             $fn = $this->dataFolder() . 'forms.json';
             if (file_exists($fn)) {
                 $contents = XH_readFile($fn);
-                $this->db = ($contents !== false) ? json_decode($contents, true) : array();
+                $db = ($contents !== false) ? json_decode($contents, true) : array();
             } else {
                 $fn = $this->dataFolder() . 'forms.dat';
                 $contents = XH_readFile($fn);
-                $this->db = ($contents !== false) ? unserialize($contents) : array();
-                $this->updateAll($this->db);
+                $db = ($contents !== false) ? unserialize($contents) : array();
             }
-            if (empty($this->db['%VERSION%'])) {
+            $this->db = [];
+            foreach ($db as $key => $form) {
+                if ($key === '%VERSION%' && is_numeric($form)) {
+                    $this->db[$key] = (int) $form;
+                } elseif (is_array($form)) {
+                    $this->db[$key] = Form::createFromArray($form);
+                }
+            }
+            if (!array_key_exists('%VERSION%', $this->db)) {
                 $this->db['%VERSION%'] = 0;
             }
+            assert(is_int($this->db['%VERSION%']));
             if ($this->db['%VERSION%'] < Plugin::DB_VERSION) {
                 $this->db = $this->updatedDb($this->db);
                 $this->updateAll($this->db);
-            }
-            foreach ($this->db as &$form) {
-                if (is_array($form)) {
-                    $form = Form::createFromArray($form);
-                }
             }
         }
         return $this->db;
     }
 
     /**
-     * @param array $forms
+     * @param array<string,(int|Form)> $forms
      * @return void
      */
     public function updateAll($forms)
@@ -128,9 +131,8 @@ class FormGateway
     /**
      * Returns the forms database updated to the current version.
      *
-     * @param array $forms A forms collection.
-     *
-     * @return array
+     * @param array<string,(int|Form)> $forms
+     * @return array<string,(int|Form)>
      */
     public function updatedDb($forms)
     {
@@ -139,7 +141,7 @@ class FormGateway
             case 1:
                 $forms = array_map(
                     function ($elt) {
-                        if (is_object($elt)) {
+                        if ($elt instanceof Form) {
                             $elt->setStore(false);
                         }
                         return $elt;

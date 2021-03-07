@@ -32,12 +32,13 @@ class MailService
     /** @var string */
     private $pluginsFolder;
 
-    /** @var array */
+    /** @var array<string,string> */
     private $text;
 
     /**
      * @param string $dataFolder
      * @param string $pluginsFolder
+     * @param array<string,string> $text
      */
     public function __construct($dataFolder, $pluginsFolder, array $text)
     {
@@ -202,6 +203,8 @@ class MailService
     }
 
     /**
+     * @param bool $show_hidden
+     * @param bool $html
      * @return string
      */
     private function mailFieldInfo(Field $field, $show_hidden, $html)

@@ -25,6 +25,7 @@ class View
 {
     /**
      * @param string $_template
+     * @param array<string,mixed> $_bag
      * @return string
      */
     public function render($_template, array $_bag)

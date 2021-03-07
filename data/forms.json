@@ -15,28 +15,28 @@
                 "label": "Number1",
                 "type": "number",
                 "props": "¦¦¦",
-                "required": "0"
+                "required": false
             },
             {
                 "field": "Number2",
                 "label": "Number2",
                 "type": "number",
                 "props": "¦¦¦",
-                "required": "0"
+                "required": false
             },
             {
                 "field": "Result",
                 "label": "Result",
                 "type": "number",
                 "props": "¦¦¦",
-                "required": "0"
+                "required": false
             },
             {
                 "field": "Tries",
                 "label": "Tries",
                 "type": "hidden",
                 "props": "¦¦0¦",
-                "required": "0"
+                "required": false
             }
         ],
         "store": false
@@ -56,35 +56,35 @@
                 "label": "Title",
                 "type": "radio",
                 "props": "0¦Mr.¦Mrs.¦Miss",
-                "required": "1"
+                "required": true
             },
             {
                 "field": "Name",
                 "label": "Name",
                 "type": "from_name",
                 "props": "¦¦¦",
-                "required": "1"
+                "required": true
             },
             {
                 "field": "E_Mail",
                 "label": "E-Mail",
                 "type": "from",
                 "props": "¦¦¦",
-                "required": "1"
+                "required": true
             },
             {
                 "field": "Conditions",
                 "label": "Conditions",
                 "type": "output",
                 "props": "¦¦Terms of use:\r\n...¦¦",
-                "required": "0"
+                "required": false
             },
             {
                 "field": "Confirmation",
                 "label": "Confirmation",
                 "type": "checkbox",
                 "props": "0¦I agree to the terms of use",
-                "required": "1"
+                "required": true
             }
         ],
         "store": false
@@ -104,77 +104,77 @@
                 "label": "Name",
                 "type": "from_name",
                 "props": "¦¦¦",
-                "required": "1"
+                "required": true
             },
             {
                 "field": "E_Mail",
                 "label": "E-Mail",
                 "type": "from",
                 "props": "¦¦¦",
-                "required": "1"
+                "required": true
             },
             {
                 "field": "Phone",
                 "label": "Phone",
                 "type": "custom",
                 "props": "¦¦¦/^[0-9\\/\\-\\+\\ \\(\\)]*$/¦Field '%s' doesn't contain a valid phone number!",
-                "required": "0"
+                "required": false
             },
             {
                 "field": "Comment",
                 "label": "Comment",
                 "type": "textarea",
                 "props": "¦¦¦",
-                "required": "1"
+                "required": true
             },
             {
                 "field": "File_Info",
                 "label": "",
                 "type": "output",
                 "props": "¦¦<strong>You <em>can</em> attach a file, if you want.</strong>¦",
-                "required": "0"
+                "required": false
             },
             {
                 "field": "Attachment",
                 "label": "Attachment",
                 "type": "file",
                 "props": "¦100000¦jpeg,jpg,png,zip¦¦",
-                "required": "0"
+                "required": false
             },
             {
                 "field": "Password_Info",
                 "label": "",
                 "type": "output",
                 "props": "¦¦If you send a password protected zip file, please specify the password here:¦",
-                "required": "0"
+                "required": false
             },
             {
                 "field": "Password",
                 "label": "Password",
                 "type": "password",
                 "props": "¦¦¦",
-                "required": "0"
+                "required": false
             },
             {
                 "field": "Date",
                 "label": "Date",
                 "type": "date",
                 "props": "¦¦¦",
-                "required": "0"
+                "required": false
             },
             {
                 "field": "Cust_No_Info",
                 "label": "",
                 "type": "output",
                 "props": "¦¦¦",
-                "required": "0"
+                "required": false
             },
             {
                 "field": "Hidden",
                 "label": "Hidden",
                 "type": "hidden",
                 "props": "¦¦This is a hidden field!¦",
-                "required": "0"
+                "required": false
             }
         ],
         "store": false
@@ -194,14 +194,14 @@
                 "label": "Name",
                 "type": "text",
                 "props": "¦¦¦",
-                "required": "0"
+                "required": false
             },
             {
                 "field": "E_Mail",
                 "label": "E-Mail",
                 "type": "from",
                 "props": "¦¦¦",
-                "required": "0"
+                "required": false
             }
         ],
         "store": false
@@ -221,21 +221,21 @@
                 "label": "Name",
                 "type": "from_name",
                 "props": "¦¦¦",
-                "required": "1"
+                "required": true
             },
             {
                 "field": "E_Mail",
                 "label": "E-Mail",
                 "type": "from",
                 "props": "¦¦¦",
-                "required": "1"
+                "required": true
             },
             {
                 "field": "Payment_type",
                 "label": "Pay by",
                 "type": "radio",
                 "props": "0¦Pay-Pal¦Cheque",
-                "required": "1"
+                "required": true
             }
         ],
         "store": false
@@ -255,14 +255,14 @@
                 "label": "Name",
                 "type": "from_name",
                 "props": "¦¦¦",
-                "required": "1"
+                "required": true
             },
             {
                 "field": "EMail",
                 "label": "EMail",
                 "type": "from",
                 "props": "¦¦¦",
-                "required": "1"
+                "required": true
             }
         ],
         "store": true
@@ -282,35 +282,35 @@
                 "label": "Name",
                 "type": "from_name",
                 "props": "¦¦¦/^[0-9]+$/",
-                "required": "1"
+                "required": true
             },
             {
                 "field": "Base",
                 "label": "Base",
                 "type": "radio",
                 "props": "0¦Italian¦American",
-                "required": "1"
+                "required": true
             },
             {
                 "field": "Toppings",
                 "label": "Toppings",
                 "type": "checkbox",
                 "props": "0¦Salami¦Ham¦Mushrooms¦Onions¦Anchovies¦Pepper¦●Cheese",
-                "required": "1"
+                "required": true
             },
             {
                 "field": "Sauce",
                 "label": "Sauce",
                 "type": "select",
                 "props": "¦Tomato¦Cream",
-                "required": "0"
+                "required": false
             },
             {
                 "field": "Drinks",
                 "label": "Drinks",
                 "type": "multi_select",
                 "props": "5¦Coke¦Soda Water¦Lemonade¦Beer¦Wine",
-                "required": "0"
+                "required": false
             }
         ],
         "store": false
@@ -323,35 +323,35 @@
         "to": "webmaster@example.com",
         "cc": "",
         "bcc": "",
-        "thanks_page": "Thank_you",
+        "thanks_page": "",
         "fields": [
             {
                 "field": "Name",
                 "label": "Name",
                 "type": "from_name",
                 "props": "¦¦¦",
-                "required": "1"
+                "required": true
             },
             {
                 "field": "E_Mail",
                 "label": "E-Mail",
                 "type": "from",
                 "props": "¦¦¦",
-                "required": "1"
+                "required": true
             },
             {
                 "field": "Subject",
                 "label": "Subject",
                 "type": "text",
                 "props": "¦¦¦",
-                "required": "1"
+                "required": true
             },
             {
                 "field": "Comment",
                 "label": "Comment",
                 "type": "textarea",
                 "props": "¦¦¦",
-                "required": "1"
+                "required": true
             }
         ],
         "store": false

@@ -25,6 +25,10 @@ use JsonSerializable;
 
 class Field implements JsonSerializable
 {
+    /**
+     * @param array<string,(string|bool)> $record
+     * @return self
+     */
     public static function createFromArray(array $record)
     {
         $result = new self;
@@ -36,36 +40,56 @@ class Field implements JsonSerializable
         return $result;
     }
 
+    /** @var string */
     private $name;
 
+    /** @var string */
     private $label;
 
+    /** @var string */
     private $type;
 
+    /** @var string */
     private $props;
 
+    /** @var bool */
     private $required;
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @return string
+     */
     public function getLabel()
     {
         return $this->label;
     }
 
+    /**
+     * @return string
+     */
     public function getType()
     {
         return $this->type;
     }
 
+    /**
+     * @return string
+     */
     public function getProps()
     {
         return $this->props;
     }
 
+    /**
+     * @return bool
+     */
     public function getRequired()
     {
         return $this->required;
@@ -95,6 +119,9 @@ class Field implements JsonSerializable
         return in_array($this->getType(), ['checkbox', 'multi_select']);
     }
 
+    /**
+     * @return array<string,(string|bool)>
+     */
     public function jsonSerialize()
     {
         return array(

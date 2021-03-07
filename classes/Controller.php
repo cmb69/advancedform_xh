@@ -35,12 +35,12 @@ abstract class Controller
     protected $pluginsFolder;
 
     /**
-     * @var array
+     * @var array<string,string>
      */
     protected $conf;
 
     /**
-     * @var array
+     * @var array<string,string>
      */
     protected $text;
 

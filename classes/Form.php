@@ -25,6 +25,10 @@ use JsonSerializable;
 
 class Form implements JsonSerializable
 {
+    /**
+     * @param array<string,(string|bool|array)> $record
+     * @return self
+     */
     public static function createFromArray(array $record)
     {
         $result = new self;
@@ -44,86 +48,137 @@ class Form implements JsonSerializable
         return $result;
     }
 
+    /** @var bool */
     private $captcha;
 
+    /** @var string */
     private $name;
 
+    /** @var string */
     private $title;
 
+    /** @var string */
     private $toName;
 
+    /** @var string */
     private $to;
 
+    /** @var string */
     private $cc;
 
+    /** @var string */
     private $bcc;
 
+    /** @var string */
     private $thanksPage;
 
+    /** @var bool */
     private $store;
 
+    /** @var Field[] */
     private $fields;
 
+    /**
+     * @return bool
+     */
     public function getCaptcha()
     {
         return $this->captcha;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @return string
+     */
     public function getTitle()
     {
         return $this->title;
     }
 
+    /**
+     * @return string
+     */
     public function getToName()
     {
         return $this->toName;
     }
 
+    /**
+     * @return string
+     */
     public function getTo()
     {
         return $this->to;
     }
 
+    /**
+     * @return string
+     */
     public function getCc()
     {
         return $this->cc;
     }
 
+    /**
+     * @return string
+     */
     public function getBcc()
     {
         return $this->bcc;
     }
 
+    /**
+     * @return string
+     */
     public function getThanksPage()
     {
         return $this->thanksPage;
     }
 
+    /**
+     * @return bool
+     */
     public function getStore()
     {
         return $this->store;
     }
 
+    /**
+     * @return Field[]
+     */
     public function getFields()
     {
         return $this->fields;
     }
 
+    /**
+     * @param string $value
+     * @return void
+     */
     public function setName($value)
     {
         $this->name = $value;
     }
 
+    /**
+     * @param bool $value
+     * @return void
+     */
     public function setStore($value)
     {
         $this->store = $value;
     }
 
+    /**
+     * @return array<string,(string|bool|Field[])>
+     */
     public function jsonSerialize()
     {
         return array(

@@ -497,6 +497,7 @@ class MailFormController extends Controller
 
     /**
      * @param string $extension
+     * @param string[] $properties
      * @return bool
      */
     private function isFileTypeAllowed($extension, array $properties)

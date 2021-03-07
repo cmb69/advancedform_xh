@@ -69,7 +69,7 @@ SCRIPT;
     /**
      * Returns an associative array of language texts required for JS.
      *
-     * @return array
+     * @return array<string,string>
      */
     public static function getLangForJs()
     {
@@ -89,7 +89,7 @@ SCRIPT;
      *
      * @param string $id A form ID.
      *
-     * @return array|false
+     * @return array<string,string>[]|false
      */
     public static function readCsv($id)
     {
@@ -141,7 +141,7 @@ SCRIPT;
     /**
      * Returns the posted fields, as e.g. needed for advfrm_custom_thanks_page().
      *
-     * @return array
+     * @return array<string,(string|array)>
      */
     public static function fields()
     {
@@ -161,6 +161,9 @@ SCRIPT;
         return $fields;
     }
 
+    /**
+     * @return void
+     */
     public function run()
     {
         global $f, $o, $tx, $plugin_tx;
@@ -180,6 +183,9 @@ SCRIPT;
         }
     }
 
+    /**
+     * @return void
+     */
     private function administration()
     {
         global $o, $admin, $action, $hjs, $pth;
