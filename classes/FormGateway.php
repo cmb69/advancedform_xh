@@ -93,14 +93,7 @@ class FormGateway
                 $contents = XH_readFile($fn);
                 $db = ($contents !== false) ? unserialize($contents) : array();
             }
-            $this->db = [];
-            foreach ($db as $key => $form) {
-                if ($key === '%VERSION%' && is_numeric($form)) {
-                    $this->db[$key] = (int) $form;
-                } elseif (is_array($form)) {
-                    $this->db[$key] = Form::createFromArray($form);
-                }
-            }
+            $this->cleanDb($db);
             if (!array_key_exists('%VERSION%', $this->db)) {
                 $this->db['%VERSION%'] = 0;
             }
@@ -111,6 +104,22 @@ class FormGateway
             }
         }
         return $this->db;
+    }
+
+    /**
+     * @param array<string,mixed> $db
+     * @return void
+     */
+    private function cleanDb($db)
+    {
+        $this->db = [];
+        foreach ($db as $key => $form) {
+            if ($key === '%VERSION%' && is_numeric($form)) {
+                $this->db[$key] = (int) $form;
+            } elseif (is_array($form)) {
+                $this->db[$key] = Form::createFromArray($form);
+            }
+        }
     }
 
     /**
