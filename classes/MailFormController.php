@@ -159,7 +159,7 @@ class MailFormController extends Controller
                 'class' => $field->getType() == 'hidden' ? ' class="hidden"' : '',
                 'field_id' => 'advfrm-' . $id . '-' . $field->getName(),
                 'labeled' => $labeled,
-                'inner_view' => $this->displayField($field),
+                'inner_view' => $this->fieldRenderer->render($field),
             ];
             if ($labeled && $this->conf['focus_form']) {
                 Plugin::focusField($id, 'advfrm-' . $field->getName());
@@ -198,7 +198,7 @@ class MailFormController extends Controller
         foreach ($form->getFields() as $field) {
             $advfrm_script = str_replace(
                 '<?field ' . $field->getName() . '?>',
-                $this->displayField($field),
+                $this->fieldRenderer->render($field),
                 $advfrm_script
             );
         }
@@ -206,16 +206,6 @@ class MailFormController extends Controller
         ob_start();
         eval('?>' . $advfrm_script);
         return ob_get_clean();
-    }
-
-    /**
-     * Returns the view of a form field.
-     *
-     * @return string (X)HTML.
-     */
-    private function displayField(Field $field)
-    {
-        return $this->fieldRenderer->render($field);
     }
 
     /**
