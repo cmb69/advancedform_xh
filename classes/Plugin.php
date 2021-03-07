@@ -22,7 +22,7 @@
 
 namespace Advancedform;
 
-class Functions
+class Plugin
 {
     /**
      * Emits a SCRIPT element to set the focus to the field with name $name.

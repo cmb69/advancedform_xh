@@ -82,7 +82,7 @@ class MailFormController extends Controller
                     return $this->formView($id);
                 }
                 if (function_exists('advfrm_custom_thanks_page')) {
-                    $fields = Functions::fields();
+                    $fields = Plugin::fields();
                     $thanks = advfrm_custom_thanks_page($id, $fields);
                 }
                 if (empty($thanks)) {
@@ -157,7 +157,7 @@ class MailFormController extends Controller
                 'inner_view' => $this->displayField($id, $field),
             ];
             if ($labeled && $this->conf['focus_form']) {
-                Functions::focusField($id, 'advfrm-' . $field->getName());
+                Plugin::focusField($id, 'advfrm-' . $field->getName());
             }
         }
         return $this->view->render('mail-form-default-view', $bag);
@@ -366,7 +366,7 @@ class MailFormController extends Controller
                             XH_hsc($field->getLabel())
                         )
                         . '</li>' . PHP_EOL;
-                    Functions::focusField($id, $name);
+                    Plugin::focusField($id, $name);
                 }
             } else {
                 switch ($field->getType()) {
@@ -379,7 +379,7 @@ class MailFormController extends Controller
                                     XH_hsc($field->getLabel())
                                 )
                                 . '</li>' . PHP_EOL;
-                            Functions::focusField($id, $name);
+                            Plugin::focusField($id, $name);
                         }
                         break;
                     case 'date':
@@ -397,7 +397,7 @@ class MailFormController extends Controller
                                     XH_hsc($field->getLabel())
                                 )
                                 .'</li>' . PHP_EOL;
-                            Functions::focusField($id, $name);
+                            Plugin::focusField($id, $name);
                         }
                         break;
                     case 'number':
@@ -408,7 +408,7 @@ class MailFormController extends Controller
                                     XH_hsc($field->getLabel())
                                 )
                                 . '</li>' . PHP_EOL;
-                            Functions::focusField($id, $name);
+                            Plugin::focusField($id, $name);
                         }
                         break;
                     case 'file':
@@ -424,7 +424,7 @@ class MailFormController extends Controller
                                             XH_hsc($field->getLabel())
                                         )
                                         . '</li>' . PHP_EOL;
-                                    Functions::focusField($id, $name);
+                                    Plugin::focusField($id, $name);
                                 }
                                 break;
                             case UPLOAD_ERR_INI_SIZE:
@@ -435,7 +435,7 @@ class MailFormController extends Controller
                                         XH_hsc($field->getLabel())
                                     )
                                     . '</li>' . PHP_EOL;
-                                Functions::focusField($id, $name);
+                                Plugin::focusField($id, $name);
                                 break;
                             default:
                                 $o .= '<li>'
@@ -444,7 +444,7 @@ class MailFormController extends Controller
                                         XH_hsc($field->getLabel())
                                     )
                                     . '</li>' . PHP_EOL;
-                                Functions::focusField($id, $name);
+                                Plugin::focusField($id, $name);
                         }
                         $ext = pathinfo($_FILES[$name]['name'], PATHINFO_EXTENSION);
                         if (!$this->isFileTypeAllowed($ext, $props)) {
@@ -455,7 +455,7 @@ class MailFormController extends Controller
                                     XH_hsc($ext)
                                 )
                                 . '</li>' . PHP_EOL;
-                            Functions::focusField($id, $name);
+                            Plugin::focusField($id, $name);
                         }
                         break;
                     case 'custom':
@@ -469,7 +469,7 @@ class MailFormController extends Controller
                                 : $props[ADVFRM_PROP_ERROR_MSG];
                             $o .= '<li>' . sprintf($msg, $field->getLabel()) . '</li>'
                                 . PHP_EOL;
-                            Functions::focusField($id, $name);
+                            Plugin::focusField($id, $name);
                         }
                 }
                 if (function_exists('advfrm_custom_valid_field')) {
@@ -479,7 +479,7 @@ class MailFormController extends Controller
                     $valid = advfrm_custom_valid_field($id, $field->getName(), $value);
                     if ($valid !== true) {
                         $o .= '<li>' . $valid . '</li>' . PHP_EOL;
-                        Functions::focusField($id, $name);
+                        Plugin::focusField($id, $name);
                     }
                 }
             }
@@ -487,7 +487,7 @@ class MailFormController extends Controller
         if ($form->getCaptcha()) {
             if (!call_user_func($this->conf['captcha_plugin'] . '_captcha_check')) {
                 $o .= '<li>' . $this->text['error_captcha_code'] . '</li>' . PHP_EOL;
-                Functions::focusField($id, 'advancedform-captcha');
+                Plugin::focusField($id, 'advancedform-captcha');
             }
         }
         return $o == ''

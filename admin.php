@@ -21,9 +21,9 @@
  */
 
 use Advancedform\FormGateway;
-use Advancedform\Functions;
 use Advancedform\MainAdminController;
 use Advancedform\InfoController;
+use Advancedform\Plugin;
 
 /*
  * Prevent direct access.
@@ -49,7 +49,7 @@ if (XH_wantsPluginAdministration('advancedform')) {
                 include_jQuery();
                 include_jQueryUI();
             }
-            $hjs .= '<script>ADVFRM_TX = ' . json_encode(Functions::getLangForJs()) . ';</script>';
+            $hjs .= '<script>ADVFRM_TX = ' . json_encode(Plugin::getLangForJs()) . ';</script>';
             $hjs .= '<script src="' . $pth['folder']['plugins']
                 . 'advancedform/admin.min.js"></script>' . PHP_EOL;
             $temp = new MainAdminController(FormGateway::instance());

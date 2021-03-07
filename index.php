@@ -118,17 +118,17 @@ function advancedformlink($page)
 
 function Advancedform_focusField($form_id, $name)
 {
-    return Advancedform\Functions::focusField($form_id, $name);
+    return Advancedform\Plugin::focusField($form_id, $name);
 }
 
 function Advancedform_readCsv($id)
 {
-    return Advancedform\Functions::readCsv($id);
+    return Advancedform\Plugin::readCsv($id);
 }
 
 function Advancedform_fields()
 {
-    return Advancedform\Functions::fields();
+    return Advancedform\Plugin::fields();
 }
 
 /*
