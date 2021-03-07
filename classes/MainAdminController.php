@@ -234,39 +234,13 @@ class MainAdminController extends Controller
      */
     private function renderEditFormTable(Form $form)
     {
-        $o = '<table id="advfrm-form">' . PHP_EOL;
-        $fields = array(
-            'name', 'title', 'to_name', 'to', 'cc', 'bcc', 'captcha', 'store',
-            'thanks_page'
-        );
-        foreach ($fields as $det) {
-            $name = 'advfrm-' . $det;
-            $o .= '<tr>'
-                . '<td><label for="' . $name . '">' . $this->text['label_'.$det]
-                . '</label></td>';
-            switch ($det) {
-                case 'captcha':
-                case 'store':
-                    $checked = $form->{"get$det"}() ? ' checked="checked"' : '';
-                    $o .= '<td>'
-                        . '<input type="checkbox" id="' . $name . '" name="' . $name . '"'
-                        . $checked . '>'
-                        . '</td>';
-                    break;
-                case 'thanks_page':
-                    $o .= '<td>' . $this->pageSelect($name, $form->getThanksPage()) . '</td>';
-                    break;
-                default:
-                    $value = $det === 'to_name' ? $form->getToName() : $form->{"get$det"}();
-                    $o .= '<td>'
-                        . '<input type="text" id="' . $name . '" name="' . $name . '"'
-                        . ' value="' . XH_hsc($value) . '" size="40">'
-                        . '</td>';
-            }
-            $o .= '</tr>' . PHP_EOL;
-        }
-        $o .= '</table>' . PHP_EOL;
-        return $o;
+        return $this->view->render('edit-form-table', [
+            'form' => $form,
+            'captcha_checked' => $form->getCaptcha() ? 'checked' : '',
+            'store_checked' => $form->getStore() ? 'checked' : '',
+            'thanks_page_select' => $this->pageSelect('advfrm-thanks_page', $form->getThanksPage()),
+            'text' => $this->text,
+        ]);
     }
 
     /**
