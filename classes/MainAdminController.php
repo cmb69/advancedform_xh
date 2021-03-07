@@ -469,7 +469,7 @@ class MainAdminController extends Controller
                         $frm = Form::createFromArray($frm);
                     }
                 }
-                if ($form['%VERSION%'] < ADVFRM_DB_VERSION) {
+                if ($form['%VERSION%'] < Plugin::DB_VERSION) {
                     $form = $this->formGateway->updatedDb($form);
                 }
                 unset($form['%VERSION%']);
@@ -505,7 +505,7 @@ class MainAdminController extends Controller
         $forms = $this->formGateway->findAll();
         if (isset($forms[$id])) {
             $form[$id] = $forms[$id];
-            $form['%VERSION%'] = ADVFRM_DB_VERSION;
+            $form['%VERSION%'] = Plugin::DB_VERSION;
             $fn = $this->formGateway->dataFolder() . $id . '.json';
             $json = json_encode($form, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
             if (!($fh = fopen($fn, 'w')) || fwrite($fh, $json) === false) {

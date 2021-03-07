@@ -32,61 +32,6 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 /**
- * The version number.
- */
-define('ADVANCEDFORM_VERSION', '2.0');
-
-/**
- * The version of the database format.
- */
-define('ADVFRM_DB_VERSION', 2);
-
-/**
- * The index of the size property.
- */
-define('ADVFRM_PROP_SIZE', 0);
-
-/**
- * The index of the cols property.
- */
-define('ADVFRM_PROP_COLS', 0);
-
-/**
- * The index of the maxlen property.
- */
-define('ADVFRM_PROP_MAXLEN', 1);
-
-/**
- * The index of the rows property.
- */
-define('ADVFRM_PROP_ROWS', 1);
-
-/**
- * The index of the default property.
- */
-define('ADVFRM_PROP_DEFAULT', 2);
-
-/**
- * The index of the value property.
- */
-define('ADVFRM_PROP_VALUE', 2);
-
-/**
- * The index of the field types property.
- */
-define('ADVFRM_PROP_FTYPES', 2);
-
-/**
- * The index of the contstraint property.
- */
-define('ADVFRM_PROP_CONSTRAINT', 3);
-
-/**
- * The index of the error message property.
- */
-define('ADVFRM_PROP_ERROR_MSG', 4);
-
-/**
  * Main plugin call.
  *
  * @param string $id A form ID.

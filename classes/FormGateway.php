@@ -97,7 +97,7 @@ class FormGateway
             if (empty($this->db['%VERSION%'])) {
                 $this->db['%VERSION%'] = 0;
             }
-            if ($this->db['%VERSION%'] < ADVFRM_DB_VERSION) {
+            if ($this->db['%VERSION%'] < Plugin::DB_VERSION) {
                 $this->db = $this->updatedDb($this->db);
                 $this->updateAll($this->db);
             }
@@ -147,7 +147,7 @@ class FormGateway
                     $forms
                 );
         }
-        $forms['%VERSION%'] = ADVFRM_DB_VERSION;
+        $forms['%VERSION%'] = Plugin::DB_VERSION;
         return $forms;
     }
 }

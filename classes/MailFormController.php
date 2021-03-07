@@ -277,11 +277,11 @@ class MailFormController extends Controller
             if (!isset($val)) {
                 $val =  isset($_POST[$name])
                     ? $_POST[$name]
-                    : $props[ADVFRM_PROP_DEFAULT];
+                    : $props[Plugin::PROP_DEFAULT];
             }
             if ($field->getType() == 'textarea') {
-                $cols = empty($props[ADVFRM_PROP_COLS]) ? 40 : $props[ADVFRM_PROP_COLS];
-                $rows = empty($props[ADVFRM_PROP_ROWS]) ? 4 : $props[ADVFRM_PROP_ROWS];
+                $cols = empty($props[Plugin::PROP_COLS]) ? 40 : $props[Plugin::PROP_COLS];
+                $rows = empty($props[Plugin::PROP_ROWS]) ? 4 : $props[Plugin::PROP_ROWS];
                 $o .= '<textarea id="' . $id . '" name="' . $name . '" cols="' . $cols
                     . '" rows="' . $rows . '">'
                     . XH_hsc($val) . '</textarea>';
@@ -291,16 +291,16 @@ class MailFormController extends Controller
                 if ($field->getType() == 'date') {
                     $placeholder = '2019-03-24';
                 }
-                $size = $field->getType() == 'hidden' || empty($props[ADVFRM_PROP_SIZE])
+                $size = $field->getType() == 'hidden' || empty($props[Plugin::PROP_SIZE])
                     ? ''
-                    : ' size="' . $props[ADVFRM_PROP_SIZE] . '"';
+                    : ' size="' . $props[Plugin::PROP_SIZE] . '"';
                 $maxlen = in_array($field->getType(), array('hidden', 'file'))
-                    || empty($props[ADVFRM_PROP_MAXLEN])
+                    || empty($props[Plugin::PROP_MAXLEN])
                     ? ''
-                    : ' maxlength="' . $props[ADVFRM_PROP_MAXLEN] . '"';
-                if ($field->getType() == 'file' && !empty($props[ADVFRM_PROP_MAXLEN])) {
+                    : ' maxlength="' . $props[Plugin::PROP_MAXLEN] . '"';
+                if ($field->getType() == 'file' && !empty($props[Plugin::PROP_MAXLEN])) {
                     $o .= '<input type="hidden" name="MAX_FILE_SIZE" value="'
-                        . $props[ADVFRM_PROP_MAXLEN] . '">';
+                        . $props[Plugin::PROP_MAXLEN] . '">';
                 }
                 if ($field->getType() == 'file') {
                     $value = '';
@@ -415,8 +415,8 @@ class MailFormController extends Controller
                         $props = explode("\xC2\xA6", $field->getProps());
                         switch ($_FILES[$name]['error']) {
                             case UPLOAD_ERR_OK:
-                                if (!empty($props[ADVFRM_PROP_MAXLEN])
-                                    && $_FILES[$name]['size'] > $props[ADVFRM_PROP_MAXLEN]
+                                if (!empty($props[Plugin::PROP_MAXLEN])
+                                    && $_FILES[$name]['size'] > $props[Plugin::PROP_MAXLEN]
                                 ) {
                                     $o .= '<li>'
                                         . sprintf(
@@ -460,13 +460,13 @@ class MailFormController extends Controller
                         break;
                     case 'custom':
                         $props = explode("\xC2\xA6", $field->getProps());
-                        $pattern = $props[ADVFRM_PROP_CONSTRAINT];
+                        $pattern = $props[Plugin::PROP_CONSTRAINT];
                         if (!empty($pattern)
                             && !preg_match($pattern, $_POST[$name])
                         ) {
-                            $msg = empty($props[ADVFRM_PROP_ERROR_MSG])
+                            $msg = empty($props[Plugin::PROP_ERROR_MSG])
                                 ? $this->text['error_invalid_custom']
-                                : $props[ADVFRM_PROP_ERROR_MSG];
+                                : $props[Plugin::PROP_ERROR_MSG];
                             $o .= '<li>' . sprintf($msg, $field->getLabel()) . '</li>'
                                 . PHP_EOL;
                             Plugin::focusField($id, $name);
@@ -501,10 +501,10 @@ class MailFormController extends Controller
      */
     private function isFileTypeAllowed($extension, array $properties)
     {
-        if (trim($properties[ADVFRM_PROP_FTYPES]) === '') {
+        if (trim($properties[Plugin::PROP_FTYPES]) === '') {
             return false;
         }
-        $types = explode(',', $properties[ADVFRM_PROP_FTYPES]);
+        $types = explode(',', $properties[Plugin::PROP_FTYPES]);
         foreach ($types as $type) {
             if (!strcasecmp($extension, trim($type))) {
                 return true;
