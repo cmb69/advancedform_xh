@@ -164,7 +164,7 @@ class MainAdminController extends Controller
      */
     public function editFormAction($id)
     {
-        global $tx, $e;
+        global $e, $tx;
 
         (new FaRequireCommand)->execute();
         $forms = $this->formGateway->findAll();
@@ -175,124 +175,51 @@ class MainAdminController extends Controller
             return $this->formsAdministrationAction();
         }
         $form = $forms[$id];
-
-        /*
-        * general settings
-        */
-        $o = '<div id="advfrm-editor">' . PHP_EOL . '<h1>' . $id . '</h1>' . PHP_EOL;
-        $action = $this->scriptName
-            . '?advancedform&amp;admin=plugin_main&amp;action=save&amp;form=' . $id;
-        $o .= '<form action="' . $action . '" method="post" accept-charset="UTF-8"'
-            . '>' . PHP_EOL
-            . $this->renderEditFormTable($form);
-
-        /*
-        * field settings
-        */
-        $o .= $this->view->render('toolbar', [
-            'tools' => ['add', 'delete', 'up', 'down'],
-            'toolIcon' => function ($tool) {
-                return $this->toolIcon($tool);
-            },
-        ]);
-
-        $o .= '<table id="advfrm-fields">' . PHP_EOL;
-        $o .= '<thead><tr>'
-            . '<th>' . $this->text['label_field'] . '</th>'
-            . '<th>' . $this->text['label_label'] . '</th>'
-            . '<th colspan="3">' . $this->text['label_type'] . '</th>'
-            . '<th>' . $this->text['label_required'] . '</th>'
-            . '</tr></thead>' . PHP_EOL;
-        foreach ($form->getFields() as $field) {
-            $o .= $this->renderEditFormField($field);
-        }
-        $o .= '</table>' . PHP_EOL;
-        $o .= '<input type="submit" class="submit" value="'
-            . utf8_ucfirst($tx['action']['save']) . '" style="display:none">';
-        $o .= $this->csrfProtector->tokenInput();
-        $o .= '</form>' . PHP_EOL . '</div>' . PHP_EOL;
-
-        /*
-        * property dialogs
-        */
-        $o .= $this->view->render('text-props', [
-            'properties' => ['size', 'maxlength', 'default', 'constraint', 'error_msg']
-        ]);
-        $o .= $this->view->render('select-props', [
-            'tx' => $this->text,
-            'tools' => ['add', 'delete', 'up', 'down', 'clear_defaults'],
-            'toolIcon' => function ($tool) {
-                return $this->toolIcon($tool);
-            },
-        ]);
-
-        return $o;
-    }
-
-    /**
-     * @return string
-     */
-    private function renderEditFormTable(Form $form)
-    {
-        return $this->view->render('edit-form-table', [
+        $thanks_page = $form->getThanksPage();
+        return $this->view->render('edit-form', [
+            'id' => $id,
+            'action' => $this->scriptName . '?advancedform&amp;admin=plugin_main&amp;action=save&amp;form=' . $id,
             'form' => $form,
             'captcha_checked' => $form->getCaptcha() ? 'checked' : '',
             'store_checked' => $form->getStore() ? 'checked' : '',
-            'thanks_page_select' => $this->pageSelect('advfrm-thanks_page', $form->getThanksPage()),
+            'thanks_page_select' => [
+                'name' => 'advfrm-thanks_page',
+                'selected' => ($thanks_page == '') ? ' selected="selected"' : '',
+                'pages' => (new Pages())->linkList('', false),
+                'page_selected' => function ($page) use ($thanks_page) {
+                    return ($page[1] == $thanks_page) ? ' selected="selected"' : '';
+                },
+            ],
+            'tools' => ['add', 'delete', 'up', 'down'],
+            'property_tools' => ['add', 'delete', 'up', 'down', 'clear_defaults'],
+            'toolIcon' => function ($tool) {
+                return $this->toolIcon($tool);
+            },
+            'fields' => array_map(function ($field) {
+                return [
+                    'name' => $field->getName(),
+                    'label' => XH_hsc($field->getLabel()),
+                    'selected' => function ($type) use ($field) {
+                        return $field->getType() == $type ? ' selected="selected"' : '';
+                    },
+                    'properties' => XH_hsc($field->getProps()),
+                    'checked' => $field->getRequired() ? ' checked="checked"' : '',
+                    'required' => $field->getRequired(),
+                ];
+            }, $form->getFields()),
+            'field_types' => [
+                'text', 'from_name', 'from', 'mail', 'date', 'number', 'textarea',
+                'radio', 'checkbox', 'select', 'multi_select', 'password', 'file',
+                'hidden', 'output', 'custom',
+            ],
+            'field_typelabel' => function ($type) {
+                return $this->text["field_$type"];
+            },
+            'label_save' => utf8_ucfirst($tx['action']['save']),
+            'csrf_token_input' => $this->csrfProtector->tokenInput(),
+            'text_properties' => ['size', 'maxlength', 'default', 'constraint', 'error_msg'],
             'text' => $this->text,
         ]);
-    }
-
-    /**
-     * @return string
-     */
-    private function renderEditFormField(Field $field)
-    {
-        return $this->view->render(
-            'edit-form-field',
-            array(
-                'name' => $field->getName(),
-                'label' => XH_hsc($field->getLabel()),
-                'types' => [
-                    'text', 'from_name', 'from', 'mail', 'date', 'number', 'textarea',
-                    'radio', 'checkbox', 'select', 'multi_select', 'password', 'file',
-                    'hidden', 'output', 'custom',
-                ],
-                'selected' => function ($type) use ($field) {
-                    return $field->getType() == $type ? ' selected="selected"' : '';
-                },
-                'typelabel' => function ($type) {
-                    return $this->text["field_$type"];
-                },
-                'properties' => XH_hsc($field->getProps()),
-                'toolicon' => $this->toolIcon('props'),
-                'checked' => $field->getRequired() ? ' checked="checked"' : '',
-                'required' => $field->getRequired(),
-            )
-        );
-    }
-
-    /**
-     * Returns a selectbox with all  pages of the current language/subsite.
-     *
-     * @param string $name     Name and id of the select.
-     * @param string $selected URL of the thanks page.
-     *
-     * @return string (X)HTML.
-     */
-    private function pageSelect($name, $selected)
-    {
-        $pagelist = (new Pages)->linkList('', false);
-        $bag = [
-            'name' => $name,
-            'selected' => ($selected == '') ? ' selected="selected"' : '',
-            'tx' => $this->text,
-            'pages' => $pagelist,
-            'page_selected' => function ($page) use ($selected) {
-                return ($page[1] == $selected) ? ' selected="selected"' : '';
-            },
-        ];
-        return $this->view->render('page-select', $bag);
     }
 
     /**
