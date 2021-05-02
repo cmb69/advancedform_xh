@@ -10,6 +10,7 @@ Weitergehende Anpassungen sind durch das Template- bzw. Hook-System
 möglich.
 
 - [Voraussetzungen](#voraussetzungen)
+- [Download](#download)
 - [Installation](#installation)
 - [Einstellungen](#einstellungen)
 - [Verwendung](#verwendung)
