@@ -47,11 +47,11 @@
   <!-- the name of the Plugin -->
   <name type="plugin">Advancedform_XH</name>
   <!-- Date this xml-file was updated, yyyy.mm.dd -->
-  <date_update>2021.02.08</date_update>
+  <date_update>2021-05-02</date_update>
   <!-- version of Plugin -->
-  <version>2.0</version>
+  <version>2.1</version>
   <!-- date of publication, yyyy.mm.dd -->
-  <date_version>2021.02.08</date_version>
+  <date_version>2021-05-02</date_version>
   <!-- the name of the programmer -->
   <coder>Christoph M. Becker</coder>
   <!-- Categories must be written in lower case. More than one possible, separated by comma without spaces. -->
@@ -64,7 +64,7 @@
   <url>
     <!-- URL where you can download the plugin -->
     <!-- If there no Download-URL, enter this follows! - <download_url></download_url> -->
-    <download_url>https://github.com/cmb69/advancedform_xh/releases/2.0</download_url>
+    <download_url>https://github.com/cmb69/advancedform_xh/releases/2.1</download_url>
     <!-- URL of the programmer's website -->
     <!-- If there no Website, enter this follows! - <coder_url></coder_url> -->
     <coder_url>https://3-magi.net</coder_url>
