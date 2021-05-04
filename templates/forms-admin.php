@@ -16,7 +16,7 @@ if (!isset($this)) {
     <span><?=$import_form['token_input']?></span>
   </form>
   <table>
-<?foreach ($forms as $id => $form):?>
+<?php foreach ($forms as $id => $form):?>
     <tr>
       <td class="tool">
         <form class="<?=$form['delete_form']['class']?>" action="<?=$form['delete_form']['action']?>" method="post" <?=$form['delete_form']['onsubmit']?>>
@@ -47,6 +47,6 @@ if (!isset($this)) {
         <input type="text" readonly onclick="this.select()" value="{{{advancedform('<?=$id?>')}}}"></input>
       </td>
     </tr>
-<?endforeach?>
+<?php endforeach?>
   </table>
 </div>

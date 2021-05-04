@@ -46,17 +46,17 @@ if (!isset($this)) {
         <td>
           <select id="<?=$thanks_page_select['name']?>" name="<?=$thanks_page_select['name']?>">
             <option value="" <?=$thanks_page_select['selected']?>><?=$text['label_none']?></option>
-<?foreach ($thanks_page_select['pages'] as $page):?>
+<?php foreach ($thanks_page_select['pages'] as $page):?>
             <option value="<?=$page[1]?>" <?=$thanks_page_select['page_selected']($page)?>><?=$page[0]?></option>
-<?endforeach?>
+<?php endforeach?>
           </select>
         </td>
       </tr>
     </table>
     <div class="toolbar">
-<?foreach ($tools as $tool):?>
+<?php foreach ($tools as $tool):?>
       <button type="button" class="advfrm-<?=$tool?>"><?=$toolIcon($tool)?></button>
-<?endforeach?>
+<?php endforeach?>
     </div>
     <table id="advfrm-fields">
       <thead>
@@ -67,7 +67,7 @@ if (!isset($this)) {
           <th><?=$text['label_required']?></th>
         </tr>
       </thead>
-<?foreach ($fields as $field):?>
+<?php foreach ($fields as $field):?>
       <tr>
         <td>
           <input type="text" size="10" name="advfrm-field[]" value="<?=$field['name']?>" class="highlightable">
@@ -77,9 +77,9 @@ if (!isset($this)) {
         </td>
         <td>
           <select name="advfrm-type[]" class="highlightable">
-<?  foreach ($field_types as $type):?>
+<?php   foreach ($field_types as $type):?>
             <option value="<?=$type?>"<?=$field['selected']($type)?>><?=$field_typelabel($type)?></option>
-<?  endforeach?>
+<?php   endforeach?>
           </select>
         </td>
         <td>
@@ -93,7 +93,7 @@ if (!isset($this)) {
           <input type="hidden" name="advfrm-required[]" value="<?=$field['required']?>">
         </td>
       </tr>
-<?endforeach?>
+<?php endforeach?>
     </table>
     <input type="submit" class="submit" value="<?=$label_save?>" style="display:none">
     <?=$csrf_token_input?>
@@ -101,12 +101,12 @@ if (!isset($this)) {
 </div>
 <div id="advfrm-text-props" style="display:none">
   <table>
-<?foreach ($text_properties as $prop):?>
+<?php foreach ($text_properties as $prop):?>
     <tr id="advfrm-text-props-<?=$prop?>">
       <td><?=$prop?></td>
       <td><input type="text" size="30"></td>
     </tr>
-<?endforeach?>
+<?php endforeach?>
   </table>
 </div>
 <div id="advfrm-select-props" style="display:none">
@@ -125,11 +125,11 @@ if (!isset($this)) {
     </label>
   </p>
   <div class="toolbar">
-<?foreach ($property_tools as $tool):?>
+<?php foreach ($property_tools as $tool):?>
     <button type="button" class="advfrm-prop-<?=$tool?>">
       <?=$toolIcon($tool)?>
     </button>
-<?endforeach?>
+<?php endforeach?>
   </div>
   <table id="advfrm-prop-fields">
     <tr>

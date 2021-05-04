@@ -7,23 +7,23 @@ if (!isset($this)) {
 <!-- advancedform/mail-form-default-view -->
 <div style="overflow:auto">
   <table>
-<?foreach ($fields as $field):?>
+<?php foreach ($fields as $field):?>
     <tr <?=$field['class']?>>
-<?  if (!$field['hidden']):?>
+<?php   if (!$field['hidden']):?>
       <td class="label">
-<?    if ($field['labeled']):?>
+<?php     if ($field['labeled']):?>
         <label for="<?=$field['field_id']?>">
-<?    endif?>
+<?php     endif?>
           <?=$field['label']?>
-<?    if ($field['labeled']):?>
+<?php     if ($field['labeled']):?>
         </label>
-<?    endif?>
+<?php     endif?>
       </td>
-<?  else:?>
+<?php   else:?>
       <td></td>
-<?  endif?>
+<?php   endif?>
       <td class="field"><?=$field['inner_view']?></td>
     </tr>
-<?endforeach?>
+<?php endforeach?>
   </table>
 </div>
