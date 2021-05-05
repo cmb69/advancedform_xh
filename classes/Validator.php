@@ -66,7 +66,7 @@ class Validator
         $res = true;
         foreach ($form->getFields() as $field) {
             $name = 'advfrm-' . $field->getName();
-            if ($field->getRequired()) {
+            if ($this->isMissing($field)) {
                 $res = $res && $this->checkRequired($form, $field);
             } else {
                 switch ($field->getType()) {
@@ -119,7 +119,7 @@ class Validator
     private function checkRequired(Form $form, Field $field)
     {
         $name = 'advfrm-' . $field->getName();
-        if ($this->isMissing($field)) {
+        if ($field->getRequired()) {
             $this->errors[] = sprintf($this->text['error_missing_field'], XH_hsc($field->getLabel()));
             if (empty($this->focusField)) {
                 $this->focusField = [$form->getName(), $name];

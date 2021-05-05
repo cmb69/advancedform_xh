@@ -49,6 +49,20 @@
         </exec>
     </target>
 
+    <target name="unit-tests" description="runs all unit tests">
+        <exec executable="phpunit" passthru="true" checkreturn="true">
+            <arg value="--bootstrap"/>
+            <arg file="tests/unit/bootstrap.php"/>
+            <arg file="tests/unit"/>
+        </exec>
+    </target>
+
+    <target name="coverage" description="generates coverage report">
+        <exec executable="phpunit" passthru="true" checkreturn="true">
+            <arg line="--configuration coverage.xml"/>
+        </exec>
+    </target>
+
     <target name="gen-help" description="builds help.htm from README.md">
         <exec command="pandoc -s --eol=lf --template=help/template.htm -Vlang=en -Vpagetitle=&quot;User Manual&quot; -o help/help.htm README.md -t html" logoutput="true"/>
         <exec command="pandoc -s --eol=lf --template=help/template.htm -Vlang=de -Vpagetitle=&quot;Benutzerhandbuch&quot; -o help/help_de.htm README_de.md -t html" logoutput="true"/>
