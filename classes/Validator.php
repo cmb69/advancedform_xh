@@ -31,6 +31,18 @@ class Validator
     private $text;
 
     /**
+     * @var array<int,string>
+     * @read-only
+     */
+    public $errors = [];
+
+    /**
+     * @var array<int,string>
+     * @read-only
+     */
+    public $focusField = [];
+
+    /**
      * @param array<string,string> $conf
      * @param array<string,string> $text
      */
@@ -45,32 +57,34 @@ class Validator
      *
      * @param Form $form
      *
-     * @return bool|string
+     * @return bool
      */
     public function check(Form $form)
     {
-        $o = '';
+        $this->errors = [];
+        $this->focusField = [];
+        $res = true;
         foreach ($form->getFields() as $field) {
             $name = 'advfrm-' . $field->getName();
             if ($field->getRequired()) {
-                $o .= $this->checkRequired($form, $field);
+                $res = $res && $this->checkRequired($form, $field);
             } else {
                 switch ($field->getType()) {
                     case 'from':
                     case 'mail':
-                        $o .= $this->checkMail($form, $field);
+                        $res = $res && $this->checkMail($form, $field);
                         break;
                     case 'date':
-                        $o .= $this->checkDate($form, $field);
+                        $res = $res && $this->checkDate($form, $field);
                         break;
                     case 'number':
-                        $o .= $this->checkNumber($form, $field);
+                        $res = $res && $this->checkNumber($form, $field);
                         break;
                     case 'file':
-                        $o .= $this->checkFile($form, $field);
+                        $res = $res && $this->checkFile($form, $field);
                         break;
                     case 'custom':
-                        $o .= $this->checkCustom($form, $field);
+                        $res = $res && $this->checkCustom($form, $field);
                 }
                 if (function_exists('advfrm_custom_valid_field')) {
                     $value = $field->getType() == 'file'
@@ -78,36 +92,41 @@ class Validator
                         : $_POST[$name];
                     $valid = advfrm_custom_valid_field($form->getName(), $field->getName(), $value);
                     if ($valid !== true) {
-                        $o .= '<li>' . $valid . '</li>' . PHP_EOL;
-                        Plugin::focusField($form->getName(), $name);
+                        $this->errors[] = $valid;
+                        if (empty($this->focusField)) {
+                            $this->focusField = [$form->getName(), $name];
+                        }
+                        $res = false;
                     }
                 }
             }
         }
         if ($form->getCaptcha()) {
             if (!call_user_func($this->conf['captcha_plugin'] . '_captcha_check')) {
-                $o .= '<li>' . $this->text['error_captcha_code'] . '</li>' . PHP_EOL;
-                Plugin::focusField($form->getName(), 'advancedform-captcha');
+                $this->errors[] = $this->text['error_captcha_code'];
+                if (empty($this->focusField)) {
+                    $this->focusField = [$form->getName(), 'advancedform-captcha'];
+                }
+                $res = false;
             }
         }
-        return $o == ''
-            ? true
-            : '<ul class="advfrm-error">' . PHP_EOL . $o . '</ul>' . PHP_EOL;
+        return $res;
     }
 
     /**
-     * @return string
+     * @return bool
      */
     private function checkRequired(Form $form, Field $field)
     {
         $name = 'advfrm-' . $field->getName();
         if ($this->isMissing($field)) {
-            Plugin::focusField($form->getName(), $name);
-            return '<li>'
-                . sprintf($this->text['error_missing_field'], XH_hsc($field->getLabel()))
-                . '</li>' . PHP_EOL;
+            $this->errors[] = sprintf($this->text['error_missing_field'], XH_hsc($field->getLabel()));
+            if (empty($this->focusField)) {
+                $this->focusField = [$form->getName(), $name];
+            }
+            return false;
         }
-        return '';
+        return true;
     }
 
     /**
@@ -127,22 +146,23 @@ class Validator
     }
 
     /**
-     * @return string
+     * @return bool
      */
     private function checkMail(Form $form, Field $field)
     {
         $name = 'advfrm-' . $field->getName();
         if (!preg_match($this->conf['mail_regexp'], $_POST[$name])) {
-            Plugin::focusField($form->getName(), $name);
-            return '<li>'
-                . sprintf($this->text['error_invalid_email'], XH_hsc($field->getLabel()))
-                . '</li>' . PHP_EOL;
+            $this->errors[] = sprintf($this->text['error_invalid_email'], XH_hsc($field->getLabel()));
+            if (empty($this->focusField)) {
+                $this->focusField = [$form->getName(), $name];
+            }
+            return false;
         }
-        return '';
+        return true;
     }
 
     /**
-     * @return string
+     * @return bool
      */
     private function checkDate(Form $form, Field $field)
     {
@@ -153,36 +173,38 @@ class Validator
             $month = $matches[2];
             $day = $matches[3];
             if (checkdate($month, $day, $year)) {
-                return '';
+                return true;
             }
         }
-        Plugin::focusField($form->getName(), $name);
-        return '<li>'
-            . sprintf($this->text['error_invalid_date'], XH_hsc($field->getLabel()))
-            .'</li>' . PHP_EOL;
+        $this->errors[] = sprintf($this->text['error_invalid_date'], XH_hsc($field->getLabel()));
+        if (empty($this->focusField)) {
+            $this->focusField = [$form->getName(), $name];
+        }
+        return false;
     }
 
     /**
-     * @return string
+     * @return bool
      */
     private function checkNumber(Form $form, Field $field)
     {
         $name = 'advfrm-' . $field->getName();
         if (!ctype_digit($_POST[$name])) {
-            Plugin::focusField($form->getName(), $name);
-            return '<li>'
-                . sprintf($this->text['error_invalid_number'], XH_hsc($field->getLabel()))
-                . '</li>' . PHP_EOL;
+            $this->errors[] = sprintf($this->text['error_invalid_number'], XH_hsc($field->getLabel()));
+            if (empty($this->focusField)) {
+                $this->focusField = [$form->getName(), $name];
+            }
+            return false;
         }
-        return '';
+        return true;
     }
 
     /**
-     * @return string
+     * @return bool
      */
     private function checkFile(Form $form, Field $field)
     {
-        $o = '';
+        $res = true;
         $name = 'advfrm-' . $field->getName();
         $props = explode("\xC2\xA6", $field->getProps());
         switch ($_FILES[$name]['error']) {
@@ -190,37 +212,41 @@ class Validator
                 if (!empty($props[Plugin::PROP_MAXLEN])
                     && $_FILES[$name]['size'] > $props[Plugin::PROP_MAXLEN]
                 ) {
-                    $o .= '<li>'
-                        . sprintf($this->text['error_upload_too_large'], XH_hsc($field->getLabel()))
-                        . '</li>' . PHP_EOL;
-                    Plugin::focusField($form->getName(), $name);
+                    $this->errors[] = sprintf($this->text['error_upload_too_large'], XH_hsc($field->getLabel()));
+                    if (empty($this->focusField)) {
+                        $this->focusField = [$form->getName(), $name];
+                    }
+                    $res = false;
                 }
                 break;
             case UPLOAD_ERR_INI_SIZE:
             case UPLOAD_ERR_FORM_SIZE:
-                $o .= '<li>'
-                    . sprintf($this->text['error_upload_too_large'], XH_hsc($field->getLabel()))
-                    . '</li>' . PHP_EOL;
-                Plugin::focusField($form->getName(), $name);
+                $this->errors[] = sprintf($this->text['error_upload_too_large'], XH_hsc($field->getLabel()));
+                if (empty($this->focusField)) {
+                    $this->focusField = [$form->getName(), $name];
+                }
+                $res = false;
                 break;
             default:
-                $o .= '<li>'
-                    . sprintf($this->text['error_upload_general'], XH_hsc($field->getLabel()))
-                    . '</li>' . PHP_EOL;
-                Plugin::focusField($form->getName(), $name);
+                $this->errors[] = sprintf($this->text['error_upload_general'], XH_hsc($field->getLabel()));
+                if (empty($this->focusField)) {
+                    $this->focusField = [$form->getName(), $name];
+                }
+                $res = false;
         }
         $ext = pathinfo($_FILES[$name]['name'], PATHINFO_EXTENSION);
         if (!$this->isFileTypeAllowed($ext, $props)) {
-            $o .= '<li>'
-                . sprintf($this->text['error_upload_illegal_ftype'], XH_hsc($field->getLabel()), XH_hsc($ext))
-                . '</li>' . PHP_EOL;
-            Plugin::focusField($form->getName(), $name);
+            $this->errors[] = sprintf($this->text['error_upload_illegal_ftype'], XH_hsc($field->getLabel()), XH_hsc($ext));
+            if (empty($this->focusField)) {
+                $this->focusField = [$form->getName(), $name];
+            }
+            $res = false;
         }
-        return $o;
+        return $res;
     }
 
     /**
-     * @return string
+     * @return bool
      */
     private function checkCustom(Form $form, Field $field)
     {
@@ -233,11 +259,13 @@ class Validator
             $msg = empty($props[Plugin::PROP_ERROR_MSG])
                 ? $this->text['error_invalid_custom']
                 : $props[Plugin::PROP_ERROR_MSG];
-            Plugin::focusField($form->getName(), $name);
-            return '<li>' . sprintf($msg, $field->getLabel()) . '</li>'
-                . PHP_EOL;
+            $this->errors[] = sprintf($msg, $field->getLabel());
+            if (empty($this->focusField)) {
+                $this->focusField = [$form->getName(), $name];
+            }
+            return false;
         }
-        return '';
+        return true;
     }
 
     /**

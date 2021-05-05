@@ -79,7 +79,7 @@ class MailFormController extends Controller
 
         if (isset($_POST['advfrm']) && $_POST['advfrm'] == $id) {
             $validator = new Validator($this->conf, $this->text);
-            if (($res = $validator->check($form)) === true) {
+            if ($validator->check($form)) {
                 if ($form->getStore()) {
                     $this->appendCsv($id);
                 }
@@ -103,7 +103,13 @@ class MailFormController extends Controller
                     return $this->mailService->mailInfo($form, false, true);
                 }
             } else {
-                return $res . $this->formView($id);
+                Plugin::focusField(...$validator->focusField);
+                $o = '<ul class="advfrm-error">';
+                foreach ($validator->errors as $error) {
+                    $o .= '<li>' . $error . '</li>' . PHP_EOL;
+                }
+                $o .= '</ul>';
+                return $o . $this->formView($id);
             }
         }
         return $this->formView($id);
