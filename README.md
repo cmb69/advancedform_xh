@@ -546,6 +546,8 @@ and *manu* for requesting the hooks and co-designing their API.
 And many thanks to *maeg*, who allowed me to do some debugging on his server,
 so I was able to find and fix a bug,
 which caused the sending of mails to fail on several servers.
+Also special thanks to *knollsen* and *frase*
+for quickly pointing out serious regressions in Advancedform_XH 2.1.
 
 And last but not least many thanks to
 [Peter Harteg](https://www.harteg.dk/), the “father” of CMSimple,

@@ -578,6 +578,8 @@ Und vielen Dank an *maeg*,
 der es mir ermöglicht hat auf seinem Server zu debuggen,
 so dass ich einen Fehler finden und beheben konnte,
 der den Mailversand auf manchen Servern scheitern ließ.
+Ebenfalls besonderen Dank an *knollsen* und *frase*
+für das prompte Melden von schweren Regressionen in Advancedform_XH 2.1.
 
 Und zu guter Letzt vielen Dank an
 [Peter Harteg](https://www.harteg.dk/), den „Vater“ von CMSimple,
