@@ -67,24 +67,24 @@ class Validator
         foreach ($form->getFields() as $field) {
             $name = 'advfrm-' . $field->getName();
             if ($this->isMissing($field)) {
-                $res = $res && $this->checkRequired($form, $field);
+                $res = $this->checkRequired($form, $field);
             } else {
                 switch ($field->getType()) {
                     case 'from':
                     case 'mail':
-                        $res = $res && $this->checkMail($form, $field);
+                        $res = $this->checkMail($form, $field);
                         break;
                     case 'date':
-                        $res = $res && $this->checkDate($form, $field);
+                        $res = $this->checkDate($form, $field);
                         break;
                     case 'number':
-                        $res = $res && $this->checkNumber($form, $field);
+                        $res = $this->checkNumber($form, $field);
                         break;
                     case 'file':
-                        $res = $res && $this->checkFile($form, $field);
+                        $res = $this->checkFile($form, $field);
                         break;
                     case 'custom':
-                        $res = $res && $this->checkCustom($form, $field);
+                        $res = $this->checkCustom($form, $field);
                 }
                 if (function_exists('advfrm_custom_valid_field')) {
                     $value = $field->getType() == 'file'
