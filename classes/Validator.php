@@ -67,7 +67,7 @@ class Validator
         foreach ($form->getFields() as $field) {
             $name = 'advfrm-' . $field->getName();
             if ($this->isMissing($field)) {
-                $res = $this->checkRequired($form, $field);
+                $res = $this->checkRequired($form, $field) && $res;
             } else {
                 switch ($field->getType()) {
                     case 'from':
