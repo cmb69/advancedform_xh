@@ -72,19 +72,19 @@ class Validator
                 switch ($field->getType()) {
                     case 'from':
                     case 'mail':
-                        $res = $this->checkMail($form, $field);
+                        $res = $this->checkMail($form, $field) && $res;
                         break;
                     case 'date':
-                        $res = $this->checkDate($form, $field);
+                        $res = $this->checkDate($form, $field) && $res;
                         break;
                     case 'number':
-                        $res = $this->checkNumber($form, $field);
+                        $res = $this->checkNumber($form, $field) && $res;
                         break;
                     case 'file':
-                        $res = $this->checkFile($form, $field);
+                        $res = $this->checkFile($form, $field) && $res;
                         break;
                     case 'custom':
-                        $res = $this->checkCustom($form, $field);
+                        $res = $this->checkCustom($form, $field) && $res;
                 }
                 if (function_exists('advfrm_custom_valid_field')) {
                     $value = $field->getType() == 'file'
