@@ -236,7 +236,11 @@ class Validator
         }
         $ext = pathinfo($_FILES[$name]['name'], PATHINFO_EXTENSION);
         if (!$this->isFileTypeAllowed($ext, $props)) {
-            $this->errors[] = sprintf($this->text['error_upload_illegal_ftype'], XH_hsc($field->getLabel()), XH_hsc($ext));
+            $this->errors[] = sprintf(
+                $this->text['error_upload_illegal_ftype'],
+                XH_hsc($field->getLabel()),
+                XH_hsc($ext)
+            );
             if (empty($this->focusField)) {
                 $this->focusField = [$form->getName(), $name];
             }
