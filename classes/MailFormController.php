@@ -167,7 +167,7 @@ class MailFormController extends Controller
                 'labeled' => $labeled,
                 'inner_view' => $this->fieldRenderer->render($field),
             ];
-            if ($labeled && $this->conf['focus_form']) {
+            if ($this->conf['focus_form'] && $field->getType() !== 'output') {
                 Plugin::focusField($id, 'advfrm-' . $field->getName());
             }
         }
