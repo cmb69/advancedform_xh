@@ -87,10 +87,12 @@ class FormGateway
             $fn = $this->dataFolder() . 'forms.json';
             if (file_exists($fn)) {
                 $contents = XH_readFile($fn);
+                /** @phpstan-ignore-next-line */
                 $db = ($contents !== false) ? json_decode($contents, true) : array();
             } else {
                 $fn = $this->dataFolder() . 'forms.dat';
                 $contents = XH_readFile($fn);
+                /** @phpstan-ignore-next-line */
                 $db = ($contents !== false) ? unserialize($contents) : array();
             }
             $this->cleanDb($db);
