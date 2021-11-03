@@ -105,6 +105,38 @@ class ValidatorTest extends TestCase
         $this->assertContains("error_invalid_email", $subject->errors);
     }
 
+    public function testWrongMailAndMissingName()
+    {
+        $_POST = [
+            'advfrm' => "Test",
+            'advfrm-mail' => "xxx",
+            'advfrm-name' => "",
+        ];
+        $conf = ['mail_regexp' => "/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i"];
+        $text = [
+            "error_invalid_email" => "error_invalid_email",
+            "error_missing_field" => "error_missing_field",
+        ];
+        $subject = new Validator($conf, $text);
+        $form = $this->getTestForm([[
+            "field" => "mail",
+            "label" => "Mail",
+            "type" => "from",
+            "props" => "¦¦¦",
+            "required" => true,
+        ], [
+            "field" => "name",
+            "label" => "Name",
+            "type" => "text",
+            "props" => "¦¦¦",
+            "required" => true,
+        ]]);
+        $this->assertFalse($subject->check($form));
+        $this->assertCount(2, $subject->errors);
+        $this->assertContains("error_invalid_email", $subject->errors);
+        $this->assertContains("error_missing_field", $subject->errors);
+    }
+
     private function getTestForm(array $fields)
     {
         return Form::createFromArray([
