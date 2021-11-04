@@ -221,6 +221,11 @@ The different field types have different properties that can be set.
   The height of the textarea in characters.
 - `Default`:
   The default value of the field.
+  For `date` fields, this is any of the supported
+  [date formats](https://www.php.net/manual/en/datetime.formats.date.php)
+  or [relative formats](https://www.php.net/manual/en/datetime.formats.relative.php).
+  Typical use-cases are fixed dates like "2021-10-31",
+  or relative dates like "today", "tomorrow" or "next saturday".
 - `Value`:
   The HTML for output fields.
 - `File types`:

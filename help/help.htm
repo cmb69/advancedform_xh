@@ -127,7 +127,7 @@
 <li><code>Max. length</code>: The maximum number of characters that can be entered. For file fields it specifies the maximum file size in bytes.</li>
 <li><code>Cols</code>: The width of the textarea in characters.</li>
 <li><code>Rows</code>: The height of the textarea in characters.</li>
-<li><code>Default</code>: The default value of the field.</li>
+<li><code>Default</code>: The default value of the field. For <code>date</code> fields, this is any of the supported <a href="https://www.php.net/manual/en/datetime.formats.date.php">date formats</a> or <a href="https://www.php.net/manual/en/datetime.formats.relative.php">relative formats</a>. Typical use-cases are fixed dates like “2021-10-31”, or relative dates like “today”, “tomorrow” or “next saturday”.</li>
 <li><code>Value</code>: The HTML for output fields.</li>
 <li><code>File types</code>: For file fields only: a comma separated list of permissible file extensions, e.g. <code>jpeg,jpg,png,gif,bmp</code> for images.</li>
 <li><code>Constraint</code>: For custom fields only: the regular expression the value should be checked against.</li>

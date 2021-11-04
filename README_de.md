@@ -237,6 +237,11 @@ Die unterschiedlichen Feld-Typen haben verschiedene Eigenschaften.
   Die Höhe des Textbereichs in Zeichen.
 - `Vorbelegung`:
   Die Vorbelegung des Felds.
+  Für `date` Felder ist dies eines der unterstüzten
+  [Datumsformate](https://www.php.net/manual/de/datetime.formats.date.php)
+  oder [relativen Formate](https://www.php.net/manual/de/datetime.formats.relative.php).
+  Typische Anwendungsfälle sind ein festes Datum wie "2021-10-31",
+  oder ein relatives Datum wie "today" (heute), "tomorrow" (morgen) oder "next saturday" (nächster Samstag).
 - `Wert`:
   Das HTML für Ausgabe-Felder.
 - `Dateitypen`:

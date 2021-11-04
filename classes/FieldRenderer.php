@@ -188,6 +188,11 @@ class FieldRenderer
             $val = advfrm_custom_field_default($this->formName, $field->getName(), null, isset($_POST['advfrm']));
         }
         if (!isset($val)) {
+            if ($field->getType() === "date") {
+                if (($timestamp = strtotime($default)) !== false) {
+                    $default = date("Y-m-d", $timestamp);
+                }
+            }
             $val =  isset($_POST[$name])
                 ? $_POST[$name]
                 : $default;
