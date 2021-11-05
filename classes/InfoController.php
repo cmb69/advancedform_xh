@@ -61,6 +61,7 @@ class InfoController extends Controller
             $o .= XH_message($this->checkPlugin($plugin), $this->text['syscheck_plugin'], ucfirst($plugin));
         }
         $o .= XH_message($this->checkCaptchaPlugin(), $this->text['syscheck_captcha_plugin']);
+        $o .= XH_message($this->checkCaptchaKey(), $this->text['syscheck_captcha_key']);
         foreach (array('config/', 'css/', 'languages/') as $folder) {
             $folders[] = $this->pluginsFolder . 'advancedform/' . $folder;
         }
@@ -116,6 +117,14 @@ class InfoController extends Controller
         $filename = $this->pluginsFolder
             . $this->conf['captcha_plugin'] . '/captcha.php';
         return is_file($filename) ? 'success' : 'warning';
+    }
+
+    /**
+     * @return string
+     */
+    private function checkCaptchaKey()
+    {
+        return !empty($this->conf['captcha_key']) ? 'success' : 'warning';
     }
 
     /**

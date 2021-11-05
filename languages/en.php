@@ -6,6 +6,7 @@ $plugin_tx['advancedform']['syscheck_extension']="Extension '%s' loaded";
 $plugin_tx['advancedform']['syscheck_xhversion']="CMSimple_XH version ≥ %s";
 $plugin_tx['advancedform']['syscheck_plugin']="Plugin '%s' installed";
 $plugin_tx['advancedform']['syscheck_captcha_plugin']="CAPTCHA installed";
+$plugin_tx['advancedform']['syscheck_captcha_key']="CAPTCHA key configured";
 $plugin_tx['advancedform']['syscheck_writable']="Folder '%s' writable";
 $plugin_tx['advancedform']['contact_form']="";
 $plugin_tx['advancedform']['menu_main']="Mail Forms";
