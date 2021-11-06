@@ -236,39 +236,26 @@ class MailFormController extends Controller
                     : $val;
             }
         }
+        $fields = array_map(
+            function ($field) {
+                return str_replace("\0", "", $field);
+            },
+            $fields
+        );
         if ($this->conf['csv_separator'] != '') {
-            $fields = array_map([$this, 'escapeCsvField'], $fields);
-            $separator = $this->conf['csv_separator'];
+            $separator = $this->conf['csv_separator'][0];
         } else {
             $separator = "\t";
         }
         $fn = $this->formGateway->dataFolder() . $id . '.csv';
         if (($fh = fopen($fn, 'a')) === false
-            || fwrite($fh, implode($separator, $fields)."\n") === false
+            || fputcsv($fh, $fields, $separator, '"', "\0") === false
         ) {
             e('cntwriteto', 'file', $fn);
         }
         if ($fh !== false) {
             fclose($fh);
         }
-    }
-
-    /**
-     * Escapes a field value for use in a CSV file.
-     *
-     * @param string $field A field value.
-     *
-     * @return string
-     */
-    private function escapeCsvField($field)
-    {
-        $specialChars = "\"\r\n" . $this->conf['csv_separator'];
-        $specialChars = preg_quote($specialChars, '/');
-        if (preg_match('/[' . $specialChars . ']/', $field)) {
-            $field = str_replace('"', '""', $field);
-            $field = '"' . $field . '"';
-        }
-        return $field;
     }
 
     /**
