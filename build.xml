@@ -98,6 +98,7 @@
                 <exclude name=".phive/**"/>
                 <exclude name="tests/**"/>
                 <exclude name=".eslintrc.json"/>
+                <exclude name="admin.min.js"/>
                 <exclude name="build.xml"/>
                 <exclude name="composer.json"/>
                 <exclude name="composer.lock"/>
