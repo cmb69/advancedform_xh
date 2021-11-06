@@ -47,11 +47,11 @@
   <!-- the name of the Plugin -->
   <name type="plugin">Advancedform_XH</name>
   <!-- Date this xml-file was updated, yyyy.mm.dd -->
-  <date_update>2021-05-06</date_update>
+  <date_update>2021-11-06</date_update>
   <!-- version of Plugin -->
-  <version>2.2</version>
+  <version>2.3</version>
   <!-- date of publication, yyyy.mm.dd -->
-  <date_version>2021-05-06</date_version>
+  <date_version>2021-11-06</date_version>
   <!-- the name of the programmer -->
   <coder>Christoph M. Becker</coder>
   <!-- Categories must be written in lower case. More than one possible, separated by comma without spaces. -->
@@ -64,7 +64,7 @@
   <url>
     <!-- URL where you can download the plugin -->
     <!-- If there no Download-URL, enter this follows! - <download_url></download_url> -->
-    <download_url>https://github.com/cmb69/advancedform_xh/releases/2.2</download_url>
+    <download_url>https://github.com/cmb69/advancedform_xh/releases/2.3</download_url>
     <!-- URL of the programmer's website -->
     <!-- If there no Website, enter this follows! - <coder_url></coder_url> -->
     <coder_url>https://3-magi.net</coder_url>
@@ -76,7 +76,7 @@
   <compatibility>≥ 1.7.0</compatibility>
   <!-- minimum version of PHP that is required, i.e. 5.3, 5.6, 7, ≥ 5.6, ... -->
   <!-- If there no specification, e.g. for templates, enter this follows! - <php_ver></php_ver> -->
-  <php_ver>≥ 5.5.0</php_ver>
+  <php_ver>≥ 5.5.4</php_ver>
   <!-- the License for the Plugin, GPLv3, AGPL, LGPL, GPLv2 ... -->
   <license>GPLv3</license>
   <!-- Description in English is mandatory -->

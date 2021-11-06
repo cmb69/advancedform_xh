@@ -24,7 +24,7 @@ namespace Advancedform;
 
 class Plugin
 {
-    const VERSION = "2.3-dev";
+    const VERSION = "2.3";
 
     const DB_VERSION = 2;
 
