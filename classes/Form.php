@@ -22,6 +22,7 @@
 namespace Advancedform;
 
 use JsonSerializable;
+use ReturnTypeWillChange;
 
 class Form implements JsonSerializable
 {
@@ -179,6 +180,7 @@ class Form implements JsonSerializable
     /**
      * @return array<string,(string|bool|Field[])>
      */
+    #[ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return array(
