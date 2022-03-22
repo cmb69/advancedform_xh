@@ -147,7 +147,7 @@ class MainAdminController extends Controller
                     'label' => '',
                     'type' => 'text',
                     'props' => "\xC2\xA6\xC2\xA6\xC2\xA6",
-                    'required' => '0'
+                    'required' => false
                 )
             )
         ));
@@ -258,7 +258,7 @@ class MainAdminController extends Controller
     }
 
     /**
-     * @return array<string,(string|bool|array<bool|string>)>
+     * @return FormArray
      */
     private function getFormArrayFromPost()
     {

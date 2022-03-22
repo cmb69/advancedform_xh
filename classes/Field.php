@@ -27,7 +27,7 @@ use ReturnTypeWillChange;
 class Field implements JsonSerializable
 {
     /**
-     * @param array<string,(string|bool)> $record
+     * @param FieldArray $record
      * @return self
      */
     public static function createFromArray(array $record)

@@ -16,3 +16,6 @@ parameters:
     - ../jquery/jquery.inc.php
     - phpmailer/PHPMailer.php
     - hooks.stub.php
+  typeAliases:
+    FormArray: 'array{captcha:bool,name:string,title:string,to_name:string,to:string,cc:string,bcc:string,thanks_page:string,store:bool,fields:array<FieldArray>}'
+    FieldArray: 'array{field:string,label:string,type:string,props:string,required:bool}'
