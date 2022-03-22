@@ -24,8 +24,8 @@ namespace Advancedform;
 
 class FormGateway
 {
-    /** @var FormGateway */
-    private static $instance;
+    /** @var FormGateway|null */
+    private static $instance = null;
 
     /**
      * @return FormGateway
@@ -38,8 +38,8 @@ class FormGateway
         return self::$instance;
     }
 
-    /** @var array<string,(int|Form)> */
-    private $db;
+    /** @var array<string,(int|Form)>|null */
+    private $db = null;
 
     private function __construct()
     {

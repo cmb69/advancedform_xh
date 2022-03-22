@@ -141,7 +141,7 @@ SCRIPT;
     /**
      * Returns the posted fields, as e.g. needed for advfrm_custom_thanks_page().
      *
-     * @return array<string,(string|array)>
+     * @return array<string,(string|array<string>)>
      */
     public static function fields()
     {

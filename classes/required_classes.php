@@ -75,7 +75,7 @@ function Advancedform_readCsv($id)
 }
 
 /**
- * @return array<string,(string|array)>
+ * @return array<string,(string|array<string>)>
  */
 function Advancedform_fields()
 {

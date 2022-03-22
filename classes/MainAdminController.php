@@ -258,7 +258,7 @@ class MainAdminController extends Controller
     }
 
     /**
-     * @return array<string,(string|bool|array)>
+     * @return array<string,(string|bool|array<bool|string>)>
      */
     private function getFormArrayFromPost()
     {
