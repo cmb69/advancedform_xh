@@ -1,5 +1,6 @@
 {
     "require-dev": {
-        "bartlett/php-compatinfo": "5.2.*"
+        "bartlett/php-compatinfo": "5.2.*",
+        "phpunit/phpunit": "8.5.*"
     }
 }

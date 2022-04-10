@@ -25,7 +25,7 @@ use PHPUnit\Framework\TestCase;
 
 class ValidatorTest extends TestCase
 {
-    public function testMissingOptionalAttachment()
+    public function testMissingOptionalAttachment(): void
     {
         $_POST = [
             'advfrm' => "Test",
@@ -50,7 +50,7 @@ class ValidatorTest extends TestCase
         $this->assertTrue($subject->check($form));
     }
 
-    public function testMissingOptionalDate()
+    public function testMissingOptionalDate(): void
     {
         $_POST = [
             'advfrm' => "Test",
@@ -67,7 +67,7 @@ class ValidatorTest extends TestCase
         $this->assertTrue($subject->check($form));
     }
 
-    public function testMissingOptionalMail()
+    public function testMissingOptionalMail(): void
     {
         $_POST = [
             'advfrm' => "Test",
@@ -84,7 +84,7 @@ class ValidatorTest extends TestCase
         $this->assertTrue($subject->check($form));
     }
 
-    public function testWrongRequiredMail()
+    public function testWrongRequiredMail(): void
     {
         $_POST = [
             'advfrm' => "Test",
@@ -105,7 +105,7 @@ class ValidatorTest extends TestCase
         $this->assertContains("error_invalid_email", $subject->errors);
     }
 
-    public function testWrongMailAndMissingName()
+    public function testWrongMailAndMissingName(): void
     {
         $_POST = [
             'advfrm' => "Test",
@@ -137,7 +137,10 @@ class ValidatorTest extends TestCase
         $this->assertContains("error_missing_field", $subject->errors);
     }
 
-    private function getTestForm(array $fields)
+    /**
+     * @param array<FieldArray> $fields
+     */
+    private function getTestForm(array $fields): Form
     {
         return Form::createFromArray([
             'captcha' => false,
@@ -154,7 +157,7 @@ class ValidatorTest extends TestCase
     }
 }
 
-function XH_hsc($string)
+function XH_hsc(string $string): string
 {
     return $string;
 }

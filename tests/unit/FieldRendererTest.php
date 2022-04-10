@@ -28,14 +28,17 @@ class FieldRendererTest extends TestCase
     /**
      * @dataProvider fieldProvider
      */
-    public function testRenderTextField($field, $expected)
+    public function testRenderTextField(Field $field, string $expected): void
     {
         $renderer = new FieldRenderer("test");
         $actual = $renderer->render($field);
         $this->assertEquals($expected, $actual);
     }
 
-    public function fieldProvider()
+    /**
+     * @return array<string,array{Field,string}>
+     */
+    public function fieldProvider(): array
     {
         return [
             "text field" => [
