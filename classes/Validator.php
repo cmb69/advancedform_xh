@@ -2,7 +2,7 @@
 
 /**
  * Copyright 2005-2010 Jan Kanters
- * Copyright 2011-2021 Christoph M. Becker
+ * Copyright 2011-2022 Christoph M. Becker
  *
  * This file is part of Advancedform_XH.
  *

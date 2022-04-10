@@ -548,7 +548,7 @@ Advancedform\_XH erhalten haben. Falls nicht, siehe
 <https://www.gnu.org/licenses/>.
 
 © 2005-2010 Jan Kanters  
-© 2011-2021 Christoph M. Becker
+© 2011-2022 Christoph M. Becker
 
 Dänische Übersetzung © 2012 Jens Maegard  
 Estnische Übersetzung © 2012 Alo Tänavots  
