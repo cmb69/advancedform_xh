@@ -24,26 +24,8 @@ namespace Advancedform;
 
 class FormGateway
 {
-    /** @var FormGateway|null */
-    private static $instance = null;
-
-    /**
-     * @return FormGateway
-     */
-    public static function instance()
-    {
-        if (!isset(self::$instance)) {
-            self::$instance = new FormGateway();
-        }
-        return self::$instance;
-    }
-
     /** @var array<string,(int|Form)>|null */
     private $db = null;
-
-    private function __construct()
-    {
-    }
 
     /**
      * Returns the data folder path. Tries to create it, if necessary.

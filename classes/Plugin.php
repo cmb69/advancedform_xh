@@ -96,7 +96,7 @@ SCRIPT;
         global $e, $plugin_cf, $plugin_tx;
 
         $pcf = $plugin_cf['advancedform'];
-        $forms = FormGateway::instance()->findAll();
+        $forms = self::sharedFormGateway()->findAll();
         $fields = array();
         if (isset($forms[$id])) {
             foreach ($forms[$id]->getFields() as $field) {
@@ -111,7 +111,7 @@ SCRIPT;
             return false;
         }
 
-        $fn = FormGateway::instance()->dataFolder() . $id . '.csv';
+        $fn = self::sharedFormGateway()->dataFolder() . $id . '.csv';
         if ($pcf['csv_separator'] == '') {
             if (($lines = file($fn)) === false) {
                 e('cntopen', 'file', $fn);
@@ -183,6 +183,16 @@ SCRIPT;
         }
     }
 
+    public static function sharedFormGateway(): FormGateway
+    {
+        static $instance = null;
+
+        if (!$instance) {
+            $instance = new FormGateway();
+        }
+        return $instance;
+    }
+
     /**
      * @return void
      */
@@ -193,7 +203,7 @@ SCRIPT;
         $o .= print_plugin_admin('on');
         switch ($admin) {
             case '':
-                $o .= (new InfoController(FormGateway::instance()))->infoAction();
+                $o .= (new InfoController(self::sharedFormGateway()))->infoAction();
                 break;
             case 'plugin_main':
                 $this->mainAdministration();
@@ -211,7 +221,7 @@ SCRIPT;
         global $o, $action;
 
         $this->mainAdministrationJs();
-        $controller = new MainAdminController(FormGateway::instance());
+        $controller = new MainAdminController(self::sharedFormGateway());
         switch ($action) {
             case 'new':
                 $o .= $controller->createFormAction();

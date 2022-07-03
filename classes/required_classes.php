@@ -21,7 +21,6 @@
  */
 
 use Advancedform\FieldRenderer;
-use Advancedform\FormGateway;
 use Advancedform\MailFormController;
 use Advancedform\Plugin;
 
@@ -34,7 +33,7 @@ use Advancedform\Plugin;
  */
 function advancedform($id)
 {
-    return (new MailFormController(FormGateway::instance(), new FieldRenderer($id)))->main($id);
+    return (new MailFormController(Plugin::sharedFormGateway(), new FieldRenderer($id)))->main($id);
 }
 
 /**
