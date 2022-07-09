@@ -132,7 +132,7 @@ class MainAdminController extends Controller
         $forms = $this->formGateway->findAll();
         $id = uniqid();
         $forms[$id] = Form::createFromArray(array(
-            'name' => '',
+            'name' => $id,
             'title' => '',
             'to_name' => $this->conf['mail_to_name'],
             'to' => $this->conf['mail_to'],
@@ -333,8 +333,8 @@ class MainAdminController extends Controller
         $forms = $this->formGateway->findAll();
         if (isset($forms[$id])) {
             $form = clone $forms[$id];
-            $form->setName('');
             $id = uniqid();
+            $form->setName($id);
             $forms[$id] = $form;
             $this->formGateway->updateAll($forms);
         } else {
