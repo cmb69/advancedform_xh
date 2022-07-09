@@ -81,10 +81,10 @@ class MailFormController extends Controller
             $validator = new Validator($this->conf, $this->text);
             if ($validator->check($form)) {
                 if ($form->getStore()) {
-                    $this->appendCsv($id);
+                    $this->appendCsv($form);
                 }
-                if (!$this->mail($id, false)) {
-                    return $this->formView($id);
+                if (!$this->mail($form, false)) {
+                    return $this->formView($form);
                 }
                 if (function_exists('advfrm_custom_thanks_page')) {
                     $fields = Plugin::fields();
@@ -94,8 +94,8 @@ class MailFormController extends Controller
                     $thanks = $form->getThanksPage();
                 }
                 if (!empty($thanks)) {
-                    if ($this->conf['mail_confirmation'] && !$this->mail($id, true)) {
-                        return $this->formView($id);
+                    if ($this->conf['mail_confirmation'] && !$this->mail($form, true)) {
+                        return $this->formView($form);
                     }
                     header('Location: ' . $this->scriptName . '?' . $thanks);
                     // FIXME: exit()?
@@ -109,24 +109,22 @@ class MailFormController extends Controller
                     $o .= '<li>' . $error . '</li>' . PHP_EOL;
                 }
                 $o .= '</ul>';
-                return $o . $this->formView($id);
+                return $o . $this->formView($form);
             }
         }
-        return $this->formView($id);
+        return $this->formView($form);
     }
 
     /**
      * Returns the view of the form.
      *
-     * @param string $id A form ID.
-     *
      * @return string (X)HTML.
      */
-    private function formView($id)
+    private function formView(Form $form)
     {
         global $su, $f;
 
-        $form = $this->formGateway->findAll()[$id];
+        $id = $form->getName();
         return $this->view->render('mail-form', [
             'id' => $id,
             'url' => $this->scriptName . '?' . ($f === 'mailform' ? '&mailform' : $su),
@@ -135,8 +133,8 @@ class MailFormController extends Controller
                 sprintf($this->conf['required_field_mark'], $this->text['message_required_field'])
             ),
             'inner_view' => file_exists($this->formGateway->dataFolder() . $id . '.tpl')
-                ? $this->templateView($id)
-                : $this->defaultView($id),
+                ? $this->templateView($form)
+                : $this->defaultView($form),
             'captcha' => $form->getCaptcha() ? call_user_func($this->conf['captcha_plugin'] . '_captcha_display') : '',
             'tx' => $this->text,
         ]);
@@ -145,13 +143,11 @@ class MailFormController extends Controller
     /**
      * Returns the default view of the form.
      *
-     * @param string $id A form ID.
-     *
      * @return string (X)HTML.
      */
-    private function defaultView($id)
+    private function defaultView(Form $form)
     {
-        $form = $this->formGateway->findAll()[$id];
+        $id = $form->getName();
         $bag = [
             'fields' => [],
         ];
@@ -177,15 +173,13 @@ class MailFormController extends Controller
     /**
      * Returns the view of a form by instatiating the template.
      *
-     * @param string $id A form ID.
-     *
      * @return string (X)HTML.
      */
-    private function templateView($id)
+    private function templateView(Form $form)
     {
         global $hjs;
 
-        $forms = $this->formGateway->findAll();
+        $id = $form->getName();
         $fn = $this->formGateway->dataFolder() . 'css/' . $id . '.css';
         if (file_exists($fn)) {
             $hjs .= '<link rel="stylesheet" href="' . $fn . '" type="text/css">'
@@ -196,8 +190,6 @@ class MailFormController extends Controller
             $hjs .= '<script src="' . $fn . '"></script>'
                 . PHP_EOL;
         }
-
-        $form = $forms[$id];
         $fn = $this->formGateway->dataFolder() . $id . '.tpl'
             . ($this->conf['php_extension'] ? '.php' : '');
         $advfrm_script = file_get_contents($fn);
@@ -217,15 +209,13 @@ class MailFormController extends Controller
     /**
      * Appends the posted record to csv file.
      *
-     * @param string $id A form ID.
-     *
      * @return void
      */
-    private function appendCsv($id)
+    private function appendCsv(Form $form)
     {
-        $forms = $this->formGateway->findAll();
+        $id = $form->getName();
         $fields = array();
-        foreach ($forms[$id]->getFields() as $field) {
+        foreach ($form->getFields() as $field) {
             if ($field->getType() != 'output') {
                 $name = $field->getName();
                 $val = ($field->getType() == 'file')
@@ -261,17 +251,15 @@ class MailFormController extends Controller
     /**
      * Sends the mail and returns whether that was successful.
      *
-     * @param string $id           A form ID.
-     * @param bool   $confirmation Whether to send the confirmation mail.
+     * @param bool $confirmation Whether to send the confirmation mail.
      *
      * @return bool
      */
-    private function mail($id, $confirmation)
+    private function mail(Form $form, $confirmation)
     {
         global $e;
 
-        $forms = $this->formGateway->findAll();
-        $form = $forms[$id];
+        $id = $form->getName();
         $type = strtolower($this->conf['mail_type']);
         $from = '';
         $from_name = '';
