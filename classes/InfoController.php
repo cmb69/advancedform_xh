@@ -22,15 +22,31 @@
 
 namespace Advancedform;
 
-class InfoController extends Controller
+class InfoController
 {
     /** @var FormGateway */
     private $formGateway;
 
-    public function __construct(FormGateway $formGateway)
+    /** @var string */
+    private $pluginsFolder;
+
+    /** @var array<string,string> */
+    private $conf;
+
+    /** @var array<string,string> */
+    private $text;
+
+    /**
+     * @param string $pluginsFolder
+     * @param array<string,string> $conf
+     * @param array<string,string> $text
+     */
+    public function __construct(FormGateway $formGateway, $pluginsFolder, array $conf, array $text)
     {
-        parent::__construct();
         $this->formGateway = $formGateway;
+        $this->pluginsFolder = $pluginsFolder;
+        $this->conf = $conf;
+        $this->text = $text;
     }
 
     /**

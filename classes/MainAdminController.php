@@ -25,10 +25,19 @@ namespace Advancedform;
 use XH\Pages;
 use Fa\RequireCommand as FaRequireCommand;
 
-class MainAdminController extends Controller
+class MainAdminController
 {
     /** @var FormGateway */
     private $formGateway;
+
+    /** @var string */
+    private $scriptName;
+
+    /** @var array<string,string> */
+    private $conf;
+
+    /** @var array<string,string> */
+    private $text;
 
     /**
      * @var object
@@ -38,12 +47,19 @@ class MainAdminController extends Controller
     /** @var View */
     private $view;
 
-    public function __construct(FormGateway $formGateway)
+    /**
+     * @param string $scriptName
+     * @param array<string,string> $conf
+     * @param array<string,string> $text
+     */
+    public function __construct(FormGateway $formGateway, $scriptName, array $conf, array $text)
     {
         global $_XH_csrfProtection;
 
-        parent::__construct();
         $this->formGateway = $formGateway;
+        $this->scriptName = $scriptName;
+        $this->conf = $conf;
+        $this->text = $text;
         $this->csrfProtector = $_XH_csrfProtection;
         $this->view = new View();
     }

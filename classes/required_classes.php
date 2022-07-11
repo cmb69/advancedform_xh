@@ -33,7 +33,17 @@ use Advancedform\Plugin;
  */
 function advancedform($id)
 {
-    return (new MailFormController(Plugin::sharedFormGateway(), new FieldRenderer($id)))->main($id);
+    global $sn, $pth, $plugin_cf, $plugin_tx;
+
+    $controller = new MailFormController(
+        Plugin::sharedFormGateway(),
+        new FieldRenderer($id),
+        $sn,
+        $pth['folder']['plugins'],
+        $plugin_cf['advancedform'],
+        $plugin_tx['advancedform']
+    );
+    return $controller->main($id);
 }
 
 /**

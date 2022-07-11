@@ -22,7 +22,7 @@
 
 namespace Advancedform;
 
-class MailFormController extends Controller
+class MailFormController
 {
     /** @var FormGateway */
     private $formGateway;
@@ -30,17 +30,44 @@ class MailFormController extends Controller
     /** @var FieldRenderer */
     private $fieldRenderer;
 
+    /** @var string */
+    private $scriptName;
+
+    /** @var string */
+    private $pluginsFolder;
+
+    /** @var array<string,string> */
+    private $conf;
+
+    /** @var array<string,string> */
+    private $text;
+
     /** @var MailService */
     private $mailService;
 
     /** @var View */
     private $view;
 
-    public function __construct(FormGateway $formGateway, FieldRenderer $fieldRenderer)
-    {
-        parent::__construct();
+    /**
+     * @param string $scriptName
+     * @param string $pluginsFolder
+     * @param array<string,string> $conf
+     * @param array<string,string> $text
+     */
+    public function __construct(
+        FormGateway $formGateway,
+        FieldRenderer $fieldRenderer,
+        $scriptName,
+        $pluginsFolder,
+        array $conf,
+        array $text
+    ) {
         $this->formGateway = $formGateway;
         $this->fieldRenderer = $fieldRenderer;
+        $this->scriptName = $scriptName;
+        $this->pluginsFolder = $pluginsFolder;
+        $this->conf = $conf;
+        $this->text = $text;
         $this->mailService = new MailService($this->formGateway->dataFolder(), $this->pluginsFolder, $this->text);
         $this->view = new View();
     }

@@ -198,12 +198,18 @@ SCRIPT;
      */
     private function administration()
     {
-        global $o, $admin;
+        global $o, $admin, $pth, $plugin_cf, $plugin_tx;
 
         $o .= print_plugin_admin('on');
         switch ($admin) {
             case '':
-                $o .= (new InfoController(self::sharedFormGateway()))->infoAction();
+                $controller = new InfoController(
+                    self::sharedFormGateway(),
+                    $pth['folder']['plugins'],
+                    $plugin_cf['advancedform'],
+                    $plugin_tx['advancedform']
+                );
+                $o .= $controller->infoAction();
                 break;
             case 'plugin_main':
                 $this->mainAdministration();
@@ -218,10 +224,15 @@ SCRIPT;
      */
     private function mainAdministration()
     {
-        global $o, $action;
+        global $o, $action, $sn, $plugin_cf, $plugin_tx;
 
         $this->mainAdministrationJs();
-        $controller = new MainAdminController(self::sharedFormGateway());
+        $controller = new MainAdminController(
+            self::sharedFormGateway(),
+            $sn,
+            $plugin_cf['advancedform'],
+            $plugin_tx['advancedform']
+        );
         switch ($action) {
             case 'new':
                 $o .= $controller->createFormAction();
