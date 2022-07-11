@@ -60,7 +60,9 @@ class MailFormController
         $scriptName,
         $pluginsFolder,
         array $conf,
-        array $text
+        array $text,
+        MailService $mailService,
+        View $view
     ) {
         $this->formGateway = $formGateway;
         $this->fieldRenderer = $fieldRenderer;
@@ -68,8 +70,8 @@ class MailFormController
         $this->pluginsFolder = $pluginsFolder;
         $this->conf = $conf;
         $this->text = $text;
-        $this->mailService = new MailService($this->formGateway->dataFolder(), $this->pluginsFolder, $this->text);
-        $this->view = new View();
+        $this->mailService = $mailService;
+        $this->view = $view;
     }
 
     /**

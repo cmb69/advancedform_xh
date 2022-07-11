@@ -9,6 +9,7 @@ parameters:
   bootstrapFiles:
     - constants.php
   scanFiles:
+    - ../../cmsimple/classes/CSRFProtection.php
     - ../../cmsimple/classes/Pages.php
     - ../../cmsimple/adminfuncs.php
     - ../../cmsimple/functions.php

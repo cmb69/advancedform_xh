@@ -224,14 +224,16 @@ SCRIPT;
      */
     private function mainAdministration()
     {
-        global $o, $action, $sn, $plugin_cf, $plugin_tx;
+        global $o, $action, $sn, $plugin_cf, $plugin_tx, $_XH_csrfProtection;
 
         $this->mainAdministrationJs();
         $controller = new MainAdminController(
             self::sharedFormGateway(),
             $sn,
             $plugin_cf['advancedform'],
-            $plugin_tx['advancedform']
+            $plugin_tx['advancedform'],
+            $_XH_csrfProtection,
+            new View()
         );
         switch ($action) {
             case 'new':

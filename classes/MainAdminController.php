@@ -22,6 +22,7 @@
 
 namespace Advancedform;
 
+use XH\CSRFProtection;
 use XH\Pages;
 use Fa\RequireCommand as FaRequireCommand;
 
@@ -52,16 +53,14 @@ class MainAdminController
      * @param array<string,string> $conf
      * @param array<string,string> $text
      */
-    public function __construct(FormGateway $formGateway, $scriptName, array $conf, array $text)
+    public function __construct(FormGateway $formGateway, $scriptName, array $conf, array $text, CSRFProtection $csrfProtector, View $view)
     {
-        global $_XH_csrfProtection;
-
         $this->formGateway = $formGateway;
         $this->scriptName = $scriptName;
         $this->conf = $conf;
         $this->text = $text;
-        $this->csrfProtector = $_XH_csrfProtection;
-        $this->view = new View();
+        $this->csrfProtector = $csrfProtector;
+        $this->view = $view;
     }
 
     /**
