@@ -172,7 +172,7 @@ class Validator
             $year = $matches[1];
             $month = $matches[2];
             $day = $matches[3];
-            if (checkdate($month, $day, $year)) {
+            if (checkdate((int) $month, (int) $day, (int) $year)) {
                 return true;
             }
         }
