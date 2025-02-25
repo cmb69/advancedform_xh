@@ -29,12 +29,6 @@
         </exec>
     </target>
 
-    <target name="compat" description="checks compatibility with PHP_CompatInfo">
-        <exec executable="phpcompatinfo" logoutput="true">
-            <arg line="analyser:run --alias current"/>
-        </exec>
-    </target>
-
     <target name="eslint" description="checks JavaScript with ESLint">
         <exec executable="eslint" passthru="true" checkreturn="true">
             <arg file="admin.min.js"/>
@@ -102,7 +96,6 @@
                 <exclude name="constants.php"/>
                 <exclude name="help/template.htm"/>
                 <exclude name="hooks.stub.php"/>
-                <exclude name="phpcompatinfo.json"/>
                 <exclude name="phpstan.neon"/>
                 <exclude name="README*.md"/>
                 <exclude name="teplad.xml"/>
