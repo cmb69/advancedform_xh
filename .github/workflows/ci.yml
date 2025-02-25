@@ -18,7 +18,7 @@ jobs:
         with:
           path: 'cmsimplexh/plugins/advancedform'
       - name: phive install
-        run: cd cmsimplexh/plugins/advancedform && phive --no-progress install --trust-gpg-keys 0x0F9684B8B16B7AB0,0x31C7E470E2138192,0x4AA394086372C20A,0xA978220305CD5C32,0xCF1A108D0E7AE720,0xD5F0CB76E2DD74F8
+        run: cd cmsimplexh/plugins/advancedform && phive --no-progress install --trust-gpg-keys 0x0F9684B8B16B7AB0,0x31C7E470E2138192,0x4AA394086372C20A,0x51C67305FFC2E5C0,0xA978220305CD5C32,0xCF1A108D0E7AE720,0xD5F0CB76E2DD74F8
       - name: composer install
         run: cd cmsimplexh/plugins/advancedform && composer install
       - name: phing sniff
