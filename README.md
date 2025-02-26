@@ -28,7 +28,7 @@ hook system, respectively.
 ## Requirements
 
 Advancedform\_XH is a plugin for CMSimple\_XH ≥ 1.7.0
-with the Fa and Jquery plugins, which are available by default.
+with the Jquery plugin, which is available by default.
 It requires PHP ≥ 7.0.0 with the ctype, filter and hash extensions.
 
 ## Download
@@ -544,6 +544,9 @@ Many thanks for the great regular expression tutorial and the examples.
 
 The plugin icon is designed by Jack Cai.
 Many thanks for publishing it under CC BY-ND.
+
+The plugin icons in the back-end are from [Font Awesome](https://fontawesome.com/).
+Many thanks for publishing these SVG under CC BY 4.0.
 
 Many thanks to the community at the [CMSimple\_XH forum](https://cmsimpleforum.com/)
 for tips, suggestions and testing.

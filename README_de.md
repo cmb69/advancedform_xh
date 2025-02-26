@@ -29,7 +29,7 @@ möglich.
 ## Voraussetzungen
 
 Advancedform\_XH ist ein Plugin für CMSimple\_XH ≥ 1.7.0
-mit den Fa und Jquery Plugins, die standardmäßig verfügbar sind.
+mit dem Jquery Plugin, das standardmäßig verfügbar ist.
 Es benötigt PHP ≥ 7.0.0 mit den ctype, filter und hash Extensions.
 
 ## Download
@@ -575,6 +575,9 @@ Beispiele.
 
 Das Plugin-Icon wurde von Jack Cai entworfen.
 Vielen Dank für die Veröffentlichung unter CC BY-ND.
+
+Die Icons im Backend stammen von [Font Awesome](https://fontawesome.com/).
+Vielen Dank für die Veröffentlichung dieser SVGs unter CC BY 4.0.
 
 Vielen Dank an die Community im [CMSimple\_XH Forum](https://cmsimpleforum.com/)
 für Tipps, Vorschläge und das Testen.
