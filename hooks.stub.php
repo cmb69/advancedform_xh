@@ -19,7 +19,7 @@ function advfrm_custom_valid_field($form_name, $field_name, $value) {}
 
 /**
  * @param string $form_name
- * @param PHPMailer\PHPMailer\PHPMailer $mail
+ * @param Advancedform\PHPMailer\PHPMailer $mail
  * @param bool $is_confirmation
  * @return bool
  */

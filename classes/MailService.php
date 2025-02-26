@@ -22,7 +22,7 @@
 
 namespace Advancedform;
 
-use PHPMailer\PHPMailer\PHPMailer;
+use Advancedform\PHPMailer\PHPMailer;
 
 class MailService
 {
