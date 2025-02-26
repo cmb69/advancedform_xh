@@ -473,15 +473,31 @@ hook system, respectively, the result might not be as expected. Either remove th
 unwanted template/hook files manually, or make a copy of the form in the
 form administration and use this copy.
 
+## Sending of the mails
+
+Per default, Advancedform_XH uses PHP's mail function, which is typically just
+a simple sendmail wrapper.  This way to send mails has some limitations, and
+is no longer supported by some Webservers.
+
+Thus, you are encouraged to enable SMTP support in the configuration.
+It is important to properly fill in all relevant configuration settings;
+request the necessary information from your mail provider.
+If the SMTP server requires authentication (quite likely),
+you have to provide the username and password in the configuration.
+Note that these credentials are necessarily stored in plain text in the
+respective config.php.
+Therefore it is important that the configuration folder of Advancedform_XH is
+protected against direct access.  The plugin ships with a respective .htaccess
+file, but this may not be recognized by your server, so you need to take
+suitable measures yourself.  Before entering the sensitive credentials into
+the configuration, check whether the system check is green regarding the
+access protection of config.php.
+
+If the SMTP connection does not work, it can be helpful to enable `smtp_debug`,
+which will show detailed information regarding the SMTP connection in the
+back-end, when you submit a mail form.
+
 ## Limitations
-
-### Alternative mailers
-
-The original AdvancedForm supported different kinds of mailers.
-This appears to be a rarely needed feature.
-Most Webhosters will provide the possibility to send mail via `mail()`,
-which should be easily configured
-and quite acceptable for the purposes of Advancedform\_XH.
 
 ### Spam protection
 
@@ -558,6 +574,8 @@ so I was able to find and fix a bug,
 which caused the sending of mails to fail on several servers.
 Also special thanks to *knollsen* and *frase*
 for quickly pointing out serious regressions in Advancedform_XH 2.1.
+Very special thanks to *olape* for developing, and providing, the original
+SMTP support.
 
 And last but not least many thanks to
 [Peter Harteg](https://www.harteg.dk/), the “father” of CMSimple,

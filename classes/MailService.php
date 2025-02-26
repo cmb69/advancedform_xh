@@ -23,6 +23,7 @@
 namespace Advancedform;
 
 use Advancedform\PHPMailer\PHPMailer;
+use Advancedform\PHPMailer\SMTP;
 
 class MailService
 {
@@ -33,17 +34,22 @@ class MailService
     private $pluginsFolder;
 
     /** @var array<string,string> */
+    private $conf;
+
+    /** @var array<string,string> */
     private $text;
 
     /**
      * @param string $dataFolder
      * @param string $pluginsFolder
+     * @param array<string,string> $conf
      * @param array<string,string> $text
      */
-    public function __construct($dataFolder, $pluginsFolder, array $text)
+    public function __construct($dataFolder, $pluginsFolder, array $conf, array $text)
     {
         $this->dataFolder = $dataFolder;
         $this->pluginsFolder = $pluginsFolder;
+        $this->conf = $conf;
         $this->text = $text;
     }
 
@@ -52,15 +58,38 @@ class MailService
      * @param string $from_name
      * @param string $type
      * @param bool $confirmation
+     * @param string $debug
      * @return bool|string true on success, error info text in case of failure
      */
-    public function sendMail(Form $form, $from, $from_name, $type, $confirmation)
+    public function sendMail(Form $form, $from, $from_name, $type, $confirmation, &$debug)
     {
         global $sl;
 
         include_once "{$this->pluginsFolder}advancedform/phpmailer/PHPMailer.php";
         include_once "{$this->pluginsFolder}advancedform/phpmailer/Exception.php";
+        if ($this->conf['smtp_host']) {
+            include_once "{$this->pluginsFolder}advancedform/phpmailer/SMTP.php";
+        }
         $mail = new PHPMailer();
+        if ($this->conf['smtp_enabled']) {
+            $mail->isSMTP();
+            $mail->Host = $this->conf['smtp_host'];
+            $mail->Port = (int) $this->conf['smtp_port'];
+            if ($this->conf['smtp_tls']) {
+                $mail->SMTPSecure = constant(PHPMailer::class . '::ENCRYPTION_' . $this->conf['smtp_tls']);
+            }
+            if ($this->conf['smtp_username']) {
+                $mail->SMTPAuth = true;
+                $mail->Username = $this->conf['smtp_username'];
+                $mail->Password = $this->conf['smtp_password'];
+            }
+            if ($this->conf['smtp_debug']) {
+                $mail->SMTPDebug = SMTP::DEBUG_CONNECTION;
+                $mail->Debugoutput = function ($str, $level) use (&$debug) {
+                    $debug .= $str . "\n";
+                };
+            }
+        }
         $mail->set('CharSet', 'UTF-8');
         $mail->SetLanguage(
             $sl,

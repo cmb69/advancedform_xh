@@ -17,6 +17,7 @@ parameters:
     - ../fa/classes/RequireCommand.php
     - ../jquery/jquery.inc.php
     - phpmailer/PHPMailer.php
+    - phpmailer/SMTP.php
     - hooks.stub.php
   scanDirectories:
     - vendor/

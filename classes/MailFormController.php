@@ -42,6 +42,9 @@ class MailFormController
     /** @var array<string,string> */
     private $text;
 
+    /** @var bool */
+    private $adm;
+
     /** @var MailService */
     private $mailService;
 
@@ -53,6 +56,7 @@ class MailFormController
      * @param string $pluginsFolder
      * @param array<string,string> $conf
      * @param array<string,string> $text
+     * @param bool $adm
      */
     public function __construct(
         FormGateway $formGateway,
@@ -61,6 +65,7 @@ class MailFormController
         $pluginsFolder,
         array $conf,
         array $text,
+        $adm,
         MailService $mailService,
         View $view
     ) {
@@ -70,6 +75,7 @@ class MailFormController
         $this->pluginsFolder = $pluginsFolder;
         $this->conf = $conf;
         $this->text = $text;
+        $this->adm = $adm;
         $this->mailService = $mailService;
         $this->view = $view;
     }
@@ -305,13 +311,14 @@ class MailFormController
             return false;
         }
 
-        $res = $this->mailService->sendMail($form, $from, $from_name, $type, $confirmation);
+        $debug = "";
+        $res = $this->mailService->sendMail($form, $from, $from_name, $type, $confirmation, $debug);
         $ok = $res === true;
 
         if (!$confirmation) {
             if (!$ok) {
                 $message = !empty($res)
-                    ? XH_hsc($res)
+                    ? ($this->adm && $debug ? '<pre style="white-space: pre-wrap">' . $debug . '</pre>' : XH_hsc($res))
                     : $this->text['error_mail'];
                 $e .= '<li>' . $message . '</li>' . "\n";
             }
