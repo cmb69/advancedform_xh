@@ -107,7 +107,7 @@ SCRIPT;
         } else {
             $e .= '<li>'
                 . sprintf($plugin_tx['advancedform']['error_form_missing'], $id)
-                . '</li>' . PHP_EOL;
+                . '</li>' . "\n";
             return false;
         }
 
@@ -170,7 +170,7 @@ SCRIPT;
 
         // Handle the replacement of the built-in mailform.
         if ($f == 'mailform' && !empty($plugin_tx['advancedform']['contact_form'])) {
-            $o .= '<h1>' . $tx['title']['mailform'] . '</h1>' . PHP_EOL
+            $o .= '<h1>' . $tx['title']['mailform'] . '</h1>' . "\n"
                 . advancedform($plugin_tx['advancedform']['contact_form']);
             $f = '';
         }
@@ -282,6 +282,6 @@ SCRIPT;
         );
         $hjs .= "<meta name=\"advancedform.config\" content='$json'>\n";
             $hjs .= '<script src="' . $pth['folder']['plugins']
-            . 'advancedform/admin.min.js"></script>' . PHP_EOL;
+            . 'advancedform/admin.min.js"></script>' . "\n";
     }
 }

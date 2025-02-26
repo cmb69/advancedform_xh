@@ -137,8 +137,8 @@ class MailService
     {
         $o = '';
         if ($html) {
-            $o .= '<!DOCTYPE html>' . PHP_EOL;
-            $o .= '<head>' . PHP_EOL . '<style type="text/css">' . PHP_EOL;
+            $o .= '<!DOCTYPE html>' . "\n";
+            $o .= '<head>' . "\n" . '<style type="text/css">' . "\n";
             $o .= $this->mailCss(
                 $this->pluginsFolder . 'advancedform/css/stylesheet.css'
             );
@@ -146,11 +146,11 @@ class MailService
             if (file_exists($fn)) {
                 $o .= $this->mailCss($fn);
             }
-            $o .= '</style>' . PHP_EOL . '</head>' . PHP_EOL . '<body>' . PHP_EOL;
+            $o .= '</style>' . "\n" . '</head>' . "\n" . '<body>' . "\n";
         }
         $o .= $this->mailInfo($form, $show_hidden, $html);
         if ($html) {
-            $o .= '</body>' . PHP_EOL . '</html>' . PHP_EOL;
+            $o .= '</body>' . "\n" . '</html>' . "\n";
         }
         return $o;
     }
@@ -183,21 +183,21 @@ class MailService
     {
         $o = '';
         if ($html) {
-            $o .= '<div class="advfrm-mailform">' . PHP_EOL;
+            $o .= '<div class="advfrm-mailform">' . "\n";
         }
         if (!$show_hidden) {
             $o .= $html
-                ? '<p>' . $this->text['message_sent_info'] . '</p>' . PHP_EOL
-                : strip_tags($this->text['message_sent_info']) . PHP_EOL . PHP_EOL;
+                ? '<p>' . $this->text['message_sent_info'] . '</p>' . "\n"
+                : strip_tags($this->text['message_sent_info']) . "\n" . "\n";
         }
         if ($html) {
-            $o .= '<table>' . PHP_EOL;
+            $o .= '<table>' . "\n";
         }
         foreach ($form->getFields() as $field) {
             $o .= $this->mailFieldInfo($field, $show_hidden, $html);
         }
         if ($html) {
-            $o .= '</table>' . PHP_EOL . '</div>' . PHP_EOL;
+            $o .= '</table>' . "\n" . '</div>' . "\n";
         }
         return $o;
     }
@@ -219,14 +219,14 @@ class MailService
                 $o .= '<tr><td class="label">' . XH_hsc($field->getLabel())
                     . '</td><td class="field">';
             } else {
-                $o .= $field->getLabel() . PHP_EOL;
+                $o .= $field->getLabel() . "\n";
             }
             if (isset($_POST[$name])) {
                 if (is_array($_POST[$name])) {
                     foreach ($_POST[$name] as $val) {
                         $o .= $html
                             ? '<div>' . XH_hsc($val) . '</div>'
-                            : '  ' . $val . PHP_EOL;
+                            : '  ' . $val . "\n";
                     }
                 } else {
                     $val = $_POST[$name];
@@ -235,15 +235,15 @@ class MailService
                     }
                     $o .= $html
                         ? nl2br(XH_hsc($val))
-                        : '  ' . $this->indent($val) . PHP_EOL;
+                        : '  ' . $this->indent($val) . "\n";
                 }
             } elseif (isset($_FILES[$name])) {
                 $o .= $html
                     ? $_FILES[$name]['name']
-                    : '  ' . $_FILES[$name]['name'] . PHP_EOL;
+                    : '  ' . $_FILES[$name]['name'] . "\n";
             }
             if ($html) {
-                $o .= '</td></tr>' . PHP_EOL;
+                $o .= '</td></tr>' . "\n";
             }
         }
         return $o;

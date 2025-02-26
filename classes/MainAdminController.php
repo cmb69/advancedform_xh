@@ -462,22 +462,22 @@ class MainAdminController
         $forms = $this->formGateway->findAll();
         if (isset($forms[$id])) {
             $form = $forms[$id];
-            $tpl = '<div id="advfrm-' . $id . '">' . PHP_EOL;
-            $css = '#advfrm-' . $id . ' {}' . PHP_EOL . PHP_EOL
-                . '#advfrm-' . $id . ' div.break {clear: both}' . PHP_EOL . PHP_EOL
+            $tpl = '<div id="advfrm-' . $id . '">' . "\n";
+            $css = '#advfrm-' . $id . ' {}' . "\n" . "\n"
+                . '#advfrm-' . $id . ' div.break {clear: both}' . "\n" . "\n"
                 . '#advfrm-' . $id . ' div.float {float: left; margin-right: 1em}'
-                . PHP_EOL . PHP_EOL
+                . "\n" . "\n"
                 . '#advfrm-' . $id . ' div.label'
-                . ' {/* float: left; width: 12em; margin-bottom: 0.5em; */}' . PHP_EOL
+                . ' {/* float: left; width: 12em; margin-bottom: 0.5em; */}' . "\n"
                 . '#advfrm-' . $id . ' div.field '
-                . ' { margin-bottom: 0.5em; /* float: left;*/}' . PHP_EOL . PHP_EOL
-                . '/* the individual fields */' . PHP_EOL . PHP_EOL;
+                . ' { margin-bottom: 0.5em; /* float: left;*/}' . "\n" . "\n"
+                . '/* the individual fields */' . "\n" . "\n";
             $first = true;
             foreach ($form->getFields() as $field) {
                 if ($first) {
                     $tpl .= '  <?php Advancedform_focusField(\'' . $id . '\', \'advfrm-'
                         . $field->getName() . '\')'
-                        . ' // focus the first field?>' . PHP_EOL;
+                        . ' // focus the first field?>' . "\n";
                     $first = false;
                 }
                 $labelled = !in_array($field->getType(), array('checkbox', 'radio', 'hidden'));
@@ -495,16 +495,16 @@ class MainAdminController
                     $label = '<label for="advfrm-' . $id . '-' . $field->getName() . '">'
                         . $label . '</label>';
                 }
-                $tpl .= '  <div class="break">' . PHP_EOL
+                $tpl .= '  <div class="break">' . "\n"
                     . '    <div class="label">'
                     . $label
-                    . '</div>' . PHP_EOL
+                    . '</div>' . "\n"
                     . '    <div class="field"><?field ' . $field->getName() . '?></div>'
-                    . PHP_EOL
-                    . '  </div>' . PHP_EOL;
-                $css .= '#advfrm-' . $id . '-' . $field->getName() . ' {}' . PHP_EOL;
+                    . "\n"
+                    . '  </div>' . "\n";
+                $css .= '#advfrm-' . $id . '-' . $field->getName() . ' {}' . "\n";
             }
-            $tpl .= '  <div class="break"></div>' . PHP_EOL . '</div>' . PHP_EOL;
+            $tpl .= '  <div class="break"></div>' . "\n" . '</div>' . "\n";
             $fn = $this->formGateway->dataFolder() . $id . '.tpl';
             if (file_put_contents($fn, $tpl) === false) {
                 e('cntsave', 'file', $fn);

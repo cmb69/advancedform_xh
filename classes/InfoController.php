@@ -54,7 +54,7 @@ class InfoController
      */
     public function infoAction()
     {
-        return '<h1>Advancedform ' . Plugin::VERSION . '</h1>' . PHP_EOL
+        return '<h1>Advancedform ' . Plugin::VERSION . '</h1>' . "\n"
             . $this->systemCheck();
     }
 

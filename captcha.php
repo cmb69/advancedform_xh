@@ -63,7 +63,7 @@ function Advancedform_Captcha_display()
         . '<input type="hidden" name="advancedform-timestamp" value="' . $timestamp . '">'
         . '<input type="hidden" name="advancedform-salt" value="' . $salt . '">'
         . '<input type="hidden" name="advancedform-hmac" value="' . $hmac . '">'
-        . '</div>' . PHP_EOL;
+        . '</div>' . "\n";
 }
 
 /**

@@ -93,7 +93,7 @@ class MailFormController
 
         $forms = $this->formGateway->findAll();
         if (!isset($forms[$id])) {
-            $e .= '<li>' . sprintf($this->text['error_form_missing'], $id) . '</li>' . PHP_EOL;
+            $e .= '<li>' . sprintf($this->text['error_form_missing'], $id) . '</li>' . "\n";
             return '';
         }
         $form = $forms[$id];
@@ -135,7 +135,7 @@ class MailFormController
                 Plugin::focusField(...$validator->focusField);
                 $o = '<ul class="advfrm-error">';
                 foreach ($validator->errors as $error) {
-                    $o .= '<li>' . $error . '</li>' . PHP_EOL;
+                    $o .= '<li>' . $error . '</li>' . "\n";
                 }
                 $o .= '</ul>';
                 return $o . $this->formView($form);
@@ -212,12 +212,12 @@ class MailFormController
         $fn = $this->formGateway->dataFolder() . 'css/' . $id . '.css';
         if (file_exists($fn)) {
             $hjs .= '<link rel="stylesheet" href="' . $fn . '" type="text/css">'
-            . PHP_EOL;
+            . "\n";
         }
         $fn = $this->formGateway->dataFolder() . 'js/' . $id . '.js';
         if (file_exists($fn)) {
             $hjs .= '<script src="' . $fn . '"></script>'
-                . PHP_EOL;
+                . "\n";
         }
         $fn = $this->formGateway->dataFolder() . $id . '.tpl'
             . ($this->conf['php_extension'] ? '.php' : '');
@@ -301,7 +301,7 @@ class MailFormController
             }
         }
         if ($confirmation && empty($from)) {
-            $e .= '<li>' . $this->text['error_missing_sender'] . '</li>' . PHP_EOL;
+            $e .= '<li>' . $this->text['error_missing_sender'] . '</li>' . "\n";
             return false;
         }
 
@@ -313,7 +313,7 @@ class MailFormController
                 $message = !empty($res)
                     ? XH_hsc($res)
                     : $this->text['error_mail'];
-                $e .= '<li>' . $message . '</li>' . PHP_EOL;
+                $e .= '<li>' . $message . '</li>' . "\n";
             }
             $type = $ok ? 'info' : 'error';
             $message = $ok ? $this->text['log_success'] : $this->text['log_error'];
