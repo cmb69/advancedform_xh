@@ -278,7 +278,7 @@ SCRIPT;
         }
         $json = json_encode(
             self::getLangForJs(),
-            JSON_HEX_APOS|JSON_HEX_AMP|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE
+            JSON_HEX_APOS | JSON_HEX_AMP | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
         );
         $hjs .= "<meta name=\"advancedform.config\" content='$json'>\n";
             $hjs .= '<script src="' . $pth['folder']['plugins']

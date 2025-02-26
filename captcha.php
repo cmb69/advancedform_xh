@@ -76,12 +76,14 @@ function Advancedform_Captcha_check()
 {
     global $plugin_cf;
 
-    if (!isset(
-        $_POST['advancedform-captcha'],
-        $_POST['advancedform-timestamp'],
-        $_POST['advancedform-salt'],
-        $_POST['advancedform-hmac']
-    )) {
+    if (
+        !isset(
+            $_POST['advancedform-captcha'],
+            $_POST['advancedform-timestamp'],
+            $_POST['advancedform-salt'],
+            $_POST['advancedform-hmac']
+        )
+    ) {
         return false;
     }
     $code = $_POST['advancedform-captcha'];

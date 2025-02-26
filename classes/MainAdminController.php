@@ -53,8 +53,14 @@ class MainAdminController
      * @param array<string,string> $conf
      * @param array<string,string> $text
      */
-    public function __construct(FormGateway $formGateway, $scriptName, array $conf, array $text, CSRFProtection $csrfProtector, View $view)
-    {
+    public function __construct(
+        FormGateway $formGateway,
+        $scriptName,
+        array $conf,
+        array $text,
+        CSRFProtection $csrfProtector,
+        View $view
+    ) {
         $this->formGateway = $formGateway;
         $this->scriptName = $scriptName;
         $this->conf = $conf;
@@ -72,7 +78,7 @@ class MainAdminController
     {
         global $tx;
 
-        (new FaRequireCommand)->execute();
+        (new FaRequireCommand())->execute();
         $forms = $this->formGateway->findAll();
         $bag = array(
             'title' => 'Advancedform – ' . $this->text['menu_main'],
@@ -181,7 +187,7 @@ class MainAdminController
     {
         global $e, $tx;
 
-        (new FaRequireCommand)->execute();
+        (new FaRequireCommand())->execute();
         $forms = $this->formGateway->findAll();
         if (!array_key_exists($id, $forms)) {
             $e .= '<li><b>'
@@ -379,7 +385,8 @@ class MainAdminController
         $forms = $this->formGateway->findAll();
         if (!isset($forms[$id])) {
             $fn = $this->formGateway->dataFolder() . $id . '.json';
-            if (($cnt = file_get_contents($fn)) !== false
+            if (
+                ($cnt = file_get_contents($fn)) !== false
                 && ($form = json_decode($cnt, true)) !== false
                 && isset($form['%VERSION%'])
                 && count($form) == 2
@@ -543,7 +550,7 @@ class MainAdminController
      */
     private function toolIcon($name)
     {
-        $title = $this->text['tool_'.$name];
+        $title = $this->text['tool_' . $name];
         $map = array(
             'add' => 'plus',
             'clear_defaults' => 'bullseye',

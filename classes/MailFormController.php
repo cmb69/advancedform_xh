@@ -248,8 +248,8 @@ class MailFormController
             if ($field->getType() != 'output') {
                 $name = $field->getName();
                 $val = ($field->getType() == 'file')
-                    ? $_FILES['advfrm-'.$name]['name']
-                    : $_POST['advfrm-'.$name];
+                    ? $_FILES['advfrm-' . $name]['name']
+                    : $_POST['advfrm-' . $name];
                 $fields[] = is_array($val)
                     ? implode("\xC2\xA6", $val)
                     : $val;
@@ -267,7 +267,8 @@ class MailFormController
             $separator = "\t";
         }
         $fn = $this->formGateway->dataFolder() . $id . '.csv';
-        if (($fh = fopen($fn, 'a')) === false
+        if (
+            ($fh = fopen($fn, 'a')) === false
             || fputcsv($fh, $fields, $separator, '"', "\0") === false
         ) {
             e('cntwriteto', 'file', $fn);

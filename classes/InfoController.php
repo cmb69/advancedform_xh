@@ -103,7 +103,7 @@ class InfoController
      */
     private function checkExtension($extension)
     {
-        return extension_loaded($extension) ? 'success' :'fail';
+        return extension_loaded($extension) ? 'success' : 'fail';
     }
 
     /**

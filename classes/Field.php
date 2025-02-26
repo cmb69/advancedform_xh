@@ -32,7 +32,7 @@ class Field implements JsonSerializable
      */
     public static function createFromArray(array $record)
     {
-        $result = new self;
+        $result = new self();
         $result->name = $record['field'];
         $result->label = $record['label'];
         $result->type = $record['type'];

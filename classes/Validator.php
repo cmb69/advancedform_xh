@@ -209,7 +209,8 @@ class Validator
         $props = explode("\xC2\xA6", $field->getProps());
         switch ($_FILES[$name]['error']) {
             case UPLOAD_ERR_OK:
-                if (!empty($props[Plugin::PROP_MAXLEN])
+                if (
+                    !empty($props[Plugin::PROP_MAXLEN])
                     && $_FILES[$name]['size'] > $props[Plugin::PROP_MAXLEN]
                 ) {
                     $this->errors[] = sprintf($this->text['error_upload_too_large'], XH_hsc($field->getLabel()));
@@ -257,7 +258,8 @@ class Validator
         $name = 'advfrm-' . $field->getName();
         $props = explode("\xC2\xA6", $field->getProps());
         $pattern = $props[Plugin::PROP_CONSTRAINT];
-        if (!empty($pattern)
+        if (
+            !empty($pattern)
             && !preg_match($pattern, $_POST[$name])
         ) {
             $msg = empty($props[Plugin::PROP_ERROR_MSG])

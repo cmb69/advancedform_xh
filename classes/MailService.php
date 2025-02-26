@@ -210,7 +210,8 @@ class MailService
     private function mailFieldInfo(Field $field, $show_hidden, $html)
     {
         $o = '';
-        if (($field->getType() != 'hidden' || $show_hidden)
+        if (
+            ($field->getType() != 'hidden' || $show_hidden)
             && $field->getType() != 'output'
         ) {
             $name = 'advfrm-' . $field->getName();

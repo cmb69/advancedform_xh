@@ -32,7 +32,7 @@ class Form implements JsonSerializable
      */
     public static function createFromArray(array $record)
     {
-        $result = new self;
+        $result = new self();
         $result->captcha = $record['captcha'];
         $result->name = $record['name'];
         $result->title = $record['title'];

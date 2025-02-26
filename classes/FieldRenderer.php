@@ -61,7 +61,7 @@ class FieldRenderer
         $brackets = $is_multi ? '[]' : '';
         if ($is_real_select) {
             $size = array_shift($props);
-            $size = empty($size) ? '' : ' size="'.$size.'"';
+            $size = empty($size) ? '' : ' size="' . $size . '"';
             $multi = $is_multi ? ' multiple="multiple"' : '';
             $o .= '<select id="' . $id . '" name="' . $name . $brackets . '"'
                 . $size . $multi . '>';
@@ -102,7 +102,7 @@ class FieldRenderer
             return '<option' . $sel . '>' . XH_hsc($opt) . '</option>';
         } else {
             return '<div class="' . $orient . '"><label>'
-                . '<input type="'.$field->getType() . '" name="' . $name
+                . '<input type="' . $field->getType() . '" name="' . $name
                 . ($field->isMulti() ? '[]' : '') . '" value="' . XH_hsc($opt) . '"'
                 . $sel . '>'
                 . '&nbsp;' . XH_hsc($opt)
