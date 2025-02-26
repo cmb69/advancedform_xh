@@ -30,7 +30,7 @@ möglich.
 
 Advancedform\_XH ist ein Plugin für CMSimple\_XH ≥ 1.7.0
 mit den Fa und Jquery Plugins, die standardmäßig verfügbar sind.
-Es benötigt PHP ≥ 5.5.4 mit den ctype, filter und hash Extensions.
+Es benötigt PHP ≥ 7.0.0 mit den ctype, filter und hash Extensions.
 
 ## Download
 

@@ -53,8 +53,7 @@ function Advancedform_Captcha_display()
 
     $code = Advancedform_Captcha_code();
     $timestamp = time();
-    // PHPCompatInfo doesn't know about XH's random_bytes() fallback
-    $salt = function_exists("random_bytes") ? bin2hex(random_bytes(4)) : "01234567";
+    $salt = bin2hex(random_bytes(4));
     $hmac = hash_hmac('sha256', $code . $timestamp . $salt, $plugin_cf['advancedform']['captcha_key']);
     return '<div class="captcha">'
         . '<span class="captcha-explanation">'
