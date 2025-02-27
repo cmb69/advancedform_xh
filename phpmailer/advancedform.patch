@@ -1,14 +1,3 @@
- phpmailer/DSNConfigurator.php    | 2 +-
- phpmailer/Exception.php          | 2 +-
- phpmailer/OAuth.php              | 2 +-
- phpmailer/OAuthTokenProvider.php | 2 +-
- phpmailer/PHPMailer.php          | 2 +-
- phpmailer/POP3.php               | 2 +-
- phpmailer/SMTP.php               | 2 +-
- 7 files changed, 7 insertions(+), 7 deletions(-)
-
-diff --git a/phpmailer/DSNConfigurator.php b/phpmailer/DSNConfigurator.php
-index 7058c1f..af39215 100644
 --- a/phpmailer/DSNConfigurator.php
 +++ b/phpmailer/DSNConfigurator.php
 @@ -19,7 +19,7 @@
@@ -20,8 +9,6 @@ index 7058c1f..af39215 100644
  
  /**
   * Configure PHPMailer with DSN string.
-diff --git a/phpmailer/Exception.php b/phpmailer/Exception.php
-index 09c1a2c..8e22d60 100644
 --- a/phpmailer/Exception.php
 +++ b/phpmailer/Exception.php
 @@ -19,7 +19,7 @@
@@ -33,8 +20,6 @@ index 09c1a2c..8e22d60 100644
  
  /**
   * PHPMailer exception handler.
-diff --git a/phpmailer/OAuth.php b/phpmailer/OAuth.php
-index a7e9588..cbf38bd 100644
 --- a/phpmailer/OAuth.php
 +++ b/phpmailer/OAuth.php
 @@ -19,7 +19,7 @@
@@ -46,8 +31,6 @@ index a7e9588..cbf38bd 100644
  
  use League\OAuth2\Client\Grant\RefreshToken;
  use League\OAuth2\Client\Provider\AbstractProvider;
-diff --git a/phpmailer/OAuthTokenProvider.php b/phpmailer/OAuthTokenProvider.php
-index cbda1a1..6fd72fb 100644
 --- a/phpmailer/OAuthTokenProvider.php
 +++ b/phpmailer/OAuthTokenProvider.php
 @@ -19,7 +19,7 @@
@@ -59,9 +42,8 @@ index cbda1a1..6fd72fb 100644
  
  /**
   * OAuthTokenProvider - OAuth2 token provider interface.
-diff --git a/phpmailer/PHPMailer.php b/phpmailer/PHPMailer.php
-index 4a6077c..00ef661 100644
---- a/phpmailer/PHPMailer.php
+diff -u b/phpmailer/PHPMailer.php b/phpmailer/PHPMailer.php
+--- b/phpmailer/PHPMailer.php
 +++ b/phpmailer/PHPMailer.php
 @@ -19,7 +19,7 @@
   * FITNESS FOR A PARTICULAR PURPOSE.
@@ -72,8 +54,20 @@ index 4a6077c..00ef661 100644
  
  /**
   * PHPMailer - PHP email creation and transport class.
-diff --git a/phpmailer/POP3.php b/phpmailer/POP3.php
-index 376fae2..c772ecc 100644
+@@ -4281,13 +4281,6 @@
+         }
+ 
+         if (array_key_exists($key, $this->language)) {
+-            if ('smtp_connect_failed' === $key) {
+-                //Include a link to troubleshooting docs on SMTP connection failure.
+-                //This is by far the biggest cause of support questions
+-                //but it's usually not PHPMailer's fault.
+-                return $this->language[$key] . ' https://github.com/PHPMailer/PHPMailer/wiki/Troubleshooting';
+-            }
+-
+             return $this->language[$key];
+         }
+ 
 --- a/phpmailer/POP3.php
 +++ b/phpmailer/POP3.php
 @@ -19,7 +19,7 @@
@@ -85,8 +79,6 @@ index 376fae2..c772ecc 100644
  
  /**
   * PHPMailer POP-Before-SMTP Authentication Class.
-diff --git a/phpmailer/SMTP.php b/phpmailer/SMTP.php
-index b4eff40..47f95e8 100644
 --- a/phpmailer/SMTP.php
 +++ b/phpmailer/SMTP.php
 @@ -19,7 +19,7 @@

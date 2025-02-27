@@ -45,7 +45,13 @@ function advancedform($id)
         $pth['folder']['plugins'],
         $plugin_cf['advancedform'],
         $plugin_tx['advancedform'],
-        new MailService($formGateway->dataFolder(), $pth['folder']['plugins'], $plugin_tx['advancedform']),
+        XH_ADM,
+        new MailService(
+            $formGateway->dataFolder(),
+            $pth['folder']['plugins'],
+            $plugin_cf['advancedform'],
+            $plugin_tx['advancedform']
+        ),
         new View()
     );
     return $controller->main($id);

@@ -78,6 +78,8 @@ class InfoController
         }
         $o .= XH_message($this->checkCaptchaPlugin(), $this->text['syscheck_captcha_plugin']);
         $o .= XH_message($this->checkCaptchaKey(), $this->text['syscheck_captcha_key']);
+        $file = $this->pluginsFolder . 'advancedform/config/config.php';
+        $o .= XH_message($this->checkAccessProtection($file), $this->text['syscheck_access_protection'], $file);
         foreach (array('config/', 'css/', 'languages/') as $folder) {
             $folders[] = $this->pluginsFolder . 'advancedform/' . $folder;
         }
@@ -123,6 +125,15 @@ class InfoController
     {
         $filename = $this->pluginsFolder . $plugin;
         return is_dir($filename) ? 'success' : 'fail';
+    }
+
+    /**
+     * @param string $folder
+     * @return string
+     */
+    private function checkAccessProtection($folder)
+    {
+        return XH_isAccessProtected($folder) ? 'success' : 'warning';
     }
 
     /**
