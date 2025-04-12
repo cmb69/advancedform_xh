@@ -96,7 +96,7 @@ if (!isset($this)) {
 <?php endforeach?>
     </table>
     <input type="submit" class="submit" value="<?=$label_save?>" style="display:none">
-    <?=$csrf_token_input?>
+    <input type="hidden" name="advancedform_token" value="<?=$csrf_token?>">
   </form>
 </div>
 <div id="advfrm-text-props" style="display:none">

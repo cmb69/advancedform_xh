@@ -22,7 +22,8 @@
 
 namespace Advancedform;
 
-use XH\CSRFProtection;
+use Plib\CsrfProtector;
+use Plib\View;
 use XH\Pages;
 
 class MainAdminController
@@ -39,9 +40,7 @@ class MainAdminController
     /** @var array<string,string> */
     private $text;
 
-    /**
-     * @var object
-     */
+    /** @var CsrfProtector */
     private $csrfProtector;
 
     /** @var View */
@@ -57,7 +56,7 @@ class MainAdminController
         $scriptName,
         array $conf,
         array $text,
-        CSRFProtection $csrfProtector,
+        CsrfProtector $csrfProtector,
         View $view
     ) {
         $this->formGateway = $formGateway;
@@ -147,7 +146,9 @@ class MainAdminController
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction();
         }
-        $this->csrfProtector->check();
+        if (!$this->csrfProtector->check("advancedform_token")) {
+            return "nope"; // TODO i18n
+        }
         $forms = $this->formGateway->findAll();
         $id = uniqid();
         $forms[$id] = Form::createFromArray(array(
@@ -234,7 +235,7 @@ class MainAdminController
                 return $this->text["field_$type"];
             },
             'label_save' => utf8_ucfirst($tx['action']['save']),
-            'csrf_token_input' => $this->csrfProtector->tokenInput(),
+            'csrf_token' => $this->csrfProtector->token(),
             'text_properties' => ['size', 'maxlength', 'default', 'constraint', 'error_msg'],
             'text' => $this->text,
         ]);
@@ -255,7 +256,9 @@ class MainAdminController
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction();
         }
-        $this->csrfProtector->check();
+        if (!$this->csrfProtector->check("advancedform_token")) {
+            return "nope"; // TODO
+        }
         $forms = $this->formGateway->findAll();
         if (!isset($forms[$id])) {
             $e .= '<li><b>' . sprintf($this->text['error_form_missing'], $id) . '</b></li>';
@@ -320,7 +323,9 @@ class MainAdminController
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction();
         }
-        $this->csrfProtector->check();
+        if (!$this->csrfProtector->check("advancedform_token")) {
+            return "nope"; // TODO
+        }
         $forms = $this->formGateway->findAll();
         if (isset($forms[$id])) {
             unset($forms[$id]);
@@ -347,7 +352,9 @@ class MainAdminController
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction();
         }
-        $this->csrfProtector->check();
+        if (!$this->csrfProtector->check("advancedform_token")) {
+            return "nope"; // TODO
+        }
         $forms = $this->formGateway->findAll();
         if (isset($forms[$id])) {
             $form = clone $forms[$id];
@@ -378,7 +385,9 @@ class MainAdminController
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction();
         }
-        $this->csrfProtector->check();
+        if (!$this->csrfProtector->check("advancedform_token")) {
+            return "nope"; // TODO
+        }
         $forms = $this->formGateway->findAll();
         if (!isset($forms[$id])) {
             $fn = $this->formGateway->dataFolder() . $id . '.json';
@@ -425,7 +434,9 @@ class MainAdminController
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction();
         }
-        $this->csrfProtector->check();
+        if (!$this->csrfProtector->check("advancedform_token")) {
+            return "nope"; // TODO
+        }
         $forms = $this->formGateway->findAll();
         if (isset($forms[$id])) {
             $form[$id] = $forms[$id];
@@ -458,7 +469,9 @@ class MainAdminController
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction();
         }
-        $this->csrfProtector->check();
+        if (!$this->csrfProtector->check("advancedform_token")) {
+            return "nope"; // TODO
+        }
         $forms = $this->formGateway->findAll();
         if (isset($forms[$id])) {
             $form = $forms[$id];
@@ -534,7 +547,7 @@ class MainAdminController
             'icon' => $this->toolIcon($tool),
             'action' => $action,
             'onsubmit' => $onsubmit ? 'onsubmit="' . $onsubmit . '"' : '',
-            'token_input' => $this->csrfProtector->tokenInput(),
+            'token' => $this->csrfProtector->token(),
         );
     }
 

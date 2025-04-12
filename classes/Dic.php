@@ -21,6 +21,7 @@
 
 namespace Advancedform;
 
+use Plib\CsrfProtector;
 use Plib\SystemChecker;
 use Plib\View as PlibView;
 
@@ -55,14 +56,14 @@ class Dic
 
     public static function mainAdminController(): MainAdminController
     {
-        global $plugin_cf, $plugin_tx, $_XH_csrfProtection, $sn;
+        global $plugin_cf, $plugin_tx, $sn;
         return new MainAdminController(
             Dic::formGateway(),
             $sn,
             $plugin_cf["advancedform"],
             $plugin_tx["advancedform"],
-            $_XH_csrfProtection,
-            new View()
+            new CsrfProtector(),
+            self::view()
         );
     }
 
@@ -78,7 +79,7 @@ class Dic
 
     private static function view(): PlibView
     {
-        global $plugin_tx;
-        return new PlibView("./templates/", $plugin_tx["advancedform"]);
+        global $pth, $plugin_tx;
+        return new PlibView($pth["folder"]["plugins"] . "advancedform/templates/", $plugin_tx["advancedform"]);
     }
 }
