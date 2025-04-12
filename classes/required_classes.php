@@ -20,6 +20,7 @@
  * along with Advancedform_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Advancedform\Dic;
 use Advancedform\FieldRenderer;
 use Advancedform\MailFormController;
 use Advancedform\MailService;
@@ -37,7 +38,7 @@ function advancedform($id)
 {
     global $sn, $pth, $plugin_cf, $plugin_tx;
 
-    $formGateway = Plugin::sharedFormGateway();
+    $formGateway = Dic::formGateway();
     $controller = new MailFormController(
         $formGateway,
         new FieldRenderer($id),

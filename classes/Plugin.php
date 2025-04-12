@@ -96,7 +96,7 @@ SCRIPT;
         global $e, $plugin_cf, $plugin_tx;
 
         $pcf = $plugin_cf['advancedform'];
-        $forms = self::sharedFormGateway()->findAll();
+        $forms = Dic::formGateway()->findAll();
         $fields = array();
         if (isset($forms[$id])) {
             foreach ($forms[$id]->getFields() as $field) {
@@ -111,7 +111,7 @@ SCRIPT;
             return false;
         }
 
-        $fn = self::sharedFormGateway()->dataFolder() . $id . '.csv';
+        $fn = Dic::formGateway()->dataFolder() . $id . '.csv';
         if ($pcf['csv_separator'] == '') {
             if (($lines = file($fn)) === false) {
                 e('cntopen', 'file', $fn);
@@ -183,16 +183,6 @@ SCRIPT;
         }
     }
 
-    public static function sharedFormGateway(): FormGateway
-    {
-        static $instance = null;
-
-        if (!$instance) {
-            $instance = new FormGateway();
-        }
-        return $instance;
-    }
-
     /**
      * @return void
      */
@@ -204,7 +194,7 @@ SCRIPT;
         switch ($admin) {
             case '':
                 $controller = new InfoController(
-                    self::sharedFormGateway(),
+                    Dic::formGateway(),
                     $pth['folder']['plugins'],
                     $plugin_cf['advancedform'],
                     $plugin_tx['advancedform']
@@ -228,7 +218,7 @@ SCRIPT;
 
         $this->mainAdministrationJs();
         $controller = new MainAdminController(
-            self::sharedFormGateway(),
+            Dic::formGateway(),
             $sn,
             $plugin_cf['advancedform'],
             $plugin_tx['advancedform'],
