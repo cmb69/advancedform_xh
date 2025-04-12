@@ -18,7 +18,7 @@
       <arg file="captcha.php"/>
       <arg file="index.php"/>
       <arg file="classes"/>
-      <arg file="tests/unit"/>
+      <arg file="tests"/>
     </exec>
   </target>
 

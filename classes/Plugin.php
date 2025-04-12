@@ -24,19 +24,19 @@ namespace Advancedform;
 
 class Plugin
 {
-    const VERSION = "2.4-dev";
+    public const VERSION = "2.4-dev";
 
-    const DB_VERSION = 2;
+    public const DB_VERSION = 2;
 
-    const PROP_SIZE = 0;
-    const PROP_COLS = 0;
-    const PROP_MAXLEN = 1;
-    const PROP_ROWS = 1;
-    const PROP_DEFAULT = 2;
-    const PROP_VALUE = 2;
-    const PROP_FTYPES = 2;
-    const PROP_CONSTRAINT = 3;
-    const PROP_ERROR_MSG = 4;
+    public const PROP_SIZE = 0;
+    public const PROP_COLS = 0;
+    public const PROP_MAXLEN = 1;
+    public const PROP_ROWS = 1;
+    public const PROP_DEFAULT = 2;
+    public const PROP_VALUE = 2;
+    public const PROP_FTYPES = 2;
+    public const PROP_CONSTRAINT = 3;
+    public const PROP_ERROR_MSG = 4;
 
     /**
      * Emits a SCRIPT element to set the focus to the field with name $name.
