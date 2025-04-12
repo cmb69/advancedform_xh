@@ -14,7 +14,6 @@ parameters:
     - ../../cmsimple/adminfuncs.php
     - ../../cmsimple/functions.php
     - ../../cmsimple/utf8.php
-    - ../fa/classes/RequireCommand.php
     - ../jquery/jquery.inc.php
     - phpmailer/PHPMailer.php
     - hooks.stub.php

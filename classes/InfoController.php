@@ -73,7 +73,7 @@ class InfoController
         }
         $xhversion = '1.7.0';
         $o .= XH_message($this->checkXhVersion($xhversion), $this->text['syscheck_xhversion'], $xhversion);
-        foreach (array('fa', 'jquery') as $plugin) {
+        foreach (array('jquery') as $plugin) {
             $o .= XH_message($this->checkPlugin($plugin), $this->text['syscheck_plugin'], ucfirst($plugin));
         }
         $o .= XH_message($this->checkCaptchaPlugin(), $this->text['syscheck_captcha_plugin']);
