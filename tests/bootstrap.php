@@ -1,6 +1,7 @@
 <?php
 
 require_once "../../cmsimple/classes/CSRFProtection.php";
+require_once "../../cmsimple/functions.php";
 
 require_once "./classes/Dic.php";
 require_once "./classes/Field.php";
@@ -14,3 +15,5 @@ require_once "./classes/MainAdminController.php";
 require_once "./classes/Plugin.php";
 require_once "./classes/Validator.php";
 require_once "./classes/View.php";
+
+const CMSIMPLE_XH_VERSION = "CMSimple_XH 1.7.6";
