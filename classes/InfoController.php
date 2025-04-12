@@ -22,6 +22,8 @@
 
 namespace Advancedform;
 
+use Plib\View;
+
 class InfoController
 {
     /** @var FormGateway */
@@ -33,20 +35,19 @@ class InfoController
     /** @var array<string,string> */
     private $conf;
 
-    /** @var array<string,string> */
-    private $text;
+    /** @var View */
+    private $view;
 
     /**
      * @param string $pluginsFolder
      * @param array<string,string> $conf
-     * @param array<string,string> $text
      */
-    public function __construct(FormGateway $formGateway, $pluginsFolder, array $conf, array $text)
+    public function __construct(FormGateway $formGateway, $pluginsFolder, array $conf, View $view)
     {
         $this->formGateway = $formGateway;
         $this->pluginsFolder = $pluginsFolder;
         $this->conf = $conf;
-        $this->text = $text;
+        $this->view = $view;
     }
 
     /**
@@ -65,25 +66,25 @@ class InfoController
      */
     private function systemCheck()
     {
-        $o = '<h2>' . $this->text['syscheck_title'] . '</h2>';
+        $o = "<h2>" . $this->view->text("syscheck_title") . "</h2>\n";
         $phpversion = '7.1.0';
-        $o .= XH_message($this->checkPhpVersion($phpversion), $this->text['syscheck_phpversion'], $phpversion);
+        $o .= $this->view->message($this->checkPhpVersion($phpversion), "syscheck_phpversion", $phpversion);
         foreach (array('ctype', 'filter', 'hash') as $ext) {
-            $o .= XH_message($this->checkExtension($ext), $this->text['syscheck_extension'], $ext);
+            $o .= $this->view->message($this->checkExtension($ext), "syscheck_extension", $ext);
         }
         $xhversion = '1.7.0';
-        $o .= XH_message($this->checkXhVersion($xhversion), $this->text['syscheck_xhversion'], $xhversion);
+        $o .= $this->view->message($this->checkXhVersion($xhversion), "syscheck_xhversion", $xhversion);
         foreach (array('jquery') as $plugin) {
-            $o .= XH_message($this->checkPlugin($plugin), $this->text['syscheck_plugin'], ucfirst($plugin));
+            $o .= $this->view->message($this->checkPlugin($plugin), "syscheck_plugin", ucfirst($plugin));
         }
-        $o .= XH_message($this->checkCaptchaPlugin(), $this->text['syscheck_captcha_plugin']);
-        $o .= XH_message($this->checkCaptchaKey(), $this->text['syscheck_captcha_key']);
+        $o .= $this->view->message($this->checkCaptchaPlugin(), "syscheck_captcha_plugin");
+        $o .= $this->view->message($this->checkCaptchaKey(), "syscheck_captcha_key");
         foreach (array('config/', 'css/', 'languages/') as $folder) {
             $folders[] = $this->pluginsFolder . 'advancedform/' . $folder;
         }
         $folders[] = $this->formGateway->dataFolder();
         foreach ($folders as $folder) {
-            $o .= XH_message($this->checkWritability($folder), $this->text['syscheck_writable'], $folder);
+            $o .= $this->view->message($this->checkWritability($folder), "syscheck_writable", $folder);
         }
         return $o;
     }

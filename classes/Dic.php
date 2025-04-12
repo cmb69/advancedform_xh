@@ -21,6 +21,8 @@
 
 namespace Advancedform;
 
+use Plib\View as PlibView;
+
 class Dic
 {
     public static function mailFormController(string $id): MailFormController
@@ -40,12 +42,12 @@ class Dic
 
     public static function infoController(): InfoController
     {
-        global $pth, $plugin_cf, $plugin_tx;
+        global $pth, $plugin_cf;
         return new InfoController(
             self::formGateway(),
             $pth["folder"]["plugins"],
             $plugin_cf["advancedform"],
-            $plugin_tx["advancedform"]
+            self::view()
         );
     }
 
@@ -70,5 +72,11 @@ class Dic
             $instance = new FormGateway();
         }
         return $instance;
+    }
+
+    private static function view(): PlibView
+    {
+        global $plugin_tx;
+        return new PlibView("./templates/", $plugin_tx["advancedform"]);
     }
 }

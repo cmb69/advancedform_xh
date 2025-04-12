@@ -3,6 +3,8 @@
 require_once "../../cmsimple/classes/CSRFProtection.php";
 require_once "../../cmsimple/functions.php";
 
+require_once "../plib/classes/View.php";
+
 require_once "./classes/Dic.php";
 require_once "./classes/Field.php";
 require_once "./classes/FieldRenderer.php";
