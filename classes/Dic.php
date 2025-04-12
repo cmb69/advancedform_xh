@@ -21,6 +21,7 @@
 
 namespace Advancedform;
 
+use Plib\SystemChecker;
 use Plib\View as PlibView;
 
 class Dic
@@ -47,6 +48,7 @@ class Dic
             self::formGateway(),
             $pth["folder"]["plugins"],
             $plugin_cf["advancedform"],
+            new SystemChecker(),
             self::view()
         );
     }

@@ -22,6 +22,7 @@
 
 namespace Advancedform;
 
+use Plib\SystemChecker;
 use Plib\View;
 
 class InfoController
@@ -35,6 +36,9 @@ class InfoController
     /** @var array<string,string> */
     private $conf;
 
+    /** @var SystemChecker */
+    private $systemChecker;
+
     /** @var View */
     private $view;
 
@@ -42,11 +46,17 @@ class InfoController
      * @param string $pluginsFolder
      * @param array<string,string> $conf
      */
-    public function __construct(FormGateway $formGateway, $pluginsFolder, array $conf, View $view)
-    {
+    public function __construct(
+        FormGateway $formGateway,
+        $pluginsFolder,
+        array $conf,
+        SystemChecker $systemChecker,
+        View $view
+    ) {
         $this->formGateway = $formGateway;
         $this->pluginsFolder = $pluginsFolder;
         $this->conf = $conf;
+        $this->systemChecker = $systemChecker;
         $this->view = $view;
     }
 
@@ -95,7 +105,7 @@ class InfoController
      */
     private function checkPhpVersion($version)
     {
-        return version_compare(PHP_VERSION, $version) >= 0 ? 'success' : 'fail';
+        return $this->systemChecker->checkVersion(PHP_VERSION, $version) ? "success" : "fail";
     }
 
     /**
@@ -104,7 +114,7 @@ class InfoController
      */
     private function checkExtension($extension)
     {
-        return extension_loaded($extension) ? 'success' : 'fail';
+        return $this->systemChecker->checkExtension($extension) ? "success" : "fail";
     }
 
     /**
@@ -113,7 +123,7 @@ class InfoController
      */
     private function checkXhVersion($version)
     {
-        return version_compare(CMSIMPLE_XH_VERSION, "CMSimple_XH $version") >= 0 ? 'success' : 'fail';
+        return $this->systemChecker->checkVersion(CMSIMPLE_XH_VERSION, "CMSimple_XH $version") ? "success" : "fail";
     }
 
     /**
@@ -122,8 +132,7 @@ class InfoController
      */
     private function checkPlugin($plugin)
     {
-        $filename = $this->pluginsFolder . $plugin;
-        return is_dir($filename) ? 'success' : 'fail';
+        return $this->systemChecker->checkPlugin($plugin) ? "success" : "fail";
     }
 
     /**
@@ -150,6 +159,6 @@ class InfoController
      */
     private function checkWritability($folder)
     {
-        return is_writable($folder) ? 'success' : 'warning';
+        return $this->systemChecker->checkWritability($folder) ? "success" : "warning";
     }
 }
