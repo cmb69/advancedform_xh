@@ -42,13 +42,10 @@ class InfoController
     /** @var View */
     private $view;
 
-    /**
-     * @param string $pluginsFolder
-     * @param array<string,string> $conf
-     */
+    /** @param array<string,string> $conf */
     public function __construct(
         FormGateway $formGateway,
-        $pluginsFolder,
+        string $pluginsFolder,
         array $conf,
         SystemChecker $systemChecker,
         View $view
@@ -60,21 +57,13 @@ class InfoController
         $this->view = $view;
     }
 
-    /**
-     * @return string
-     */
-    public function infoAction()
+    public function infoAction(): string
     {
         return '<h1>Advancedform ' . Plugin::VERSION . '</h1>' . "\n"
             . $this->systemCheck();
     }
 
-    /**
-     * Returns requirements information.
-     *
-     * @return string (X)HTML
-     */
-    private function systemCheck()
+    private function systemCheck(): string
     {
         $o = "<h2>" . $this->view->text("syscheck_title") . "</h2>\n";
         $phpversion = '7.1.0';
@@ -99,65 +88,39 @@ class InfoController
         return $o;
     }
 
-    /**
-     * @param string $version
-     * @return string
-     */
-    private function checkPhpVersion($version)
+    private function checkPhpVersion(string $version): string
     {
         return $this->systemChecker->checkVersion(PHP_VERSION, $version) ? "success" : "fail";
     }
 
-    /**
-     * @param string $extension
-     * @return string
-     */
-    private function checkExtension($extension)
+    private function checkExtension(string $extension): string
     {
         return $this->systemChecker->checkExtension($extension) ? "success" : "fail";
     }
 
-    /**
-     * @param string $version
-     * @return string
-     */
-    private function checkXhVersion($version)
+    private function checkXhVersion(string $version): string
     {
         return $this->systemChecker->checkVersion(CMSIMPLE_XH_VERSION, "CMSimple_XH $version") ? "success" : "fail";
     }
 
-    /**
-     * @param string $plugin
-     * @return string
-     */
-    private function checkPlugin($plugin)
+    private function checkPlugin(string $plugin): string
     {
         return $this->systemChecker->checkPlugin($plugin) ? "success" : "fail";
     }
 
-    /**
-     * @return string
-     */
-    private function checkCaptchaPlugin()
+    private function checkCaptchaPlugin(): string
     {
         $filename = $this->pluginsFolder
             . $this->conf['captcha_plugin'] . '/captcha.php';
         return is_file($filename) ? 'success' : 'warning';
     }
 
-    /**
-     * @return string
-     */
-    private function checkCaptchaKey()
+    private function checkCaptchaKey(): string
     {
         return !empty($this->conf['captcha_key']) ? 'success' : 'warning';
     }
 
-    /**
-     * @param string $folder
-     * @return string
-     */
-    private function checkWritability($folder)
+    private function checkWritability(string $folder): string
     {
         return $this->systemChecker->checkWritability($folder) ? "success" : "warning";
     }
