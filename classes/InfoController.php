@@ -66,7 +66,7 @@ class InfoController
     private function systemCheck()
     {
         $o = '<h2>' . $this->text['syscheck_title'] . '</h2>';
-        $phpversion = '7.0.0';
+        $phpversion = '7.1.0';
         $o .= XH_message($this->checkPhpVersion($phpversion), $this->text['syscheck_phpversion'], $phpversion);
         foreach (array('ctype', 'filter', 'hash') as $ext) {
             $o .= XH_message($this->checkExtension($ext), $this->text['syscheck_extension'], $ext);
