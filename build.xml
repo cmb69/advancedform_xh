@@ -42,12 +42,12 @@
     </exec>
   </target>
 
-  <target name="unit-tests" description="runs all unit tests">
+  <target name="test" description="runs all developer tests">
     <exec executable="phpunit" passthru="true" checkreturn="true">
     </exec>
   </target>
 
-  <target name="check" description="runs all checks" depends="sniff,stan,unit-tests"/>
+  <target name="check" description="runs all checks" depends="sniff,stan,test"/>
 
   <target name="coverage" description="generates coverage report">
     <exec executable="phpunit" passthru="true" checkreturn="true">
