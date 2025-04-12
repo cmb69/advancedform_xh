@@ -188,18 +188,12 @@ SCRIPT;
      */
     private function administration()
     {
-        global $o, $admin, $pth, $plugin_cf, $plugin_tx;
+        global $o, $admin;
 
         $o .= print_plugin_admin('on');
         switch ($admin) {
             case '':
-                $controller = new InfoController(
-                    Dic::formGateway(),
-                    $pth['folder']['plugins'],
-                    $plugin_cf['advancedform'],
-                    $plugin_tx['advancedform']
-                );
-                $o .= $controller->infoAction();
+                $o .= Dic::infoController()->infoAction();
                 break;
             case 'plugin_main':
                 $this->mainAdministration();
@@ -214,17 +208,10 @@ SCRIPT;
      */
     private function mainAdministration()
     {
-        global $o, $action, $sn, $plugin_cf, $plugin_tx, $_XH_csrfProtection;
+        global $o, $action;
 
         $this->mainAdministrationJs();
-        $controller = new MainAdminController(
-            Dic::formGateway(),
-            $sn,
-            $plugin_cf['advancedform'],
-            $plugin_tx['advancedform'],
-            $_XH_csrfProtection,
-            new View()
-        );
+        $controller = Dic::mainAdminController();
         switch ($action) {
             case 'new':
                 $o .= $controller->createFormAction();

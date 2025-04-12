@@ -21,11 +21,7 @@
  */
 
 use Advancedform\Dic;
-use Advancedform\FieldRenderer;
-use Advancedform\MailFormController;
-use Advancedform\MailService;
 use Advancedform\Plugin;
-use Advancedform\View;
 
 /**
  * Main plugin call.
@@ -36,19 +32,7 @@ use Advancedform\View;
  */
 function advancedform($id)
 {
-    global $sn, $pth, $plugin_cf, $plugin_tx;
-
-    $formGateway = Dic::formGateway();
-    $controller = new MailFormController(
-        $formGateway,
-        new FieldRenderer($id),
-        $sn,
-        $pth['folder']['plugins'],
-        $plugin_cf['advancedform'],
-        $plugin_tx['advancedform'],
-        new MailService($formGateway->dataFolder(), $pth['folder']['plugins'], $plugin_tx['advancedform']),
-        new View()
-    );
+    $controller = Dic::mailFormController($id);
     return $controller->main($id);
 }
 
