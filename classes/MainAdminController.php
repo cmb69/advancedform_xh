@@ -35,9 +35,6 @@ class MainAdminController
     /** @var FormGateway */
     private $formGateway;
 
-    /** @var string */
-    private $scriptName;
-
     /** @var array<string,string> */
     private $conf;
 
@@ -57,13 +54,11 @@ class MainAdminController
     private $view;
 
     /**
-     * @param string $scriptName
      * @param array<string,string> $conf
      * @param array<string,string> $text
      */
     public function __construct(
         FormGateway $formGateway,
-        $scriptName,
         array $conf,
         array $text,
         CsrfProtector $csrfProtector,
@@ -72,7 +67,6 @@ class MainAdminController
         View $view
     ) {
         $this->formGateway = $formGateway;
-        $this->scriptName = $scriptName;
         $this->conf = $conf;
         $this->text = $text;
         $this->csrfProtector = $csrfProtector;
@@ -114,11 +108,11 @@ class MainAdminController
             'title' => 'Advancedform – ' . $this->text['menu_main'],
             'add_form' => $this->toolData(
                 'add',
-                $this->scriptName . '?advancedform&amp;admin=plugin_main&amp;action=new'
+                $request->url()->with("action", "new")->relative()
             ),
             'import_form' => $this->toolData(
                 'import',
-                $this->scriptName . '?advancedform&amp;admin=plugin_main&amp;action=import&amp;form='
+                $request->url()->with("action", "import")->with("form", "PLACEHOLDER")->relative()
             ),
             'forms' => [],
             'edit_label' => utf8_ucfirst($tx['action']['edit']),
@@ -126,31 +120,31 @@ class MainAdminController
         );
         foreach ($forms as $id => $form) {
             if ($id != '%VERSION%') {
-                $href = $this->scriptName . '?advancedform&amp;admin=plugin_main&amp;action=%s' . '&amp;form=' . $id;
+                $url = $request->url()->with("form", $id);
                 $bag['forms'][$id] = array(
                     'delete_form' => $this->toolData(
                         'delete',
-                        sprintf($href, 'delete'),
+                        $url->with("action", "delete")->relative(),
                         'return confirm(\''
                             . $this->escapeJsString($this->text['message_confirm_delete'])
                             . '\')'
                     ),
                     'template_form' => $this->toolData(
                         'template',
-                        sprintf($href, 'template'),
+                        $url->with("action", "template")->relative(),
                         'return confirm(\''
                             . $this->escapeJsString(sprintf($this->text['message_confirm_template'], $form->getName()))
                             . '\')'
                     ),
-                    'copy_form' => $this->toolData('copy', sprintf($href, 'copy')),
+                    'copy_form' => $this->toolData('copy', $url->with("action", "copy")->relative()),
                     'export_form' => $this->toolData(
                         'export',
-                        sprintf($href, 'export'),
+                        $url->with("action", "export")->relative(),
                         'return confirm(\''
                             . $this->escapeJsString(sprintf($this->text['message_confirm_export'], $form->getName()))
                             . '\')'
                     ),
-                    'edit_url' => sprintf($href, 'edit'),
+                    'edit_url' => $url->with("action", "edit")->relative(),
                 );
             }
         }
@@ -214,16 +208,16 @@ class MainAdminController
             return Response::create($this->view->message("fail", "error_form_missing", $id));
         }
         $form = $forms[$id];
-        return Response::create($this->renderEditForm($id, $form));
+        return Response::create($this->renderEditForm($request, $id, $form));
     }
 
-    private function renderEditForm(string $id, Form $form): string
+    private function renderEditForm(Request $request, string $id, Form $form): string
     {
         global $tx;
         $thanks_page = $form->getThanksPage();
         return $this->view->render('edit-form', [
             'id' => $id,
-            'action' => $this->scriptName . '?advancedform&amp;admin=plugin_main&amp;action=save&amp;form=' . $id,
+            'action' => $request->url()->with("action", "save")->with("form", $id)->relative(),
             'form' => $form,
             'captcha_checked' => $form->getCaptcha() ? 'checked' : '',
             'store_checked' => $form->getStore() ? 'checked' : '',
@@ -283,13 +277,13 @@ class MainAdminController
         unset($forms[$id]);
         if (array_key_exists($_POST['advfrm-name'], $forms)) {
             return Response::create($this->view->message("fail", "error_form_exists")
-                . $this->renderEditForm($id, Form::createFromArray($this->getFormArrayFromPost())));
+                . $this->renderEditForm($request, $id, Form::createFromArray($this->getFormArrayFromPost())));
         }
         $id = $_POST['advfrm-name'];
         $forms[$id] = Form::createFromArray($this->getFormArrayFromPost());
         if (!$this->formGateway->updateAll($forms)) {
             return Response::create($this->view->message("fail", "error_save")
-                . $this->renderEditForm($id, Form::createFromArray($this->getFormArrayFromPost())));
+                . $this->renderEditForm($request, $id, Form::createFromArray($this->getFormArrayFromPost())));
         }
         $url = $request->url()->with("action", "plugin_text")->without("form");
         return Response::redirect($url->absolute());

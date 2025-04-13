@@ -4,7 +4,6 @@ namespace Advancedform;
 
 use ApprovalTests\Approvals;
 use org\bovigo\vfs\vfsStream;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Plib\CsrfProtector;
@@ -57,7 +56,6 @@ class MainAdminControllerTest extends TestCase
     {
         return new MainAdminController(
             $this->formGateway,
-            "./",
             XH_includeVar("./config/config.php", "plugin_cf")["advancedform"],
             XH_includeVar("./languages/en.php", "plugin_tx")["advancedform"],
             $this->csrfProtector,
@@ -69,7 +67,8 @@ class MainAdminControllerTest extends TestCase
 
     public function testRendersFormsOverview(): void
     {
-        $response = $this->sut()(new FakeRequest());
+        $request = new FakeRequest(["url" => "http://example.com/?advancedform&admin=plugin_main&action=plugin_tx"]);
+        $response = $this->sut()($request);
         Approvals::verifyHtml($response->output());
     }
 

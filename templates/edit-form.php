@@ -7,7 +7,7 @@ if (!isset($this)) {
 <!-- advancedform/edit-form -->
 <div id="advfrm-editor">
   <h1><?=$id?></h1>
-  <form action="<?=$action?>" method="post" accept-charset="UTF-8">
+  <form action="<?=$this->esc($action)?>" method="post" accept-charset="UTF-8">
     <table id="advfrm-form">
       <tr>
         <td><label for="advfrm-name"><?=$text['label_name']?></label></td>
