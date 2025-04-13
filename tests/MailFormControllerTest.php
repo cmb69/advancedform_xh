@@ -84,4 +84,16 @@ class MailFormControllerTest extends TestCase
         $this->sut()->main("Memberpage", new FakeRequest());
         $this->assertSame("<li>The e-mail could not be sent!</li>\n", $e);
     }
+
+    public function testSuccessfulSubmissionsRendersMailInfo(): void
+    {
+        $_POST = [
+            "advfrm" => "Memberpage",
+            "advfrm-E_Mail" => "john@example.com",
+        ];
+        $this->mailService->method("sendMail")->willReturn(true);
+        $this->mailService->method("mailInfo")->willReturn("this is a faked mail info");
+        $response = $this->sut()->main("Memberpage", new FakeRequest());
+        $this->assertSame("this is a faked mail info", $response);
+    }
 }
