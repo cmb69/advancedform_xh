@@ -43,6 +43,9 @@ class MainAdminController
     /** @var CsrfProtector */
     private $csrfProtector;
 
+    /** @var Pages */
+    private $pages;
+
     /** @var View */
     private $view;
 
@@ -57,6 +60,7 @@ class MainAdminController
         array $conf,
         array $text,
         CsrfProtector $csrfProtector,
+        Pages $pages,
         View $view
     ) {
         $this->formGateway = $formGateway;
@@ -64,6 +68,7 @@ class MainAdminController
         $this->conf = $conf;
         $this->text = $text;
         $this->csrfProtector = $csrfProtector;
+        $this->pages = $pages;
         $this->view = $view;
     }
 
@@ -204,7 +209,7 @@ class MainAdminController
             'thanks_page_select' => [
                 'name' => 'advfrm-thanks_page',
                 'selected' => ($thanks_page == '') ? ' selected="selected"' : '',
-                'pages' => (new Pages())->linkList('', false),
+                'pages' => $this->pages->linkList('', false),
                 'page_selected' => function ($page) use ($thanks_page) {
                     return ($page[1] == $thanks_page) ? ' selected="selected"' : '';
                 },

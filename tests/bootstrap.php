@@ -1,6 +1,7 @@
 <?php
 
 require_once "../../cmsimple/classes/CSRFProtection.php";
+require_once "../../cmsimple/classes/Pages.php";
 require_once "../../cmsimple/functions.php";
 require_once "../../cmsimple/utf8.php";
 

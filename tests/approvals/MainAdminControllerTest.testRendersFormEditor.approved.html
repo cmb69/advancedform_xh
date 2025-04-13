@@ -1,0 +1,277 @@
+<!-- advancedform/edit-form -->
+<div id="advfrm-editor">
+  <h1>Contact</h1>
+  <form action="./?advancedform&amp;admin=plugin_main&amp;action=save&amp;form=Contact" method="post" accept-charset="UTF-8">
+    <table id="advfrm-form">
+      <tr>
+        <td><label for="advfrm-name">Name</label></td>
+        <td><input type="text" id="advfrm-name" name="advfrm-name" value="Contact" size="40"></td>
+      </tr>
+      <tr>
+        <td><label for="advfrm-title">Title</label></td>
+        <td><input type="text" id="advfrm-title" name="advfrm-title" value="Contact" size="40"></td>
+      </tr>
+      <tr>
+        <td><label for="advfrm-to_name">To (name)</label></td>
+        <td><input type="text" id="advfrm-to_name" name="advfrm-to_name" value="Webmaster" size="40"></td>
+      </tr>
+      <tr>
+        <td><label for="advfrm-to">To (e-mail)</label></td>
+        <td><input type="text" id="advfrm-to" name="advfrm-to" value="webmaster@example.com" size="40"></td>
+      </tr>
+      <tr>
+        <td><label for="advfrm-cc">CC</label></td>
+        <td><input type="text" id="advfrm-cc" name="advfrm-cc" value="" size="40"></td>
+      </tr>
+      <tr>
+        <td><label for="advfrm-bcc">BCC</label></td>
+        <td><input type="text" id="advfrm-bcc" name="advfrm-bcc" value="" size="40"></td>
+      </tr>
+      <tr>
+        <td><label for="advfrm-captcha">CAPTCHA</label></td>
+        <td><input type="checkbox" id="advfrm-captcha" name="advfrm-captcha" checked></td>
+      </tr>
+      <tr>
+        <td><label for="advfrm-store">Store data</label></td>
+        <td><input type="checkbox" id="advfrm-store" name="advfrm-store" ></td>
+      </tr>
+      <tr>
+        <td><label for="advfrm-thanks_page">Thanks page</label></td>
+        <td>
+          <select id="advfrm-thanks_page" name="advfrm-thanks_page">
+            <option value=""  selected="selected">NONE</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+    <div class="toolbar">
+      <button type="button" class="advfrm-add"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="1em" height="1em" fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/></svg></button>
+      <button type="button" class="advfrm-delete"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="1em" height="1em" fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg></button>
+      <button type="button" class="advfrm-up"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/></svg></button>
+      <button type="button" class="advfrm-down"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg></button>
+    </div>
+    <table id="advfrm-fields">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Label</th>
+          <th colspan="3">Type</th>
+          <th>Req.</th>
+        </tr>
+      </thead>
+      <tr>
+        <td>
+          <input type="text" size="10" name="advfrm-field[]" value="Name" class="highlightable">
+        </td>
+        <td>
+          <input type="text" size="10" name="advfrm-label[]" value="Name" class="highlightable">
+        </td>
+        <td>
+          <select name="advfrm-type[]" class="highlightable">
+            <option value="text">Text</option>
+            <option value="from_name" selected="selected">Sender (name)</option>
+            <option value="from">Sender (e-mail)</option>
+            <option value="mail">E-Mail</option>
+            <option value="date">Date</option>
+            <option value="number">Number</option>
+            <option value="textarea">Textarea</option>
+            <option value="radio">Radiobutton</option>
+            <option value="checkbox">Checkbox</option>
+            <option value="select">Selectbox</option>
+            <option value="multi_select">Multi-Selectbox</option>
+            <option value="password">Password</option>
+            <option value="file">File</option>
+            <option value="hidden">Hidden</option>
+            <option value="output">Output</option>
+            <option value="custom">Custom</option>
+          </select>
+        </td>
+        <td>
+          <input type="hidden" class="hidden" name="advfrm-props[]" value="¦¦¦">
+        </td>
+        <td>
+          <button type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M352 320c88.4 0 160-71.6 160-160c0-15.3-2.2-30.1-6.2-44.2c-3.1-10.8-16.4-13.2-24.3-5.3l-76.8 76.8c-3 3-7.1 4.7-11.3 4.7L336 192c-8.8 0-16-7.2-16-16l0-57.4c0-4.2 1.7-8.3 4.7-11.3l76.8-76.8c7.9-7.9 5.4-21.2-5.3-24.3C382.1 2.2 367.3 0 352 0C263.6 0 192 71.6 192 160c0 19.1 3.4 37.5 9.5 54.5L19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L297.5 310.5c17 6.2 35.4 9.5 54.5 9.5zM80 408a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg></button>
+        </td>
+        <td>
+          <input type="checkbox" checked="checked" onchange="this.nextElementSibling.value = this.checked ? 1 : 0">
+          <input type="hidden" name="advfrm-required[]" value="1">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input type="text" size="10" name="advfrm-field[]" value="E_Mail" class="highlightable">
+        </td>
+        <td>
+          <input type="text" size="10" name="advfrm-label[]" value="E-Mail" class="highlightable">
+        </td>
+        <td>
+          <select name="advfrm-type[]" class="highlightable">
+            <option value="text">Text</option>
+            <option value="from_name">Sender (name)</option>
+            <option value="from" selected="selected">Sender (e-mail)</option>
+            <option value="mail">E-Mail</option>
+            <option value="date">Date</option>
+            <option value="number">Number</option>
+            <option value="textarea">Textarea</option>
+            <option value="radio">Radiobutton</option>
+            <option value="checkbox">Checkbox</option>
+            <option value="select">Selectbox</option>
+            <option value="multi_select">Multi-Selectbox</option>
+            <option value="password">Password</option>
+            <option value="file">File</option>
+            <option value="hidden">Hidden</option>
+            <option value="output">Output</option>
+            <option value="custom">Custom</option>
+          </select>
+        </td>
+        <td>
+          <input type="hidden" class="hidden" name="advfrm-props[]" value="¦¦¦">
+        </td>
+        <td>
+          <button type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M352 320c88.4 0 160-71.6 160-160c0-15.3-2.2-30.1-6.2-44.2c-3.1-10.8-16.4-13.2-24.3-5.3l-76.8 76.8c-3 3-7.1 4.7-11.3 4.7L336 192c-8.8 0-16-7.2-16-16l0-57.4c0-4.2 1.7-8.3 4.7-11.3l76.8-76.8c7.9-7.9 5.4-21.2-5.3-24.3C382.1 2.2 367.3 0 352 0C263.6 0 192 71.6 192 160c0 19.1 3.4 37.5 9.5 54.5L19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L297.5 310.5c17 6.2 35.4 9.5 54.5 9.5zM80 408a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg></button>
+        </td>
+        <td>
+          <input type="checkbox" checked="checked" onchange="this.nextElementSibling.value = this.checked ? 1 : 0">
+          <input type="hidden" name="advfrm-required[]" value="1">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input type="text" size="10" name="advfrm-field[]" value="Phone" class="highlightable">
+        </td>
+        <td>
+          <input type="text" size="10" name="advfrm-label[]" value="Phone" class="highlightable">
+        </td>
+        <td>
+          <select name="advfrm-type[]" class="highlightable">
+            <option value="text">Text</option>
+            <option value="from_name">Sender (name)</option>
+            <option value="from">Sender (e-mail)</option>
+            <option value="mail">E-Mail</option>
+            <option value="date">Date</option>
+            <option value="number">Number</option>
+            <option value="textarea">Textarea</option>
+            <option value="radio">Radiobutton</option>
+            <option value="checkbox">Checkbox</option>
+            <option value="select">Selectbox</option>
+            <option value="multi_select">Multi-Selectbox</option>
+            <option value="password">Password</option>
+            <option value="file">File</option>
+            <option value="hidden">Hidden</option>
+            <option value="output">Output</option>
+            <option value="custom" selected="selected">Custom</option>
+          </select>
+        </td>
+        <td>
+          <input type="hidden" class="hidden" name="advfrm-props[]" value="¦¦¦/^[0-9\/\-\+\ \(\)]*$/¦Field '%s' doesn't contain a valid phone number!">
+        </td>
+        <td>
+          <button type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M352 320c88.4 0 160-71.6 160-160c0-15.3-2.2-30.1-6.2-44.2c-3.1-10.8-16.4-13.2-24.3-5.3l-76.8 76.8c-3 3-7.1 4.7-11.3 4.7L336 192c-8.8 0-16-7.2-16-16l0-57.4c0-4.2 1.7-8.3 4.7-11.3l76.8-76.8c7.9-7.9 5.4-21.2-5.3-24.3C382.1 2.2 367.3 0 352 0C263.6 0 192 71.6 192 160c0 19.1 3.4 37.5 9.5 54.5L19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L297.5 310.5c17 6.2 35.4 9.5 54.5 9.5zM80 408a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg></button>
+        </td>
+        <td>
+          <input type="checkbox" onchange="this.nextElementSibling.value = this.checked ? 1 : 0">
+          <input type="hidden" name="advfrm-required[]" value="">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input type="text" size="10" name="advfrm-field[]" value="Comment" class="highlightable">
+        </td>
+        <td>
+          <input type="text" size="10" name="advfrm-label[]" value="Comment" class="highlightable">
+        </td>
+        <td>
+          <select name="advfrm-type[]" class="highlightable">
+            <option value="text">Text</option>
+            <option value="from_name">Sender (name)</option>
+            <option value="from">Sender (e-mail)</option>
+            <option value="mail">E-Mail</option>
+            <option value="date">Date</option>
+            <option value="number">Number</option>
+            <option value="textarea" selected="selected">Textarea</option>
+            <option value="radio">Radiobutton</option>
+            <option value="checkbox">Checkbox</option>
+            <option value="select">Selectbox</option>
+            <option value="multi_select">Multi-Selectbox</option>
+            <option value="password">Password</option>
+            <option value="file">File</option>
+            <option value="hidden">Hidden</option>
+            <option value="output">Output</option>
+            <option value="custom">Custom</option>
+          </select>
+        </td>
+        <td>
+          <input type="hidden" class="hidden" name="advfrm-props[]" value="¦¦¦">
+        </td>
+        <td>
+          <button type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M352 320c88.4 0 160-71.6 160-160c0-15.3-2.2-30.1-6.2-44.2c-3.1-10.8-16.4-13.2-24.3-5.3l-76.8 76.8c-3 3-7.1 4.7-11.3 4.7L336 192c-8.8 0-16-7.2-16-16l0-57.4c0-4.2 1.7-8.3 4.7-11.3l76.8-76.8c7.9-7.9 5.4-21.2-5.3-24.3C382.1 2.2 367.3 0 352 0C263.6 0 192 71.6 192 160c0 19.1 3.4 37.5 9.5 54.5L19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L297.5 310.5c17 6.2 35.4 9.5 54.5 9.5zM80 408a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg></button>
+        </td>
+        <td>
+          <input type="checkbox" checked="checked" onchange="this.nextElementSibling.value = this.checked ? 1 : 0">
+          <input type="hidden" name="advfrm-required[]" value="1">
+        </td>
+      </tr>
+    </table>
+    <input type="submit" class="submit" value="Save" style="display:none">
+    <input type="hidden" name="advancedform_token" value="0123456789ABCDEF">
+  </form>
+</div>
+<div id="advfrm-text-props" style="display:none">
+  <table>
+    <tr id="advfrm-text-props-size">
+      <td>size</td>
+      <td><input type="text" size="30"></td>
+    </tr>
+    <tr id="advfrm-text-props-maxlength">
+      <td>maxlength</td>
+      <td><input type="text" size="30"></td>
+    </tr>
+    <tr id="advfrm-text-props-default">
+      <td>default</td>
+      <td><input type="text" size="30"></td>
+    </tr>
+    <tr id="advfrm-text-props-constraint">
+      <td>constraint</td>
+      <td><input type="text" size="30"></td>
+    </tr>
+    <tr id="advfrm-text-props-error_msg">
+      <td>error_msg</td>
+      <td><input type="text" size="30"></td>
+    </tr>
+  </table>
+</div>
+<div id="advfrm-select-props" style="display:none">
+  <p id="advfrm-select-props-size">Size    <input type="text">
+  </p>
+  <p id="advfrm-select-props-orient">
+    <input type="radio" id="advrm-select-props-orient-horz" name="advrm-select-props-orient">
+    <label for="advrm-select-props-orient-horz">
+      &nbsp;Horizontal    </label>
+    &nbsp;&nbsp;&nbsp;
+    <input type="radio" id="advrm-select-props-orient-vert" name="advrm-select-props-orient">
+    <label for="advrm-select-props-orient-vert">
+      &nbsp;Vertical    </label>
+  </p>
+  <div class="toolbar">
+    <button type="button" class="advfrm-prop-add">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="1em" height="1em" fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/></svg>    </button>
+    <button type="button" class="advfrm-prop-delete">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="1em" height="1em" fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>    </button>
+    <button type="button" class="advfrm-prop-up">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/></svg>    </button>
+    <button type="button" class="advfrm-prop-down">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>    </button>
+    <button type="button" class="advfrm-prop-clear_defaults">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M448 256A192 192 0 1 0 64 256a192 192 0 1 0 384 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 80a80 80 0 1 0 0-160 80 80 0 1 0 0 160zm0-224a144 144 0 1 1 0 288 144 144 0 1 1 0-288zM224 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>    </button>
+  </div>
+  <table id="advfrm-prop-fields">
+    <tr>
+      <td>
+        <input type="radio" name="advfrm-select-props-default">
+      </td>
+      <td>
+        <input type="text" name="advfrm-select-props-opt" size="25" class="highlightable">
+      </td>
+    </tr>
+  </table>
+</div>

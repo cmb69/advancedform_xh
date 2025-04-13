@@ -24,6 +24,7 @@ namespace Advancedform;
 use Plib\CsrfProtector;
 use Plib\SystemChecker;
 use Plib\View as PlibView;
+use XH\Pages;
 
 class Dic
 {
@@ -63,6 +64,7 @@ class Dic
             $plugin_cf["advancedform"],
             $plugin_tx["advancedform"],
             new CsrfProtector(),
+            self::pages(),
             self::view()
         );
     }
@@ -75,6 +77,13 @@ class Dic
             $instance = new FormGateway();
         }
         return $instance;
+    }
+
+    private static function pages(): Pages
+    {
+        global $c;
+        $c = [];
+        return new Pages();
     }
 
     private static function view(): PlibView

@@ -3,29 +3,56 @@
 namespace Advancedform;
 
 use ApprovalTests\Approvals;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Plib\CsrfProtector;
 use Plib\View;
+use XH\Pages;
 
 class MainAdminControllerTest extends TestCase
 {
-    public function testRendersFormsOverview(): void
+    /** @var FormGateway&Stub */
+    private $formGateway;
+
+    /** @var CsrfProtector&Stub */
+    private $csrfProtector;
+
+    /** @var Pages&Stub */
+    private $pages;
+
+    public function setUp(): void
     {
         global $tx;
         $tx = XH_includeVar("../../cmsimple/languages/en.php", "tx");
-        $formGateway = $this->createStub(FormGateway::class);
-        $formGateway->method("findAll")->willReturn(["Contact" => $this->form()]);
-        $csrfProtector = $this->createStub(CsrfProtector::class);
-        $csrfProtector->method("token")->willReturn("0123456789ABCDEF");
-        $sut = new MainAdminController(
-            $formGateway,
+        $this->formGateway = $this->createStub(FormGateway::class);
+        $this->formGateway->method("findAll")->willReturn(["Contact" => $this->form()]);
+        $this->csrfProtector = $this->createStub(CsrfProtector::class);
+        $this->csrfProtector->method("token")->willReturn("0123456789ABCDEF");
+        $this->pages = $this->createStub(Pages::class);
+        $this->pages->method("linkList")->willReturn([]);
+    }
+
+    private function sut(): MainAdminController
+    {
+        return new MainAdminController(
+            $this->formGateway,
             "./",
             XH_includeVar("./config/config.php", "plugin_cf")["advancedform"],
             XH_includeVar("./languages/en.php", "plugin_tx")["advancedform"],
-            $csrfProtector,
+            $this->csrfProtector,
+            $this->pages,
             new View("./templates/", XH_includeVar("./languages/en.php", "plugin_tx")["advancedform"])
         );
-        Approvals::verifyHtml($sut->formsAdministrationAction());
+    }
+
+    public function testRendersFormsOverview(): void
+    {
+        Approvals::verifyHtml($this->sut()->formsAdministrationAction());
+    }
+
+    public function testRendersFormEditor(): void
+    {
+        Approvals::verifyHtml($this->sut()->editFormAction("Contact"));
     }
 
     private function form(): Form
