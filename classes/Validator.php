@@ -55,7 +55,7 @@ class Validator
     /** @return list<string> */
     public function errors(): array
     {
-        return $this->errors();
+        return $this->errors;
     }
 
     /** @return array<int,string> */
