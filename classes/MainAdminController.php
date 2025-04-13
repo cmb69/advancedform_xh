@@ -81,7 +81,31 @@ class MainAdminController
         $this->view = $view;
     }
 
-    public function formsAdministrationAction(Request $request): Response
+    public function __invoke(Request $request): Response
+    {
+        switch ($request->post("action") ?? $request->get("action")) {
+            case 'new':
+                return $this->createFormAction($request);
+            case 'edit':
+                return $this->editFormAction($request);
+            case 'save':
+                return $this->saveFormAction($request);
+            case 'delete':
+                return $this->deleteFormAction($request);
+            case 'copy':
+                return $this->copyFormAction($request);
+            case 'import':
+                return $this->importFormAction($request);
+            case 'export':
+                return $this->exportFormAction($request);
+            case 'template':
+                return $this->createFormTemplateAction($request);
+            default:
+                return $this->formsAdministrationAction($request);
+        }
+    }
+
+    private function formsAdministrationAction(Request $request): Response
     {
         global $tx;
 
@@ -145,7 +169,7 @@ class MainAdminController
         return addcslashes($string, "\t\n\r\"\'\\");
     }
 
-    public function createFormAction(Request $request): Response
+    private function createFormAction(Request $request): Response
     {
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction($request);
@@ -182,8 +206,9 @@ class MainAdminController
         return Response::redirect($url->absolute());
     }
 
-    public function editFormAction(string $id, Request $request): Response
+    private function editFormAction(Request $request): Response
     {
+        $id = $request->get("form");
         $forms = $this->formGateway->findAll();
         if (!array_key_exists($id, $forms)) {
             return Response::create($this->view->message("fail", "error_form_missing", $id));
@@ -242,7 +267,7 @@ class MainAdminController
         ]);
     }
 
-    public function saveFormAction(string $id, Request $request): Response
+    private function saveFormAction(Request $request): Response
     {
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction($request);
@@ -250,6 +275,7 @@ class MainAdminController
         if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
             return Response::create("nope"); // TODO
         }
+        $id = $request->get("form");
         $forms = $this->formGateway->findAll();
         if (!isset($forms[$id])) {
             return Response::create($this->view->message("fail", "error_form_missing", $id));
@@ -301,7 +327,7 @@ class MainAdminController
         return $form;
     }
 
-    public function deleteFormAction(string $id, Request $request): Response
+    private function deleteFormAction(Request $request): Response
     {
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction($request);
@@ -309,6 +335,7 @@ class MainAdminController
         if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
             return Response::create("nope"); // TODO
         }
+        $id = $request->get("form");
         $forms = $this->formGateway->findAll();
         if (isset($forms[$id])) {
             unset($forms[$id]);
@@ -322,7 +349,7 @@ class MainAdminController
         return Response::redirect($url->absolute());
     }
 
-    public function copyFormAction(string $id, Request $request): Response
+    private function copyFormAction(Request $request): Response
     {
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction($request);
@@ -330,6 +357,7 @@ class MainAdminController
         if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
             return Response::create("nope"); // TODO
         }
+        $id = $request->get("form");
         $forms = $this->formGateway->findAll();
         if (isset($forms[$id])) {
             $form = clone $forms[$id];
@@ -346,7 +374,7 @@ class MainAdminController
         return Response::redirect($url->absolute());
     }
 
-    public function importFormAction(string $id, Request $request): Response
+    private function importFormAction(Request $request): Response
     {
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction($request);
@@ -354,6 +382,7 @@ class MainAdminController
         if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
             return Response::create("nope"); // TODO
         }
+        $id = $request->get("form");
         $forms = $this->formGateway->findAll();
         if (!isset($forms[$id])) {
             $fn = $this->formGateway->dataFolder() . $id . '.json';
@@ -389,7 +418,7 @@ class MainAdminController
         return Response::redirect($url->absolute());
     }
 
-    public function exportFormAction(string $id, Request $request): Response
+    private function exportFormAction(Request $request): Response
     {
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction($request);
@@ -397,6 +426,7 @@ class MainAdminController
         if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
             return Response::create("nope"); // TODO
         }
+        $id = $request->get("form");
         $forms = $this->formGateway->findAll();
         if (isset($forms[$id])) {
             $form[$id] = $forms[$id];
@@ -417,7 +447,7 @@ class MainAdminController
         return Response::redirect($url->absolute());
     }
 
-    public function createFormTemplateAction(string $id, Request $request): Response
+    private function createFormTemplateAction(Request $request): Response
     {
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction($request);
@@ -425,6 +455,7 @@ class MainAdminController
         if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
             return Response::create("nope"); // TODO
         }
+        $id = $request->get("form");
         $forms = $this->formGateway->findAll();
         if (isset($forms[$id])) {
             $form = $forms[$id];

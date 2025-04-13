@@ -63,13 +63,16 @@ class MainAdminControllerTest extends TestCase
 
     public function testRendersFormsOverview(): void
     {
-        $response = $this->sut()->formsAdministrationAction(new FakeRequest());
+        $response = $this->sut()(new FakeRequest());
         Approvals::verifyHtml($response->output());
     }
 
     public function testRendersFormEditor(): void
     {
-        $response = $this->sut()->editFormAction("Contact", new FakeRequest());
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=edit&form=Contact",
+        ]);
+        $response = $this->sut()($request);
         Approvals::verifyHtml($response->output());
     }
 
@@ -78,13 +81,10 @@ class MainAdminControllerTest extends TestCase
         $_SERVER["REQUEST_METHOD"] = "POST";
         $_POST = ["advancedform_token" => "0123456789ABCDEF"];
         $this->csrfProtector->method("check")->willReturn(true);
-        // $this->formGateway->expects($this->once())->method("updateAll")->with($this->callback(function ($forms) {
-        //     return array_key_exists("60OJ4CPK6KR3EE1P85146H25", $forms);
-        // }))->willReturn(true);
         $request = new FakeRequest([
-            "url" => "http://example.com/?advancedform&admin=plugin_main&action=plugin_text",
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=new",
         ]);
-        $response = $this->sut()->createFormAction($request);
+        $response = $this->sut()($request);
         $this->assertArrayHasKey("60OJ4CPK6KR3EE1P85146H25", $this->formGateway->findAll());
         $this->assertSame(
             "http://example.com/?advancedform&admin=plugin_main&action=edit&form=60OJ4CPK6KR3EE1P85146H25",
