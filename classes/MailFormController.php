@@ -152,12 +152,12 @@ class MailFormController
      */
     private function formView(Request $request, Form $form)
     {
-        global $su, $f;
+        global $f;
 
         $id = $form->getName();
         return $this->view->render('mail-form', [
             'id' => $id,
-            'url' =>  $request->url()->page($f === 'mailform' ? '&mailform' : $su),
+            'url' =>  $request->url()->page($f === 'mailform' ? '&mailform' : $request->selected())->relative(),
             'required_message' => sprintf(
                 $this->text['message_required_fields'],
                 sprintf($this->conf['required_field_mark'], $this->text['message_required_field'])
