@@ -340,6 +340,58 @@ class MainAdminControllerTest extends TestCase
         );
     }
 
+    public function testExportingIsCsrfProtected(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $this->csrfProtector->method("check")->willReturn(false);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=export&form=Contact",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertStringContainsString("nope", $response->output());
+    }
+
+    public function testExportingReportsMissingForm(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $this->csrfProtector->method("check")->willReturn(true);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=export&form=NoSuchForm",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertStringContainsString("A form with the name 'NoSuchForm' does not exist!", $response->output());
+    }
+
+    public function testExportingReportsFailureToExport(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $this->csrfProtector->method("check")->willReturn(true);
+        vfsStream::setQuota(0);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=export&form=Contact",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertStringContainsString(
+            "'vfs://root/Contact.json' could not have been exported!",
+            $response->output()
+        );
+    }
+
+    public function testExportsForm(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $this->csrfProtector->method("check")->willReturn(true);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=export&form=Contact",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertFileExists(vfsStream::url("root/Contact.json"));
+        $this->assertSame(
+            "http://example.com/?advancedform&admin=plugin_main&action=plugin_text",
+            $response->location()
+        );
+    }
+
     private function formPost(string $name): array
     {
         return [

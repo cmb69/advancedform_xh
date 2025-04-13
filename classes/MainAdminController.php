@@ -385,12 +385,13 @@ class MainAdminController
             return Response::create($this->view->message("fail", "error_form_exists"));
         }
         $fn = $this->formGateway->dataFolder() . $id . '.json';
-        if (!(
+        if (
+            !(
             ($cnt = @file_get_contents($fn)) !== false
             && ($form = json_decode($cnt, true)) !== false
             && isset($form['%VERSION%'])
-            && count($form) == 2
-        )) {
+            && count($form) == 2)
+        ) {
             return Response::create($this->view->message("fail", "error_import", $fn));
         }
         foreach ($form as &$frm) {
@@ -423,20 +424,19 @@ class MainAdminController
         }
         $id = $request->get("form");
         $forms = $this->formGateway->findAll();
-        if (isset($forms[$id])) {
-            $form[$id] = $forms[$id];
-            $form['%VERSION%'] = Plugin::DB_VERSION;
-            $fn = $this->formGateway->dataFolder() . $id . '.json';
-            $json = json_encode($form, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-            $fail = (!($fh = fopen($fn, 'w')) || fwrite($fh, $json) === false);
-            if ($fh) {
-                fclose($fh);
-            }
-            if ($fail) {
-                return Response::create($this->view->message("fail", "error_export", $fn));
-            }
-        } else {
+        if (!isset($forms[$id])) {
             return Response::create($this->view->message("fail", "error_form_missing", $id));
+        }
+        $form[$id] = $forms[$id];
+        $form['%VERSION%'] = Plugin::DB_VERSION;
+        $fn = $this->formGateway->dataFolder() . $id . '.json';
+        $json = json_encode($form, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        $fail = (!($fh = fopen($fn, 'w')) || fwrite($fh, $json) !== strlen($json));
+        if ($fh) {
+            fclose($fh);
+        }
+        if ($fail) {
+            return Response::create($this->view->message("fail", "error_export", $fn));
         }
         $url = $request->url()->with("action", "plugin_text")->without("form");
         return Response::redirect($url->absolute());
