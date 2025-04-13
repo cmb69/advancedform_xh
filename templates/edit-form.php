@@ -11,27 +11,27 @@ if (!isset($this)) {
     <table id="advfrm-form">
       <tr>
         <td><label for="advfrm-name"><?=$this->plain('label_name')?></label></td>
-        <td><input type="text" id="advfrm-name" name="advfrm-name" value="<?=XH_hsc($form->getName())?>" size="40"></td>
+        <td><input type="text" id="advfrm-name" name="advfrm-name" value="<?=$this->esc($form->getName())?>" size="40"></td>
       </tr>
       <tr>
         <td><label for="advfrm-title"><?=$this->plain('label_title')?></label></td>
-        <td><input type="text" id="advfrm-title" name="advfrm-title" value="<?=XH_hsc($form->getTitle())?>" size="40"></td>
+        <td><input type="text" id="advfrm-title" name="advfrm-title" value="<?=$this->esc($form->getTitle())?>" size="40"></td>
       </tr>
       <tr>
         <td><label for="advfrm-to_name"><?=$this->plain('label_to_name')?></label></td>
-        <td><input type="text" id="advfrm-to_name" name="advfrm-to_name" value="<?=XH_hsc($form->getToName())?>" size="40"></td>
+        <td><input type="text" id="advfrm-to_name" name="advfrm-to_name" value="<?=$this->esc($form->getToName())?>" size="40"></td>
       </tr>
       <tr>
         <td><label for="advfrm-to"><?=$this->plain('label_to')?></label></td>
-        <td><input type="text" id="advfrm-to" name="advfrm-to" value="<?=XH_hsc($form->getTo())?>" size="40"></td>
+        <td><input type="text" id="advfrm-to" name="advfrm-to" value="<?=$this->esc($form->getTo())?>" size="40"></td>
       </tr>
       <tr>
         <td><label for="advfrm-cc"><?=$this->plain('label_cc')?></label></td>
-        <td><input type="text" id="advfrm-cc" name="advfrm-cc" value="<?=XH_hsc($form->getCc())?>" size="40"></td>
+        <td><input type="text" id="advfrm-cc" name="advfrm-cc" value="<?=$this->esc($form->getCc())?>" size="40"></td>
       </tr>
       <tr>
         <td><label for="advfrm-bcc"><?=$this->plain('label_bcc')?></label></td>
-        <td><input type="text" id="advfrm-bcc" name="advfrm-bcc" value="<?=XH_hsc($form->getBcc())?>" size="40"></td>
+        <td><input type="text" id="advfrm-bcc" name="advfrm-bcc" value="<?=$this->esc($form->getBcc())?>" size="40"></td>
       </tr>
       <tr>
         <td><label for="advfrm-captcha"><?=$this->plain('label_captcha')?></label></td>
