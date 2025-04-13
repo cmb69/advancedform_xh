@@ -160,7 +160,7 @@ class MainAdminController
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction($request);
         }
-        if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
+        if (!$this->csrfProtector->check($request->post("advancedform_token"))) {
             return Response::create("nope"); // TODO
         }
         $forms = $this->formGateway->findAll();
@@ -257,7 +257,7 @@ class MainAdminController
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction($request);
         }
-        if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
+        if (!$this->csrfProtector->check($request->post("advancedform_token"))) {
             return Response::create("nope"); // TODO
         }
         $id = $request->get("form");
@@ -266,11 +266,11 @@ class MainAdminController
             return Response::create($this->view->message("fail", "error_form_missing", $id));
         }
         unset($forms[$id]);
-        if (array_key_exists($_POST['advfrm-name'], $forms)) {
+        if (array_key_exists($request->post("advfrm-name"), $forms)) {
             return Response::create($this->view->message("fail", "error_form_exists")
                 . $this->renderEditForm($request, $id, Form::createFromArray($this->getFormArrayFromPost())));
         }
-        $id = $_POST['advfrm-name'];
+        $id = $request->post("advfrm-name") ?? "";
         $forms[$id] = Form::createFromArray($this->getFormArrayFromPost());
         if (!$this->formGateway->updateAll($forms)) {
             return Response::create($this->view->message("fail", "error_save")
@@ -316,7 +316,7 @@ class MainAdminController
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction($request);
         }
-        if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
+        if (!$this->csrfProtector->check($request->post("advancedform_token"))) {
             return Response::create("nope"); // TODO
         }
         $id = $request->get("form");
@@ -337,7 +337,7 @@ class MainAdminController
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction($request);
         }
-        if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
+        if (!$this->csrfProtector->check($request->post("advancedform_token"))) {
             return Response::create("nope"); // TODO
         }
         $id = $request->get("form");
@@ -361,7 +361,7 @@ class MainAdminController
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction($request);
         }
-        if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
+        if (!$this->csrfProtector->check($request->post("advancedform_token"))) {
             return Response::create("nope"); // TODO
         }
         $id = $request->get("form");
@@ -404,7 +404,7 @@ class MainAdminController
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction($request);
         }
-        if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
+        if (!$this->csrfProtector->check($request->post("advancedform_token"))) {
             return Response::create("nope"); // TODO
         }
         $id = $request->get("form");
@@ -432,7 +432,7 @@ class MainAdminController
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction($request);
         }
-        if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
+        if (!$this->csrfProtector->check($request->post("advancedform_token"))) {
             return Response::create("nope"); // TODO
         }
         $id = $request->get("form");

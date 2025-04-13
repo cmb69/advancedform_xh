@@ -131,6 +131,7 @@ class MainAdminControllerTest extends TestCase
         $this->csrfProtector->method("check")->willReturn(true);
         $request = new FakeRequest([
             "url" => "http://example.com/?advancedform&admin=plugin_main&action=save&form=Contact",
+            "post" => ["advfrm-name" => "Remko"],
         ]);
         $response = $this->sut()($request);
         $this->assertStringContainsString("A form with this name already exists!", $response->output());
@@ -156,6 +157,7 @@ class MainAdminControllerTest extends TestCase
         $this->csrfProtector->method("check")->willReturn(true);
         $request = new FakeRequest([
             "url" => "http://example.com/?advancedform&admin=plugin_main&action=save&form=Contact",
+            "post" => ["advfrm-name" => "Saved"],
         ]);
         $response = $this->sut()($request);
         $this->assertArrayHasKey("Saved", $this->formGateway->findAll());
