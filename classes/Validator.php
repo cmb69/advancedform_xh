@@ -52,6 +52,18 @@ class Validator
         $this->text = $text;
     }
 
+    /** @return list<string> */
+    public function errors(): array
+    {
+        return $this->errors();
+    }
+
+    /** @return array<int,string> */
+    public function focusField(): array
+    {
+        return $this->focusField;
+    }
+
     /**
      * Checks sent form. Returns true on success, an (X)HTML error message on failure.
      *

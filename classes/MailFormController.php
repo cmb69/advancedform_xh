@@ -133,9 +133,9 @@ class MailFormController
                     return $this->mailService->mailInfo($form, false, true);
                 }
             } else {
-                Plugin::focusField(...$this->validator->focusField);
+                Plugin::focusField(...$this->validator->focusField());
                 $o = '<ul class="advfrm-error">';
-                foreach ($this->validator->errors as $error) {
+                foreach ($this->validator->errors() as $error) {
                     $o .= '<li>' . $error . '</li>' . "\n";
                 }
                 $o .= '</ul>';
