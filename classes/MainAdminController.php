@@ -25,6 +25,7 @@ namespace Advancedform;
 use Plib\Codec;
 use Plib\CsrfProtector;
 use Plib\Random;
+use Plib\Response;
 use Plib\View;
 use XH\Pages;
 
@@ -79,12 +80,7 @@ class MainAdminController
         $this->view = $view;
     }
 
-    /**
-     * Returns the mail forms administration.
-     *
-     * @return string (X)HTML.
-     */
-    public function formsAdministrationAction()
+    public function formsAdministrationAction(): Response
     {
         global $tx;
 
@@ -133,7 +129,7 @@ class MainAdminController
                 );
             }
         }
-        return $this->view->render('forms-admin', $bag);
+        return Response::create($this->view->render('forms-admin', $bag));
     }
 
     /**
@@ -148,18 +144,13 @@ class MainAdminController
         return addcslashes($string, "\t\n\r\"\'\\");
     }
 
-    /**
-     * Creates a new mail form and returns the form editor.
-     *
-     * @return string (X)HTML.
-     */
-    public function createFormAction()
+    public function createFormAction(): Response
     {
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction();
         }
         if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
-            return "nope"; // TODO i18n
+            return Response::create("nope"); // TODO
         }
         $forms = $this->formGateway->findAll();
         $id = Codec::encodeBase32hex($this->random->bytes(15));
@@ -187,14 +178,7 @@ class MainAdminController
         return $this->editFormAction($id);
     }
 
-    /**
-     * Returns the form editor.
-     *
-     * @param string $id A form ID.
-     *
-     * @return string (X)HTML.
-     */
-    public function editFormAction($id)
+    public function editFormAction(string $id): Response
     {
         global $e, $tx;
 
@@ -207,7 +191,7 @@ class MainAdminController
         }
         $form = $forms[$id];
         $thanks_page = $form->getThanksPage();
-        return $this->view->render('edit-form', [
+        return Response::create($this->view->render('edit-form', [
             'id' => $id,
             'action' => $this->scriptName . '?advancedform&amp;admin=plugin_main&amp;action=save&amp;form=' . $id,
             'form' => $form,
@@ -250,18 +234,10 @@ class MainAdminController
             'csrf_token' => $this->csrfProtector->token(),
             'text_properties' => ['size', 'maxlength', 'default', 'constraint', 'error_msg'],
             'text' => $this->text,
-        ]);
+        ]));
     }
 
-    /**
-     * Saves the modified mail form definition. Returns the the mail form list on
-     * success, or the mail form editor on failure.
-     *
-     * @param string $id A form ID.
-     *
-     * @return string (X)HTML.
-     */
-    public function saveFormAction($id)
+    public function saveFormAction(string $id): Response
     {
         global $e;
 
@@ -269,7 +245,7 @@ class MainAdminController
             return $this->formsAdministrationAction();
         }
         if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
-            return "nope"; // TODO
+            return Response::create("nope"); // TODO
         }
         $forms = $this->formGateway->findAll();
         if (!isset($forms[$id])) {
@@ -321,14 +297,7 @@ class MainAdminController
         return $form;
     }
 
-    /**
-     * Deletes a form, and returns the mail form list.
-     *
-     * @param string $id A form ID.
-     *
-     * @return string (X)HTML.
-     */
-    public function deleteFormAction($id)
+    public function deleteFormAction(string $id): Response
     {
         global $e;
 
@@ -336,7 +305,7 @@ class MainAdminController
             return $this->formsAdministrationAction();
         }
         if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
-            return "nope"; // TODO
+            return Response::create("nope"); // TODO
         }
         $forms = $this->formGateway->findAll();
         if (isset($forms[$id])) {
@@ -350,14 +319,7 @@ class MainAdminController
         return $this->formsAdministrationAction();
     }
 
-    /**
-     * Makes a copy of form $id. Returns the mail form editor.
-     *
-     * @param string $id A form ID.
-     *
-     * @return string (X)HTML.
-     */
-    public function copyFormAction($id)
+    public function copyFormAction(string $id): Response
     {
         global $e;
 
@@ -365,7 +327,7 @@ class MainAdminController
             return $this->formsAdministrationAction();
         }
         if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
-            return "nope"; // TODO
+            return Response::create("nope"); // TODO
         }
         $forms = $this->formGateway->findAll();
         if (isset($forms[$id])) {
@@ -382,15 +344,7 @@ class MainAdminController
         return $this->editFormAction($id);
     }
 
-    /**
-     * Imports the form definition from a *.frm file. Returns the mail form
-     * administration.
-     *
-     * @param string $id A form ID.
-     *
-     * @return string (X)HTML.
-     */
-    public function importFormAction($id)
+    public function importFormAction(string $id): Response
     {
         global $e;
 
@@ -398,7 +352,7 @@ class MainAdminController
             return $this->formsAdministrationAction();
         }
         if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
-            return "nope"; // TODO
+            return Response::create("nope"); // TODO
         }
         $forms = $this->formGateway->findAll();
         if (!isset($forms[$id])) {
@@ -432,14 +386,7 @@ class MainAdminController
         return $this->formsAdministrationAction();
     }
 
-    /**
-     * Exports the form definition to a *.frm file. Returns the mail form administration.
-     *
-     * @param string $id A form ID.
-     *
-     * @return string (X)HTML.
-     */
-    public function exportFormAction($id)
+    public function exportFormAction(string $id): Response
     {
         global $e;
 
@@ -447,7 +394,7 @@ class MainAdminController
             return $this->formsAdministrationAction();
         }
         if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
-            return "nope"; // TODO
+            return Response::create("nope"); // TODO
         }
         $forms = $this->formGateway->findAll();
         if (isset($forms[$id])) {
@@ -467,14 +414,7 @@ class MainAdminController
         return $this->formsAdministrationAction();
     }
 
-    /**
-     * Creates a basic template of the form. Returns the the mail form administration.
-     *
-     * @param string $id A form ID.
-     *
-     * @return string (X)HTML.
-     */
-    public function createFormTemplateAction($id)
+    public function createFormTemplateAction(string $id): Response
     {
         global $e;
 
@@ -482,7 +422,7 @@ class MainAdminController
             return $this->formsAdministrationAction();
         }
         if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
-            return "nope"; // TODO
+            return Response::create("nope"); // TODO
         }
         $forms = $this->formGateway->findAll();
         if (isset($forms[$id])) {

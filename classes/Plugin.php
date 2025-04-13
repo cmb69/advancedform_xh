@@ -208,37 +208,41 @@ SCRIPT;
      */
     private function mainAdministration()
     {
+        /**
+         * @var string $o
+         * @var string $action
+         */
         global $o, $action;
 
         $this->mainAdministrationJs();
         $controller = Dic::mainAdminController();
         switch ($action) {
             case 'new':
-                $o .= $controller->createFormAction();
+                $o .= $controller->createFormAction()();
                 break;
             case 'edit':
-                $o .= $controller->editFormAction($_GET['form']);
+                $o .= $controller->editFormAction($_GET['form'])();
                 break;
             case 'save':
-                $o .= $controller->saveFormAction($_GET['form']);
+                $o .= $controller->saveFormAction($_GET['form'])();
                 break;
             case 'delete':
-                $o .= $controller->deleteFormAction($_GET['form']);
+                $o .= $controller->deleteFormAction($_GET['form'])();
                 break;
             case 'copy':
-                $o .= $controller->copyFormAction($_GET['form']);
+                $o .= $controller->copyFormAction($_GET['form'])();
                 break;
             case 'import':
-                $o .= $controller->importFormAction($_GET['form']);
+                $o .= $controller->importFormAction($_GET['form'])();
                 break;
             case 'export':
-                $o .= $controller->exportFormAction($_GET['form']);
+                $o .= $controller->exportFormAction($_GET['form'])();
                 break;
             case 'template':
-                $o .= $controller->createFormTemplateAction($_GET['form']);
+                $o .= $controller->createFormTemplateAction($_GET['form'])();
                 break;
             default:
-                $o .= $controller->formsAdministrationAction();
+                $o .= $controller->formsAdministrationAction()();
         }
     }
 

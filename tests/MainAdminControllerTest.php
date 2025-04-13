@@ -55,12 +55,14 @@ class MainAdminControllerTest extends TestCase
 
     public function testRendersFormsOverview(): void
     {
-        Approvals::verifyHtml($this->sut()->formsAdministrationAction());
+        $response = $this->sut()->formsAdministrationAction();
+        Approvals::verifyHtml($response->output());
     }
 
     public function testRendersFormEditor(): void
     {
-        Approvals::verifyHtml($this->sut()->editFormAction("Contact"));
+        $response = $this->sut()->editFormAction("Contact");
+        Approvals::verifyHtml($response->output());
     }
 
     public function testCreatesNewForm(): void
