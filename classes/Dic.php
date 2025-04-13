@@ -24,7 +24,7 @@ namespace Advancedform;
 use Plib\CsrfProtector;
 use Plib\Random;
 use Plib\SystemChecker;
-use Plib\View as PlibView;
+use Plib\View;
 use XH\Pages;
 
 class Dic
@@ -40,7 +40,7 @@ class Dic
             $plugin_cf["advancedform"],
             $plugin_tx["advancedform"],
             new MailService(self::formGateway()->dataFolder(), $pth["folder"]["plugins"], $plugin_tx["advancedform"]),
-            new View()
+            self::view()
         );
     }
 
@@ -86,9 +86,9 @@ class Dic
         return new Pages();
     }
 
-    private static function view(): PlibView
+    private static function view(): View
     {
         global $pth, $plugin_tx;
-        return new PlibView($pth["folder"]["plugins"] . "advancedform/templates/", $plugin_tx["advancedform"]);
+        return new View($pth["folder"]["plugins"] . "advancedform/templates/", $plugin_tx["advancedform"]);
     }
 }

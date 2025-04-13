@@ -22,6 +22,8 @@
 
 namespace Advancedform;
 
+use Plib\View;
+
 class MailFormController
 {
     /** @var FormGateway */
