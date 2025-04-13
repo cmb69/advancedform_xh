@@ -5,6 +5,7 @@ namespace Advancedform;
 use Advancedform\Infra\Logger;
 use ApprovalTests\Approvals;
 use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Plib\FakeRequest;
@@ -21,7 +22,7 @@ class MailFormControllerTest extends TestCase
     /** @var Validator&Stub */
     private $validator;
 
-    /** @var MailService&Stub */
+    /** @var MailService&MockObject */
     private $mailService;
 
     /** @var Logger&Stub */
@@ -33,11 +34,15 @@ class MailFormControllerTest extends TestCase
         copy("./data/forms.json", vfsStream::url("root/forms.json"));
         $this->formGateway = new FormGateway(vfsStream::url("root/"));
         $this->fieldRenderer = new FieldRenderer("Memberpage");
+        $lang = XH_includeVar("./languages/en.php", "plugin_tx")["advancedform"];
         $this->validator = new Validator(
             XH_includeVar("./config/config.php", "plugin_cf")["advancedform"],
-            XH_includeVar("./languages/en.php", "plugin_tx")["advancedform"],
+            $lang,
         );
-        $this->mailService = $this->createStub(MailService::class);
+        $this->mailService = $this->getMockBuilder(MailService::class)
+            ->setConstructorArgs(["", "", $lang])
+            ->onlyMethods(["sendMail"])
+            ->getMock();
         $this->logger = $this->createStub(Logger::class);
     }
 
@@ -92,8 +97,7 @@ class MailFormControllerTest extends TestCase
             "advfrm-E_Mail" => "john@example.com",
         ];
         $this->mailService->method("sendMail")->willReturn(true);
-        $this->mailService->method("mailInfo")->willReturn("this is a faked mail info");
         $response = $this->sut()->main("Memberpage", new FakeRequest());
-        $this->assertSame("this is a faked mail info", $response);
+        Approvals::verifyHtml($response);
     }
 }
