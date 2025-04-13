@@ -438,7 +438,7 @@ class MainAdminControllerTest extends TestCase
             "url" => "http://example.com/?advancedform&admin=plugin_main&action=template&form=Contact",
         ]);
         $response = $this->sut()($request);
-        Approvals::verifyString(file_get_contents(vfsStream::url("root/Contact.tpl")));
+        Approvals::verifyHtml(file_get_contents(vfsStream::url("root/Contact.tpl")));
         $this->assertSame(
             "http://example.com/?advancedform&admin=plugin_main&action=plugin_text",
             $response->location()
@@ -453,7 +453,7 @@ class MainAdminControllerTest extends TestCase
             "url" => "http://example.com/?advancedform&admin=plugin_main&action=template&form=Contact",
         ]);
         $response = $this->sut()($request);
-        Approvals::verifyString(file_get_contents(vfsStream::url("root/css/Contact.css")));
+        Approvals::verifyStringWithFileExtension(file_get_contents(vfsStream::url("root/css/Contact.css")), "css");
         $this->assertSame(
             "http://example.com/?advancedform&admin=plugin_main&action=plugin_text",
             $response->location()

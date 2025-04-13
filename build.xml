@@ -14,7 +14,7 @@
   <target name="sniff" description="checks adherence to coding standards">
     <exec executable="phpcs" passthru="true" checkreturn="true">
       <arg value="--standard=PSR12"/>
-      <arg line="--runtime-set ignore_warnings_on_exit true"/>
+      <arg line="--extensions=php --runtime-set ignore_warnings_on_exit true"/>
       <arg file="captcha.php"/>
       <arg file="index.php"/>
       <arg file="classes"/>
