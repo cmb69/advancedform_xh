@@ -180,7 +180,7 @@ class MainAdminController
 
     public function editFormAction(string $id): Response
     {
-        global $e, $tx;
+        global $e;
 
         $forms = $this->formGateway->findAll();
         if (!array_key_exists($id, $forms)) {
@@ -190,8 +190,14 @@ class MainAdminController
             return $this->formsAdministrationAction();
         }
         $form = $forms[$id];
+        return Response::create($this->renderEditForm($id, $form));
+    }
+
+    private function renderEditForm(string $id, Form $form): string
+    {
+        global $tx;
         $thanks_page = $form->getThanksPage();
-        return Response::create($this->view->render('edit-form', [
+        return $this->view->render('edit-form', [
             'id' => $id,
             'action' => $this->scriptName . '?advancedform&amp;admin=plugin_main&amp;action=save&amp;form=' . $id,
             'form' => $form,
@@ -234,7 +240,7 @@ class MainAdminController
             'csrf_token' => $this->csrfProtector->token(),
             'text_properties' => ['size', 'maxlength', 'default', 'constraint', 'error_msg'],
             'text' => $this->text,
-        ]));
+        ]);
     }
 
     public function saveFormAction(string $id): Response
