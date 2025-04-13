@@ -336,7 +336,7 @@ class MainAdminController
         }
         $id = $request->get("form");
         $forms = $this->formGateway->findAll();
-        if (!isset($forms[$id])) {
+        if (!array_key_exists($id, $forms)) {
             return Response::create($this->view->message("fail", "error_form_missing", $id));
         }
         unset($forms[$id]);
@@ -357,16 +357,15 @@ class MainAdminController
         }
         $id = $request->get("form");
         $forms = $this->formGateway->findAll();
-        if (isset($forms[$id])) {
-            $form = clone $forms[$id];
-            $id = uniqid();
-            $form->setName($id);
-            $forms[$id] = $form;
-            if (!$this->formGateway->updateAll($forms)) {
-                return Response::create($this->view->message("fail", "error_save"));
-            }
-        } else {
+        if (!array_key_exists($id, $forms)) {
             return Response::create($this->view->message("fail", "error_form_missing", $id));
+        }
+        $form = clone $forms[$id];
+        $id = Codec::encodeBase32hex($this->random->bytes(15));
+        $form->setName($id);
+        $forms[$id] = $form;
+        if (!$this->formGateway->updateAll($forms)) {
+            return Response::create($this->view->message("fail", "error_save"));
         }
         $url = $request->url()->with("action", "edit")->with("form", $id);
         return Response::redirect($url->absolute());

@@ -218,6 +218,63 @@ class MainAdminControllerTest extends TestCase
         );
     }
 
+    public function testCopyingIsCsrfProtected(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $_POST = [
+            "advancedform_token" => "0123456789ABCDEF",
+        ];
+        $this->csrfProtector->method("check")->willReturn(false);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=copy&form=Contact",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertStringContainsString("nope", $response->output());
+    }
+
+    public function testCopyingReportsMissingForm(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $_POST = [
+            "advancedform_token" => "0123456789ABCDEF",
+        ];
+        $this->csrfProtector->method("check")->willReturn(true);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=copy&form=NoSuchForm",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertStringContainsString("A form with the name 'NoSuchForm' does not exist!", $response->output());
+    }
+
+    public function testCopyingReportsFailureToSave(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $_POST = $this->formPost("Contact");
+        $this->csrfProtector->method("check")->willReturn(true);
+        vfsStream::setQuota(0);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=copy&form=Contact",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertStringContainsString("The forms database could not have been saved!", $response->output());
+    }
+
+    public function testCopiesForm(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $_POST = $this->formPost("Contact");
+        $this->csrfProtector->method("check")->willReturn(true);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=copy&form=Contact",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertArrayHasKey("60OJ4CPK6KR3EE1P85146H25", $this->formGateway->findAll());
+        $this->assertSame(
+            "http://example.com/?advancedform&admin=plugin_main&action=edit&form=60OJ4CPK6KR3EE1P85146H25",
+            $response->location()
+        );
+    }
+
     private function formPost(string $name): array
     {
         return [
