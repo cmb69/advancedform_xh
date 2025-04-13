@@ -25,6 +25,7 @@ namespace Advancedform;
 use Plib\Codec;
 use Plib\CsrfProtector;
 use Plib\Random;
+use Plib\Request;
 use Plib\Response;
 use Plib\View;
 use XH\Pages;
@@ -80,7 +81,7 @@ class MainAdminController
         $this->view = $view;
     }
 
-    public function formsAdministrationAction(): Response
+    public function formsAdministrationAction(Request $request): Response
     {
         global $tx;
 
@@ -144,10 +145,10 @@ class MainAdminController
         return addcslashes($string, "\t\n\r\"\'\\");
     }
 
-    public function createFormAction(): Response
+    public function createFormAction(Request $request): Response
     {
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            return $this->formsAdministrationAction();
+            return $this->formsAdministrationAction($request);
         }
         if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
             return Response::create("nope"); // TODO
@@ -175,19 +176,15 @@ class MainAdminController
             )
         ));
         $this->formGateway->updateAll($forms);
-        return $this->editFormAction($id);
+        $url = $request->url()->with("action", "edit")->with("form", $id);
+        return Response::redirect($url->absolute());
     }
 
-    public function editFormAction(string $id): Response
+    public function editFormAction(string $id, Request $request): Response
     {
-        global $e;
-
         $forms = $this->formGateway->findAll();
         if (!array_key_exists($id, $forms)) {
-            $e .= '<li><b>'
-                . sprintf($this->text['error_form_missing'], $id)
-                . '</b></li>';
-            return $this->formsAdministrationAction();
+            return Response::create($this->view->message("fail", "error_form_missing", $id));
         }
         $form = $forms[$id];
         return Response::create($this->renderEditForm($id, $form));
@@ -243,33 +240,29 @@ class MainAdminController
         ]);
     }
 
-    public function saveFormAction(string $id): Response
+    public function saveFormAction(string $id, Request $request): Response
     {
-        global $e;
-
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            return $this->formsAdministrationAction();
+            return $this->formsAdministrationAction($request);
         }
         if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
             return Response::create("nope"); // TODO
         }
         $forms = $this->formGateway->findAll();
         if (!isset($forms[$id])) {
-            $e .= '<li><b>' . sprintf($this->text['error_form_missing'], $id) . '</b></li>';
-            return $this->formsAdministrationAction();
+            return Response::create($this->view->message("fail", "error_form_missing", $id));
         }
         unset($forms[$id]);
         if (!isset($forms[$_POST['advfrm-name']])) {
             $id = $_POST['advfrm-name'];
-            $ok = true;
         } else {
-            $_POST['advfrm-name'] = $id;
-            $e .= '<li>' . $this->text['error_form_exists'] . '</li>';
-            $ok = false;
+            return Response::create($this->view->message("fail", "error_form_exists")
+                . $this->renderEditForm($id, Form::createFromArray($this->getFormArrayFromPost())));
         }
         $forms[$id] = Form::createFromArray($this->getFormArrayFromPost());
         $this->formGateway->updateAll($forms);
-        return $ok ? $this->formsAdministrationAction() : $this->editFormAction($id);
+        $url = $request->url()->with("action", "plugin_text")->without("form");
+        return Response::redirect($url->absolute());
     }
 
     /**
@@ -303,12 +296,10 @@ class MainAdminController
         return $form;
     }
 
-    public function deleteFormAction(string $id): Response
+    public function deleteFormAction(string $id, Request $request): Response
     {
-        global $e;
-
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            return $this->formsAdministrationAction();
+            return $this->formsAdministrationAction($request);
         }
         if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
             return Response::create("nope"); // TODO
@@ -318,19 +309,16 @@ class MainAdminController
             unset($forms[$id]);
             $this->formGateway->updateAll($forms);
         } else {
-            $e .= '<li><b>'
-                . sprintf($this->text['error_form_missing'], $id)
-                . '</b></li>';
+            return Response::create($this->view->message("fail", "error_form_missing", $id));
         }
-        return $this->formsAdministrationAction();
+        $url = $request->url()->with("action", "plugin_tx")->without("form");
+        return Response::redirect($url->absolute());
     }
 
-    public function copyFormAction(string $id): Response
+    public function copyFormAction(string $id, Request $request): Response
     {
-        global $e;
-
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            return $this->formsAdministrationAction();
+            return $this->formsAdministrationAction($request);
         }
         if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
             return Response::create("nope"); // TODO
@@ -343,19 +331,16 @@ class MainAdminController
             $forms[$id] = $form;
             $this->formGateway->updateAll($forms);
         } else {
-            $e .= '<li><b>'
-                . sprintf($this->text['error_form_missing'], $id)
-                . '</b></li>';
+            return Response::create($this->view->message("fail", "error_form_missing", $id));
         }
-        return $this->editFormAction($id);
+        $url = $request->url()->with("action", "edit")->with("form", $id);
+        return Response::redirect($url->absolute());
     }
 
-    public function importFormAction(string $id): Response
+    public function importFormAction(string $id, Request $request): Response
     {
-        global $e;
-
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            return $this->formsAdministrationAction();
+            return $this->formsAdministrationAction($request);
         }
         if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
             return Response::create("nope"); // TODO
@@ -384,20 +369,19 @@ class MainAdminController
                 }
                 $this->formGateway->updateAll($forms);
             } else {
-                e('cntopen', 'file', $fn);
+                return Response::create($this->view->message("fail", "error_import", $fn));
             }
         } else {
-            $e .= '<li><b>' . $this->text['error_form_exists'] . '</b></li>';
+            return Response::create($this->view->message("fail", "error_form_exists"));
         }
-        return $this->formsAdministrationAction();
+        $url = $request->url()->with("action", "plugin_text")->without("form");
+        return Response::redirect($url->absolute());
     }
 
-    public function exportFormAction(string $id): Response
+    public function exportFormAction(string $id, Request $request): Response
     {
-        global $e;
-
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            return $this->formsAdministrationAction();
+            return $this->formsAdministrationAction($request);
         }
         if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
             return Response::create("nope"); // TODO
@@ -408,24 +392,24 @@ class MainAdminController
             $form['%VERSION%'] = Plugin::DB_VERSION;
             $fn = $this->formGateway->dataFolder() . $id . '.json';
             $json = json_encode($form, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-            if (!($fh = fopen($fn, 'w')) || fwrite($fh, $json) === false) {
-                e('cntwriteto', 'file', $fn);
-            }
+            $fail = (!($fh = fopen($fn, 'w')) || fwrite($fh, $json) === false);
             if ($fh) {
                 fclose($fh);
             }
+            if ($fail) {
+                return Response::create($this->view->message("fail", "error_export", $fn));
+            }
         } else {
-            $e .= '<li><b>' . sprintf($this->text['error_form_missing'], $id) . '</b></li>';
+            return Response::create($this->view->message("fail", "error_form_missing", $id));
         }
-        return $this->formsAdministrationAction();
+        $url = $request->url()->with("action", "plugin_text")->without("form");
+        return Response::redirect($url->absolute());
     }
 
-    public function createFormTemplateAction(string $id): Response
+    public function createFormTemplateAction(string $id, Request $request): Response
     {
-        global $e;
-
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            return $this->formsAdministrationAction();
+            return $this->formsAdministrationAction($request);
         }
         if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
             return Response::create("nope"); // TODO
@@ -485,9 +469,10 @@ class MainAdminController
                 e('cntsave', 'file', $fn);
             }
         } else {
-            $e .= '<li><b>' . sprintf($this->text['error_form_missing'], $id) . '</b></li>';
+            return Response::create($this->view->message("fail", "error_form_missing", $id));
         }
-        return $this->formsAdministrationAction();
+        $url = $request->url()->with("action", "plugin_text")->without("form");
+        return Response::redirect($url->absolute());
     }
 
     /**

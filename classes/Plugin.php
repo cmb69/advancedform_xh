@@ -22,6 +22,8 @@
 
 namespace Advancedform;
 
+use Plib\Request;
+
 class Plugin
 {
     public const VERSION = "2.4-dev";
@@ -218,31 +220,31 @@ SCRIPT;
         $controller = Dic::mainAdminController();
         switch ($action) {
             case 'new':
-                $o .= $controller->createFormAction()();
+                $o .= $controller->createFormAction(Request::current())();
                 break;
             case 'edit':
-                $o .= $controller->editFormAction($_GET['form'])();
+                $o .= $controller->editFormAction($_GET['form'], Request::current())();
                 break;
             case 'save':
-                $o .= $controller->saveFormAction($_GET['form'])();
+                $o .= $controller->saveFormAction($_GET['form'], Request::current())();
                 break;
             case 'delete':
-                $o .= $controller->deleteFormAction($_GET['form'])();
+                $o .= $controller->deleteFormAction($_GET['form'], Request::current())();
                 break;
             case 'copy':
-                $o .= $controller->copyFormAction($_GET['form'])();
+                $o .= $controller->copyFormAction($_GET['form'], Request::current())();
                 break;
             case 'import':
-                $o .= $controller->importFormAction($_GET['form'])();
+                $o .= $controller->importFormAction($_GET['form'], Request::current())();
                 break;
             case 'export':
-                $o .= $controller->exportFormAction($_GET['form'])();
+                $o .= $controller->exportFormAction($_GET['form'], Request::current())();
                 break;
             case 'template':
-                $o .= $controller->createFormTemplateAction($_GET['form'])();
+                $o .= $controller->createFormTemplateAction($_GET['form'], Request::current())();
                 break;
             default:
-                $o .= $controller->formsAdministrationAction()();
+                $o .= $controller->formsAdministrationAction(Request::current())();
         }
     }
 

@@ -108,6 +108,8 @@ $plugin_tx['advancedform']['error_default_too_long']="Der Vorbelegungswert ist l
 $plugin_tx['advancedform']['error_invalid_property']="Ungültiger Eigenschafts-Wert!";
 $plugin_tx['advancedform']['error_duplicate_fields']="Doppelte Feldname sind nicht erlaubt!";
 $plugin_tx['advancedform']['error_too_many_senders']="Höchstens ein Absender erlaubt!";
+$plugin_tx['advancedform']['error_export']="'%s' konnte nicht exportiert werden!";
+$plugin_tx['advancedform']['error_import']="'%s' konnte nicht importiert werden!";
 
 $plugin_tx['advancedform']['log_success']="E-Mail von <%s> verschickt.";
 $plugin_tx['advancedform']['log_error']="E-Mail von <%s> nicht verschickt!";

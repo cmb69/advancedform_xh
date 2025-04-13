@@ -7,6 +7,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Plib\CsrfProtector;
+use Plib\FakeRequest;
 use Plib\Random;
 use Plib\View;
 use XH\Pages;
@@ -55,13 +56,13 @@ class MainAdminControllerTest extends TestCase
 
     public function testRendersFormsOverview(): void
     {
-        $response = $this->sut()->formsAdministrationAction();
+        $response = $this->sut()->formsAdministrationAction(new FakeRequest());
         Approvals::verifyHtml($response->output());
     }
 
     public function testRendersFormEditor(): void
     {
-        $response = $this->sut()->editFormAction("Contact");
+        $response = $this->sut()->editFormAction("Contact", new FakeRequest());
         Approvals::verifyHtml($response->output());
     }
 
@@ -73,7 +74,14 @@ class MainAdminControllerTest extends TestCase
         $this->formGateway->expects($this->once())->method("updateAll")->with($this->callback(function ($forms) {
             return array_key_exists("60OJ4CPK6KR3EE1P85146H25", $forms);
         }));
-        $this->sut()->createFormAction();
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=plugin_text",
+        ]);
+        $response = $this->sut()->createFormAction($request);
+        $this->assertSame(
+            "http://example.com/?advancedform&admin=plugin_main&action=edit&form=60OJ4CPK6KR3EE1P85146H25",
+            $response->location()
+        );
     }
 
     private function form(): Form
