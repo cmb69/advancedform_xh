@@ -58,11 +58,10 @@ class Dic
 
     public static function mainAdminController(): MainAdminController
     {
-        global $plugin_cf, $plugin_tx;
+        global $plugin_cf;
         return new MainAdminController(
             Dic::formGateway(),
             $plugin_cf["advancedform"],
-            $plugin_tx["advancedform"],
             new CsrfProtector(),
             self::pages(),
             new Random(),

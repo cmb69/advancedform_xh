@@ -38,9 +38,6 @@ class MainAdminController
     /** @var array<string,string> */
     private $conf;
 
-    /** @var array<string,string> */
-    private $text;
-
     /** @var CsrfProtector */
     private $csrfProtector;
 
@@ -53,14 +50,10 @@ class MainAdminController
     /** @var View */
     private $view;
 
-    /**
-     * @param array<string,string> $conf
-     * @param array<string,string> $text
-     */
+    /** @param array<string,string> $conf */
     public function __construct(
         FormGateway $formGateway,
         array $conf,
-        array $text,
         CsrfProtector $csrfProtector,
         Pages $pages,
         Random $random,
@@ -68,7 +61,6 @@ class MainAdminController
     ) {
         $this->formGateway = $formGateway;
         $this->conf = $conf;
-        $this->text = $text;
         $this->csrfProtector = $csrfProtector;
         $this->pages = $pages;
         $this->random = $random;
@@ -105,7 +97,7 @@ class MainAdminController
 
         $forms = $this->formGateway->findAll();
         $bag = array(
-            'title' => 'Advancedform – ' . $this->text['menu_main'],
+            'title' => 'Advancedform – ' . $this->view->plain("menu_main"),
             'add_form' => $this->toolData(
                 'add',
                 $request->url()->with("action", "new")->relative()
@@ -116,7 +108,7 @@ class MainAdminController
             ),
             'forms' => [],
             'edit_label' => utf8_ucfirst($tx['action']['edit']),
-            'code_label' => $this->text['message_script_code'],
+            'code_label' => $this->view->plain("message_script_code"),
         );
         foreach ($forms as $id => $form) {
             if ($id != '%VERSION%') {
@@ -126,14 +118,14 @@ class MainAdminController
                         'delete',
                         $url->with("action", "delete")->relative(),
                         'return confirm(\''
-                            . $this->escapeJsString($this->text['message_confirm_delete'])
+                            . $this->escapeJsString($this->view->plain("message_confirm_delete"))
                             . '\')'
                     ),
                     'template_form' => $this->toolData(
                         'template',
                         $url->with("action", "template")->relative(),
                         'return confirm(\''
-                            . $this->escapeJsString(sprintf($this->text['message_confirm_template'], $form->getName()))
+                            . $this->escapeJsString($this->view->plain("message_confirm_template", $form->getName()))
                             . '\')'
                     ),
                     'copy_form' => $this->toolData('copy', $url->with("action", "copy")->relative()),
@@ -141,7 +133,7 @@ class MainAdminController
                         'export',
                         $url->with("action", "export")->relative(),
                         'return confirm(\''
-                            . $this->escapeJsString(sprintf($this->text['message_confirm_export'], $form->getName()))
+                            . $this->escapeJsString($this->view->plain("message_confirm_export", $form->getName()))
                             . '\')'
                     ),
                     'edit_url' => $url->with("action", "edit")->relative(),
@@ -252,12 +244,11 @@ class MainAdminController
                 'hidden', 'output', 'custom',
             ],
             'field_typelabel' => function ($type) {
-                return $this->text["field_$type"];
+                return $this->view->plain("field_$type");
             },
             'label_save' => utf8_ucfirst($tx['action']['save']),
             'csrf_token' => $this->csrfProtector->token(),
             'text_properties' => ['size', 'maxlength', 'default', 'constraint', 'error_msg'],
-            'text' => $this->text,
         ]);
     }
 
@@ -516,7 +507,7 @@ class MainAdminController
     {
         return array(
             'class' => "advfrm-$tool-form",
-            'title' => $this->text['tool_' . $tool],
+            'title' => $this->view->plain("tool_$tool"),
             'icon' => $this->toolIcon($tool),
             'action' => $action,
             'onsubmit' => $onsubmit ? 'onsubmit="' . $onsubmit . '"' : '',

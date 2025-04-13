@@ -57,7 +57,6 @@ class MainAdminControllerTest extends TestCase
         return new MainAdminController(
             $this->formGateway,
             XH_includeVar("./config/config.php", "plugin_cf")["advancedform"],
-            XH_includeVar("./languages/en.php", "plugin_tx")["advancedform"],
             $this->csrfProtector,
             $this->pages,
             $this->random,

@@ -10,42 +10,42 @@ if (!isset($this)) {
   <form action="<?=$this->esc($action)?>" method="post" accept-charset="UTF-8">
     <table id="advfrm-form">
       <tr>
-        <td><label for="advfrm-name"><?=$text['label_name']?></label></td>
+        <td><label for="advfrm-name"><?=$this->plain('label_name')?></label></td>
         <td><input type="text" id="advfrm-name" name="advfrm-name" value="<?=XH_hsc($form->getName())?>" size="40"></td>
       </tr>
       <tr>
-        <td><label for="advfrm-title"><?=$text['label_title']?></label></td>
+        <td><label for="advfrm-title"><?=$this->plain('label_title')?></label></td>
         <td><input type="text" id="advfrm-title" name="advfrm-title" value="<?=XH_hsc($form->getTitle())?>" size="40"></td>
       </tr>
       <tr>
-        <td><label for="advfrm-to_name"><?=$text['label_to_name']?></label></td>
+        <td><label for="advfrm-to_name"><?=$this->plain('label_to_name')?></label></td>
         <td><input type="text" id="advfrm-to_name" name="advfrm-to_name" value="<?=XH_hsc($form->getToName())?>" size="40"></td>
       </tr>
       <tr>
-        <td><label for="advfrm-to"><?=$text['label_to']?></label></td>
+        <td><label for="advfrm-to"><?=$this->plain('label_to')?></label></td>
         <td><input type="text" id="advfrm-to" name="advfrm-to" value="<?=XH_hsc($form->getTo())?>" size="40"></td>
       </tr>
       <tr>
-        <td><label for="advfrm-cc"><?=$text['label_cc']?></label></td>
+        <td><label for="advfrm-cc"><?=$this->plain('label_cc')?></label></td>
         <td><input type="text" id="advfrm-cc" name="advfrm-cc" value="<?=XH_hsc($form->getCc())?>" size="40"></td>
       </tr>
       <tr>
-        <td><label for="advfrm-bcc"><?=$text['label_bcc']?></label></td>
+        <td><label for="advfrm-bcc"><?=$this->plain('label_bcc')?></label></td>
         <td><input type="text" id="advfrm-bcc" name="advfrm-bcc" value="<?=XH_hsc($form->getBcc())?>" size="40"></td>
       </tr>
       <tr>
-        <td><label for="advfrm-captcha"><?=$text['label_captcha']?></label></td>
+        <td><label for="advfrm-captcha"><?=$this->plain('label_captcha')?></label></td>
         <td><input type="checkbox" id="advfrm-captcha" name="advfrm-captcha" <?=$captcha_checked?>></td>
       </tr>
       <tr>
-        <td><label for="advfrm-store"><?=$text['label_store']?></label></td>
+        <td><label for="advfrm-store"><?=$this->plain('label_store')?></label></td>
         <td><input type="checkbox" id="advfrm-store" name="advfrm-store" <?=$store_checked?>></td>
       </tr>
       <tr>
-        <td><label for="advfrm-thanks_page"><?=$text['label_thanks_page']?></label></td>
+        <td><label for="advfrm-thanks_page"><?=$this->plain('label_thanks_page')?></label></td>
         <td>
           <select id="<?=$thanks_page_select['name']?>" name="<?=$thanks_page_select['name']?>">
-            <option value="" <?=$thanks_page_select['selected']?>><?=$text['label_none']?></option>
+            <option value="" <?=$thanks_page_select['selected']?>><?=$this->plain('label_none')?></option>
 <?php foreach ($thanks_page_select['pages'] as $page):?>
             <option value="<?=$page[1]?>" <?=$thanks_page_select['page_selected']($page)?>><?=$page[0]?></option>
 <?php endforeach?>
@@ -61,10 +61,10 @@ if (!isset($this)) {
     <table id="advfrm-fields">
       <thead>
         <tr>
-          <th><?=$text['label_field']?></th>
-          <th><?=$text['label_label']?></th>
-          <th colspan="3"><?=$text['label_type']?></th>
-          <th><?=$text['label_required']?></th>
+          <th><?=$this->plain('label_field')?></th>
+          <th><?=$this->plain('label_label')?></th>
+          <th colspan="3"><?=$this->plain('label_type')?></th>
+          <th><?=$this->plain('label_required')?></th>
         </tr>
       </thead>
 <?php foreach ($fields as $field):?>
@@ -110,18 +110,18 @@ if (!isset($this)) {
   </table>
 </div>
 <div id="advfrm-select-props" style="display:none">
-  <p id="advfrm-select-props-size"><?=$text['label_size']?>
+  <p id="advfrm-select-props-size"><?=$this->plain('label_size')?>
     <input type="text">
   </p>
   <p id="advfrm-select-props-orient">
     <input type="radio" id="advrm-select-props-orient-horz" name="advrm-select-props-orient">
     <label for="advrm-select-props-orient-horz">
-      &nbsp;<?=$text['label_horizontal']?>
+      &nbsp;<?=$this->plain('label_horizontal')?>
     </label>
     &nbsp;&nbsp;&nbsp;
     <input type="radio" id="advrm-select-props-orient-vert" name="advrm-select-props-orient">
     <label for="advrm-select-props-orient-vert">
-      &nbsp;<?=$text['label_vertical']?>
+      &nbsp;<?=$this->plain('label_vertical')?>
     </label>
   </p>
   <div class="toolbar">
