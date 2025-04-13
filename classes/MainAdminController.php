@@ -22,7 +22,9 @@
 
 namespace Advancedform;
 
+use Plib\Codec;
 use Plib\CsrfProtector;
+use Plib\Random;
 use Plib\View;
 use XH\Pages;
 
@@ -46,6 +48,9 @@ class MainAdminController
     /** @var Pages */
     private $pages;
 
+    /** @var Random */
+    private $random;
+
     /** @var View */
     private $view;
 
@@ -61,6 +66,7 @@ class MainAdminController
         array $text,
         CsrfProtector $csrfProtector,
         Pages $pages,
+        Random $random,
         View $view
     ) {
         $this->formGateway = $formGateway;
@@ -69,6 +75,7 @@ class MainAdminController
         $this->text = $text;
         $this->csrfProtector = $csrfProtector;
         $this->pages = $pages;
+        $this->random = $random;
         $this->view = $view;
     }
 
@@ -155,7 +162,7 @@ class MainAdminController
             return "nope"; // TODO i18n
         }
         $forms = $this->formGateway->findAll();
-        $id = uniqid();
+        $id = Codec::encodeBase32hex($this->random->bytes(15));
         $forms[$id] = Form::createFromArray(array(
             'name' => $id,
             'title' => '',

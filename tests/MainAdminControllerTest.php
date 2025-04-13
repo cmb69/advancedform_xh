@@ -3,15 +3,17 @@
 namespace Advancedform;
 
 use ApprovalTests\Approvals;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Plib\CsrfProtector;
+use Plib\Random;
 use Plib\View;
 use XH\Pages;
 
 class MainAdminControllerTest extends TestCase
 {
-    /** @var FormGateway&Stub */
+    /** @var FormGateway&MockObject */
     private $formGateway;
 
     /** @var CsrfProtector&Stub */
@@ -20,16 +22,21 @@ class MainAdminControllerTest extends TestCase
     /** @var Pages&Stub */
     private $pages;
 
+    /** @var Random&Stub */
+    private $random;
+
     public function setUp(): void
     {
         global $tx;
         $tx = XH_includeVar("../../cmsimple/languages/en.php", "tx");
-        $this->formGateway = $this->createStub(FormGateway::class);
+        $this->formGateway = $this->createMock(FormGateway::class);
         $this->formGateway->method("findAll")->willReturn(["Contact" => $this->form()]);
         $this->csrfProtector = $this->createStub(CsrfProtector::class);
         $this->csrfProtector->method("token")->willReturn("0123456789ABCDEF");
         $this->pages = $this->createStub(Pages::class);
         $this->pages->method("linkList")->willReturn([]);
+        $this->random = $this->createStub(Random::class);
+        $this->random->method("bytes")->willReturn("0123456789ABCDE");
     }
 
     private function sut(): MainAdminController
@@ -41,6 +48,7 @@ class MainAdminControllerTest extends TestCase
             XH_includeVar("./languages/en.php", "plugin_tx")["advancedform"],
             $this->csrfProtector,
             $this->pages,
+            $this->random,
             new View("./templates/", XH_includeVar("./languages/en.php", "plugin_tx")["advancedform"])
         );
     }
@@ -53,6 +61,17 @@ class MainAdminControllerTest extends TestCase
     public function testRendersFormEditor(): void
     {
         Approvals::verifyHtml($this->sut()->editFormAction("Contact"));
+    }
+
+    public function testCreatesNewForm(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $_POST = ["advancedform_token" => "0123456789ABCDEF"];
+        $this->csrfProtector->method("check")->willReturn(true);
+        $this->formGateway->expects($this->once())->method("updateAll")->with($this->callback(function ($forms) {
+            return array_key_exists("60OJ4CPK6KR3EE1P85146H25", $forms);
+        }));
+        $this->sut()->createFormAction();
     }
 
     private function form(): Form

@@ -22,6 +22,7 @@
 namespace Advancedform;
 
 use Plib\CsrfProtector;
+use Plib\Random;
 use Plib\SystemChecker;
 use Plib\View as PlibView;
 use XH\Pages;
@@ -65,6 +66,7 @@ class Dic
             $plugin_tx["advancedform"],
             new CsrfProtector(),
             self::pages(),
+            new Random(),
             self::view()
         );
     }
