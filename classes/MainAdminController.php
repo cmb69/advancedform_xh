@@ -281,12 +281,11 @@ class MainAdminController
             return Response::create($this->view->message("fail", "error_form_missing", $id));
         }
         unset($forms[$id]);
-        if (!isset($forms[$_POST['advfrm-name']])) {
-            $id = $_POST['advfrm-name'];
-        } else {
+        if (array_key_exists($_POST['advfrm-name'], $forms)) {
             return Response::create($this->view->message("fail", "error_form_exists")
                 . $this->renderEditForm($id, Form::createFromArray($this->getFormArrayFromPost())));
         }
+        $id = $_POST['advfrm-name'];
         $forms[$id] = Form::createFromArray($this->getFormArrayFromPost());
         if (!$this->formGateway->updateAll($forms)) {
             return Response::create($this->view->message("fail", "error_save")

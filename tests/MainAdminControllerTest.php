@@ -92,48 +92,101 @@ class MainAdminControllerTest extends TestCase
         );
     }
 
-    private function form(): Form
+    public function testSavingIsCsrfProtected(): void
     {
-        return Form::createFromArray([
-            "captcha" => true,
-            "name" => "Contact",
-            "title" => "Contact",
-            "to_name" => "Webmaster",
-            "to" => "webmaster@example.com",
-            "cc" => "",
-            "bcc" => "",
-            "thanks_page" => "",
-            "store" => false,
-            "fields" => [
-                [
-                    "field" => "Name",
-                    "label" => "Name",
-                    "type" => "from_name",
-                    "props" => "¦¦¦",
-                    "required" => true
-                ],
-                [
-                    "field" => "E_Mail",
-                    "label" => "E-Mail",
-                    "type" => "from",
-                    "props" => "¦¦¦",
-                    "required" => true
-                ],
-                [
-                    "field" => "Phone",
-                    "label" => "Phone",
-                    "type" => "custom",
-                    "props" => "¦¦¦/^[0-9\\/\\-\\+\\ \\(\\)]*$/¦Field '%s' doesn't contain a valid phone number!",
-                    "required" => false
-                ],
-                [
-                    "field" => "Comment",
-                    "label" => "Comment",
-                    "type" => "textarea",
-                    "props" => "¦¦¦",
-                    "required" => true
-                ],
-            ],
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $_POST = [
+            "advancedform_token" => "0123456789ABCDEF",
+        ];
+        $this->csrfProtector->method("check")->willReturn(false);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=save&form=Contact",
         ]);
+        $response = $this->sut()($request);
+        $this->assertStringContainsString("nope", $response->output());
+    }
+
+    public function testSavingReportsMissingForm(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $_POST = [
+            "advancedform_token" => "0123456789ABCDEF",
+        ];
+        $this->csrfProtector->method("check")->willReturn(true);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=save&form=NoSuchForm",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertStringContainsString("A form with the name 'NoSuchForm' does not exist!", $response->output());
+    }
+
+    public function testSavingReportsExistingForm(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $_POST = $this->formPost("Remko");
+        $this->csrfProtector->method("check")->willReturn(true);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=save&form=Contact",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertStringContainsString("A form with this name already exists!", $response->output());
+    }
+
+    public function testSavingReportsFailureToSave(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $_POST = $this->formPost("Contact");
+        $this->csrfProtector->method("check")->willReturn(true);
+        vfsStream::setQuota(0);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=save&form=Contact",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertStringContainsString("The forms database could not have been saved!", $response->output());
+    }
+
+    public function testSavesForm(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $_POST = $this->formPost("Saved");
+        $this->csrfProtector->method("check")->willReturn(true);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=save&form=Contact",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertArrayHasKey("Saved", $this->formGateway->findAll());
+        $this->assertSame(
+            "http://example.com/?advancedform&admin=plugin_main&action=plugin_text",
+            $response->location()
+        );
+    }
+
+    private function formPost(string $name): array
+    {
+        return [
+            "advancedform_token" => "0123456789ABCDEF",
+            "advfrm-name" => $name,
+            "advfrm-title" => "",
+            "advfrm-to_name" => "",
+            "advfrm-to" => "",
+            "advfrm-cc" => "",
+            "advfrm-bcc" => "",
+            "advfrm-thanks_page" => "",
+            "advfrm-field" => [
+                "",
+            ],
+            "advfrm-label" => [
+                "",
+            ],
+            "advfrm-type" => [
+                "",
+            ],
+            "advfrm-props" => [
+                "",
+            ],
+            "advfrm-required" => [
+                "",
+            ],
+        ];
     }
 }
