@@ -45,6 +45,11 @@ class MainAdminControllerTest extends TestCase
         vfsStream::setup("root");
         copy("./data/forms.json", vfsStream::url("root/forms.json"));
         $this->formGateway = new FormGateway(vfsStream::url("root/"));
+        $contents = file_get_contents(vfsStream::url("root/forms.json"));
+        $forms = json_decode($contents, true);
+        $forms = ["Import" => $forms["Contact"], '%VERSION%' => Plugin::DB_VERSION];
+        $contents = json_encode($forms, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        file_put_contents(vfsStream::url("root/Import.json"), $contents);
     }
 
     private function sut(): MainAdminController
@@ -271,6 +276,66 @@ class MainAdminControllerTest extends TestCase
         $this->assertArrayHasKey("60OJ4CPK6KR3EE1P85146H25", $this->formGateway->findAll());
         $this->assertSame(
             "http://example.com/?advancedform&admin=plugin_main&action=edit&form=60OJ4CPK6KR3EE1P85146H25",
+            $response->location()
+        );
+    }
+
+    public function testImportingIsCsrfProtected(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $this->csrfProtector->method("check")->willReturn(false);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=import&form=Contact",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertStringContainsString("nope", $response->output());
+    }
+
+    public function testImportingReportsExistingForm(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $this->csrfProtector->method("check")->willReturn(true);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=import&form=Contact",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertStringContainsString("A form with this name already exists!", $response->output());
+    }
+
+    public function testImportingReportsFailureToImport(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $this->csrfProtector->method("check")->willReturn(true);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=import&form=New",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertStringContainsString("'vfs://root/New.json' could not have been imported!", $response->output());
+    }
+
+    public function testImportingReportsFailureToSave(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $this->csrfProtector->method("check")->willReturn(true);
+        vfsStream::setQuota(0);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=import&form=Import",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertStringContainsString("The forms database could not have been saved!", $response->output());
+    }
+
+    public function testImportsForm(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $this->csrfProtector->method("check")->willReturn(true);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=import&form=Import",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertArrayHasKey("Import", $this->formGateway->findAll());
+        $this->assertSame(
+            "http://example.com/?advancedform&admin=plugin_main&action=plugin_text",
             $response->location()
         );
     }

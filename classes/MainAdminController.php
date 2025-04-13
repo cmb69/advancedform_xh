@@ -381,35 +381,33 @@ class MainAdminController
         }
         $id = $request->get("form");
         $forms = $this->formGateway->findAll();
-        if (!isset($forms[$id])) {
-            $fn = $this->formGateway->dataFolder() . $id . '.json';
-            if (
-                ($cnt = file_get_contents($fn)) !== false
-                && ($form = json_decode($cnt, true)) !== false
-                && isset($form['%VERSION%'])
-                && count($form) == 2
-            ) {
-                foreach ($form as &$frm) {
-                    if (is_array($frm)) {
-                        $frm = Form::createFromArray($frm);
-                    }
-                }
-                if ($form['%VERSION%'] < Plugin::DB_VERSION) {
-                    $form = $this->formGateway->updatedDb($form);
-                }
-                unset($form['%VERSION%']);
-                foreach ($form as $f) {
-                    $f->setName($id);
-                    $forms[$id] = $f;
-                }
-                if (!$this->formGateway->updateAll($forms)) {
-                    return Response::create($this->view->message("fail", "error_save"));
-                }
-            } else {
-                return Response::create($this->view->message("fail", "error_import", $fn));
-            }
-        } else {
+        if (isset($forms[$id])) {
             return Response::create($this->view->message("fail", "error_form_exists"));
+        }
+        $fn = $this->formGateway->dataFolder() . $id . '.json';
+        if (!(
+            ($cnt = @file_get_contents($fn)) !== false
+            && ($form = json_decode($cnt, true)) !== false
+            && isset($form['%VERSION%'])
+            && count($form) == 2
+        )) {
+            return Response::create($this->view->message("fail", "error_import", $fn));
+        }
+        foreach ($form as &$frm) {
+            if (is_array($frm)) {
+                $frm = Form::createFromArray($frm);
+            }
+        }
+        if ($form['%VERSION%'] < Plugin::DB_VERSION) {
+            $form = $this->formGateway->updatedDb($form);
+        }
+        unset($form['%VERSION%']);
+        foreach ($form as $f) {
+            $f->setName($id);
+            $forms[$id] = $f;
+        }
+        if (!$this->formGateway->updateAll($forms)) {
+            return Response::create($this->view->message("fail", "error_save"));
         }
         $url = $request->url()->with("action", "plugin_text")->without("form");
         return Response::redirect($url->absolute());
