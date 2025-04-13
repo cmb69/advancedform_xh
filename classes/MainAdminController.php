@@ -485,11 +485,11 @@ class MainAdminController
         }
         $tpl .= '  <div class="break"></div>' . "\n" . '</div>' . "\n";
         $fn = $this->formGateway->dataFolder() . $id . '.tpl';
-        if (@file_put_contents($fn, $tpl) !== strlen($tpl)) {
+        if (@$this->formGateway->writeFile($fn, $tpl) !== strlen($tpl)) {
             return Response::create($this->view->message("fail", "error_template", $fn));
         }
         $fn = $this->formGateway->dataFolder() . 'css/' . $id . '.css';
-        if (@file_put_contents($fn, $css) !== strlen($css)) {
+        if (@$this->formGateway->writeFile($fn, $css) !== strlen($css)) {
             return Response::create($this->view->message("fail", "error_template", $fn));
         }
         $url = $request->url()->with("action", "plugin_text")->without("form");

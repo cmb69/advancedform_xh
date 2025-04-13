@@ -96,7 +96,7 @@ class FormGateway
     }
 
     /** @return int|false */
-    private function writeFile(string $filename, string $contents)
+    public function writeFile(string $filename, string $contents)
     {
         $stream = fopen($filename, "c+");
         if ($stream === false) {
