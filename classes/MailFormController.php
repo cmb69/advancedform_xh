@@ -22,6 +22,7 @@
 
 namespace Advancedform;
 
+use Advancedform\Infra\Logger;
 use Plib\Request;
 use Plib\View;
 
@@ -48,6 +49,9 @@ class MailFormController
     /** @var MailService */
     private $mailService;
 
+    /** @var Logger */
+    private $logger;
+
     /** @var View */
     private $view;
 
@@ -64,6 +68,7 @@ class MailFormController
         array $conf,
         array $text,
         MailService $mailService,
+        Logger $logger,
         View $view
     ) {
         $this->formGateway = $formGateway;
@@ -73,6 +78,7 @@ class MailFormController
         $this->conf = $conf;
         $this->text = $text;
         $this->mailService = $mailService;
+        $this->logger = $logger;
         $this->view = $view;
     }
 
@@ -316,7 +322,7 @@ class MailFormController
             $type = $ok ? 'info' : 'error';
             $message = $ok ? $this->text['log_success'] : $this->text['log_error'];
             $message = sprintf($message, $from);
-            XH_logMessage($type, 'Advancedform', $id, $message);
+            $this->logger->log($type, 'Advancedform', $id, $message);
         }
 
         return $ok;

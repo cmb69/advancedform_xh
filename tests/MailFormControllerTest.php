@@ -2,6 +2,7 @@
 
 namespace Advancedform;
 
+use Advancedform\Infra\Logger;
 use ApprovalTests\Approvals;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\MockObject\Stub;
@@ -23,6 +24,9 @@ class MailFormControllerTest extends TestCase
     /** @var MailService&Stub */
     private $mailService;
 
+    /** @var Logger&Stub */
+    private $logger;
+
     public function setUp(): void
     {
         vfsStream::setUp("root");
@@ -31,6 +35,7 @@ class MailFormControllerTest extends TestCase
         $this->fieldRenderer = new FieldRenderer("Memberpage");
         $this->validator = $this->createStub(Validator::class);
         $this->mailService = $this->createStub(MailService::class);
+        $this->logger = $this->createStub(Logger::class);
     }
 
     private function sut(): MailFormController
@@ -43,6 +48,7 @@ class MailFormControllerTest extends TestCase
             XH_includeVar("./config/config.php", "plugin_cf")["advancedform"],
             XH_includeVar("./languages/en.php", "plugin_tx")["advancedform"],
             $this->mailService,
+            $this->logger,
             new View("./templates/", XH_includeVar("./languages/en.php", "plugin_tx")["advancedform"])
         );
     }
@@ -62,5 +68,18 @@ class MailFormControllerTest extends TestCase
             "Field 'E-Mail' doesn't contain a valid e-mail address!",
             $this->sut()->main("Memberpage", new FakeRequest())
         );
+    }
+
+    public function testFailureToSendMailIsReported(): void
+    {
+        global $e;
+        $_POST = [
+            "advfrm" => "Memberpage",
+            "advfrm-E_Mail" => "john@example.com",
+        ];
+        $this->validator->method("check")->willReturn(true);
+        $this->mailService->method("sendMail")->willReturn(false);
+        $this->sut()->main("Memberpage", new FakeRequest());
+        $this->assertSame("<li>The e-mail could not be sent!</li>\n", $e);
     }
 }

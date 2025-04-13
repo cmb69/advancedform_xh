@@ -21,6 +21,7 @@
 
 namespace Advancedform;
 
+use Advancedform\Infra\Logger;
 use Plib\CsrfProtector;
 use Plib\Random;
 use Plib\SystemChecker;
@@ -40,6 +41,7 @@ class Dic
             $plugin_cf["advancedform"],
             $plugin_tx["advancedform"],
             new MailService(self::formGateway()->dataFolder(), $pth["folder"]["plugins"], $plugin_tx["advancedform"]),
+            new Logger(),
             self::view()
         );
     }
