@@ -85,8 +85,6 @@ class MailFormController
      */
     public function main($id)
     {
-        global $e;
-
         $hooks = $this->formGateway->dataFolder() . $id . '.inc'
             . ($this->conf['php_extension'] ? '.php' : '');
         if (file_exists($hooks)) {
@@ -95,16 +93,14 @@ class MailFormController
 
         $forms = $this->formGateway->findAll();
         if (!isset($forms[$id])) {
-            $e .= '<li>' . sprintf($this->text['error_form_missing'], $id) . '</li>' . "\n";
-            return '';
+            return $this->view->message("fail", "error_form_missing", $id);
         }
         $form = $forms[$id];
 
         if ($form->getCaptcha()) {
             $fn = $this->pluginsFolder . $this->conf['captcha_plugin'] . '/captcha.php';
             if (!is_file($fn) || !include_once $fn) {
-                e('cntopen', 'file', $fn);
-                return '';
+                return $this->view->message("fail", "error_captcha");
             }
         }
 
@@ -112,7 +108,10 @@ class MailFormController
             $validator = new Validator($this->conf, $this->text);
             if ($validator->check($form)) {
                 if ($form->getStore()) {
-                    $this->appendCsv($form);
+                    if (!$this->appendCsv($form)) {
+                        return $this->view->message("fail", "error_csv")
+                            . $this->formView($form);
+                    }
                 }
                 if (!$this->mail($form, false)) {
                     return $this->formView($form);
@@ -237,12 +236,7 @@ class MailFormController
         return ob_get_clean();
     }
 
-    /**
-     * Appends the posted record to csv file.
-     *
-     * @return void
-     */
-    private function appendCsv(Form $form)
+    private function appendCsv(Form $form): bool
     {
         $id = $form->getName();
         $fields = array();
@@ -269,15 +263,17 @@ class MailFormController
             $separator = "\t";
         }
         $fn = $this->formGateway->dataFolder() . $id . '.csv';
+        $res = true;
         if (
             ($fh = fopen($fn, 'a')) === false
             || fputcsv($fh, $fields, $separator, '"', "\0") === false
         ) {
-            e('cntwriteto', 'file', $fn);
+            $res = false;
         }
         if ($fh !== false) {
             fclose($fh);
         }
+        return $res;
     }
 
     /**
