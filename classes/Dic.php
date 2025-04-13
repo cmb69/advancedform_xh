@@ -35,6 +35,7 @@ class Dic
         return new MailFormController(
             self::formGateway(),
             new FieldRenderer($id),
+            new Validator($plugin_cf["advancedform"], $plugin_tx["advancedform"]),
             $sn,
             $pth["folder"]["plugins"],
             $plugin_cf["advancedform"],

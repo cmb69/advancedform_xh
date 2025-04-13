@@ -32,6 +32,9 @@ class MailFormController
     /** @var FieldRenderer */
     private $fieldRenderer;
 
+    /** @var Validator */
+    private $validator;
+
     /** @var string */
     private $scriptName;
 
@@ -59,6 +62,7 @@ class MailFormController
     public function __construct(
         FormGateway $formGateway,
         FieldRenderer $fieldRenderer,
+        Validator $validator,
         $scriptName,
         $pluginsFolder,
         array $conf,
@@ -68,6 +72,7 @@ class MailFormController
     ) {
         $this->formGateway = $formGateway;
         $this->fieldRenderer = $fieldRenderer;
+        $this->validator = $validator;
         $this->scriptName = $scriptName;
         $this->pluginsFolder = $pluginsFolder;
         $this->conf = $conf;
@@ -105,8 +110,7 @@ class MailFormController
         }
 
         if (isset($_POST['advfrm']) && $_POST['advfrm'] == $id) {
-            $validator = new Validator($this->conf, $this->text);
-            if ($validator->check($form)) {
+            if ($this->validator->check($form)) {
                 if ($form->getStore()) {
                     if (!$this->appendCsv($form)) {
                         return $this->view->message("fail", "error_csv")
@@ -133,9 +137,9 @@ class MailFormController
                     return $this->mailService->mailInfo($form, false, true);
                 }
             } else {
-                Plugin::focusField(...$validator->focusField);
+                Plugin::focusField(...$this->validator->focusField);
                 $o = '<ul class="advfrm-error">';
-                foreach ($validator->errors as $error) {
+                foreach ($this->validator->errors as $error) {
                     $o .= '<li>' . $error . '</li>' . "\n";
                 }
                 $o .= '</ul>';
