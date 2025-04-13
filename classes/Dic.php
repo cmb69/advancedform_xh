@@ -81,8 +81,6 @@ class Dic
 
     private static function pages(): Pages
     {
-        global $c;
-        $c = [];
         return new Pages();
     }
 

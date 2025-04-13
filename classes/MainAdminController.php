@@ -151,7 +151,7 @@ class MainAdminController
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction();
         }
-        if (!$this->csrfProtector->check("advancedform_token")) {
+        if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
             return "nope"; // TODO i18n
         }
         $forms = $this->formGateway->findAll();
@@ -261,7 +261,7 @@ class MainAdminController
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction();
         }
-        if (!$this->csrfProtector->check("advancedform_token")) {
+        if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
             return "nope"; // TODO
         }
         $forms = $this->formGateway->findAll();
@@ -328,7 +328,7 @@ class MainAdminController
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction();
         }
-        if (!$this->csrfProtector->check("advancedform_token")) {
+        if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
             return "nope"; // TODO
         }
         $forms = $this->formGateway->findAll();
@@ -357,7 +357,7 @@ class MainAdminController
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction();
         }
-        if (!$this->csrfProtector->check("advancedform_token")) {
+        if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
             return "nope"; // TODO
         }
         $forms = $this->formGateway->findAll();
@@ -390,7 +390,7 @@ class MainAdminController
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction();
         }
-        if (!$this->csrfProtector->check("advancedform_token")) {
+        if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
             return "nope"; // TODO
         }
         $forms = $this->formGateway->findAll();
@@ -439,7 +439,7 @@ class MainAdminController
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction();
         }
-        if (!$this->csrfProtector->check("advancedform_token")) {
+        if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
             return "nope"; // TODO
         }
         $forms = $this->formGateway->findAll();
@@ -474,7 +474,7 @@ class MainAdminController
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $this->formsAdministrationAction();
         }
-        if (!$this->csrfProtector->check("advancedform_token")) {
+        if (!$this->csrfProtector->check($_POST["advancedform_token"])) {
             return "nope"; // TODO
         }
         $forms = $this->formGateway->findAll();

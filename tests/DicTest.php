@@ -9,7 +9,8 @@ class DicTest extends TestCase
 {
     public function setUp(): void
     {
-        global $pth, $plugin_cf, $plugin_tx, $_XH_csrfProtection;
+        global $pth, $c, $plugin_cf, $plugin_tx, $_XH_csrfProtection;
+        $c = [];
         $pth = ["folder" => ["plugins" => ""]];
         $plugin_cf = ["advancedform" => ["folder_data" => ""]];
         $plugin_tx = ["advancedform" => []];
