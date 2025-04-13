@@ -336,15 +336,14 @@ class MainAdminController
         }
         $id = $request->get("form");
         $forms = $this->formGateway->findAll();
-        if (isset($forms[$id])) {
-            unset($forms[$id]);
-            if (!$this->formGateway->updateAll($forms)) {
-                return Response::create($this->view->message("fail", "error_save"));
-            }
-        } else {
+        if (!isset($forms[$id])) {
             return Response::create($this->view->message("fail", "error_form_missing", $id));
         }
-        $url = $request->url()->with("action", "plugin_tx")->without("form");
+        unset($forms[$id]);
+        if (!$this->formGateway->updateAll($forms)) {
+            return Response::create($this->view->message("fail", "error_save"));
+        }
+        $url = $request->url()->with("action", "plugin_text")->without("form");
         return Response::redirect($url->absolute());
     }
 

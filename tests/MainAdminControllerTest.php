@@ -161,6 +161,63 @@ class MainAdminControllerTest extends TestCase
         );
     }
 
+    public function testDeletingIsCsrfProtected(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $_POST = [
+            "advancedform_token" => "0123456789ABCDEF",
+        ];
+        $this->csrfProtector->method("check")->willReturn(false);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=delete&form=Contact",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertStringContainsString("nope", $response->output());
+    }
+
+    public function testDeletingReportsMissingForm(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $_POST = [
+            "advancedform_token" => "0123456789ABCDEF",
+        ];
+        $this->csrfProtector->method("check")->willReturn(true);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=delete&form=NoSuchForm",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertStringContainsString("A form with the name 'NoSuchForm' does not exist!", $response->output());
+    }
+
+    public function testDeletingReportsFailureToSave(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $_POST = $this->formPost("Contact");
+        $this->csrfProtector->method("check")->willReturn(true);
+        vfsStream::setQuota(0);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=delete&form=Contact",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertStringContainsString("The forms database could not have been saved!", $response->output());
+    }
+
+    public function testDeletesForm(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $_POST = $this->formPost("Contact");
+        $this->csrfProtector->method("check")->willReturn(true);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=delete&form=Contact",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertArrayNotHasKey("Contact", $this->formGateway->findAll());
+        $this->assertSame(
+            "http://example.com/?advancedform&admin=plugin_main&action=plugin_text",
+            $response->location()
+        );
+    }
+
     private function formPost(string $name): array
     {
         return [
