@@ -17,6 +17,7 @@ require_once "../plib/classes/FakeRequest.php";
 require_once "../plib/classes/FakeSystemChecker.php";
 
 require_once "./classes/infra/Logger.php";
+require_once "./classes/Captcha.php";
 require_once "./classes/Dic.php";
 require_once "./classes/Field.php";
 require_once "./classes/FieldRenderer.php";

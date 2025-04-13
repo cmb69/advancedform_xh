@@ -20,24 +20,8 @@
  * along with Advancedform_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * Returns the captcha code.
- *
- * @return string
- */
-function Advancedform_Captcha_code()
-{
-    do {
-        $num = unpack('V', random_bytes(3) . "\0")[1];
-    } while ($num > 16777209);
-    $res = '';
-    for ($i = 0; $i < 5; $i++) {
-        $res .= $num % 10;
-        $num = (int) ($num / 10);
-    }
-    return $res;
-}
-
+use Advancedform\Dic;
+use Plib\Request;
 
 /**
  * Returns the block element displaying the captcha,
@@ -47,23 +31,9 @@ function Advancedform_Captcha_code()
  *
  * @return string (X)HTML.
  */
-function Advancedform_Captcha_display()
+function advancedform_captcha_display()
 {
-    global $plugin_cf, $plugin_tx;
-
-    $code = Advancedform_Captcha_code();
-    $timestamp = time();
-    $salt = bin2hex(random_bytes(4));
-    $hmac = hash_hmac('sha256', $code . $timestamp . $salt, $plugin_cf['advancedform']['captcha_key']);
-    return '<div class="captcha">'
-        . '<span class="captcha-explanation">'
-        . $plugin_tx['advancedform']['captcha_explanation'] . '</span>'
-        . '<span class="captcha">' . $code . '</span>'
-        . '<input type="text" name="advancedform-captcha">'
-        . '<input type="hidden" name="advancedform-timestamp" value="' . $timestamp . '">'
-        . '<input type="hidden" name="advancedform-salt" value="' . $salt . '">'
-        . '<input type="hidden" name="advancedform-hmac" value="' . $hmac . '">'
-        . '</div>' . "\n";
+    return Dic::captcha()->display(Request::current());
 }
 
 /**
@@ -72,27 +42,7 @@ function Advancedform_Captcha_display()
  *
  * @return bool
  */
-function Advancedform_Captcha_check()
+function advancedform_captcha_check()
 {
-    global $plugin_cf;
-
-    if (
-        !isset(
-            $_POST['advancedform-captcha'],
-            $_POST['advancedform-timestamp'],
-            $_POST['advancedform-salt'],
-            $_POST['advancedform-hmac']
-        )
-    ) {
-        return false;
-    }
-    $code = $_POST['advancedform-captcha'];
-    $timestamp = $_POST['advancedform-timestamp'];
-    $salt = $_POST['advancedform-salt'];
-    $hmac = hash_hmac('sha256', $code . $timestamp . $salt, $plugin_cf['advancedform']['captcha_key']);
-    $expired = time() - $timestamp > 5 * 60;
-    $equal = function_exists("hash_equals")
-        ? hash_equals($hmac, $_POST['advancedform-hmac'])
-        : $hmac === $_POST['advancedform-hmac'];
-    return !$expired && $equal;
+    return Dic::captcha()->check(Request::current());
 }

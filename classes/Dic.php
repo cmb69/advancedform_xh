@@ -46,6 +46,16 @@ class Dic
         );
     }
 
+    public static function captcha(): Captcha
+    {
+        global $plugin_cf;
+        return new Captcha(
+            $plugin_cf["advancedform"]["captcha_key"],
+            new Random(),
+            self::view()
+        );
+    }
+
     public static function infoController(): InfoController
     {
         global $pth, $plugin_cf;
