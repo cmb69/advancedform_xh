@@ -22,6 +22,7 @@
 
 use Advancedform\Dic;
 use Advancedform\Plugin;
+use Plib\Request;
 
 /**
  * Main plugin call.
@@ -33,7 +34,7 @@ use Advancedform\Plugin;
 function advancedform($id)
 {
     $controller = Dic::mailFormController($id);
-    return $controller->main($id);
+    return $controller->main($id, Request::current());
 }
 
 /**

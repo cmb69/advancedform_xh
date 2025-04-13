@@ -22,6 +22,7 @@
 
 namespace Advancedform;
 
+use Plib\Request;
 use Plib\View;
 
 class MailFormController
@@ -34,9 +35,6 @@ class MailFormController
 
     /** @var Validator */
     private $validator;
-
-    /** @var string */
-    private $scriptName;
 
     /** @var string */
     private $pluginsFolder;
@@ -54,7 +52,6 @@ class MailFormController
     private $view;
 
     /**
-     * @param string $scriptName
      * @param string $pluginsFolder
      * @param array<string,string> $conf
      * @param array<string,string> $text
@@ -63,7 +60,6 @@ class MailFormController
         FormGateway $formGateway,
         FieldRenderer $fieldRenderer,
         Validator $validator,
-        $scriptName,
         $pluginsFolder,
         array $conf,
         array $text,
@@ -73,7 +69,6 @@ class MailFormController
         $this->formGateway = $formGateway;
         $this->fieldRenderer = $fieldRenderer;
         $this->validator = $validator;
-        $this->scriptName = $scriptName;
         $this->pluginsFolder = $pluginsFolder;
         $this->conf = $conf;
         $this->text = $text;
@@ -88,7 +83,7 @@ class MailFormController
      *
      * @return string (X)HTML.
      */
-    public function main($id)
+    public function main($id, Request $request)
     {
         $hooks = $this->formGateway->dataFolder() . $id . '.inc'
             . ($this->conf['php_extension'] ? '.php' : '');
@@ -114,11 +109,11 @@ class MailFormController
                 if ($form->getStore()) {
                     if (!$this->appendCsv($form)) {
                         return $this->view->message("fail", "error_csv")
-                            . $this->formView($form);
+                            . $this->formView($request, $form);
                     }
                 }
                 if (!$this->mail($form, false)) {
-                    return $this->formView($form);
+                    return $this->formView($request, $form);
                 }
                 if (function_exists('advfrm_custom_thanks_page')) {
                     $fields = Plugin::fields();
@@ -129,9 +124,10 @@ class MailFormController
                 }
                 if (!empty($thanks)) {
                     if ($this->conf['mail_confirmation'] && !$this->mail($form, true)) {
-                        return $this->formView($form);
+                        return $this->formView($request, $form);
                     }
-                    header('Location: ' . $this->scriptName . '?' . $thanks);
+                    $url = $request->url()->page($thanks);
+                    header('Location: ' . $url->absolute());
                     // FIXME: exit()?
                 } else {
                     return $this->mailService->mailInfo($form, false, true);
@@ -143,10 +139,10 @@ class MailFormController
                     $o .= '<li>' . $error . '</li>' . "\n";
                 }
                 $o .= '</ul>';
-                return $o . $this->formView($form);
+                return $o . $this->formView($request, $form);
             }
         }
-        return $this->formView($form);
+        return $this->formView($request, $form);
     }
 
     /**
@@ -154,14 +150,14 @@ class MailFormController
      *
      * @return string (X)HTML.
      */
-    private function formView(Form $form)
+    private function formView(Request $request, Form $form)
     {
         global $su, $f;
 
         $id = $form->getName();
         return $this->view->render('mail-form', [
             'id' => $id,
-            'url' => $this->scriptName . '?' . ($f === 'mailform' ? '&mailform' : $su),
+            'url' =>  $request->url()->page($f === 'mailform' ? '&mailform' : $su),
             'required_message' => sprintf(
                 $this->text['message_required_fields'],
                 sprintf($this->conf['required_field_mark'], $this->text['message_required_field'])

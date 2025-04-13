@@ -31,12 +31,11 @@ class Dic
 {
     public static function mailFormController(string $id): MailFormController
     {
-        global $pth, $plugin_cf, $plugin_tx, $sn;
+        global $pth, $plugin_cf, $plugin_tx;
         return new MailFormController(
             self::formGateway(),
             new FieldRenderer($id),
             new Validator($plugin_cf["advancedform"], $plugin_tx["advancedform"]),
-            $sn,
             $pth["folder"]["plugins"],
             $plugin_cf["advancedform"],
             $plugin_tx["advancedform"],
