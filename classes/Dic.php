@@ -41,7 +41,6 @@ class Dic
             new Validator($plugin_cf["advancedform"], $plugin_tx["advancedform"], $captchaWrapper),
             $captchaWrapper,
             $plugin_cf["advancedform"],
-            $plugin_tx["advancedform"],
             new MailService(self::formGateway()->dataFolder(), $pth["folder"]["plugins"], $plugin_tx["advancedform"]),
             new Logger(),
             self::view()

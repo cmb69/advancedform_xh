@@ -44,9 +44,6 @@ class MailFormController
     /** @var array<string,string> */
     private $conf;
 
-    /** @var array<string,string> */
-    private $text;
-
     /** @var MailService */
     private $mailService;
 
@@ -56,17 +53,13 @@ class MailFormController
     /** @var View */
     private $view;
 
-    /**
-     * @param array<string,string> $conf
-     * @param array<string,string> $text
-     */
+    /** @param array<string,string> $conf */
     public function __construct(
         FormGateway $formGateway,
         FieldRenderer $fieldRenderer,
         Validator $validator,
         CaptchaWrapper $captchaWrapper,
         array $conf,
-        array $text,
         MailService $mailService,
         Logger $logger,
         View $view
@@ -76,7 +69,6 @@ class MailFormController
         $this->validator = $validator;
         $this->captchaWrapper = $captchaWrapper;
         $this->conf = $conf;
-        $this->text = $text;
         $this->mailService = $mailService;
         $this->logger = $logger;
         $this->view = $view;
@@ -163,15 +155,14 @@ class MailFormController
         return $this->view->render('mail-form', [
             'id' => $id,
             'url' =>  $request->url()->page($f === 'mailform' ? '&mailform' : $request->selected())->relative(),
-            'required_message' => sprintf(
-                $this->text['message_required_fields'],
-                sprintf($this->conf['required_field_mark'], $this->text['message_required_field'])
+            'required_message' => $this->view->plain(
+                "message_required_fields",
+                sprintf($this->conf["required_field_mark"], $this->view->plain("message_required_field"))
             ),
             'inner_view' => file_exists($this->formGateway->dataFolder() . $id . '.tpl')
                 ? $this->templateView($form)
                 : $this->defaultView($form),
             'captcha' => $form->getCaptcha() ? $this->captchaWrapper->display() : "",
-            'tx' => $this->text,
         ]);
     }
 
@@ -304,7 +295,7 @@ class MailFormController
             }
         }
         if ($confirmation && empty($from)) {
-            $e .= '<li>' . $this->text['error_missing_sender'] . '</li>' . "\n";
+            $e .= '<li>' . $this->view->plain("error_missing_sender") . '</li>' . "\n";
             return false;
         }
 
@@ -315,12 +306,11 @@ class MailFormController
             if (!$ok) {
                 $message = !empty($res)
                     ? XH_hsc($res)
-                    : $this->text['error_mail'];
+                    : $this->view->plain("error_mail");
                 $e .= '<li>' . $message . '</li>' . "\n";
             }
             $type = $ok ? 'info' : 'error';
-            $message = $ok ? $this->text['log_success'] : $this->text['log_error'];
-            $message = sprintf($message, $from);
+            $message = $ok ? $this->view->plain("log_success", $from) : $this->view->plain("log_error", $from);
             $this->logger->log($type, 'Advancedform', $id, $message);
         }
 

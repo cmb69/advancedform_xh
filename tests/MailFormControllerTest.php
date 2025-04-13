@@ -60,7 +60,6 @@ class MailFormControllerTest extends TestCase
             $this->validator,
             $this->captchaWrapper,
             XH_includeVar("./config/config.php", "plugin_cf")["advancedform"],
-            XH_includeVar("./languages/en.php", "plugin_tx")["advancedform"],
             $this->mailService,
             $this->logger,
             new View("./templates/", XH_includeVar("./languages/en.php", "plugin_tx")["advancedform"])

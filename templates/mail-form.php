@@ -12,9 +12,9 @@ if (!isset($this)) {
     <?=$inner_view?>
     <?=$captcha?>
     <div class="buttons">
-      <input type="submit" class="submit" value="<?=$tx['button_send']?>">
+      <input type="submit" class="submit" value="<?=$this->plain('button_send')?>">
       &nbsp;
-      <input type="reset" class="submit" value="<?=$tx['button_reset']?>">
+      <input type="reset" class="submit" value="<?=$this->plain('button_reset')?>">
     </div>
   </form>
 </div>
