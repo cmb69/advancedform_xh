@@ -73,7 +73,7 @@ class MainAdminControllerTest extends TestCase
         $this->csrfProtector->method("check")->willReturn(true);
         $this->formGateway->expects($this->once())->method("updateAll")->with($this->callback(function ($forms) {
             return array_key_exists("60OJ4CPK6KR3EE1P85146H25", $forms);
-        }));
+        }))->willReturn(true);
         $request = new FakeRequest([
             "url" => "http://example.com/?advancedform&admin=plugin_main&action=plugin_text",
         ]);

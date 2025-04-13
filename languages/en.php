@@ -99,6 +99,7 @@ $plugin_tx['advancedform']['error_duplicate_fields']="Duplicate field names are 
 $plugin_tx['advancedform']['error_too_many_senders']="At most one sender allowed!";
 $plugin_tx['advancedform']['error_export']="'%s' could not have been exported!";
 $plugin_tx['advancedform']['error_import']="'%s' could not have been imported!";
+$plugin_tx['advancedform']['error_save']="The forms database could not have been saved!";
 $plugin_tx['advancedform']['log_success']="Email from <%s> sent.";
 $plugin_tx['advancedform']['log_error']="Email from <%s> not sent!";
 $plugin_tx['advancedform']['cf_folder_data']="Path to a folder relative to the CMSimple root directory, where to store the plugin's data. E.g. \"userfiles/advancedform/\". Leave empty to store into the plugin's data/ folder.";

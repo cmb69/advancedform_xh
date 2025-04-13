@@ -41,15 +41,9 @@ class FormGateway
         if (substr($fn, -1) != '/') {
             $fn .= '/';
         }
-        if (file_exists($fn)) {
-            if (!is_dir($fn)) {
-                e('cntopen', 'folder', $fn);
-            }
-        } else {
+        if (!file_exists($fn)) {
             if (mkdir($fn, 0777, true)) {
                 chmod($fn, 0777);
-            } else {
-                e('cntwriteto', 'folder', $fn);
             }
         }
         return $fn;
@@ -95,15 +89,14 @@ class FormGateway
     }
 
     /** @param array<string,int|Form> $forms */
-    public function updateAll(array $forms): void
+    public function updateAll(array $forms): bool
     {
         ksort($forms);
         $fn = $this->dataFolder() . 'forms.json';
         $contents = json_encode($forms, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-        if (!XH_writeFile($fn, $contents)) {
-            e('cntwriteto', 'file', $fn);
-        }
+        $ok = XH_writeFile($fn, $contents) === strlen($contents);
         $this->db = $forms;
+        return $ok;
     }
 
     /**

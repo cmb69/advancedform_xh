@@ -175,7 +175,9 @@ class MainAdminController
                 )
             )
         ));
-        $this->formGateway->updateAll($forms);
+        if (!$this->formGateway->updateAll($forms)) {
+            return Response::create($this->view->message("fail", "error_save"));
+        }
         $url = $request->url()->with("action", "edit")->with("form", $id);
         return Response::redirect($url->absolute());
     }
@@ -260,7 +262,10 @@ class MainAdminController
                 . $this->renderEditForm($id, Form::createFromArray($this->getFormArrayFromPost())));
         }
         $forms[$id] = Form::createFromArray($this->getFormArrayFromPost());
-        $this->formGateway->updateAll($forms);
+        if (!$this->formGateway->updateAll($forms)) {
+            return Response::create($this->view->message("fail", "error_save")
+                . $this->renderEditForm($id, Form::createFromArray($this->getFormArrayFromPost())));
+        }
         $url = $request->url()->with("action", "plugin_text")->without("form");
         return Response::redirect($url->absolute());
     }
@@ -307,7 +312,9 @@ class MainAdminController
         $forms = $this->formGateway->findAll();
         if (isset($forms[$id])) {
             unset($forms[$id]);
-            $this->formGateway->updateAll($forms);
+            if (!$this->formGateway->updateAll($forms)) {
+                return Response::create($this->view->message("fail", "error_save"));
+            }
         } else {
             return Response::create($this->view->message("fail", "error_form_missing", $id));
         }
@@ -329,7 +336,9 @@ class MainAdminController
             $id = uniqid();
             $form->setName($id);
             $forms[$id] = $form;
-            $this->formGateway->updateAll($forms);
+            if (!$this->formGateway->updateAll($forms)) {
+                return Response::create($this->view->message("fail", "error_save"));
+            }
         } else {
             return Response::create($this->view->message("fail", "error_form_missing", $id));
         }
@@ -367,7 +376,9 @@ class MainAdminController
                     $f->setName($id);
                     $forms[$id] = $f;
                 }
-                $this->formGateway->updateAll($forms);
+                if (!$this->formGateway->updateAll($forms)) {
+                    return Response::create($this->view->message("fail", "error_save"));
+                }
             } else {
                 return Response::create($this->view->message("fail", "error_import", $fn));
             }
