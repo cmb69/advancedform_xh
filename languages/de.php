@@ -111,6 +111,7 @@ $plugin_tx['advancedform']['error_too_many_senders']="Höchstens ein Absender er
 $plugin_tx['advancedform']['error_export']="'%s' konnte nicht exportiert werden!";
 $plugin_tx['advancedform']['error_import']="'%s' konnte nicht importiert werden!";
 $plugin_tx['advancedform']['error_save']="Die Formulardatenbank konnte nicht gespeichert werden!";
+$plugin_tx['advancedform']['error_template']="'%s' konnte nicht gespeichert werden!";
 
 $plugin_tx['advancedform']['log_success']="E-Mail von <%s> verschickt.";
 $plugin_tx['advancedform']['log_error']="E-Mail von <%s> nicht verschickt!";

@@ -1,0 +1,22 @@
+#advfrm-Contact {}
+
+#advfrm-Contact div.break {clear: both}
+
+#advfrm-Contact div.float {float: left; margin-right: 1em}
+
+#advfrm-Contact div.label {/* float: left; width: 12em; margin-bottom: 0.5em; */}
+#advfrm-Contact div.field  { margin-bottom: 0.5em; /* float: left;*/}
+
+/* the individual fields */
+
+#advfrm-Contact-Name {}
+#advfrm-Contact-E_Mail {}
+#advfrm-Contact-Phone {}
+#advfrm-Contact-Comment {}
+#advfrm-Contact-File_Info {}
+#advfrm-Contact-Attachment {}
+#advfrm-Contact-Password_Info {}
+#advfrm-Contact-Password {}
+#advfrm-Contact-Date {}
+#advfrm-Contact-Cust_No_Info {}
+#advfrm-Contact-Hidden {}

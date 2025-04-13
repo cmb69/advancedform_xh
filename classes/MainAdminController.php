@@ -452,61 +452,60 @@ class MainAdminController
         }
         $id = $request->get("form");
         $forms = $this->formGateway->findAll();
-        if (isset($forms[$id])) {
-            $form = $forms[$id];
-            $tpl = '<div id="advfrm-' . $id . '">' . "\n";
-            $css = '#advfrm-' . $id . ' {}' . "\n" . "\n"
-                . '#advfrm-' . $id . ' div.break {clear: both}' . "\n" . "\n"
-                . '#advfrm-' . $id . ' div.float {float: left; margin-right: 1em}'
-                . "\n" . "\n"
-                . '#advfrm-' . $id . ' div.label'
-                . ' {/* float: left; width: 12em; margin-bottom: 0.5em; */}' . "\n"
-                . '#advfrm-' . $id . ' div.field '
-                . ' { margin-bottom: 0.5em; /* float: left;*/}' . "\n" . "\n"
-                . '/* the individual fields */' . "\n" . "\n";
-            $first = true;
-            foreach ($form->getFields() as $field) {
-                if ($first) {
-                    $tpl .= '  <?php Advancedform_focusField(\'' . $id . '\', \'advfrm-'
-                        . $field->getName() . '\')'
-                        . ' // focus the first field?>' . "\n";
-                    $first = false;
-                }
-                $labelled = !in_array($field->getType(), array('checkbox', 'radio', 'hidden'));
-                if (in_array($field->getType(), array('hidden'))) {
-                    $label = '';
-                } elseif (!$field->getRequired()) {
-                    $label = $field->getLabel();
-                } else {
-                    $label = sprintf(
-                        $this->conf['required_field_mark'],
-                        $field->getLabel()
-                    );
-                }
-                if ($labelled) {
-                    $label = '<label for="advfrm-' . $id . '-' . $field->getName() . '">'
-                        . $label . '</label>';
-                }
-                $tpl .= '  <div class="break">' . "\n"
-                    . '    <div class="label">'
-                    . $label
-                    . '</div>' . "\n"
-                    . '    <div class="field"><?field ' . $field->getName() . '?></div>'
-                    . "\n"
-                    . '  </div>' . "\n";
-                $css .= '#advfrm-' . $id . '-' . $field->getName() . ' {}' . "\n";
-            }
-            $tpl .= '  <div class="break"></div>' . "\n" . '</div>' . "\n";
-            $fn = $this->formGateway->dataFolder() . $id . '.tpl';
-            if (file_put_contents($fn, $tpl) === false) {
-                e('cntsave', 'file', $fn);
-            }
-            $fn = $this->formGateway->dataFolder() . 'css/' . $id . '.css';
-            if (file_put_contents($fn, $css) === false) {
-                e('cntsave', 'file', $fn);
-            }
-        } else {
+        if (!isset($forms[$id])) {
             return Response::create($this->view->message("fail", "error_form_missing", $id));
+        }
+        $form = $forms[$id];
+        $tpl = '<div id="advfrm-' . $id . '">' . "\n";
+        $css = '#advfrm-' . $id . ' {}' . "\n" . "\n"
+            . '#advfrm-' . $id . ' div.break {clear: both}' . "\n" . "\n"
+            . '#advfrm-' . $id . ' div.float {float: left; margin-right: 1em}'
+            . "\n" . "\n"
+            . '#advfrm-' . $id . ' div.label'
+            . ' {/* float: left; width: 12em; margin-bottom: 0.5em; */}' . "\n"
+            . '#advfrm-' . $id . ' div.field '
+            . ' { margin-bottom: 0.5em; /* float: left;*/}' . "\n" . "\n"
+            . '/* the individual fields */' . "\n" . "\n";
+        $first = true;
+        foreach ($form->getFields() as $field) {
+            if ($first) {
+                $tpl .= '  <?php Advancedform_focusField(\'' . $id . '\', \'advfrm-'
+                    . $field->getName() . '\')'
+                    . ' // focus the first field?>' . "\n";
+                $first = false;
+            }
+            $labelled = !in_array($field->getType(), array('checkbox', 'radio', 'hidden'));
+            if (in_array($field->getType(), array('hidden'))) {
+                $label = '';
+            } elseif (!$field->getRequired()) {
+                $label = $field->getLabel();
+            } else {
+                $label = sprintf(
+                    $this->conf['required_field_mark'],
+                    $field->getLabel()
+                );
+            }
+            if ($labelled) {
+                $label = '<label for="advfrm-' . $id . '-' . $field->getName() . '">'
+                    . $label . '</label>';
+            }
+            $tpl .= '  <div class="break">' . "\n"
+                . '    <div class="label">'
+                . $label
+                . '</div>' . "\n"
+                . '    <div class="field"><?field ' . $field->getName() . '?></div>'
+                . "\n"
+                . '  </div>' . "\n";
+            $css .= '#advfrm-' . $id . '-' . $field->getName() . ' {}' . "\n";
+        }
+        $tpl .= '  <div class="break"></div>' . "\n" . '</div>' . "\n";
+        $fn = $this->formGateway->dataFolder() . $id . '.tpl';
+        if (@file_put_contents($fn, $tpl) !== strlen($tpl)) {
+            return Response::create($this->view->message("fail", "error_template", $fn));
+        }
+        $fn = $this->formGateway->dataFolder() . 'css/' . $id . '.css';
+        if (@file_put_contents($fn, $css) !== strlen($css)) {
+            return Response::create($this->view->message("fail", "error_template", $fn));
         }
         $url = $request->url()->with("action", "plugin_text")->without("form");
         return Response::redirect($url->absolute());

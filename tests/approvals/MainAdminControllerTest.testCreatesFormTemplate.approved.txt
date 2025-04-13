@@ -1,0 +1,48 @@
+<div id="advfrm-Contact">
+  <?php Advancedform_focusField('Contact', 'advfrm-Name') // focus the first field?>
+  <div class="break">
+    <div class="label"><label for="advfrm-Contact-Name">Name&nbsp;<span style="color:red">*</span></label></div>
+    <div class="field"><?field Name?></div>
+  </div>
+  <div class="break">
+    <div class="label"><label for="advfrm-Contact-E_Mail">E-Mail&nbsp;<span style="color:red">*</span></label></div>
+    <div class="field"><?field E_Mail?></div>
+  </div>
+  <div class="break">
+    <div class="label"><label for="advfrm-Contact-Phone">Phone</label></div>
+    <div class="field"><?field Phone?></div>
+  </div>
+  <div class="break">
+    <div class="label"><label for="advfrm-Contact-Comment">Comment&nbsp;<span style="color:red">*</span></label></div>
+    <div class="field"><?field Comment?></div>
+  </div>
+  <div class="break">
+    <div class="label"><label for="advfrm-Contact-File_Info"></label></div>
+    <div class="field"><?field File_Info?></div>
+  </div>
+  <div class="break">
+    <div class="label"><label for="advfrm-Contact-Attachment">Attachment</label></div>
+    <div class="field"><?field Attachment?></div>
+  </div>
+  <div class="break">
+    <div class="label"><label for="advfrm-Contact-Password_Info"></label></div>
+    <div class="field"><?field Password_Info?></div>
+  </div>
+  <div class="break">
+    <div class="label"><label for="advfrm-Contact-Password">Password</label></div>
+    <div class="field"><?field Password?></div>
+  </div>
+  <div class="break">
+    <div class="label"><label for="advfrm-Contact-Date">Date</label></div>
+    <div class="field"><?field Date?></div>
+  </div>
+  <div class="break">
+    <div class="label"><label for="advfrm-Contact-Cust_No_Info"></label></div>
+    <div class="field"><?field Cust_No_Info?></div>
+  </div>
+  <div class="break">
+    <div class="label"></div>
+    <div class="field"><?field Hidden?></div>
+  </div>
+  <div class="break"></div>
+</div>

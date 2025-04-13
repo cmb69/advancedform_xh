@@ -50,6 +50,7 @@ class MainAdminControllerTest extends TestCase
         $forms = ["Import" => $forms["Contact"], '%VERSION%' => Plugin::DB_VERSION];
         $contents = json_encode($forms, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         file_put_contents(vfsStream::url("root/Import.json"), $contents);
+        mkdir(vfsStream::url("root/css"));
     }
 
     private function sut(): MainAdminController
@@ -386,6 +387,73 @@ class MainAdminControllerTest extends TestCase
         ]);
         $response = $this->sut()($request);
         $this->assertFileExists(vfsStream::url("root/Contact.json"));
+        $this->assertSame(
+            "http://example.com/?advancedform&admin=plugin_main&action=plugin_text",
+            $response->location()
+        );
+    }
+
+    public function testCreatingFormTemplateIsCsrfProtected(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $this->csrfProtector->method("check")->willReturn(false);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=template&form=Contact",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertStringContainsString("nope", $response->output());
+    }
+
+    public function testCreatingFormTemplateReportsMissingForm(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $this->csrfProtector->method("check")->willReturn(true);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=template&form=NoSuchForm",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertStringContainsString("A form with the name 'NoSuchForm' does not exist!", $response->output());
+    }
+
+    public function testCreatingFormTemplateReportsFailureToSave(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $this->csrfProtector->method("check")->willReturn(true);
+        vfsStream::setQuota(0);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=template&form=Contact",
+        ]);
+        $response = $this->sut()($request);
+        $this->assertStringContainsString(
+            "'vfs://root/Contact.tpl' could not be saved!",
+            $response->output()
+        );
+    }
+
+    public function testCreatesFormTemplate(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $this->csrfProtector->method("check")->willReturn(true);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=template&form=Contact",
+        ]);
+        $response = $this->sut()($request);
+        Approvals::verifyString(file_get_contents(vfsStream::url("root/Contact.tpl")));
+        $this->assertSame(
+            "http://example.com/?advancedform&admin=plugin_main&action=plugin_text",
+            $response->location()
+        );
+    }
+
+    public function testCreatesFormTemplateCSS(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = "POST";
+        $this->csrfProtector->method("check")->willReturn(true);
+        $request = new FakeRequest([
+            "url" => "http://example.com/?advancedform&admin=plugin_main&action=template&form=Contact",
+        ]);
+        $response = $this->sut()($request);
+        Approvals::verifyString(file_get_contents(vfsStream::url("root/css/Contact.css")));
         $this->assertSame(
             "http://example.com/?advancedform&admin=plugin_main&action=plugin_text",
             $response->location()
