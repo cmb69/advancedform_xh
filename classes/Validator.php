@@ -22,6 +22,8 @@
 
 namespace Advancedform;
 
+use Advancedform\Infra\CaptchaWrapper;
+
 class Validator
 {
     /** @var array<string,string> */
@@ -29,6 +31,9 @@ class Validator
 
     /** @var array<string,string> */
     private $text;
+
+    /** @var CaptchaWrapper */
+    private $captchaWrapper;
 
     /**
      * @var array<int,string>
@@ -46,10 +51,11 @@ class Validator
      * @param array<string,string> $conf
      * @param array<string,string> $text
      */
-    public function __construct($conf, $text)
+    public function __construct(array $conf, array $text, CaptchaWrapper $captchaWrapper)
     {
         $this->conf = $conf;
         $this->text = $text;
+        $this->captchaWrapper = $captchaWrapper;
     }
 
     /** @return list<string> */
@@ -114,7 +120,7 @@ class Validator
             }
         }
         if ($form->getCaptcha()) {
-            if (!call_user_func($this->conf['captcha_plugin'] . '_captcha_check')) {
+            if (!$this->captchaWrapper->check()) {
                 $this->errors[] = $this->text['error_captcha_code'];
                 if (empty($this->focusField)) {
                     $this->focusField = [$form->getName(), 'advancedform-captcha'];

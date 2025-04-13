@@ -12,7 +12,7 @@ class DicTest extends TestCase
         global $pth, $c, $plugin_cf, $plugin_tx, $_XH_csrfProtection;
         $c = [];
         $pth = ["folder" => ["plugins" => ""]];
-        $plugin_cf = ["advancedform" => ["captcha_key" => "", "folder_data" => ""]];
+        $plugin_cf = ["advancedform" => ["captcha_key" => "", "captcha_plugin" => "", "folder_data" => ""]];
         $plugin_tx = ["advancedform" => []];
         $_XH_csrfProtection = new CSRFProtection("xh_csrf_token", true);
     }
@@ -20,6 +20,11 @@ class DicTest extends TestCase
     public function testMakesMailFormController(): void
     {
         $this->assertInstanceOf(MailFormController::class, Dic::mailFormController("contact"));
+    }
+
+    public function makesCaptchaWrapper(): void
+    {
+        $this->assertInstanceOf(CaptchaWrapper::class, Dic::captchaWrapper());
     }
 
     public function testMakesCaptcha(): void

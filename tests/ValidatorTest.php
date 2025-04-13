@@ -21,10 +21,20 @@
 
 namespace Advancedform;
 
+use Advancedform\Infra\CaptchaWrapper;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 class ValidatorTest extends TestCase
 {
+    /** @var CaptchaWrapper&Stub */
+    private $captchaWrapper;
+
+    public function setUp(): void
+    {
+        $this->captchaWrapper = $this->createStub(CaptchaWrapper::class);
+    }
+
     public function testMissingOptionalAttachment(): void
     {
         $_POST = [
@@ -39,7 +49,7 @@ class ValidatorTest extends TestCase
                 'size' => 0,
             ],
         ];
-        $subject = new Validator([], []);
+        $subject = new Validator([], [], $this->captchaWrapper);
         $form = $this->getTestForm([[
             'field' => "attachment",
             'label' => "Attachment",
@@ -56,7 +66,7 @@ class ValidatorTest extends TestCase
             'advfrm' => "Test",
             'advfrm-date' => "",
         ];
-        $subject = new Validator([], []);
+        $subject = new Validator([], [], $this->captchaWrapper);
         $form = $this->getTestForm([[
             'field' => "date",
             'label' => "Date",
@@ -73,7 +83,7 @@ class ValidatorTest extends TestCase
             'advfrm' => "Test",
             'advfrm-mail' => "",
         ];
-        $subject = new Validator([], []);
+        $subject = new Validator([], [], $this->captchaWrapper);
         $form = $this->getTestForm([[
             "field" => "mail",
             "label" => "Mail",
@@ -92,7 +102,7 @@ class ValidatorTest extends TestCase
         ];
         $conf = ['mail_regexp' => "/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i"];
         $text = ['error_invalid_email' => "error_invalid_email"];
-        $subject = new Validator($conf, $text);
+        $subject = new Validator($conf, $text, $this->captchaWrapper);
         $form = $this->getTestForm([[
             "field" => "mail",
             "label" => "Mail",
@@ -117,7 +127,7 @@ class ValidatorTest extends TestCase
             "error_invalid_email" => "error_invalid_email",
             "error_missing_field" => "error_missing_field",
         ];
-        $subject = new Validator($conf, $text);
+        $subject = new Validator($conf, $text, $this->captchaWrapper);
         $form = $this->getTestForm([[
             "field" => "mail",
             "label" => "Mail",

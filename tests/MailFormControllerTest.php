@@ -2,6 +2,7 @@
 
 namespace Advancedform;
 
+use Advancedform\Infra\CaptchaWrapper;
 use Advancedform\Infra\Logger;
 use ApprovalTests\Approvals;
 use org\bovigo\vfs\vfsStream;
@@ -19,8 +20,11 @@ class MailFormControllerTest extends TestCase
     /** @var FieldRenderer */
     private $fieldRenderer;
 
-    /** @var Validator&Stub */
+    /** @var Validator */
     private $validator;
+
+    /** @var CaptchaWrapper&Stub */
+    private $captchaWrapper;
 
     /** @var MailService&MockObject */
     private $mailService;
@@ -34,10 +38,12 @@ class MailFormControllerTest extends TestCase
         copy("./data/forms.json", vfsStream::url("root/forms.json"));
         $this->formGateway = new FormGateway(vfsStream::url("root/"));
         $this->fieldRenderer = new FieldRenderer("Memberpage");
+        $this->captchaWrapper = $this->createStub(CaptchaWrapper::class);
         $lang = XH_includeVar("./languages/en.php", "plugin_tx")["advancedform"];
         $this->validator = new Validator(
             XH_includeVar("./config/config.php", "plugin_cf")["advancedform"],
             $lang,
+            $this->captchaWrapper
         );
         $this->mailService = $this->getMockBuilder(MailService::class)
             ->setConstructorArgs(["", "", $lang])
@@ -52,7 +58,7 @@ class MailFormControllerTest extends TestCase
             $this->formGateway,
             $this->fieldRenderer,
             $this->validator,
-            "./plugins/advancedform/",
+            $this->captchaWrapper,
             XH_includeVar("./config/config.php", "plugin_cf")["advancedform"],
             XH_includeVar("./languages/en.php", "plugin_tx")["advancedform"],
             $this->mailService,

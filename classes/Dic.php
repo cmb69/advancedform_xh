@@ -21,6 +21,7 @@
 
 namespace Advancedform;
 
+use Advancedform\Infra\CaptchaWrapper;
 use Advancedform\Infra\Logger;
 use Plib\CsrfProtector;
 use Plib\Random;
@@ -33,16 +34,26 @@ class Dic
     public static function mailFormController(string $id): MailFormController
     {
         global $pth, $plugin_cf, $plugin_tx;
+        $captchaWrapper = new CaptchaWrapper($pth["folder"]["plugins"], $plugin_cf["advancedform"]["captcha_plugin"]);
         return new MailFormController(
             self::formGateway(),
             new FieldRenderer($id),
-            new Validator($plugin_cf["advancedform"], $plugin_tx["advancedform"]),
-            $pth["folder"]["plugins"],
+            new Validator($plugin_cf["advancedform"], $plugin_tx["advancedform"], $captchaWrapper),
+            $captchaWrapper,
             $plugin_cf["advancedform"],
             $plugin_tx["advancedform"],
             new MailService(self::formGateway()->dataFolder(), $pth["folder"]["plugins"], $plugin_tx["advancedform"]),
             new Logger(),
             self::view()
+        );
+    }
+
+    public static function captchaWrapper(): CaptchaWrapper
+    {
+        global $pth, $plugin_cf;
+        return new CaptchaWrapper(
+            $pth["folder"]["plugins"],
+            $plugin_cf["advancedform"]["captcha_plugin"]
         );
     }
 

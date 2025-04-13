@@ -22,6 +22,7 @@
 
 namespace Advancedform;
 
+use Advancedform\Infra\CaptchaWrapper;
 use Advancedform\Infra\Logger;
 use Plib\Request;
 use Plib\View;
@@ -37,8 +38,8 @@ class MailFormController
     /** @var Validator */
     private $validator;
 
-    /** @var string */
-    private $pluginsFolder;
+    /** @var CaptchaWrapper */
+    private $captchaWrapper;
 
     /** @var array<string,string> */
     private $conf;
@@ -56,7 +57,6 @@ class MailFormController
     private $view;
 
     /**
-     * @param string $pluginsFolder
      * @param array<string,string> $conf
      * @param array<string,string> $text
      */
@@ -64,7 +64,7 @@ class MailFormController
         FormGateway $formGateway,
         FieldRenderer $fieldRenderer,
         Validator $validator,
-        $pluginsFolder,
+        CaptchaWrapper $captchaWrapper,
         array $conf,
         array $text,
         MailService $mailService,
@@ -74,7 +74,7 @@ class MailFormController
         $this->formGateway = $formGateway;
         $this->fieldRenderer = $fieldRenderer;
         $this->validator = $validator;
-        $this->pluginsFolder = $pluginsFolder;
+        $this->captchaWrapper = $captchaWrapper;
         $this->conf = $conf;
         $this->text = $text;
         $this->mailService = $mailService;
@@ -104,8 +104,7 @@ class MailFormController
         $form = $forms[$id];
 
         if ($form->getCaptcha()) {
-            $fn = $this->pluginsFolder . $this->conf['captcha_plugin'] . '/captcha.php';
-            if (!is_file($fn) || !include_once $fn) {
+            if (!$this->captchaWrapper->include()) {
                 return $this->view->message("fail", "error_captcha");
             }
         }
@@ -171,7 +170,7 @@ class MailFormController
             'inner_view' => file_exists($this->formGateway->dataFolder() . $id . '.tpl')
                 ? $this->templateView($form)
                 : $this->defaultView($form),
-            'captcha' => $form->getCaptcha() ? call_user_func($this->conf['captcha_plugin'] . '_captcha_display') : '',
+            'captcha' => $form->getCaptcha() ? $this->captchaWrapper->display() : "",
             'tx' => $this->text,
         ]);
     }
