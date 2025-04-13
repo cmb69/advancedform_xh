@@ -24,15 +24,10 @@ namespace Advancedform;
 
 class FormGateway
 {
-    /** @var array<string,(int|Form)>|null */
+    /** @var ?array<string,int|Form> */
     private $db = null;
 
-    /**
-     * Returns the data folder path. Tries to create it, if necessary.
-     *
-     * @return string
-     */
-    public function dataFolder()
+    public function dataFolder(): string
     {
         global $pth, $plugin_cf;
 
@@ -60,10 +55,8 @@ class FormGateway
         return $fn;
     }
 
-    /**
-     * @return array<string,(int|Form)>
-     */
-    public function findAll()
+    /** @return array<string,int|Form> */
+    public function findAll(): array
     {
         if (!isset($this->db)) {
             $fn = $this->dataFolder() . 'forms.json';
@@ -88,11 +81,8 @@ class FormGateway
         return $this->db;
     }
 
-    /**
-     * @param array<string,mixed> $db
-     * @return void
-     */
-    private function cleanDb($db)
+    /** @param array<string,mixed> $db */
+    private function cleanDb(array $db): void
     {
         $this->db = [];
         foreach ($db as $key => $form) {
@@ -104,11 +94,8 @@ class FormGateway
         }
     }
 
-    /**
-     * @param array<string,(int|Form)> $forms
-     * @return void
-     */
-    public function updateAll($forms)
+    /** @param array<string,int|Form> $forms */
+    public function updateAll(array $forms): void
     {
         ksort($forms);
         $fn = $this->dataFolder() . 'forms.json';
@@ -120,12 +107,10 @@ class FormGateway
     }
 
     /**
-     * Returns the forms database updated to the current version.
-     *
-     * @param array<string,(int|Form)> $forms
-     * @return array<string,(int|Form)>
+     * @param array<string,int|Form> $forms
+     * @return array<string,int|Form>
      */
-    public function updatedDb($forms)
+    public function updatedDb(array $forms): array
     {
         switch ($forms['%VERSION%']) {
             case 0:
