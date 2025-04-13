@@ -76,7 +76,7 @@ class Dic
         static $instance = null;
 
         if ($instance === null) {
-            $instance = new FormGateway();
+            $instance = new FormGateway(self::dataFolder());
         }
         return $instance;
     }
@@ -90,5 +90,17 @@ class Dic
     {
         global $pth, $plugin_tx;
         return new View($pth["folder"]["plugins"] . "advancedform/templates/", $plugin_tx["advancedform"]);
+    }
+
+    private static function dataFolder(): string
+    {
+        global $pth, $plugin_cf;
+        if ($plugin_cf["advancedform"]["folder_data"] == "") {
+            $res = $pth["folder"]["plugins"] . 'advancedform/data/';
+        } else {
+            $res = $pth["folder"]["base"] . $plugin_cf["advancedform"]["folder_data"];
+        }
+        $res = rtrim($res, "/") . "/";
+        return $res;
     }
 }

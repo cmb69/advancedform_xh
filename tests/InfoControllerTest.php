@@ -3,6 +3,7 @@
 namespace Advancedform;
 
 use ApprovalTests\Approvals;
+use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 use Plib\FakeSystemChecker;
 use Plib\View;
@@ -11,9 +12,9 @@ class InfoControllerTest extends TestCase
 {
     public function testRendersSystemCheck(): void
     {
-        $formGateway = new FormGateway();
+        vfsStream::setup("root");
         $sut = new InfoController(
-            $formGateway,
+            new FormGateway(vfsStream::url("root/plugins/advancedform/data/")),
             "./",
             XH_includeVar("./config/config.php", "plugin_cf")["advancedform"],
             new FakeSystemChecker(),

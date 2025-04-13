@@ -3,6 +3,7 @@
 namespace Advancedform;
 
 use ApprovalTests\Approvals;
+use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
@@ -14,7 +15,7 @@ use XH\Pages;
 
 class MainAdminControllerTest extends TestCase
 {
-    /** @var FormGateway&MockObject */
+    /** @var FormGateway */
     private $formGateway;
 
     /** @var CsrfProtector&Stub */
@@ -30,14 +31,20 @@ class MainAdminControllerTest extends TestCase
     {
         global $tx;
         $tx = XH_includeVar("../../cmsimple/languages/en.php", "tx");
-        $this->formGateway = $this->createMock(FormGateway::class);
-        $this->formGateway->method("findAll")->willReturn(["Contact" => $this->form()]);
+        $this->setUpFormGateway();
         $this->csrfProtector = $this->createStub(CsrfProtector::class);
         $this->csrfProtector->method("token")->willReturn("0123456789ABCDEF");
         $this->pages = $this->createStub(Pages::class);
         $this->pages->method("linkList")->willReturn([]);
         $this->random = $this->createStub(Random::class);
         $this->random->method("bytes")->willReturn("0123456789ABCDE");
+    }
+
+    private function setUpFormGateway(): void
+    {
+        vfsStream::setup("root");
+        copy("./data/forms.json", vfsStream::url("root/forms.json"));
+        $this->formGateway = new FormGateway(vfsStream::url("root/"));
     }
 
     private function sut(): MainAdminController
@@ -71,13 +78,14 @@ class MainAdminControllerTest extends TestCase
         $_SERVER["REQUEST_METHOD"] = "POST";
         $_POST = ["advancedform_token" => "0123456789ABCDEF"];
         $this->csrfProtector->method("check")->willReturn(true);
-        $this->formGateway->expects($this->once())->method("updateAll")->with($this->callback(function ($forms) {
-            return array_key_exists("60OJ4CPK6KR3EE1P85146H25", $forms);
-        }))->willReturn(true);
+        // $this->formGateway->expects($this->once())->method("updateAll")->with($this->callback(function ($forms) {
+        //     return array_key_exists("60OJ4CPK6KR3EE1P85146H25", $forms);
+        // }))->willReturn(true);
         $request = new FakeRequest([
             "url" => "http://example.com/?advancedform&admin=plugin_main&action=plugin_text",
         ]);
         $response = $this->sut()->createFormAction($request);
+        $this->assertArrayHasKey("60OJ4CPK6KR3EE1P85146H25", $this->formGateway->findAll());
         $this->assertSame(
             "http://example.com/?advancedform&admin=plugin_main&action=edit&form=60OJ4CPK6KR3EE1P85146H25",
             $response->location()

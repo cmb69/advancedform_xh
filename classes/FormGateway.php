@@ -24,29 +24,25 @@ namespace Advancedform;
 
 class FormGateway
 {
+    /** @var string */
+    private $dataFolder;
+
     /** @var ?array<string,int|Form> */
     private $db = null;
 
+    public function __construct(string $dataFolder)
+    {
+        $this->dataFolder = $dataFolder;
+    }
+
     public function dataFolder(): string
     {
-        global $pth, $plugin_cf;
-
-        $pcf = $plugin_cf['advancedform'];
-
-        if ($pcf['folder_data'] == '') {
-            $fn = $pth['folder']['plugins'] . 'advancedform/data/';
-        } else {
-            $fn = $pth['folder']['base'] . $pcf['folder_data'];
-        }
-        if (substr($fn, -1) != '/') {
-            $fn .= '/';
-        }
-        if (!file_exists($fn)) {
-            if (mkdir($fn, 0777, true)) {
-                chmod($fn, 0777);
+        if (!file_exists($this->dataFolder)) {
+            if (mkdir($this->dataFolder, 0777, true)) {
+                chmod($this->dataFolder, 0777);
             }
         }
-        return $fn;
+        return $this->dataFolder;
     }
 
     /** @return array<string,int|Form> */
@@ -94,9 +90,23 @@ class FormGateway
         ksort($forms);
         $fn = $this->dataFolder() . 'forms.json';
         $contents = json_encode($forms, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-        $ok = XH_writeFile($fn, $contents) === strlen($contents);
+        $ok = $this->writeFile($fn, $contents) === strlen($contents);
         $this->db = $forms;
         return $ok;
+    }
+
+    /** @return int|false */
+    private function writeFile(string $filename, string $contents)
+    {
+        $stream = fopen($filename, "c+");
+        if ($stream === false) {
+            return false;
+        }
+        flock($stream, LOCK_EX);
+        $res = fwrite($stream, $contents);
+        flock($stream, LOCK_UN);
+        fclose($stream);
+        return $res;
     }
 
     /**
