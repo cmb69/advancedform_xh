@@ -37,8 +37,9 @@ class MailFormControllerTest extends TestCase
         vfsStream::setUp("root");
         copy("./data/forms.json", vfsStream::url("root/forms.json"));
         $this->formGateway = new FormGateway(vfsStream::url("root/"));
-        $this->fieldRenderer = new FieldRenderer("Memberpage");
+        $this->fieldRenderer = new FieldRenderer("Contact");
         $this->captchaWrapper = $this->createStub(CaptchaWrapper::class);
+        $this->captchaWrapper->method("include")->willReturn(true);
         $lang = XH_includeVar("./languages/en.php", "plugin_tx")["advancedform"];
         $this->validator = new Validator(
             XH_includeVar("./config/config.php", "plugin_cf")["advancedform"],
@@ -68,18 +69,18 @@ class MailFormControllerTest extends TestCase
 
     public function testRendersMailForm(): void
     {
-        Approvals::verifyHtml($this->sut()->main("Memberpage", new FakeRequest()));
+        Approvals::verifyHtml($this->sut()->main("Contact", new FakeRequest()));
     }
 
     public function testInvalidFormSubmissionRendersValidationErrors(): void
     {
         $_POST = [
-            "advfrm" => "Memberpage",
+            "advfrm" => "Contact",
             "advfrm-E_Mail" => "john",
         ];
         $this->assertStringContainsString(
             "Field 'E-Mail' doesn't contain a valid e-mail address!",
-            $this->sut()->main("Memberpage", new FakeRequest())
+            $this->sut()->main("Contact", new FakeRequest())
         );
     }
 
@@ -87,22 +88,28 @@ class MailFormControllerTest extends TestCase
     {
         global $e;
         $_POST = [
-            "advfrm" => "Memberpage",
+            "advfrm" => "Contact",
+            "advfrm-Name" => "John Doe",
             "advfrm-E_Mail" => "john@example.com",
+            "advfrm-Comment" => "a comment",
         ];
+        $this->captchaWrapper->method("check")->willReturn(true);
         $this->mailService->method("sendMail")->willReturn(false);
-        $this->sut()->main("Memberpage", new FakeRequest());
+        $this->sut()->main("Contact", new FakeRequest());
         $this->assertSame("<li>The e-mail could not be sent!</li>\n", $e);
     }
 
     public function testSuccessfulSubmissionsRendersMailInfo(): void
     {
         $_POST = [
-            "advfrm" => "Memberpage",
+            "advfrm" => "Contact",
+            "advfrm-Name" => "John Doe",
             "advfrm-E_Mail" => "john@example.com",
+            "advfrm-Comment" => "a comment",
         ];
+        $this->captchaWrapper->method("check")->willReturn(true);
         $this->mailService->method("sendMail")->willReturn(true);
-        $response = $this->sut()->main("Memberpage", new FakeRequest());
+        $response = $this->sut()->main("Contact", new FakeRequest());
         Approvals::verifyHtml($response);
     }
 }

@@ -1,24 +1,78 @@
 <!-- advancedform/mail-form -->
 <div class="advfrm-mailform">
-  <form name="Memberpage" action="/" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-    <input type="hidden" name="advfrm" value="Memberpage">
+  <form name="Contact" action="/" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+    <input type="hidden" name="advfrm" value="Contact">
     <div class="required">Please fill in all required fields&nbsp;<span style="color:red">*</span>!</div>
     <!-- advancedform/mail-form-default-view -->
 <div style="overflow:auto">
   <table>
     <tr >
       <td class="label">
-        <label for="advfrm-Memberpage-Name">
-          Name        </label>
+        <label for="advfrm-Contact-Name">
+          Name&nbsp;<span style="color:red">*</span>        </label>
       </td>
-      <td class="field"><input type="text" id="advfrm-Memberpage-Name" name="advfrm-Name" value=""></td>
+      <td class="field"><input type="text" id="advfrm-Contact-Name" name="advfrm-Name" value=""></td>
     </tr>
     <tr >
       <td class="label">
-        <label for="advfrm-Memberpage-E_Mail">
-          E-Mail        </label>
+        <label for="advfrm-Contact-E_Mail">
+          E-Mail&nbsp;<span style="color:red">*</span>        </label>
       </td>
-      <td class="field"><input type="text" id="advfrm-Memberpage-E_Mail" name="advfrm-E_Mail" value=""></td>
+      <td class="field"><input type="text" id="advfrm-Contact-E_Mail" name="advfrm-E_Mail" value=""></td>
+    </tr>
+    <tr >
+      <td class="label">
+        <label for="advfrm-Contact-Phone">
+          Phone        </label>
+      </td>
+      <td class="field"><input type="text" id="advfrm-Contact-Phone" name="advfrm-Phone" value=""></td>
+    </tr>
+    <tr >
+      <td class="label">
+        <label for="advfrm-Contact-Comment">
+          Comment&nbsp;<span style="color:red">*</span>        </label>
+      </td>
+      <td class="field"><textarea id="advfrm-Contact-Comment" name="advfrm-Comment" cols="40" rows="4"></textarea></td>
+    </tr>
+    <tr >
+      <td class="label">
+                </td>
+      <td class="field"><strong>You <em>can</em> attach a file, if you want.</strong></td>
+    </tr>
+    <tr >
+      <td class="label">
+        <label for="advfrm-Contact-Attachment">
+          Attachment        </label>
+      </td>
+      <td class="field"><input type="hidden" name="MAX_FILE_SIZE" value="100000"><input type="file" id="advfrm-Contact-Attachment" name="advfrm-Attachment" accept=".jpeg,.jpg,.png,.zip"></td>
+    </tr>
+    <tr >
+      <td class="label">
+                </td>
+      <td class="field">If you send a password protected zip file, please specify the password here:</td>
+    </tr>
+    <tr >
+      <td class="label">
+        <label for="advfrm-Contact-Password">
+          Password        </label>
+      </td>
+      <td class="field"><input type="password" id="advfrm-Contact-Password" name="advfrm-Password" value=""></td>
+    </tr>
+    <tr >
+      <td class="label">
+        <label for="advfrm-Contact-Date">
+          Date        </label>
+      </td>
+      <td class="field"><input type="date" id="advfrm-Contact-Date" name="advfrm-Date" value="" placeholder="2019-03-24"></td>
+    </tr>
+    <tr >
+      <td class="label">
+                </td>
+      <td class="field"></td>
+    </tr>
+    <tr  class="hidden">
+      <td></td>
+      <td class="field"><input type="hidden" id="advfrm-Contact-Hidden" name="advfrm-Hidden" value="This is a hidden field!"></td>
     </tr>
   </table>
 </div>
