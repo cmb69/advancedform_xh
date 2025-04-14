@@ -47,12 +47,18 @@ class CaptchaWrapper
     public function display(): string
     {
         $function = $this->captcha . "_captcha_display";
+        if (!function_exists($function)) {
+            return "";
+        }
         return $function();
     }
 
     public function check(): bool
     {
         $function = $this->captcha . "_captcha_check";
+        if (!function_exists($function)) {
+            return false;
+        }
         return $function();
     }
 }
