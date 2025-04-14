@@ -131,4 +131,20 @@ class FormGateway
         $forms['%VERSION%'] = Plugin::DB_VERSION;
         return $forms;
     }
+
+    /** @param list<string> $fields */
+    public function appendCsv(string $formname, array $fields, string $separator): bool
+    {
+        foreach ($fields as &$field) {
+            $field = str_replace("\0", "", $field);
+        }
+        $filename = $this->dataFolder() . $formname . ".csv";
+        $stream = @fopen($filename, "a");
+        if ($stream === false) {
+            return false;
+        }
+        $written = fputcsv($stream, $fields, $separator, '"', "\0");
+        fclose($stream);
+        return $written !== false;
+    }
 }

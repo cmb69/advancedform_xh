@@ -245,29 +245,12 @@ class MailFormController
                     : $val;
             }
         }
-        $fields = array_map(
-            function ($field) {
-                return str_replace("\0", "", $field);
-            },
-            $fields
-        );
         if ($this->conf['csv_separator'] != '') {
             $separator = $this->conf['csv_separator'][0];
         } else {
             $separator = "\t";
         }
-        $fn = $this->formGateway->dataFolder() . $id . '.csv';
-        $res = true;
-        if (
-            ($fh = fopen($fn, 'a')) === false
-            || fputcsv($fh, $fields, $separator, '"', "\0") === false
-        ) {
-            $res = false;
-        }
-        if ($fh !== false) {
-            fclose($fh);
-        }
-        return $res;
+        return $this->formGateway->appendCsv($id, $fields, $separator);
     }
 
     /**
