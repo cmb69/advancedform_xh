@@ -20,6 +20,6 @@ class InfoControllerTest extends TestCase
             new FakeSystemChecker(),
             new View("./templates/", XH_includeVar("./languages/en.php", "plugin_tx")["advancedform"])
         );
-        Approvals::verifyHtml($sut->infoAction());
+        Approvals::verifyHtml($sut()->output());
     }
 }

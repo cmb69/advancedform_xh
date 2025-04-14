@@ -81,7 +81,7 @@ class MailFormController
         $this->view = $view;
     }
 
-    public function main(string $id, Request $request): Response
+    public function __invoke(string $id, Request $request): Response
     {
         $this->hooksWrapper->include($id);
         if (($form = $this->formGateway->find($id)) === null) {

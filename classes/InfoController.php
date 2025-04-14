@@ -22,6 +22,7 @@
 
 namespace Advancedform;
 
+use Plib\Response;
 use Plib\SystemChecker;
 use Plib\View;
 
@@ -57,10 +58,10 @@ class InfoController
         $this->view = $view;
     }
 
-    public function infoAction(): string
+    public function __invoke(): Response
     {
-        return '<h1>Advancedform ' . Plugin::VERSION . '</h1>' . "\n"
-            . $this->systemCheck();
+        return Response::create('<h1>Advancedform ' . Plugin::VERSION . '</h1>' . "\n"
+            . $this->systemCheck());
     }
 
     private function systemCheck(): string

@@ -33,8 +33,7 @@ use Plib\Request;
  */
 function advancedform($id)
 {
-    $controller = Dic::mailFormController($id);
-    return $controller->main($id, Request::current())();
+    return Dic::mailFormController($id)($id, Request::current())();
 }
 
 /**

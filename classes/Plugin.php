@@ -195,7 +195,7 @@ SCRIPT;
         $o .= print_plugin_admin('on');
         switch ($admin) {
             case '':
-                $o .= Dic::infoController()->infoAction();
+                $o .= Dic::infoController()()();
                 break;
             case 'plugin_main':
                 $this->mainAdministration();
