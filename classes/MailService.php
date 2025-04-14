@@ -22,6 +22,7 @@
 
 namespace Advancedform;
 
+use Advancedform\Infra\HooksWrapper;
 use Advancedform\PHPMailer\PHPMailer;
 
 class MailService
@@ -38,17 +39,21 @@ class MailService
     /** @var PHPMailer */
     private $mailer;
 
+    /** @var HooksWrapper */
+    private $hooksWrapper;
+
     /**
      * @param string $dataFolder
      * @param string $pluginFolder
      * @param array<string,string> $text
      */
-    public function __construct($dataFolder, $pluginFolder, array $text, PHPMailer $mailer)
+    public function __construct($dataFolder, $pluginFolder, array $text, PHPMailer $mailer, HooksWrapper $hooksWrapper)
     {
         $this->dataFolder = $dataFolder;
         $this->pluginFolder = $pluginFolder;
         $this->text = $text;
         $this->mailer = $mailer;
+        $this->hooksWrapper = $hooksWrapper;
     }
 
     /**
@@ -111,13 +116,9 @@ class MailService
                 }
             }
         }
-
-        if (function_exists('advfrm_custom_mail')) {
-            if (advfrm_custom_mail($form->getName(), $this->mailer, $confirmation) === false) {
-                return true;
-            }
+        if ($this->hooksWrapper->mail($form->getName(), $this->mailer, $confirmation) === false) {
+            return true;
         }
-
         return $this->mailer->Send()
             ? true
             : $this->mailer->ErrorInfo;

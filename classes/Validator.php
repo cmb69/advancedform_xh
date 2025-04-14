@@ -23,6 +23,7 @@
 namespace Advancedform;
 
 use Advancedform\Infra\CaptchaWrapper;
+use Advancedform\Infra\HooksWrapper;
 
 class Validator
 {
@@ -34,6 +35,9 @@ class Validator
 
     /** @var CaptchaWrapper */
     private $captchaWrapper;
+
+    /** @var HooksWrapper */
+    private $hooksWrapper;
 
     /**
      * @var array<int,string>
@@ -51,11 +55,12 @@ class Validator
      * @param array<string,string> $conf
      * @param array<string,string> $text
      */
-    public function __construct(array $conf, array $text, CaptchaWrapper $captchaWrapper)
+    public function __construct(array $conf, array $text, CaptchaWrapper $captchaWrapper, HooksWrapper $hooksWrapper)
     {
         $this->conf = $conf;
         $this->text = $text;
         $this->captchaWrapper = $captchaWrapper;
+        $this->hooksWrapper = $hooksWrapper;
     }
 
     /** @return list<string> */
@@ -104,18 +109,16 @@ class Validator
                     case 'custom':
                         $res = $this->checkCustom($form, $field) && $res;
                 }
-                if (function_exists('advfrm_custom_valid_field')) {
-                    $value = $field->getType() == 'file'
-                        ? $_FILES[$name]
-                        : $_POST[$name];
-                    $valid = advfrm_custom_valid_field($form->getName(), $field->getName(), $value);
-                    if ($valid !== true) {
-                        $this->errors[] = $valid;
-                        if (empty($this->focusField)) {
-                            $this->focusField = [$form->getName(), $name];
-                        }
-                        $res = false;
+                $value = $field->getType() == 'file'
+                    ? $_FILES[$name]
+                    : $_POST[$name];
+                $valid = $this->hooksWrapper->validField($form->getName(), $field->getName(), $value);
+                if ($valid !== true) {
+                    $this->errors[] = $valid;
+                    if (empty($this->focusField)) {
+                        $this->focusField = [$form->getName(), $name];
                     }
+                    $res = false;
                 }
             }
         }

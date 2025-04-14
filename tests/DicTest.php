@@ -12,7 +12,12 @@ class DicTest extends TestCase
         global $pth, $c, $plugin_cf, $plugin_tx, $_XH_csrfProtection;
         $c = [];
         $pth = ["folder" => ["plugins" => ""]];
-        $plugin_cf = ["advancedform" => ["captcha_key" => "", "captcha_plugin" => "", "folder_data" => ""]];
+        $plugin_cf = ["advancedform" => [
+            "captcha_key" => "",
+            "captcha_plugin" => "",
+            "folder_data" => "",
+            "php_extension" => ""
+        ]];
         $plugin_tx = ["advancedform" => []];
         $_XH_csrfProtection = new CSRFProtection("xh_csrf_token", true);
     }

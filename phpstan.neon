@@ -16,7 +16,6 @@ parameters:
     - ../../cmsimple/utf8.php
     - ../jquery/jquery.inc.php
     - phpmailer/PHPMailer.php
-    - hooks.stub.php
   scanDirectories:
     - ../plib/classes
   typeAliases:

@@ -22,6 +22,7 @@
 namespace Advancedform;
 
 use Advancedform\Infra\CaptchaWrapper;
+use Advancedform\Infra\HooksWrapper;
 use Advancedform\Infra\Logger;
 use Advancedform\PHPMailer\PHPMailer;
 use Plib\CsrfProtector;
@@ -38,9 +39,15 @@ class Dic
         $captchaWrapper = new CaptchaWrapper($pth["folder"]["plugins"], $plugin_cf["advancedform"]["captcha_plugin"]);
         return new MailFormController(
             self::formGateway(),
-            new FieldRenderer($id),
-            new Validator($plugin_cf["advancedform"], $plugin_tx["advancedform"], $captchaWrapper),
+            new FieldRenderer($id, self::hooksWrapper()),
+            new Validator(
+                $plugin_cf["advancedform"],
+                $plugin_tx["advancedform"],
+                $captchaWrapper,
+                self::hooksWrapper()
+            ),
             $captchaWrapper,
+            self::hooksWrapper(),
             $plugin_cf["advancedform"],
             self::mailService(),
             new Logger(),
@@ -102,6 +109,16 @@ class Dic
         return $instance;
     }
 
+    private static function hooksWrapper(): HooksWrapper
+    {
+        global $plugin_cf;
+        static $instance = null;
+        if ($instance === null) {
+            $instance = new HooksWrapper(self::dataFolder(), $plugin_cf["advancedform"]["php_extension"]);
+        }
+        return $instance;
+    }
+
     private static function mailService(): MailService
     {
         global $pth, $plugin_tx;
@@ -109,7 +126,8 @@ class Dic
             self::formGateway()->dataFolder(),
             $pth["folder"]["plugins"] . "advancedform/",
             $plugin_tx["advancedform"],
-            self::mailer()
+            self::mailer(),
+            self::hooksWrapper()
         );
     }
 

@@ -3,6 +3,7 @@
 namespace Advancedform;
 
 use Advancedform\Infra\CaptchaWrapper;
+use Advancedform\Infra\HooksWrapper;
 use Advancedform\Infra\Logger;
 use Advancedform\PHPMailer\PHPMailer;
 use ApprovalTests\Approvals;
@@ -27,6 +28,9 @@ class MailFormControllerTest extends TestCase
     /** @var CaptchaWrapper&Stub */
     private $captchaWrapper;
 
+    /** @var HooksWrapper&MockObject */
+    private $hooksWrapper;
+
     /** @var PHPMailer&MockObject */
     private $mailer;
 
@@ -44,19 +48,29 @@ class MailFormControllerTest extends TestCase
         mkdir(vfsStream::url("root/css"));
         copy("./css/stylesheet.css", vfsStream::url("root/css/stylesheet.css"));
         $this->formGateway = new FormGateway(vfsStream::url("root/data/"));
-        $this->fieldRenderer = new FieldRenderer("Contact");
+        $this->hooksWrapper = $this->createMock(HooksWrapper::class);
+        $this->hooksWrapper->method("validField")->willReturn(true);
+        $this->hooksWrapper->method("mail")->willReturn(true);
+        $this->fieldRenderer = new FieldRenderer("Contact", $this->hooksWrapper);
         $this->captchaWrapper = $this->createStub(CaptchaWrapper::class);
         $this->captchaWrapper->method("include")->willReturn(true);
         $lang = XH_includeVar("./languages/en.php", "plugin_tx")["advancedform"];
         $this->validator = new Validator(
             XH_includeVar("./config/config.php", "plugin_cf")["advancedform"],
             $lang,
-            $this->captchaWrapper
+            $this->captchaWrapper,
+            $this->hooksWrapper
         );
         $this->mailer = $this->getMockBuilder(PHPMailer::class)
             ->onlyMethods(["Send"])
             ->getMock();
-        $this->mailService = new MailService(vfsStream::url("root/data/"), vfsStream::url("root/"), $lang, $this->mailer);
+        $this->mailService = new MailService(
+            vfsStream::url("root/data/"),
+            vfsStream::url("root/"),
+            $lang,
+            $this->mailer,
+            $this->hooksWrapper
+        );
         $this->logger = $this->createStub(Logger::class);
     }
 
@@ -67,6 +81,7 @@ class MailFormControllerTest extends TestCase
             $this->fieldRenderer,
             $this->validator,
             $this->captchaWrapper,
+            $this->hooksWrapper,
             XH_includeVar("./config/config.php", "plugin_cf")["advancedform"],
             $this->mailService,
             $this->logger,

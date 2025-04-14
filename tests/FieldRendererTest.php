@@ -21,6 +21,7 @@
 
 namespace Advancedform;
 
+use Advancedform\Infra\HooksWrapper;
 use PHPUnit\Framework\TestCase;
 
 class FieldRendererTest extends TestCase
@@ -30,7 +31,8 @@ class FieldRendererTest extends TestCase
      */
     public function testRenderTextField(Field $field, string $expected): void
     {
-        $renderer = new FieldRenderer("test");
+        $hooksWrapper = $this->createStub(HooksWrapper::class);
+        $renderer = new FieldRenderer("test", $hooksWrapper);
         $actual = $renderer->render($field);
         $this->assertEquals($expected, $actual);
     }

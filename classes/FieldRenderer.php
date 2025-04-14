@@ -22,17 +22,23 @@
 
 namespace Advancedform;
 
+use Advancedform\Infra\HooksWrapper;
+
 class FieldRenderer
 {
     /** @var string */
     private $formName;
 
+    /** @var HooksWrapper */
+    private $hooksWrapper;
+
     /**
      * @param string $formName
      */
-    public function __construct($formName)
+    public function __construct($formName, HooksWrapper $hooksWrapper)
     {
         $this->formName = $formName;
+        $this->hooksWrapper = $hooksWrapper;
     }
 
     /**
@@ -118,9 +124,7 @@ class FieldRenderer
     private function isChecked(Field $field, $opt, $default)
     {
         $name = 'advfrm-' . $field->getName();
-        if (function_exists('advfrm_custom_field_default')) {
-            $cust_f = advfrm_custom_field_default($this->formName, $field->getName(), $opt, isset($_POST['advfrm']));
-        }
+        $cust_f = $this->hooksWrapper->fieldDefault($this->formName, $field->getName(), $opt, isset($_POST['advfrm']));
         if (isset($cust_f)) {
             $f = $cust_f;
         } else {
@@ -184,9 +188,7 @@ class FieldRenderer
     private function getNonSelectValue(Field $field, $default)
     {
         $name = 'advfrm-' . $field->getName();
-        if (function_exists('advfrm_custom_field_default')) {
-            $val = advfrm_custom_field_default($this->formName, $field->getName(), null, isset($_POST['advfrm']));
-        }
+        $val = $this->hooksWrapper->fieldDefault($this->formName, $field->getName(), null, isset($_POST['advfrm']));
         if (!isset($val)) {
             if ($field->getType() === "date") {
                 if (($timestamp = strtotime($default)) !== false) {

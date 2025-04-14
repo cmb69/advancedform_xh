@@ -94,7 +94,6 @@
         <exclude name="coverage.xml"/>
         <exclude name="constants.php"/>
         <exclude name="help/template.htm"/>
-        <exclude name="hooks.stub.php"/>
         <exclude name="phpstan.neon"/>
         <exclude name="README*.md"/>
         <exclude name="teplad.xml"/>

@@ -23,6 +23,7 @@
 namespace Advancedform;
 
 use Advancedform\Infra\CaptchaWrapper;
+use Advancedform\Infra\HooksWrapper;
 use Advancedform\Infra\Logger;
 use Plib\Request;
 use Plib\View;
@@ -40,6 +41,9 @@ class MailFormController
 
     /** @var CaptchaWrapper */
     private $captchaWrapper;
+
+    /** @var HooksWrapper */
+    private $hooksWrapper;
 
     /** @var array<string,string> */
     private $conf;
@@ -59,6 +63,7 @@ class MailFormController
         FieldRenderer $fieldRenderer,
         Validator $validator,
         CaptchaWrapper $captchaWrapper,
+        HooksWrapper $hooksWrapper,
         array $conf,
         MailService $mailService,
         Logger $logger,
@@ -68,6 +73,7 @@ class MailFormController
         $this->fieldRenderer = $fieldRenderer;
         $this->validator = $validator;
         $this->captchaWrapper = $captchaWrapper;
+        $this->hooksWrapper = $hooksWrapper;
         $this->conf = $conf;
         $this->mailService = $mailService;
         $this->logger = $logger;
@@ -83,12 +89,7 @@ class MailFormController
      */
     public function main($id, Request $request)
     {
-        $hooks = $this->formGateway->dataFolder() . $id . '.inc'
-            . ($this->conf['php_extension'] ? '.php' : '');
-        if (file_exists($hooks)) {
-            include $hooks;
-        }
-
+        $this->hooksWrapper->include($id);
         $forms = $this->formGateway->findAll();
         if (!isset($forms[$id])) {
             return $this->view->message("fail", "error_form_missing", $id);
@@ -112,10 +113,7 @@ class MailFormController
                 if (!$this->mail($form, false)) {
                     return $this->formView($request, $form);
                 }
-                if (function_exists('advfrm_custom_thanks_page')) {
-                    $fields = Plugin::fields();
-                    $thanks = advfrm_custom_thanks_page($id, $fields);
-                }
+                $thanks = $this->hooksWrapper->thanksPage($id, Plugin::fields());
                 if (empty($thanks)) {
                     $thanks = $form->getThanksPage();
                 }

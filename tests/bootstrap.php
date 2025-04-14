@@ -18,6 +18,7 @@ require_once "../plib/classes/FakeSystemChecker.php";
 
 require_once "./phpmailer/PHPMailer.php";
 require_once "./classes/infra/CaptchaWrapper.php";
+require_once "./classes/infra/HooksWrapper.php";
 require_once "./classes/infra/Logger.php";
 require_once "./classes/Captcha.php";
 require_once "./classes/Dic.php";
