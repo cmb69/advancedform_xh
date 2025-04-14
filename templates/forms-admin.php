@@ -1,8 +1,18 @@
 <?php
-if (!isset($this)) {
-    header('HTTP/1.0 404 Not Found');
-    exit;
-}
+
+use Plib\View;
+
+if (!defined("CMSIMPLE_XH_VERSION")) {http_response_code(403); exit;}
+
+/**
+ * @var View $this
+ * @var string $title
+ * @var array<string,mixed> $add_form
+ * @var array<string,mixed> $import_form
+ * @var string $edit_label
+ * @var array<string,mixed> $forms
+ * @var string $code_label
+ */
 ?>
 <!-- advancedform/forms-admin -->
 <div id="advfrm-form-list">

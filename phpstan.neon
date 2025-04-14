@@ -1,7 +1,8 @@
 parameters:
   level: 6
   paths:
-    - classes/
+    - classes
+    - templates
     - admin.php
     - captcha.php
     - index.php

@@ -1,8 +1,13 @@
 <?php
-if (!isset($this)) {
-    header('HTTP/1.0 404 Not Found');
-    exit;
-}
+
+use Plib\View;
+
+if (!defined("CMSIMPLE_XH_VERSION")) {http_response_code(403); exit;}
+
+/**
+ * @var View $this
+ * @var array<string,mixed> $fields
+ */
 ?>
 <!-- advancedform/mail-form-default-view -->
 <div style="overflow:auto">
