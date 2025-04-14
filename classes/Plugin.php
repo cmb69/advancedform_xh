@@ -69,24 +69,6 @@ SCRIPT;
     }
 
     /**
-     * Returns an associative array of language texts required for JS.
-     *
-     * @return array<string,string>
-     */
-    public static function getLangForJs()
-    {
-        global $plugin_tx;
-
-        $res = [];
-        foreach ($plugin_tx['advancedform'] as $key => $msg) {
-            if (strncmp($key, 'cf_', strlen('cf_'))) {
-                $res[$key] = $msg;
-            }
-        }
-        return $res;
-    }
-
-    /**
      * Returns the content of the CSV file as array on success, false otherwise.
      *
      * @param string $id A form ID.
@@ -198,42 +180,10 @@ SCRIPT;
                 $o .= Dic::infoController()()();
                 break;
             case 'plugin_main':
-                $this->mainAdministration();
+                $o .= Dic::mainAdminController()(Request::current())();
                 break;
             default:
                 $o .= plugin_admin_common();
         }
-    }
-
-    /**
-     * @return void
-     */
-    private function mainAdministration()
-    {
-        /** @var string $o */
-        global $o;
-
-        $this->mainAdministrationJs();
-        $o .= Dic::mainAdminController()(Request::current())();
-    }
-
-    /**
-     * @return void
-     */
-    private function mainAdministrationJs()
-    {
-        global $hjs, $pth;
-
-        if (include_once $pth['folder']['plugins'] . 'jquery/jquery.inc.php') {
-            include_jQuery();
-            include_jQueryUI();
-        }
-        $json = json_encode(
-            self::getLangForJs(),
-            JSON_HEX_APOS | JSON_HEX_AMP | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
-        );
-        $hjs .= "<meta name=\"advancedform.config\" content='$json'>\n";
-            $hjs .= '<script src="' . $pth['folder']['plugins']
-            . 'advancedform/admin.min.js"></script>' . "\n";
     }
 }

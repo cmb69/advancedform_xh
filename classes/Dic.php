@@ -26,6 +26,7 @@ use Advancedform\Infra\HooksWrapper;
 use Advancedform\Infra\Logger;
 use Advancedform\PHPMailer\PHPMailer;
 use Plib\CsrfProtector;
+use Plib\Jquery;
 use Plib\Random;
 use Plib\SystemChecker;
 use Plib\View;
@@ -88,10 +89,13 @@ class Dic
 
     public static function mainAdminController(): MainAdminController
     {
-        global $plugin_cf;
+        global $pth, $plugin_cf;
         return new MainAdminController(
+            $pth["folder"]["plugins"] . "advancedform/",
             Dic::formGateway(),
             $plugin_cf["advancedform"],
+            self::jsLang(),
+            new Jquery($pth["folder"]["plugins"] . "jquery/"),
             new CsrfProtector(),
             self::pages(),
             new Random(),
@@ -161,6 +165,19 @@ class Dic
             $res = $pth["folder"]["base"] . $plugin_cf["advancedform"]["folder_data"];
         }
         $res = rtrim($res, "/") . "/";
+        return $res;
+    }
+
+    /** @return array<string,string> */
+    private static function jsLang(): array
+    {
+        global $plugin_tx;
+        $res = [];
+        foreach ($plugin_tx["advancedform"] as $key => $msg) {
+            if (strncmp($key, "cf_", strlen("cf_"))) {
+                $res[$key] = $msg;
+            }
+        }
         return $res;
     }
 }

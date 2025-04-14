@@ -24,6 +24,7 @@ namespace Advancedform;
 
 use Plib\Codec;
 use Plib\CsrfProtector;
+use Plib\Jquery;
 use Plib\Random;
 use Plib\Request;
 use Plib\Response;
@@ -32,11 +33,20 @@ use XH\Pages;
 
 class MainAdminController
 {
+    /** @var string */
+    private $pluginFolder;
+
     /** @var FormGateway */
     private $formGateway;
 
     /** @var array<string,string> */
     private $conf;
+
+    /** @var array<string,string> */
+    private $jsLang;
+
+    /** @var Jquery */
+    private $jquery;
 
     /** @var CsrfProtector */
     private $csrfProtector;
@@ -50,17 +60,26 @@ class MainAdminController
     /** @var View */
     private $view;
 
-    /** @param array<string,string> $conf */
+    /**
+     * @param array<string,string> $conf
+     * @param array<string,string> $jsLang
+     */
     public function __construct(
+        string $pluginFolder,
         FormGateway $formGateway,
         array $conf,
+        array $jsLang,
+        Jquery $jquery,
         CsrfProtector $csrfProtector,
         Pages $pages,
         Random $random,
         View $view
     ) {
+        $this->pluginFolder = $pluginFolder;
         $this->formGateway = $formGateway;
         $this->conf = $conf;
+        $this->jsLang = $jsLang;
+        $this->jquery = $jquery;
         $this->csrfProtector = $csrfProtector;
         $this->pages = $pages;
         $this->random = $random;
@@ -68,6 +87,11 @@ class MainAdminController
     }
 
     public function __invoke(Request $request): Response
+    {
+        return $this->dispatch($request)->withHjs($this->js());
+    }
+
+    private function dispatch(Request $request): Response
     {
         switch ($request->post("action") ?? $request->get("action")) {
             case 'new':
@@ -89,6 +113,15 @@ class MainAdminController
             default:
                 return $this->formsAdministrationAction($request);
         }
+    }
+
+    private function js(): string
+    {
+        $this->jquery->include();
+        $this->jquery->includeUi();
+        $json = $this->view->json($this->jsLang);
+        return "<meta name=\"advancedform.config\" content='$json'>\n"
+            . "<script src=\"{$this->pluginFolder}admin.min.js\"></script>\n";
     }
 
     private function formsAdministrationAction(Request $request): Response

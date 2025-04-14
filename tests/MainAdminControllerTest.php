@@ -4,10 +4,12 @@ namespace Advancedform;
 
 use ApprovalTests\Approvals;
 use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Plib\CsrfProtector;
 use Plib\FakeRequest;
+use Plib\Jquery;
 use Plib\Random;
 use Plib\View;
 use XH\Pages;
@@ -16,6 +18,9 @@ class MainAdminControllerTest extends TestCase
 {
     /** @var FormGateway */
     private $formGateway;
+
+    /** @var Jquery&MockObject */
+    private $jquery;
 
     /** @var CsrfProtector&Stub */
     private $csrfProtector;
@@ -31,6 +36,7 @@ class MainAdminControllerTest extends TestCase
         global $tx;
         $tx = XH_includeVar("../../cmsimple/languages/en.php", "tx");
         $this->setUpFormGateway();
+        $this->jquery = $this->createMock(Jquery::class);
         $this->csrfProtector = $this->createStub(CsrfProtector::class);
         $this->csrfProtector->method("token")->willReturn("0123456789ABCDEF");
         $this->pages = $this->createStub(Pages::class);
@@ -55,13 +61,25 @@ class MainAdminControllerTest extends TestCase
     private function sut(): MainAdminController
     {
         return new MainAdminController(
+            "./plugins/advancedform/",
             $this->formGateway,
             XH_includeVar("./config/config.php", "plugin_cf")["advancedform"],
+            $this->jsLang(),
+            $this->jquery,
             $this->csrfProtector,
             $this->pages,
             $this->random,
-            new View("./templates/", XH_includeVar("./languages/en.php", "plugin_tx")["advancedform"])
+            new View("./templates/", $this->lang())
         );
+    }
+
+    public function testInitializesJs(): void
+    {
+        $this->jquery->expects($this->once())->method("include");
+        $this->jquery->expects($this->once())->method("includeUi");
+        $request = new FakeRequest(["url" => "http://example.com/?advancedform&admin=plugin_main&action=plugin_tx"]);
+        $response = $this->sut()($request);
+        Approvals::verifyHtml($response->hjs());
     }
 
     public function testRendersFormsOverview(): void
@@ -487,5 +505,21 @@ class MainAdminControllerTest extends TestCase
                 "",
             ],
         ];
+    }
+
+    private function jsLang(): array
+    {
+        $res = [];
+        foreach ($this->lang() as $key => $msg) {
+            if (strncmp($key, "cf_", strlen("cf_"))) {
+                $res[$key] = $msg;
+            }
+        }
+        return $res;
+    }
+
+    private function lang(): array
+    {
+        return XH_includeVar("./languages/en.php", "plugin_tx")["advancedform"];
     }
 }
