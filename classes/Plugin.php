@@ -22,8 +22,6 @@
 
 namespace Advancedform;
 
-use Plib\Request;
-
 class Plugin
 {
     public const VERSION = "2.4-dev";
@@ -143,47 +141,5 @@ SCRIPT;
             }
         }
         return $fields;
-    }
-
-    /**
-     * @return void
-     */
-    public function run()
-    {
-        global $f, $o, $tx, $plugin_tx;
-
-        // Handle the replacement of the built-in mailform.
-        if ($f == 'mailform' && !empty($plugin_tx['advancedform']['contact_form'])) {
-            $o .= '<h1>' . $tx['title']['mailform'] . '</h1>' . "\n"
-                . advancedform($plugin_tx['advancedform']['contact_form']);
-            $f = '';
-        }
-
-        if (XH_ADM) { // @phpstan-ignore-line
-            XH_registerStandardPluginMenuItems(true);
-            if (XH_wantsPluginAdministration('advancedform')) {
-                $this->administration();
-            }
-        }
-    }
-
-    /**
-     * @return void
-     */
-    private function administration()
-    {
-        global $o, $admin;
-
-        $o .= print_plugin_admin('on');
-        switch ($admin) {
-            case '':
-                $o .= Dic::infoController()()();
-                break;
-            case 'plugin_main':
-                $o .= Dic::mainAdminController()(Request::current())();
-                break;
-            default:
-                $o .= plugin_admin_common();
-        }
     }
 }

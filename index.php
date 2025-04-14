@@ -20,12 +20,25 @@
  * along with Advancedform_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * Prevent direct access.
- */
-if (!defined('CMSIMPLE_XH_VERSION')) {
-    header('HTTP/1.0 403 Forbidden');
+use Advancedform\Dic;
+use Plib\Request;
+
+if (!defined("CMSIMPLE_XH_VERSION")) {
+    http_response_code(403);
     exit;
 }
 
-(new Advancedform\Plugin())->run();
+/**
+ * @var string $f
+ * @var string $o
+ * @var array<string,array<string,string>> $plugin_tx
+ * @var array<string,array<string,string>> $tx
+ */
+
+// Handle replacement of built-in mailform
+if ($f === "mailform" && $plugin_tx["advancedform"]["contact_form"] !== "") {#
+    $temp = $plugin_tx["advancedform"]["contact_form"];
+    $o .= "<h1>" . $tx["title"]["mailform"] . "</h1>\n"
+        . Dic::mailFormController($temp)($temp, Request::current())();
+    $f = "";
+}
