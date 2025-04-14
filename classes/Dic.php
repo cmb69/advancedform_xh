@@ -23,6 +23,7 @@ namespace Advancedform;
 
 use Advancedform\Infra\CaptchaWrapper;
 use Advancedform\Infra\Logger;
+use Advancedform\PHPMailer\PHPMailer;
 use Plib\CsrfProtector;
 use Plib\Random;
 use Plib\SystemChecker;
@@ -41,7 +42,7 @@ class Dic
             new Validator($plugin_cf["advancedform"], $plugin_tx["advancedform"], $captchaWrapper),
             $captchaWrapper,
             $plugin_cf["advancedform"],
-            new MailService(self::formGateway()->dataFolder(), $pth["folder"]["plugins"], $plugin_tx["advancedform"]),
+            self::mailService(),
             new Logger(),
             self::view()
         );
@@ -99,6 +100,27 @@ class Dic
             $instance = new FormGateway(self::dataFolder());
         }
         return $instance;
+    }
+
+    private static function mailService(): MailService
+    {
+        global $pth, $plugin_tx;
+        return new MailService(
+            self::formGateway()->dataFolder(),
+            $pth["folder"]["plugins"] . "advancedform/",
+            $plugin_tx["advancedform"],
+            self::mailer()
+        );
+    }
+
+    private static function mailer(): PHPMailer
+    {
+        global $sl;
+        include_once __DIR__ . "/../phpmailer/PHPMailer.php";
+        include_once __DIR__ . "/../phpmailer/Exception.php";
+        $mailer = new PHPMailer();
+        $mailer->SetLanguage($sl, __DIR__ . '/../phpmailer/language/');
+        return $mailer;
     }
 
     private static function pages(): Pages

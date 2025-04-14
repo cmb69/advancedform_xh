@@ -4,6 +4,7 @@ namespace Advancedform;
 
 use Advancedform\Infra\CaptchaWrapper;
 use Advancedform\Infra\Logger;
+use Advancedform\PHPMailer\PHPMailer;
 use ApprovalTests\Approvals;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -26,7 +27,10 @@ class MailFormControllerTest extends TestCase
     /** @var CaptchaWrapper&Stub */
     private $captchaWrapper;
 
-    /** @var MailService&MockObject */
+    /** @var PHPMailer&MockObject */
+    private $mailer;
+
+    /** @var MailService */
     private $mailService;
 
     /** @var Logger&Stub */
@@ -35,8 +39,11 @@ class MailFormControllerTest extends TestCase
     public function setUp(): void
     {
         vfsStream::setUp("root");
-        copy("./data/forms.json", vfsStream::url("root/forms.json"));
-        $this->formGateway = new FormGateway(vfsStream::url("root/"));
+        mkdir(vfsStream::url("root/data"));
+        copy("./data/forms.json", vfsStream::url("root/data/forms.json"));
+        mkdir(vfsStream::url("root/css"));
+        copy("./css/stylesheet.css", vfsStream::url("root/css/stylesheet.css"));
+        $this->formGateway = new FormGateway(vfsStream::url("root/data/"));
         $this->fieldRenderer = new FieldRenderer("Contact");
         $this->captchaWrapper = $this->createStub(CaptchaWrapper::class);
         $this->captchaWrapper->method("include")->willReturn(true);
@@ -46,10 +53,10 @@ class MailFormControllerTest extends TestCase
             $lang,
             $this->captchaWrapper
         );
-        $this->mailService = $this->getMockBuilder(MailService::class)
-            ->setConstructorArgs(["", "", $lang])
-            ->onlyMethods(["sendMail"])
+        $this->mailer = $this->getMockBuilder(PHPMailer::class)
+            ->onlyMethods(["Send"])
             ->getMock();
+        $this->mailService = new MailService(vfsStream::url("root/data/"), vfsStream::url("root/"), $lang, $this->mailer);
         $this->logger = $this->createStub(Logger::class);
     }
 
@@ -87,29 +94,42 @@ class MailFormControllerTest extends TestCase
     public function testFailureToSendMailIsReported(): void
     {
         global $e;
-        $_POST = [
-            "advfrm" => "Contact",
-            "advfrm-Name" => "John Doe",
-            "advfrm-E_Mail" => "john@example.com",
-            "advfrm-Comment" => "a comment",
-        ];
+        $_SERVER["SERVER_NAME"] = "example.com";
+        $_POST = $this->post();
+        $e = "";
         $this->captchaWrapper->method("check")->willReturn(true);
-        $this->mailService->method("sendMail")->willReturn(false);
+        $this->mailer->method("Send")->willReturn(false);
         $this->sut()->main("Contact", new FakeRequest());
         $this->assertSame("<li>The e-mail could not be sent!</li>\n", $e);
     }
 
+    public function testSuccessfulSubmissionsSendsMail(): void
+    {
+        $_SERVER["SERVER_NAME"] = "example.com";
+        $_POST = $this->post();
+        $this->captchaWrapper->method("check")->willReturn(true);
+        $this->mailer->method("Send")->willReturn(true);
+        $this->sut()->main("Contact", new FakeRequest());
+        Approvals::verifyHtml($this->mailer->Body);
+    }
+
     public function testSuccessfulSubmissionsRendersMailInfo(): void
     {
-        $_POST = [
+        $_SERVER["SERVER_NAME"] = "example.com";
+        $_POST = $this->post();
+        $this->captchaWrapper->method("check")->willReturn(true);
+        $this->mailer->expects($this->once())->method("Send")->willReturn(true);
+        $response = $this->sut()->main("Contact", new FakeRequest());
+        Approvals::verifyHtml($response);
+    }
+
+    private function post(): array
+    {
+        return [
             "advfrm" => "Contact",
             "advfrm-Name" => "John Doe",
             "advfrm-E_Mail" => "john@example.com",
             "advfrm-Comment" => "a comment",
         ];
-        $this->captchaWrapper->method("check")->willReturn(true);
-        $this->mailService->method("sendMail")->willReturn(true);
-        $response = $this->sut()->main("Contact", new FakeRequest());
-        Approvals::verifyHtml($response);
     }
 }

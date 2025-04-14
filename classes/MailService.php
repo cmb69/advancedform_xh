@@ -30,21 +30,25 @@ class MailService
     private $dataFolder;
 
     /** @var string */
-    private $pluginsFolder;
+    private $pluginFolder;
 
     /** @var array<string,string> */
     private $text;
 
+    /** @var PHPMailer */
+    private $mailer;
+
     /**
      * @param string $dataFolder
-     * @param string $pluginsFolder
+     * @param string $pluginFolder
      * @param array<string,string> $text
      */
-    public function __construct($dataFolder, $pluginsFolder, array $text)
+    public function __construct($dataFolder, $pluginFolder, array $text, PHPMailer $mailer)
     {
         $this->dataFolder = $dataFolder;
-        $this->pluginsFolder = $pluginsFolder;
+        $this->pluginFolder = $pluginFolder;
         $this->text = $text;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -56,76 +60,67 @@ class MailService
      */
     public function sendMail(Form $form, $from, $from_name, $type, $confirmation)
     {
-        global $sl;
-
-        include_once "{$this->pluginsFolder}advancedform/phpmailer/PHPMailer.php";
-        include_once "{$this->pluginsFolder}advancedform/phpmailer/Exception.php";
-        $mail = new PHPMailer();
-        $mail->set('CharSet', 'UTF-8');
-        $mail->SetLanguage(
-            $sl,
-            $this->pluginsFolder . 'advancedform/phpmailer/language/'
-        );
-        $mail->set('WordWrap', 72);
+        $this->mailer->set('CharSet', 'UTF-8');
+        $this->mailer->set('WordWrap', 72);
         if ($confirmation) {
-            $mail->set('From', $form->getTo());
-            $mail->set('FromName', $form->getToName());
-            $mail->AddAddress($from, $from_name);
+            $this->mailer->set('From', $form->getTo());
+            $this->mailer->set('FromName', $form->getToName());
+            $this->mailer->AddAddress($from, $from_name);
         } else {
-            $mail->set('From', $form->getTo());
-            $mail->set('FromName', $form->getToName());
-            $mail->AddReplyTo($from, $from_name);
-            $mail->AddAddress($form->getTo(), $form->getToName());
+            $this->mailer->set('From', $form->getTo());
+            $this->mailer->set('FromName', $form->getToName());
+            $this->mailer->AddReplyTo($from, $from_name);
+            $this->mailer->AddAddress($form->getTo(), $form->getToName());
             foreach (explode(';', $form->getCc()) as $cc) {
                 if (trim($cc) != '') {
-                    $mail->AddCC($cc);
+                    $this->mailer->AddCC($cc);
                 }
             }
             foreach (explode(';', $form->getBcc()) as $bcc) {
                 if (trim($bcc) != '') {
-                    $mail->AddBCC($bcc);
+                    $this->mailer->AddBCC($bcc);
                 }
             }
         }
         if ($confirmation) {
-            $mail->set(
+            $this->mailer->set(
                 'Subject',
                 sprintf($this->text['mail_subject_confirmation'], $form->getTitle(), $_SERVER['SERVER_NAME'])
             );
         } else {
-            $mail->set(
+            $this->mailer->set(
                 'Subject',
                 sprintf($this->text['mail_subject'], $form->getTitle(), $_SERVER['SERVER_NAME'])
             );
         }
-        $mail->IsHtml($type != 'text');
+        $this->mailer->IsHtml($type != 'text');
         if ($type == 'text') {
-            $mail->set('Body', $this->mailBody($form, !$confirmation, false));
+            $this->mailer->set('Body', $this->mailBody($form, !$confirmation, false));
         } else {
             $body = $this->mailBody($form, !$confirmation, true);
-            $mail->MsgHTML($body);
-            $mail->set('AltBody', $this->mailBody($form, !$confirmation, false));
+            $this->mailer->MsgHTML($body);
+            $this->mailer->set('AltBody', $this->mailBody($form, !$confirmation, false));
         }
         if (!$confirmation) {
             foreach ($form->getFields() as $field) {
                 if ($field->getType() == 'file') {
                     $name = 'advfrm-' . $field->getName();
-                    if ($_FILES[$name]['error'] === UPLOAD_ERR_OK) {
-                        $mail->AddAttachment($_FILES[$name]['tmp_name'], $_FILES[$name]['name']);
+                    if (array_key_exists($name, $_FILES) && $_FILES[$name]['error'] === UPLOAD_ERR_OK) {
+                        $this->mailer->AddAttachment($_FILES[$name]['tmp_name'], $_FILES[$name]['name']);
                     }
                 }
             }
         }
 
         if (function_exists('advfrm_custom_mail')) {
-            if (advfrm_custom_mail($form->getName(), $mail, $confirmation) === false) {
+            if (advfrm_custom_mail($form->getName(), $this->mailer, $confirmation) === false) {
                 return true;
             }
         }
 
-        return $mail->Send()
+        return $this->mailer->Send()
             ? true
-            : $mail->ErrorInfo;
+            : $this->mailer->ErrorInfo;
     }
 
     /**
@@ -140,7 +135,7 @@ class MailService
             $o .= '<!DOCTYPE html>' . "\n";
             $o .= '<head>' . "\n" . '<style type="text/css">' . "\n";
             $o .= $this->mailCss(
-                $this->pluginsFolder . 'advancedform/css/stylesheet.css'
+                $this->pluginFolder . 'css/stylesheet.css'
             );
             $fn = $this->dataFolder . 'css/' . $form->getName() . '.css';
             if (file_exists($fn)) {
