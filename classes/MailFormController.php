@@ -84,45 +84,31 @@ class MailFormController
     public function main(string $id, Request $request): Response
     {
         $this->hooksWrapper->include($id);
-        $forms = $this->formGateway->findAll();
-        if (!isset($forms[$id])) {
+        if (($form = $this->formGateway->find($id)) === null) {
             return Response::create($this->view->message("fail", "error_form_missing", $id));
         }
-        $form = $forms[$id];
         if ($form->getCaptcha() && !$this->captchaWrapper->include()) {
             return Response::create($this->view->message("fail", "error_captcha"));
         }
-        if (!isset($_POST['advfrm']) || $_POST['advfrm'] != $id) {
+        if ($request->post("advfrm") !== $id) {
             return Response::create($this->formView($request, $form));
         }
         if (!$this->validator->check($form)) {
-            Plugin::focusField(...$this->validator->focusField());
-            $o = '<ul class="advfrm-error">';
-            foreach ($this->validator->errors() as $error) {
-                $o .= '<li>' . $error . '</li>' . "\n";
-            }
-            $o .= '</ul>';
-            return Response::create($o . $this->formView($request, $form));
+            return Response::create($this->renderValidationErrors() . $this->formView($request, $form));
         }
         if ($form->getStore() && !$this->appendCsv($form)) {
-            return Response::create($this->view->message("fail", "error_csv")
-                . $this->formView($request, $form));
+            return Response::create($this->view->message("fail", "error_csv") . $this->formView($request, $form));
         }
         if (!$this->mail($form, false)) {
             return Response::create($this->formView($request, $form));
         }
-        $thanks = $this->hooksWrapper->thanksPage($id, Plugin::fields());
-        if (empty($thanks)) {
-            $thanks = $form->getThanksPage();
-        }
-        if (empty($thanks)) {
+        if (($thanks = $this->thanksPage($id, $form)) === null) {
             return Response::create($this->mailService->mailInfo($form, false, true));
         }
         if ($this->conf['mail_confirmation'] && !$this->mail($form, true)) {
             return Response::create($this->formView($request, $form));
         }
-        $url = $request->url()->page($thanks);
-        return Response::redirect($url->absolute());
+        return Response::redirect($request->url()->page($thanks)->absolute());
     }
 
     /**
@@ -215,6 +201,17 @@ class MailFormController
         return ob_get_clean();
     }
 
+    private function renderValidationErrors(): string
+    {
+        Plugin::focusField(...$this->validator->focusField());
+        $o = '<ul class="advfrm-error">';
+        foreach ($this->validator->errors() as $error) {
+            $o .= '<li>' . $error . '</li>' . "\n";
+        }
+        $o .= '</ul>';
+        return $o;
+    }
+
     private function appendCsv(Form $form): bool
     {
         $id = $form->getName();
@@ -281,5 +278,14 @@ class MailFormController
         }
 
         return $ok;
+    }
+
+    private function thanksPage(string $id, Form $form): ?string
+    {
+        $thanks = $this->hooksWrapper->thanksPage($id, Plugin::fields());
+        if (empty($thanks)) {
+            $thanks = $form->getThanksPage();
+        }
+        return $thanks ?: null;
     }
 }

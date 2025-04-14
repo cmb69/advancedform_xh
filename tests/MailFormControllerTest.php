@@ -114,7 +114,7 @@ class MailFormControllerTest extends TestCase
             "advfrm-E_Mail" => "john",
         ];
         $this->captchaWrapper->method("include")->willReturn(true);
-        $response = $this->sut()->main("Contact", new FakeRequest());
+        $response = $this->sut()->main("Contact", new FakeRequest(["post" => ["advfrm" => "Contact"]]));
         $this->assertStringContainsString(
             "Field 'E-Mail' doesn't contain a valid e-mail address!",
             $response->output()
@@ -130,7 +130,7 @@ class MailFormControllerTest extends TestCase
         $this->captchaWrapper->method("include")->willReturn(true);
         $this->captchaWrapper->method("check")->willReturn(true);
         $this->mailer->method("Send")->willReturn(false);
-        $this->sut()->main("Contact", new FakeRequest());
+        $this->sut()->main("Contact", new FakeRequest(["post" => ["advfrm" => "Contact"]]));
         $this->assertSame("<li>The e-mail could not be sent!</li>\n", $e);
     }
 
@@ -141,7 +141,7 @@ class MailFormControllerTest extends TestCase
         $this->captchaWrapper->method("include")->willReturn(true);
         $this->captchaWrapper->method("check")->willReturn(true);
         $this->mailer->method("Send")->willReturn(true);
-        $this->sut()->main("Contact", new FakeRequest());
+        $this->sut()->main("Contact", new FakeRequest(["post" => ["advfrm" => "Contact"]]));
         Approvals::verifyHtml($this->mailer->Body);
     }
 
@@ -155,7 +155,7 @@ class MailFormControllerTest extends TestCase
         $this->captchaWrapper->method("check")->willReturn(true);
         $this->mailer->method("Send")->willReturnOnConsecutiveCalls(true, false);
         $this->hooksWrapper->method("thanksPage")->willReturn("ThankYou");
-        $response = $this->sut($config)->main("Contact", new FakeRequest());
+        $response = $this->sut($config)->main("Contact", new FakeRequest(["post" => ["advfrm" => "Contact"]]));
         $this->assertStringContainsString("<div class=\"advfrm-mailform\">", $response->output());
     }
 
@@ -169,7 +169,7 @@ class MailFormControllerTest extends TestCase
         $this->captchaWrapper->method("check")->willReturn(true);
         $this->mailer->method("Send")->willReturn(true);
         $this->hooksWrapper->method("thanksPage")->willReturn("ThankYou");
-        $response = $this->sut($config)->main("Contact", new FakeRequest());
+        $response = $this->sut($config)->main("Contact", new FakeRequest(["post" => ["advfrm" => "Contact"]]));
         $this->assertSame("http://example.com/?ThankYou", $response->location());
     }
 
@@ -180,7 +180,7 @@ class MailFormControllerTest extends TestCase
         $this->captchaWrapper->method("include")->willReturn(true);
         $this->captchaWrapper->method("check")->willReturn(true);
         $this->mailer->expects($this->once())->method("Send")->willReturn(true);
-        $response = $this->sut()->main("Contact", new FakeRequest());
+        $response = $this->sut()->main("Contact", new FakeRequest(["post" => ["advfrm" => "Contact"]]));
         Approvals::verifyHtml($response->output());
     }
 

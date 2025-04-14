@@ -71,6 +71,15 @@ class FormGateway
         return $this->db;
     }
 
+    public function find(string $formname): ?Form
+    {
+        $forms = $this->findAll();
+        if (!array_key_exists($formname, $forms)) {
+            return null;
+        }
+        return $forms[$formname];
+    }
+
     /** @param array<string,mixed> $db */
     private function cleanDb(array $db): void
     {
